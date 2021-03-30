@@ -24,6 +24,7 @@ function App() {
     }
   }
 
+  // Execútase inmediatamente despois do renderizado
   useEffect(() => {
     getUser();
   }, []);
