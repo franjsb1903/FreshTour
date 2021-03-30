@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS fresh_tour OWNER postgres;
+
+USE fresh_tour;
+
 CREATE SCHEMA IF NOT EXISTS fresh_tour AUTHORIZATION postgres;
 
 CREATE TABLE IF NOT EXISTS fresh_tour.usuarios (
@@ -22,8 +26,12 @@ CREATE TABLE IF NOT EXISTS fresh_tour.monumentos (
     data_adicion TIMESTAMP NOT NULL,
     data_modificacion TIMESTAMP NOT NULL,
     imaxe BYTEA,
-    tempo_visita FLOAT,
+    tempo_visita_rapida FLOAT NOT NULL,
+    tempo_visita_lenta FLOAT NOT NULL,
+    tempo_visita_usuario FLOAT NOT NULL,
     valoracion FLOAT,
+    comentario_visita_rapida VARCHAR NOT NULL,
+    comentario_visita_lenta VARCHAR NOT NULL,
     CONSTRAINT pk_monumentos PRIMARY KEY (id)
 );
 
@@ -42,8 +50,12 @@ CREATE TABLE IF NOT EXISTS fresh_tour.lugares_turisticos (
     data_adicion TIMESTAMP NOT NULL,
     data_modificacion TIMESTAMP NOT NULL,
     imaxe BYTEA,
-    tempo_visita FLOAT,
+    tempo_visita_rapida FLOAT NOT NULL,
+    tempo_visita_lenta FLOAT NOT NULL,
+    tempo_visita_usuario FLOAT NOT NULL,
     valoracion FLOAT,
+    comentario_visita_rapida VARCHAR NOT NULL,
+    comentario_visita_lenta VARCHAR NOT NULL,
     CONSTRAINT pk_lugares_turisticos PRIMARY KEY (id)
 );
 
@@ -125,6 +137,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_planificacions (
 CREATE TABLE IF NOT EXISTS fresh_tour.planificacions_lugares_turisticos (
     id_planificacion INT NOT NULL,
     id_lugar_turistico INT NOT NULL,
+    posicion_visita INT NOT NULL,
     CONSTRAINT pk_plan_lug_tur PRIMARY KEY (id_planificacion, id_lugar_turistico),
     CONSTRAINT fk_planificacion FOREIGN KEY (id_planificacion) REFERENCES fresh_tour.planificacions(id),
     CONSTRAINT fk_lugar_turistico FOREIGN KEY (id_lugar_turistico) REFERENCES fresh_tour.lugares_turisticos(id)
@@ -133,6 +146,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.planificacions_lugares_turisticos (
 CREATE TABLE IF NOT EXISTS fresh_tour.planificacions_monumentos (
     id_planificacion INT NOT NULL,
     id_monumento INT NOT NULL,
+    posicion_visita INT NOT NULL,
     CONSTRAINT pk_plan_mon PRIMARY KEY (id_planificacion, id_monumento),
     CONSTRAINT fk_planificacion FOREIGN KEY (id_planificacion) REFERENCES fresh_tour.planificacions(id),
     CONSTRAINT fk_monumento FOREIGN KEY (id_monumento) REFERENCES fresh_tour.monumentos(id)
