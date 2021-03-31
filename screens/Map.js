@@ -1,14 +1,21 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-const Map = () => {
+import leaflet_map from '../leaflet/leaflet.js'
+
+
+class Map extends Component {
+  
+  render() {
     return (
-        <View>
-            <Text>
-                Son a pantalla de mapa!
-            </Text>
-        </View>
-    )
+      <WebView
+        originWhitelist={["*"]}
+        source={{ html: leaflet_map }}
+        style={{ flex: 1 }}
+      />
+    );
+  }
 }
 
 export default Map;
