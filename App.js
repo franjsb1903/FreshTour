@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, Platform, SafeAreaView, StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, Platform, StatusBar, SafeAreaView } from 'react-native'
 
 import BottomTabNavigator from './components/BottomTabNavigator'
 
 export default function App() {
+
   return (
     <SafeAreaView style={styles.AndroidSafeArea}>
-
       <NavigationContainer>
         <BottomTabNavigator />
       </NavigationContainer>
@@ -19,7 +18,11 @@ export default function App() {
 const styles = StyleSheet.create({
   AndroidSafeArea: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#3cb371",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#3cb371'
   }
 });
