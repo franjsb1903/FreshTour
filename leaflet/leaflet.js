@@ -1,8 +1,9 @@
-import locate from '../assets/compass.png'
-import center from '../assets/center.png'
+import center from '../images/map/center.png'
 import { Image } from 'react-native'
 
-const locateUri = Image.resolveAssetSource(locate).uri;
+const url = '../images/map/compass.png'
+
+const locateUri = Image.resolveAssetSource(require(url)).uri;
 const centerUri = Image.resolveAssetSource(center).uri;
 
 const leaflet = `

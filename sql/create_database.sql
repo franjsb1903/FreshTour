@@ -29,13 +29,16 @@ CREATE TABLE IF NOT EXISTS fresh_tour.monumentos (
     url VARCHAR,
     data_adicion TIMESTAMP,
     data_modificacion TIMESTAMP,
-    imaxe BYTEA,
+    imaxe VARCHAR,
     tempo_visita_rapida FLOAT,
     tempo_visita_lenta FLOAT,
     tempo_visita_usuario FLOAT,
     valoracion FLOAT,
     comentario_visita_rapida VARCHAR,
     comentario_visita_lenta VARCHAR,
+    horario VARCHAR,
+    prezo FLOAT,
+    prezo_reducido FLOAT
     CONSTRAINT pk_monumentos PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
@@ -58,13 +61,16 @@ CREATE TABLE IF NOT EXISTS fresh_tour.lugares_turisticos (
     url VARCHAR,
     data_adicion TIMESTAMP,
     data_modificacion TIMESTAMP,
-    imaxe BYTEA,
+    imaxe VARCHAR,
     tempo_visita_rapida FLOAT,
     tempo_visita_lenta FLOAT,
     tempo_visita_usuario FLOAT,
     valoracion FLOAT,
     comentario_visita_rapida VARCHAR,
     comentario_visita_lenta VARCHAR,
+    horario VARCHAR,
+    prezo FLOAT,
+    prezo_reducido FLOAT
     CONSTRAINT pk_lugares_turisticos PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (

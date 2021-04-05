@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { StyleSheet } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 
@@ -12,9 +12,8 @@ const CustomSearchBar = (props) => {
         setSearch({ ...search, search: newSearch });
     }
 
-    const doSearch = this.props.doSearch;
-    const setItems = this.props.setItems;
-    const items = this.props.items;
+    const doSearch = props.doSearch;
+    const updateItems = props.updateItems;
 
     return (
         <SearchBar
@@ -33,10 +32,7 @@ const CustomSearchBar = (props) => {
             onEndEditing={(e) => doSearch(e.nativeEvent.text)}
             onClear={() => {
                 setSearch({ search: '' });
-                setItems({
-                    data: [],
-                    loading: false
-                })
+                updateItems();
             }}
         />
     )

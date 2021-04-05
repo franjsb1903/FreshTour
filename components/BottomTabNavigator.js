@@ -2,11 +2,11 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Info from '../screens/Info'
-import Map from '../screens/Map'
-import Routes from '../screens/Routes'
-import Planificator from '../screens/Planificator'
-import User from '../screens/User'
+import Info from '../screens/Info/Info'
+import Map from '../screens/Planificador/Map'
+import Routes from '../screens/Planificador/RecommendedRoutes'
+import Planificator from '../screens/Planificador/Planificator'
+import User from '../screens/Usuarios/User'
 
 const Tab = createMaterialBottomTabNavigator();
 
