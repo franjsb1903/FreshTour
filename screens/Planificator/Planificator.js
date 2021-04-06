@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
-const Planificator = () => {
+const Planificator = (props) => {
     return (
         <View>
             <Text>
                 Son a pantalla de planifciación!
             </Text>
+            <Button title="Press me" onPress={() => props.navigation.navigate('Turism')} />
         </View>
     )
 }

@@ -7,7 +7,8 @@ const properties = {
     },
     url: {
         nominatim: "/nominatim/",
-        nominatim_geojson: "/nominatim/geojson/"
+        nominatim_geojson: "/nominatim/geojson/",
+        turism: "/turism"
     }
 }
 

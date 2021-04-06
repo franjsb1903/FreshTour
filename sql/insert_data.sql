@@ -70,7 +70,9 @@ SET prezo = 2.4, prezo_reducido = 1.2, horario = 'Martes a venres, de 9:30 a 20:
 comentario_visita_lenta = 'Trátase dunha visita superficial do museo, únicamente recomendable cando se accede gratuitamente. Para ver cando isto é posible acceda á páxina web oficial do museo.',
 comentario_visita_rapida = 'Inclúe unha visita detallada de todo o museo, con detemento en cada sala.',
 tempo_visita_lenta = 90,
-tempo_visita_rapida = 45
+tempo_visita_rapida = 45,
+contexto = 'O Museo das Peregrinacións e de Santiago é un complexo museístico creado en Santiago de Compostela en 1951 e dedicado ao feito cultural da peregrinación, no contexto do Camiño de Santiago, a catedral e o fenómeno xacobeo da tumba do Apóstolo Santiago. Foi declarado Ben de Interese Cultural en 1985.',
+resumo = 'O Museo das Peregrinacións e de Santiago ocupa o edificio do antigo Banco de España, proxectado en 1939 polo arquitecto Romualdo Madariaga Céspedes e construído na parcela das casas Espinosa. Está situado na praza de Platerías, a poucos metros da fachada sur da catedral. Na súa planta baixa hai 5 arcos sobre columnas que forman soportais. Cos seus case 3.500 metros cadrados de superficie construída, a antiga sede do Banco de España na cidade forma parte deste o complexo museístico desde xullo de 2012 xunto coa Casa do Cabido. Desde a gran claraboia do segundo andar pódese ver a basílica compostelá coa súa impresionante torre Berenguela e gran parte do centro histórico.'
 WHERE titulo LIKE 'Museo das Peregrinacións e de Santiago'
 
 UPDATE fresh_tour.fresh_tour.lugares_turisticos
@@ -86,7 +88,8 @@ SET prezo = 0, prezo_reducido = 0, horario = 'Lugar público, sen horario',
 comentario_visita_lenta = 'Na visita lenta recoméndase unha estancia no alto do monte de máis de dúas horas, para poder disfrutar en plenitude de todo o que ofrece o alto do monte e os seus arredores (40 minutos son de subida a pé).',
 comentario_visita_rapida = 'Na visita rápida recoméndase unha estancia no alto do monte de 30 minutos (40 minutos son de subida a pé), para poder visualizar tranquilamente as súas vistas e descansar.',
 tempo_visita_lenta = 180,
-tempo_visita_rapida = 80
+tempo_visita_rapida = 80,
+resumo = 'O monte Pedroso, no oeste, é o máis emblemático da cidade. Protexido durante anos da construción para que ningún edificio poida competir nunca en altura ou visibilidade coa Basílica do Apóstolo, é o miradoiro por excelencia para descubrir a cidade cubrindo a paisaxe e a catedral que dá ao solpor. Calquera hora é boa para subir alí, pero ao solpor é especial, porque é cando os últimos raios dourados da tarde se reflicten no templo. Dende a cidade, pódese acceder ao pico do Pedroso nun paseo duns 40 minutos que sae de Ponte Asén, no parque das Galeras, e atravesa a aldea de Casas Novas, para continuar polo camiño ascendente marcado polo Vía Crucis. Para chegar en coche, tome a estrada que comeza no Carme de Abaixo e logo tome o desvío á dereita, seguindo as indicacións dos repetidores de televisión.'
 WHERE titulo LIKE 'Monte Pedroso'
 
 --- MONUMENTOS

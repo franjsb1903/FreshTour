@@ -29,6 +29,7 @@ export default class LeafletMap extends React.Component {
           let js = `addMarker(${location.coords.latitude}, ${location.coords.longitude})`;
           global.map.injectJavaScript(js);
         }}
+        androidHardwareAccelerationDisabled
       />
     );
   }

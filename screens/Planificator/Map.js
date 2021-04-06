@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
 
 import properties from '../../properties/properties_expo'
 
-import {getSearchData} from '../../DataManagement/DataManagement'
+import { getSearchData } from '../../DataManagement/DataManagement'
 
 import LeafletMap from '../../components/LeafletMap'
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList'
 
-const Map = () => {
+const Map = (props) => {
 
   const [items, setItems] = useState({
     data: [],
@@ -31,7 +31,7 @@ const Map = () => {
       if (newSearch.length === 0) {
         setItems({
           data: [],
-          loading: false 
+          loading: false
         });
         return;
       }
@@ -81,14 +81,19 @@ const Map = () => {
 
   return (
     <>
-      <CustomSearchBar 
-        placeholder="Ej: (Catedral, Galeras, Rúa nova...)"
-        doSearch={doSearch}
-        updateItems={updateItems}
-      />
+      <View style={styles.header}>
+        <CustomSearchBar
+          placeholder="Ej: (Catedral, Galeras, Rúa nova...)"
+          doSearch={doSearch}
+          updateItems={updateItems}
+        />
+        <Button color="#841584" title="Puntos de interese" onPress={() => {
+          props.navigation.navigate("Turism");
+        }} />
+      </View>
       {
         typeof items.data !== 'undefined' && items.data.length > 0 ?
-          <CustomFlatList 
+          <CustomFlatList
             data={items}
             selectedItem={selectedItem}
           />
@@ -100,5 +105,13 @@ const Map = () => {
   );
 
 }
+
+const styles = StyleSheet.create({
+  header: {
+    padding: 20,
+    backgroundColor: "#3cb371",
+    flex: 0
+  }
+});
 
 export default Map;

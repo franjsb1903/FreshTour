@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.use(require("./routes/users"));
 app.use(require("./routes/nominatim"));
+app.use(require("./routes/turism"));
 
 const hostname = "192.168.1.71";
 
