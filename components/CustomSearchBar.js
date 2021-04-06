@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import { StyleSheet } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 
+import properties from '../properties/properties_expo'
+
 const CustomSearchBar = (props) => {
 
     const [search, setSearch] = useState({
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff"
     },
     searchBarBorder: {
-        backgroundColor: "#3cb371"
+        backgroundColor: properties.color.main
     }
 })
 

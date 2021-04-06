@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, RefreshControl, ToastAndroid, Alert, Platform } from 'react-native'
 import { Card } from 'react-native-elements'
 
 import ProgressBar from '../../components/ProgressBar'
-import { getTurismData } from '../../DataManagement/DataManagement'
+import { getTurismData } from '../../Util/DataManagement'
+import CardElement from '../../components/CardElement'
 
 const Turism = () => {
 
@@ -11,6 +12,8 @@ const Turism = () => {
         loading: true,
         data: []
     });
+
+    const [refreshing, setRefreshing] = useState(false);
 
 
     useEffect(() => {
@@ -30,6 +33,23 @@ const Turism = () => {
 
     }, []);
 
+    const onRefresh = async () => {
+        setRefreshing(true);
+        try {
+            var data = await getTurismData();
+            setState({
+                loading: false,
+                data: data
+            });
+            if(Platform.OS == "android") {
+                ToastAndroid.show('Puntos de interese actualizados', ToastAndroid.SHORT);
+            } 
+            setRefreshing(false);
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
     return (
 
         state.loading ?
@@ -37,16 +57,14 @@ const Turism = () => {
                 <ProgressBar />
             </View>
             :
-            <ScrollView>
+            <ScrollView refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
                 {
                     state.data.map(element => {
                         return (
                             <TouchableOpacity key={element.id} onPress={() => console.log(element.titulo)}>
-                                <Card pointerEvents="none">
-                                    <Card.Title>{element.titulo}</Card.Title>
-                                    <Card.Divider />
-                                    <Text> {element.resumo} </Text>
-                                </Card>
+                                <CardElement item={element} />
                             </TouchableOpacity>
                         )
                     })

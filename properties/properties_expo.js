@@ -9,6 +9,14 @@ const properties = {
         nominatim: "/nominatim/",
         nominatim_geojson: "/nominatim/geojson/",
         turism: "/turism"
+    },
+    color: {
+        main: "#3cb371",
+        text: "#fff",
+        title: "#fff"
+    },
+    text: {
+        title_font_family: "serif"
     }
 }
 

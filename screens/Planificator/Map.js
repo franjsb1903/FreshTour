@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { IconButton } from 'react-native-paper';
 
 import properties from '../../properties/properties_expo'
 
-import { getSearchData } from '../../DataManagement/DataManagement'
+import { getSearchData } from '../../Util/DataManagement'
 
 import LeafletMap from '../../components/LeafletMap'
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList'
+
+const PointsInterestIcon = () => (
+  <Icon name="business" size={32} />
+);
 
 const Map = (props) => {
 
@@ -82,14 +88,29 @@ const Map = (props) => {
   return (
     <>
       <View style={styles.header}>
-        <CustomSearchBar
-          placeholder="Ej: (Catedral, Galeras, Rúa nova...)"
-          doSearch={doSearch}
-          updateItems={updateItems}
-        />
-        <Button color="#841584" title="Puntos de interese" onPress={() => {
-          props.navigation.navigate("Turism");
-        }} />
+        <View style={styles.search}>
+          <CustomSearchBar
+            placeholder="Ej: Catedral, Galeras, Rúa nova..."
+            doSearch={doSearch}
+            updateItems={updateItems}
+          />
+        </View>
+        <View style={styles.headerBottom}>
+          <View style={{ flex: 1 }}>
+            <Text></Text>
+          </View>
+          <View style={styles.title}>
+            <Text style={styles.titleText}>FreshTour</Text>
+          </View>
+          <View style={styles.icon}>
+            <IconButton
+              icon={PointsInterestIcon}
+              onPress={() => {
+                props.navigation.navigate("Turism");
+              }}
+            />
+          </View>
+        </View>
       </View>
       {
         typeof items.data !== 'undefined' && items.data.length > 0 ?
@@ -103,14 +124,39 @@ const Map = (props) => {
       <LeafletMap />
     </>
   );
-
 }
 
 const styles = StyleSheet.create({
   header: {
-    padding: 20,
-    backgroundColor: "#3cb371",
+    backgroundColor: properties.color.main,
+    flex: 0,
+    paddingLeft: 5,
+    paddingRight: 5,
+    margin: 0,
+    paddingBottom: 0,
+  },
+  search: {
     flex: 0
+  },
+  headerBottom: {
+    flex: 0,
+    flexDirection: "row"
+  },
+  title: {
+    flex: 6,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  titleText: {
+    fontSize: 28,
+    color: properties.color.title,
+    fontFamily: Platform.OS == "ios" ? "San Francisco" : properties.text.title_font_family
+  }
+  ,
+  icon: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
