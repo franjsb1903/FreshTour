@@ -88,13 +88,6 @@ const Map = (props) => {
   return (
     <>
       <View style={styles.header}>
-        <View style={styles.search}>
-          <CustomSearchBar
-            placeholder="Ej: Catedral, Galeras, Rúa nova..."
-            doSearch={doSearch}
-            updateItems={updateItems}
-          />
-        </View>
         <View style={styles.headerBottom}>
           <View style={{ flex: 1 }}>
             <Text></Text>
@@ -110,6 +103,13 @@ const Map = (props) => {
               }}
             />
           </View>
+        </View>
+        <View style={styles.search}>
+          <CustomSearchBar
+            placeholder="Ej: Catedral, Galeras, Rúa nova..."
+            doSearch={doSearch}
+            updateItems={updateItems}
+          />
         </View>
       </View>
       {

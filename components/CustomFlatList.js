@@ -52,7 +52,13 @@ const CustomFlatList = (props) => {
                     }
                     <ListItem.Content>
                         <ListItem.Title> {`${item.display_name}`} </ListItem.Title>
-                        <ListItem.Subtitle> {`${item.type}`} </ListItem.Subtitle>
+                        <ListItem.Subtitle> {
+                        `${item.address.road}`!="undefined" ? `${item.address.road}` :  `${item.address.leisure}` != "undefined" ?
+                        `${item.address.leisure}` :
+                        `${item.address.place_of_worship}` != "undefined" ?
+                        `${item.address.place_of_worship}` :
+                        "Santiago de Compostela"
+                    } </ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
             )}

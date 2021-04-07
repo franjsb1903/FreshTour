@@ -63,7 +63,9 @@ const Turism = () => {
                 {
                     state.data.map(element => {
                         return (
-                            <TouchableOpacity key={element.id} onPress={() => console.log(element.titulo)}>
+                            <TouchableOpacity 
+                            key={element.id}
+                            onPress={() => console.log(element.titulo)}>
                                 <CardElement item={element} />
                             </TouchableOpacity>
                         )
