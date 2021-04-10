@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Platform } from 'react-native';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { LogBox, Text, View, StyleSheet, Platform, ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { IconButton } from 'react-native-paper';
 
-import properties from '../../properties/properties_expo'
+import {stylesMapa as styles} from '../../styles/styles'
 
-import { getSearchData } from '../../Util/DataManagement'
+import { getData, getItem } from '../../model/Planificador/Mapa'
 
 import LeafletMap from '../../components/LeafletMap'
 import CustomSearchBar from '../../components/CustomSearchBar';
@@ -16,6 +16,10 @@ const PointsInterestIcon = () => (
 );
 
 const Map = (props) => {
+
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state'
+  ])
 
   const [items, setItems] = useState({
     data: [],
@@ -30,25 +34,26 @@ const Map = (props) => {
 
   useEffect(() => {
     global.map.injectJavaScript(injectedData);
-  }, [selected])
+  }, [selected.selected])
 
   const getElements = async (newSearch) => {
     try {
-      if (newSearch.length === 0) {
+      setItems({ loading: true, data: [] });
+      const data = await getData(newSearch);
+      if (data == undefined) {
         setItems({
           data: [],
           loading: false
         });
         return;
       }
-      setItems({ loading: true, data: [] });
-      const json = await getSearchData(newSearch);
       setItems({
-        data: json,
+        data: data,
         loading: false
       });
     } catch (err) {
       console.error(err);
+      ToastAndroid.show("Erro de conexión", ToastAndroid.SHORT);
     }
   }
 
@@ -57,25 +62,25 @@ const Map = (props) => {
   }
 
   const selectedItem = async (selected) => {
-    const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.nominatim_geojson + selected;
-    setSelected({
-      selected: ''
-    });
-    setItems({
-      data: [],
-      loading: false
-    });
-    const response = await fetch(url, {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-    const text = await response.text();
-    setSelected({
-      selected: text
-    });
+
+    try {
+      setSelected({
+        selected: ''
+      });
+      setItems({
+        data: [],
+        loading: false
+      });
+
+      const text = await getItem(selected);
+
+      setSelected({
+        selected: text
+      });
+    } catch (err) {
+      console.error(err);
+      ToastAndroid.show("Erro de conexión", ToastAndroid.SHORT);
+    }
   }
 
   const updateItems = () => {
@@ -83,6 +88,12 @@ const Map = (props) => {
       data: [],
       loading: false
     })
+  }
+
+  const updateSelected = (selected) => {
+    setSelected({
+      selected: selected
+    });
   }
 
   return (
@@ -99,7 +110,9 @@ const Map = (props) => {
             <IconButton
               icon={PointsInterestIcon}
               onPress={() => {
-                props.navigation.navigate("Turism");
+                props.navigation.navigate("Turism", {
+                  updateItem: updateSelected
+                });
               }}
             />
           </View>
@@ -109,6 +122,7 @@ const Map = (props) => {
             placeholder="Ej: Catedral, Galeras, Rúa nova..."
             doSearch={doSearch}
             updateItems={updateItems}
+            onChange={false}
           />
         </View>
       </View>
@@ -125,39 +139,5 @@ const Map = (props) => {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: properties.color.main,
-    flex: 0,
-    paddingLeft: 5,
-    paddingRight: 5,
-    margin: 0,
-    paddingBottom: 0,
-  },
-  search: {
-    flex: 0
-  },
-  headerBottom: {
-    flex: 0,
-    flexDirection: "row"
-  },
-  title: {
-    flex: 6,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  titleText: {
-    fontSize: 28,
-    color: properties.color.title,
-    fontFamily: Platform.OS == "ios" ? "San Francisco" : properties.text.title_font_family
-  }
-  ,
-  icon: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
 
 export default Map;

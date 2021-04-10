@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Platform, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, Platform, StatusBar, SafeAreaView, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './components/BottomTabNavigator';
-import Turism from './screens/Turism/Turism';
+import TurismoList from './screens/Turismo/TurismoList';
+import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 
-import properties from './properties/properties_expo'
+import properties from './properties/properties_expo';
 
 const Stack = createStackNavigator();
 
@@ -20,13 +21,29 @@ function MyStack() {
       />
       <Stack.Screen
         name="Turism"
-        component={Turism}
+        component={TurismoList}
         options={{
           headerShown: true,
           title: "Puntos de interese",
           headerStyle: styles.headerStyle,
           headerTintColor: "#fff"
         }}
+      />
+      <Stack.Screen
+        name="TurismoItem"
+        component={TurismoItem}
+        options={({ route }) => ({
+          headerShown: true,
+          title: route.params.title,
+          headerStyle: styles.headerStyle,
+          headerTintColor: "#fff",
+          headerTitleAllowFontScaling: true,
+          headerTitle: ({ children: title }) => {
+            return(
+              <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+            )
+          }
+        })}
       />
     </Stack.Navigator>
   )
@@ -55,5 +72,10 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     backgroundColor: properties.color.main
+  },
+  headerTitle: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold"
   }
 });

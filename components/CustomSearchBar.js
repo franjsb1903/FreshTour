@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 
@@ -12,6 +12,9 @@ const CustomSearchBar = (props) => {
 
     const updateSearch = (newSearch) => {
         setSearch({ ...search, search: newSearch });
+        if (props.onChange) {
+            doSearch(newSearch);
+        }
     }
 
     const doSearch = props.doSearch;

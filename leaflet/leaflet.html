@@ -55,6 +55,10 @@
 
     var geojson = undefined;
 
+    var data = '{"licence":"Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright","features":[{"geometry":{"coordinates":[-8.5446276501015,42.8804004],"type":"Point"},"properties":{"importance":2.4254625046627,"place_rank":30,"category":"amenity","osm_id":5386197,"place_id":248775394,"osm_type":"relation","address":{"province":"La Coruña","road":"Praza do Obradoiro","state":"Galicia","county":"Santiago","country_code":"es","amenity":"Catedral de Santiago de Compostela","city_district":"Santiago de Compostela","country":"España","neighbourhood":"Vista Alegre","municipality":"Santiago de Compostela","suburb":"Vite"},"display_name":"Catedral de Santiago de Compostela, Praza do Obradoiro, Vista Alegre, Vite, Santiago de Compostela, Santiago, La Coruña, Galicia, España","type":"place_of_worship"},"bbox":[-8.545225,42.8798453,-8.5439253,42.8809072],"type":"Feature"}],"type":"FeatureCollection"}'
+
+    addLayer(data);
+
     function addLayer(data) {
         if(geojson != undefined) {
             myMap.removeLayer(geojson);
@@ -62,7 +66,8 @@
         }
         geojson = L.geoJson(data, {
             onEachFeature: function(feature, layer) {
-                layer.bindPopup('<p>'+feature.properties.display_name+'</p>');
+                console.log(feature);
+                layer.bindPopup('<p>'+feature.properties.titulo+'</p>');
                 layer.on('click', function(e) {
                     myMap.setView(e.latlng, 16);
                 });

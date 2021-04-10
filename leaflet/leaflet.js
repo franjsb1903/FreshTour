@@ -77,7 +77,12 @@ const leaflet = `
         }
         geojson = L.geoJson(data, {
             onEachFeature: function(feature, layer) {
-                layer.bindPopup('<p>'+feature.properties.display_name+'</p>');
+                if(feature.properties.display_name === undefined) {
+                    layer.bindPopup('<p>'+feature.properties.titulo+'</p>');
+                } else {
+                    layer.bindPopup('<p>'+feature.properties.display_name+'</p>');
+                }
+                myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 16);
                 layer.on('click', function(e) {
                     myMap.setView(e.latlng, 16);
                 });
