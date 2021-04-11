@@ -7,7 +7,7 @@ import BottomTabNavigator from './components/BottomTabNavigator';
 import TurismoList from './screens/Turismo/TurismoList';
 import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 
-import properties from './properties/properties_expo';
+import { stylesApp as styles } from './styles/styles'
 
 const Stack = createStackNavigator();
 
@@ -53,29 +53,9 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.AndroidSafeArea}>
-      <NavigationContainer>
+      <NavigationContainer >
         <MyStack />
       </NavigationContainer>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  AndroidSafeArea: {
-    flex: 1,
-    backgroundColor: properties.color.main,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-  },
-  container: {
-    flex: 1,
-    backgroundColor: properties.color.main
-  },
-  headerStyle: {
-    backgroundColor: properties.color.main
-  },
-  headerTitle: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "bold"
-  }
-});

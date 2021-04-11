@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native'
+import { View, Image } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { getImageUri } from '../Util/ImageUtil';
@@ -10,6 +10,7 @@ import TiposVisita from '../screens/Turismo/TurismoItem/TiposVisita';
 import Opinions from '../screens/Turismo/TurismoItem/Opinions';
 
 import properties from '../properties/properties_expo';
+import { stylesTopNavigator as styles } from '../styles/styles'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -33,9 +34,9 @@ const TopTabNavigator = (props) => {
                         fontSize: 10,
                         textAlign: 'center'
                     },
-                    activeTintColor: properties.color.text,
+                    activeTintColor: properties.style.color.text,
                     style: styles.tabBarStyle,
-                    indicatorStyle: { backgroundColor: properties.color.topTabIndicator }
+                    indicatorStyle: { backgroundColor: properties.style.color.topTabIndicator }
                 }}>
                 <Tab.Screen
                     name="Resumo"
@@ -65,20 +66,5 @@ const TopTabNavigator = (props) => {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    tabBarStyle: {
-        backgroundColor: properties.color.main
-    },
-    image: {
-        width: "100%",
-        height: 150
-    },
-    imageContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    }
-});
 
 export default TopTabNavigator;

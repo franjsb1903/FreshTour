@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 
-import properties from '../properties/properties_expo'
+import { stylesSearchBar as styles } from '../styles/styles'
 
 const CustomSearchBar = (props) => {
 
@@ -42,17 +41,5 @@ const CustomSearchBar = (props) => {
         />
     )
 }
-
-const styles = StyleSheet.create({
-    constainer: {
-        flex: 1
-    },
-    searchBar: {
-        backgroundColor: "#fff"
-    },
-    searchBarBorder: {
-        backgroundColor: properties.color.main
-    }
-})
 
 export default CustomSearchBar;

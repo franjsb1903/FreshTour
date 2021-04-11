@@ -3,9 +3,9 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Info from '../screens/Info/Info'
-import Map from '../screens/Planificador/Mapa'
-import Routes from '../screens/Planificador/RutasRecomendadas'
-import Planificator from '../screens/Planificador/Planificador'
+import Map from '../screens/PlanificadorTemporal/Mapa'
+import Routes from '../screens/PlanificadorTemporal/RutasRecomendadas'
+import Planificator from '../screens/PlanificadorTemporal/Planificador/Planificador'
 import User from '../screens/Usuarios/Usuarios'
 
 const Tab = createMaterialBottomTabNavigator();

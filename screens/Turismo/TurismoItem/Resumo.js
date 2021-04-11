@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 import { getCountElement } from '../../../model/Opinions/Opinions';
 import properties from '../../../properties/properties_expo'
-import { styleTurismoItem as styles } from '../../../styles/styles'
+import { styleTurismoItem as styles, flexRowContainer as container } from '../../../styles/styles'
 
-import { HeartIconButton, MapIconButton, CalendarIconButton } from '../../../components/CustomIcon'
+import { HeartIconButton, MapIconButton, CalendarIconButton } from '../../../components/CustomIcons'
 import Stars from '../../../components/CustomStarsDisplay';
 
 const Resumo = (props) => {
@@ -25,17 +25,17 @@ const Resumo = (props) => {
 
     return (
         <ScrollView style={styles.scroll}>
-            <View style={styles.resumoContainer}>
-                <Stars style={styles.resumoStars} value={element.valoracion} />
-                <Text style={styles.resumoText}>{countOpinions} valoracións</Text>
-                <HeartIconButton style={styles.resumoIconElements} />
-                <CalendarIconButton style={styles.resumoIconElements} />
+            <View style={container.container}>
+                <Stars style={styles.stars} value={element.valoracion} />
+                <Text style={styles.valoracion}>{countOpinions} valoracións</Text>
+                <HeartIconButton style={styles.rightIcons} />
+                <CalendarIconButton style={styles.rightIcons} />
                 <MapIconButton
                     showOnMap={showOnMap}
                     item={element} 
-                    style={styles.resumoIconElements}/>
+                    style={styles.rightIcons}/>
             </View>
-            <View style={styles.resumoContainerText}>
+            <View style={styles.resumoContainer}>
                 <Text style={styles.resumo}>{element.resumo}</Text>
             </View>
         </ScrollView>

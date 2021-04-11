@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-import TopTabNavigator from '../../../components/TopTabNavigator';
+import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 
 const TurismoItem = ({ route, navigation }) => {
 
