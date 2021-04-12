@@ -2,7 +2,7 @@ const XestionDatosTurismo = require('../../XestionDatos/XestionDatosTurismo')
 
 const Turismo = new XestionDatosTurismo();
 
-const getData = async () => {
+export const getData = async () => {
     try {
         var data = await Turismo.getTurismData();
         return data;
@@ -11,7 +11,7 @@ const getData = async () => {
     }
 }
 
-const getElement = async (name) => {
+export const getElement = async (name) => {
     try {
         var data = await Turismo.getElementData(name);
         return data;
@@ -20,7 +20,7 @@ const getElement = async (name) => {
     }
 }
 
-const getGeoElement = async (id) => {
+export const getGeoElement = async (id) => {
     try {
         var data = await Turismo.getGeoItem(id);
         return data;
@@ -29,4 +29,11 @@ const getGeoElement = async (id) => {
     }
 }
 
-export { getData, getElement, getGeoElement }
+export const getGeoElementJson = async (id) => {
+    try {
+        var data = await Turismo.getGeoItemJson(id);
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
+}

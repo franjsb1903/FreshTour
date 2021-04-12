@@ -7,7 +7,7 @@ import BottomTabNavigator from './components/BottomTabNavigator';
 import TurismoList from './screens/Turismo/TurismoList';
 import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 
-import { stylesApp as styles } from './styles/styles'
+import { stylesApp as styles } from './styles/styles';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +39,7 @@ function MyStack() {
           headerTintColor: "#fff",
           headerTitleAllowFontScaling: true,
           headerTitle: ({ children: title }) => {
-            return(
+            return (
               <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
             )
           }

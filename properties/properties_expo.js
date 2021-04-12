@@ -14,7 +14,8 @@ const properties = {
             turismo: "/turismo/"                        // /turismo/, /turismo/:name
         },
         geoserver: {
-            geoserver: "/geoserver/"                    // /geoserver/:id
+            url: "http://192.168.1.71:8080/geoserver",
+            item: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+"                    // /geoserver/:id
         },
         opinions: {
             opinions_count: "/opinions/count/"          // /opinions/count/:type/:id
@@ -34,6 +35,11 @@ const properties = {
     },
     turismoItem: {
         comentario_visita_usuario: "Neste tipo de visita o usuario ten total flexibilidade á hora de realizar a visita. Simplemente, seleccione no planificador, no elemento concreto, o tipo de visita 'Visita flexible' e indique o tempo que quere adicar á visita. Logo, pode iniciar a visita ao elemento e pausala cando remate para fixar o tempo concreto que adicou á visita."
+    },
+    routes: {
+        url: "https://api.openrouteservice.org/v2/directions",
+        format: "geojson",
+        walk_profile: "/foot-walking/"
     }
 }
 

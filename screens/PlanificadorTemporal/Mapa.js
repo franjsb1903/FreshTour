@@ -3,9 +3,9 @@ import { LogBox, Text, View, StyleSheet, Platform, ToastAndroid } from 'react-na
 import Icon from 'react-native-vector-icons/Ionicons';
 import { IconButton } from 'react-native-paper';
 
-import {stylesMapa as styles} from '../../styles/styles'
+import { stylesMapa as styles } from '../../styles/styles'
 
-import { getData, getItem } from '../../model/Planificador/Mapa'
+import { getData, getItem } from '../../model/Planificador/Mapa';
 
 import LeafletMap from '../../components/LeafletMap'
 import CustomSearchBar from '../../components/CustomSearchBar';
@@ -17,9 +17,11 @@ const PointsInterestIcon = () => (
 
 const Map = (props) => {
 
-  LogBox.ignoreLogs([
-    'Non-serializable values were found in the navigation state'
-  ])
+  if (Platform.OS != "web") {
+    LogBox.ignoreLogs([
+      'Non-serializable values were found in the navigation state'
+    ])
+  }
 
   const [items, setItems] = useState({
     data: [],
@@ -33,7 +35,9 @@ const Map = (props) => {
   let injectedData = `addLayer(${selected.selected})`;
 
   useEffect(() => {
-    global.map.injectJavaScript(injectedData);
+    if (Platform.OS != "web") {
+      global.map.injectJavaScript(injectedData);
+    }
   }, [selected.selected])
 
   const getElements = async (newSearch) => {
@@ -73,6 +77,11 @@ const Map = (props) => {
       });
 
       const text = await getItem(selected);
+
+      if (text == undefined) {
+        ToastAndroid.show('Erro xeolocalizando o elemento, probe de novo', ToastAndroid.SHORT);
+        return;
+      }
 
       setSelected({
         selected: text

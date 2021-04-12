@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, ImageBackground, StyleSheet, View } from 'react-native';
+import React, { useContext } from 'react'
+import { Text, ImageBackground, View, ToastAndroid } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';
@@ -9,14 +9,32 @@ import Stars from './CustomStarsDisplay';
 
 import { stylesCardElement as styles } from '../styles/styles'
 
+import AppContext from './PlanificadorAppContext'
 
 const CardElement = (props) => {
 
     const item = props.item;
 
     const showOnMap = props.showOnMap;
+    const getGeoElementJson = props.getGeoElementJson;
+
+    const context = useContext(AppContext);
 
     const localUri = getImageUri(item.imaxe);
+
+    const addToPlanificacion = async (id) => {
+        try {
+            const data = await getGeoElementJson(id);
+            if (data == undefined) {
+                ToastAndroid.show('Elemento non engadido', ToastAndroid.SHORT);
+                return;
+            }
+            context.addItem(data);
+        } catch (err) {
+            console.log(err);
+            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+        }
+    }
 
     return (
         <Card containerStyle={[localUri ? styles.imageCardStyle : styles.noImageCardStyle]}>
@@ -38,7 +56,7 @@ const CardElement = (props) => {
                             </View>
                             <View style={styles.iconRow}>
                                 <HeartIconButton />
-                                <CalendarIconButton />
+                                <CalendarIconButton addToPlanificacion={addToPlanificacion} item={item} />
                                 <MapIconButton showOnMap={showOnMap} item={item} />
                             </View>
                         </View>

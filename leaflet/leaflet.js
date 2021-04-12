@@ -1,10 +1,20 @@
-import center from '../images/map/center.png'
-import { Image } from 'react-native'
+const center = require('../images/map/center.png');
+const { Image, Platform } = require('react-native');
 
 const url = '../images/map/compass.png'
 
-const locateUri = Image.resolveAssetSource(require(url)).uri;
-const centerUri = Image.resolveAssetSource(center).uri;
+const locate = require('../images/map/compass.png');
+
+var locateUri, centerUri;
+
+if(Platform.OS!="web") {
+    locateUri = Image.resolveAssetSource(locate).uri;
+    centerUri = Image.resolveAssetSource(center).uri;
+} else {
+    locateUri = locate.uri;
+    centerUri = center.uri;
+}
+
 
 const leaflet = `
 

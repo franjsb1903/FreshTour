@@ -45,11 +45,13 @@ export const HeartIconButton = (props) => {
 export const CalendarIconButton = (props) => {
 
     const style = props.style;
+    const item = props.item;
+    const addToPlanificacion = props.addToPlanificacion;
 
     return (
         <IconButton
             icon={CalendarIcon}
-            onPress={() => console.log("object")}
+            onPress={() => addToPlanificacion ? addToPlanificacion(`${item.id}`) : console.log("Not function")}
             style={style} />
     )
 };
@@ -63,7 +65,7 @@ export const MapIconButton = (props) => {
     return (
         <IconButton
             icon={MapIcon}
-            onPress={() => showOnMap ? showOnMap(`${item.id}`) : ""}
+            onPress={() => showOnMap ? showOnMap(`${item.id}`) : console.log("Not function")}
             style={style} />
     )
 };
