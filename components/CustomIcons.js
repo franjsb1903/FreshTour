@@ -30,6 +30,26 @@ const BicycleIcon = () => (
     <Icon name="bicycle-outline" size={30} />
 );
 
+const PlayIcon = () => (
+    <Icon name="play" size={30} />
+);
+
+const StopIcon = () => (
+    <Icon name="stop" size={30} />
+);
+
+const CloseIcon = () => (
+    <Icon name="close" size={30} />
+);
+
+const ChevronUpIcon = () => (
+    <Icon name="chevron-up" size={30} />
+);
+
+const ChevronDownIcon = () => (
+    <Icon name="chevron-down" size={30} />
+);
+
 export const HeartIconButton = (props) => {
 
     const style = props.style;
@@ -102,6 +122,61 @@ export const BicycleIconButton = () => {
         <IconButton
             icon={BicycleIcon}
             onPress={() => console.log("Bicycle")}
+        />
+    )
+}
+
+export const PlayIconButton = () => {
+    return (
+        <IconButton
+            icon={PlayIcon}
+            onPress={() => console.log("Play")}
+        />
+    )
+}
+
+export const StopIconButton = () => {
+    return (
+        <IconButton
+            icon={StopIcon}
+            onPress={() => console.log("Stop")}
+        />
+    )
+}
+
+export const CloseIconButton = (props) => {
+    const style = props.style;
+    return (
+        <IconButton
+            icon={CloseIcon}
+            onPress={() => console.log("Close")}
+            style={style}
+        />
+    )
+}
+
+export const ChevronUpIconButton = (props) => {
+    
+    const style = props.style;
+
+    return (
+        <IconButton
+            icon={ChevronUpIcon}
+            onPress={() => console.log("Up")}
+            style={style}
+        />
+    )
+}
+
+export const ChevronDownIconButton = (props) => {
+
+    const style = props.style;
+
+    return (
+        <IconButton
+            icon={ChevronDownIcon}
+            onPress={() => console.log("Down")}
+            style={style}
         />
     )
 }

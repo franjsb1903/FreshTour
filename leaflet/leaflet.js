@@ -1,15 +1,18 @@
-const center = require('../images/map/center.png');
 const { Image, Platform } = require('react-native');
 
-const url = '../images/map/compass.png'
-
+const center = require('../images/map/center.png');
 const locate = require('../images/map/compass.png');
-
-var locateUri, centerUri;
+const a_letter = require('../images/map/icons/letter_a.png');
+const b_letter = require('../images/map/icons/letter_b.png');
+const c_letter = require('../images/map/icons/letter_c.png');
+var locateUri, centerUri, aLetterUri, bLetterUri, cLetterUri;
 
 if(Platform.OS!="web") {
     locateUri = Image.resolveAssetSource(locate).uri;
     centerUri = Image.resolveAssetSource(center).uri;
+    aLetterUri = Image.resolveAssetSource(a_letter).uri;
+    bLetterUri = Image.resolveAssetSource(b_letter).uri;
+    cLetterUri = Image.resolveAssetSource(c_letter).uri;
 } else {
     locateUri = locate.uri;
     centerUri = center.uri;
@@ -100,6 +103,20 @@ const leaflet = `
         }).addTo(myMap);
     }
 
+    var route = undefined;
+
+    function addRoute(data) {
+        if(route != undefined) {
+            myMap.removeLayer(route);
+            route = undefined;
+        }
+        if(marker != undefined) {
+            myMap.removeLayer(marker);
+            marker = undefined;
+        }
+        route = L.geoJson(data).addTo(myMap);
+    }
+
     var options = {
         position: 'topright', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
         drawMarker: true, // adds button to draw markers
@@ -148,6 +165,17 @@ const leaflet = `
     function addMarker(lat, lang) {
         L.marker([lat, lang]).addTo(myMap);
         myMap.setView([lat, lang], 16);
+    }
+
+    var marker = undefined;
+    var icon = 1;
+
+    function addMarkerNo(lat, lang, name) {
+
+        marker = L.marker([lang, lat]);
+        marker.bindPopup('<p>' + name + '</p>');
+        marker.addTo(myMap);
+        
     }
 
 </script>

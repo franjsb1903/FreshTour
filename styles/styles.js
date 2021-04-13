@@ -175,6 +175,47 @@ export const stylesCardElement = StyleSheet.create({
     }
 });
 
+export const stylesCardElementPlanificacion = StyleSheet.create({
+    container: {
+        flex: 0,
+        padding: 10
+    },
+    title: {
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    rowContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center"
+    },
+    iconsContainer: {
+        flex: 2,
+        flexDirection: "row"
+    },
+    titleContainer: {
+        flex: 1
+    },
+    iconClose: {
+        flex: 0
+    },
+    closeContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end"
+    }, 
+    chevron: {
+        flexDirection: "column",
+        flex: 1
+    },
+    dropDown: {
+        flex: 1
+    },
+    tempo: {
+        flexDirection: "row",
+        flex: 2
+    }
+});
+
 export const stylesTopNavigator = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: properties.style.color.main

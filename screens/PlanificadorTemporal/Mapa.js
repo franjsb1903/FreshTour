@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { LogBox, Text, View, StyleSheet, Platform, ToastAndroid } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { LogBox, Text, View, Platform, ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { IconButton } from 'react-native-paper';
 
@@ -7,9 +7,11 @@ import { stylesMapa as styles } from '../../styles/styles'
 
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
-import LeafletMap from '../../components/LeafletMap'
+import AppContext from '../../components/PlanificadorAppContext';
+
+import LeafletMap from '../../components/LeafletMap';
 import CustomSearchBar from '../../components/CustomSearchBar';
-import CustomFlatList from '../../components/CustomFlatList'
+import CustomFlatList from '../../components/CustomFlatList';
 
 const PointsInterestIcon = () => (
   <Icon name="business" size={32} />
@@ -22,6 +24,8 @@ const Map = (props) => {
       'Non-serializable values were found in the navigation state'
     ])
   }
+
+  const context = useContext(AppContext);
 
   const [items, setItems] = useState({
     data: [],
@@ -38,7 +42,25 @@ const Map = (props) => {
     if (Platform.OS != "web") {
       global.map.injectJavaScript(injectedData);
     }
-  }, [selected.selected])
+  }, [selected.selected]);
+
+  useEffect(() => {
+
+    if (context.route != '') {
+      const data = context.route;
+
+      if (Platform.OS != "web") {
+        global.map.injectJavaScript(`addRoute(${data})`);
+        context.turismoItems.map(e => {
+            const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
+            const name = `${e.features[0].properties.titulo}`;
+            global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}")`);
+        });
+        
+      }
+    }
+
+  }, [context.route]);
 
   const getElements = async (newSearch) => {
     try {
@@ -144,6 +166,7 @@ const Map = (props) => {
           :
           <Text style={{ display: "none" }}></Text>
       }
+
       <LeafletMap />
     </>
   );

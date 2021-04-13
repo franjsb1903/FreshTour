@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid, Platform } from 'react-native'
 
 import ProgressBar from '../../components/ProgressBar';
@@ -97,7 +97,6 @@ const Turism = (props) => {
                 <ProgressBar />
             </View>
             :
-            <AppContextProvider>
                 <ScrollView refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
@@ -130,7 +129,6 @@ const Turism = (props) => {
 
                     }
                 </ScrollView>
-            </AppContextProvider>
     )
 }
 

@@ -1,5 +1,5 @@
-const properties = require('../properties/properties_expo');
-const { fetchJsonGet, fetchTextGet } = require('../Util/FetchUtil');
+import properties from '../properties/properties_expo';
+import { fetchJsonGet, fetchTextGet } from '../Util/FetchUtil'
 
 
 class XestionDatosPlanificador {

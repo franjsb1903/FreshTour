@@ -9,7 +9,7 @@ import Stars from './CustomStarsDisplay';
 
 import { stylesCardElement as styles } from '../styles/styles'
 
-import AppContext from './PlanificadorAppContext'
+import AppContext from './PlanificadorAppContext';
 
 const CardElement = (props) => {
 

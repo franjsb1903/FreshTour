@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Platform, ToastAndroid } from 'react-native'
 import { WebView } from 'react-native-webview';
 import Iframe from 'react-iframe';
@@ -21,7 +21,7 @@ const LeafletMap = (props) => {
 
     getUri();
 
-  }, [])
+  }, []);
 
 
   const getLocation = async () => {
@@ -52,7 +52,8 @@ const LeafletMap = (props) => {
         javaScriptEnabledAndroid={true}
         injectedJavaScript={injectedData}
         onMessage={async e => {
-          await getLocation();
+          console.log(e.nativeEvent.data);
+          //await getLocation();
         }}
         androidHardwareAccelerationDisabled
       /> :

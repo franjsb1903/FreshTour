@@ -7,6 +7,8 @@ import BottomTabNavigator from './components/BottomTabNavigator';
 import TurismoList from './screens/Turismo/TurismoList';
 import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 
+import AppContextProvider from './components/PlanificadorAppContextProvider'
+
 import { stylesApp as styles } from './styles/styles';
 
 const Stack = createStackNavigator();
@@ -52,10 +54,12 @@ function MyStack() {
 export default function App() {
 
   return (
-    <SafeAreaView style={styles.AndroidSafeArea}>
-      <NavigationContainer >
-        <MyStack />
-      </NavigationContainer>
-    </SafeAreaView>
+    <AppContextProvider>
+      <SafeAreaView style={styles.AndroidSafeArea}>
+        <NavigationContainer >
+          <MyStack />
+        </NavigationContainer>
+      </SafeAreaView>
+    </AppContextProvider>
   );
 }
