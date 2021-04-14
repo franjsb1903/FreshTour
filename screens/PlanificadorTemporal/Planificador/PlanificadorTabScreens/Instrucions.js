@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 
-import AppContext from '../../../../components/PlanificadorAppContext'
+import AppContext from '../../../../components/PlanificadorAppContext';
 
-import { stylesScroll as styles } from '../../../../styles/styles'
+import CustomListInstrucions from '../../../../components/CustomListInstrucions'
+
+import { stylesScroll as styles } from '../../../../styles/styles';
 
 const Instrucions = () => {
 
@@ -30,9 +32,26 @@ const Instrucions = () => {
         return () => mounted = false;
     }, [context.turismoItems]);
 
+    const drawList = () => {
+        var list = [];
+        for (var i = 0; i < items.length - 1; i++) {
+            list.push(
+                <CustomListInstrucions key={i} element={items[i]} steps={data.features[0].properties.segments[i].steps} />
+            );
+        }
+        list.push(
+            <CustomListInstrucions key={items[items.length - 1].features[0].properties.id} element={items[items.length - 1]} steps={undefined} />
+        )
+        return list;
+    }
+
     return (
         <ScrollView style={styles.scroll}>
-            
+            {
+                data && data.features && data.features[0].properties.segments[items.length - 2] ?
+                drawList():
+                <Text>Non hai elementos</Text>
+            }
         </ScrollView>
     );
 }

@@ -76,7 +76,7 @@ const CardElementPlanificacion = (props) => {
             <View style={styles.rowContainer}>
                 <View style={styles.tempo}>
                     <Text style={styles.text}>Tempo: </Text>
-                    <Text style={styles.textBold}>{tipoVisita} min</Text>
+                    <Text style={styles.textBold}>{tipoVisita > 60 ? <Text>{Number((tipoVisita/60).toFixed(1))} h</Text> : <Text>{Math.round(tipoVisita)} min</Text>}</Text>
                 </View>
             </View>
             <Card.Divider />

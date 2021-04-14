@@ -24,7 +24,7 @@ const BottomTabNavigator = () => {
         component={Info}
         options={{
           tabBarLabel: 'Info',
-          tabBarColor: '#008b8b',
+          tabBarColor: '#2e8b57',
           tabBarIcon: ({ color }) => (
             <Icon name="information-outline" color={color} size={26} />
           ),
@@ -35,7 +35,7 @@ const BottomTabNavigator = () => {
         component={Routes}
         options={{
           tabBarLabel: 'Rutas',
-          tabBarColor: '#20b2aa',
+          tabBarColor: '#2e8b57',
           tabBarIcon: ({ color }) => (
             <Icon name="walk-outline" color={color} size={26} />
           ),
@@ -46,7 +46,7 @@ const BottomTabNavigator = () => {
         component={Map}
         options={{
           tabBarLabel: 'Mapa',
-          tabBarColor: '#3cb371',
+          tabBarColor: '#2e8b57',
           tabBarIcon: ({ color }) => (
             <Icon name="map-outline" color={color} size={26} />
           ),
@@ -68,7 +68,7 @@ const BottomTabNavigator = () => {
         component={User}
         options={{
           tabBarLabel: 'Profile',
-          tabBarColor: '#228b22',
+          tabBarColor: '#2e8b57',
           tabBarIcon: ({ color }) => (
             <Icon name="person-circle-outline" color={color} size={26} />
           ),

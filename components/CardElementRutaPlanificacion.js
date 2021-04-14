@@ -36,10 +36,14 @@ const CardElementRutaPlanificacion = (props) => {
                     <Text>Waiting</Text> :
                     <View style={styles.rowContainer}>
                         <View style={{ flex: 1, justifyContent: "flex-start" }}>
-                            <Text style={styles.textTempo}>Tempo: <Text style={styles.text}>{Math.round(route.features[0].properties.segments[position].duration / 60)} min</Text></Text>
+                            <Text style={styles.textTempo}>Tempo: <Text style={styles.text}>{
+                                Math.round(route.features[0].properties.segments[position].duration / 60) > 60 ?
+                                <Text>{Number((route.features[0].properties.segments[position].duration / 3600).toFixed(1))} h</Text>:
+                                <Text>{Math.round(route.features[0].properties.segments[position].duration / 60)} min</Text>
+                            }</Text></Text>
                         </View>
                         <View style={{ justifyContent: "flex-end" }}>
-                            <Text style={styles.textDistancia}>Distancia: <Text style={styles.text}>{route.features[0].properties.segments[position].distance} km</Text></Text>
+                            <Text style={styles.textDistancia}>Distancia: <Text style={styles.text}>{(route.features[0].properties.segments[position].distance).toFixed(1)} km</Text></Text>
                         </View>
                     </View>
             }

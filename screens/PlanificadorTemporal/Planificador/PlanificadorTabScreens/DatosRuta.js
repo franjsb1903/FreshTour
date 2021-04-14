@@ -30,19 +30,22 @@ const DatosRuta = (props) => {
                         <Title style={borderStyle.title}> Datos de ruta </Title>
                         <View style={borderStyle.viewTextContainer}>
                             <Title style={borderStyle.titleSize}>Tempo total</Title>
-                            <Text style={borderStyle.textBold}>{Math.round(data.features[0].properties.summary.duration / 60) + context.tempoVisita} min</Text>
+                            <Text style={borderStyle.textBold}>{Math.round(data.features[0].properties.summary.duration / 60) + context.tempoVisita > 60 ?
+                            <Text>{Number((data.features[0].properties.summary.duration / 3600 + context.tempoVisita/60).toFixed(1))} h</Text>:
+                            <Text>{Math.round(data.features[0].properties.summary.duration / 60) + context.tempoVisita} min</Text>}</Text>
                         </View>
                         <View style={borderStyle.viewTextContainer}>
                             <Title style={borderStyle.titleSize}>Tempo de ruta</Title>
-                            <Text style={borderStyle.textBold}>{Math.round(data.features[0].properties.summary.duration / 60)} min</Text>
+                            <Text style={borderStyle.textBold}>{(data.features[0].properties.summary.duration / 60) > 60 ? <Text>{Number((data.features[0].properties.summary.duration / 3600).toFixed(1))} h</Text>
+                                : <Text>{Math.round(data.features[0].properties.summary.duration / 60)} min</Text>}</Text>
                         </View>
                         <View style={borderStyle.viewTextContainer}>
                             <Title style={borderStyle.titleSize}>Tempo de visita</Title>
-                            <Text style={borderStyle.textBold}>{context.tempoVisita} min</Text>
+                            <Text style={borderStyle.textBold}>{context.tempoVisita > 60 ? <Text>{Number((context.tempoVisita / 60).toFixed(1))} h</Text> : <Text>{Math.round(context.tempoVisita)} min</Text>}</Text>
                         </View>
                         <View style={borderStyle.viewTextContainer}>
                             <Title style={borderStyle.titleSize}>Distancia total</Title>
-                            <Text style={borderStyle.textBold}>{data.features[0].properties.summary.distance} km</Text>
+                            <Text style={borderStyle.textBold}>{(data.features[0].properties.summary.distance).toFixed(1)} km</Text>
                         </View>
                         <View style={borderStyle.viewTextContainer}>
                             <Title style={borderStyle.titleSize}>Elementos a visitar</Title>

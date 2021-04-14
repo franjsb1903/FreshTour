@@ -340,27 +340,11 @@ export const flexRowContainer = StyleSheet.create({
     }
 });
 
-export const stylesCardInstrucion = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: properties.style.color.main
-    },
-    rowContainer: {
-        flexDirection: "row",
-        justifyContent: "flex-start"
-    },
-    titleBold: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: properties.style.color.text
+export const stylesListInstrucion = StyleSheet.create({
+    background: {
+        backgroundColor: "#fff"
     },
     text: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: properties.style.color.text
-    },
-    textNormal: {
-        fontSize: 15,
-        color: properties.style.color.text
+        fontSize: 18
     }
 });

@@ -1,5 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { IconButton } from 'react-native-paper';
 
 const HeartIcon = () => (
@@ -53,6 +55,14 @@ const ChevronUpIcon = () => (
 const ChevronDownIcon = () => (
     <Icon name="chevron-down" size={30} color="#fff" />
 );
+
+export const MarkerIcon = () => (
+    <MaterialIcons name="place" size={30} />
+);
+
+export const RouteIcon = () => (
+    <MaterialIcons name="directions" size={30} />
+)
 
 export const HeartIconButton = (props) => {
 
