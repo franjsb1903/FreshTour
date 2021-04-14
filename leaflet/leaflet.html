@@ -142,6 +142,18 @@
             myMap.setView([lat, lang], 16);
         }
 
+        function addMarkerNo(lat, lang, name, content) {
+            window.ReactNativeWebView.postMessage(content);
+            var icon = L.divIcon({
+                iconSize: null,
+                html: '<div class="map-label"><div class="map-label-content">' + content + '</div><div class="map-label-arrow"></div></div>'
+            });
+
+            marker = L.marker([lang, lat], { icon: icon });
+            marker.bindPopup('<p>' + name + '</p>');
+            marker.addTo(myMap);
+        }
+
     </script>
 
 </body>

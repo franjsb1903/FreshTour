@@ -9,6 +9,8 @@ import { getData, getItem } from '../../model/Planificador/Mapa';
 
 import AppContext from '../../components/PlanificadorAppContext';
 
+import { getIconContent } from '../../Util/IconMapUtil'
+
 import LeafletMap from '../../components/LeafletMap';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList';
@@ -45,16 +47,17 @@ const Map = (props) => {
   }, [selected.selected]);
 
   useEffect(() => {
-
     if (context.route != '') {
       const data = context.route;
-
       if (Platform.OS != "web") {
         global.map.injectJavaScript(`addRoute(${data})`);
+        var i = 0;
         context.turismoItems.map(e => {
+            i++;
+            const content = getIconContent(i);
             const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
             const name = `${e.features[0].properties.titulo}`;
-            global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}")`);
+            global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}", "${content}")`);
         });
         
       }

@@ -2,11 +2,12 @@ import properties from '../../properties/properties_expo'
 
 export const getRoute = (coordinates) => {
     return new Promise((resolve, reject) => {
-        let request = new XMLHttpRequest();
 
         const url = properties.routes.url + properties.routes.walk_profile + properties.routes.format;
 
         try {
+            let request = new XMLHttpRequest();
+
             request.open('POST', url);
 
             request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
@@ -17,10 +18,18 @@ export const getRoute = (coordinates) => {
                 if (this.status >= 200 && this.status < 300) {
                     resolve(request.response);
                 } else {
-                  reject({
-                    status: this.status,
-                    statusText: request.statusText
-                  });
+                    reject({
+                        status: this.status,
+                        statusText: request.statusText
+                    });
+                }
+            };
+
+            request.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                  console.log('Status:', this.status);
+                  console.log('Headers:', this.getAllResponseHeaders());
+                  console.log('Body:', this.responseText);
                 }
               };
 
@@ -34,7 +43,9 @@ export const getRoute = (coordinates) => {
                 }
             }
 
-            body = body + '],"language":"es"}';
+            body = body + '],"instructions":"true","instructions_format":"text","language":"es","units":"km"}';
+
+            // "alternative_routes":{"share_factor":0.6,"target_count":2,"weight_factor":1.4},
 
             request.send(body);
 

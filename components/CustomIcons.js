@@ -10,6 +10,10 @@ const CalendarIcon = () => (
     <Icon name="calendar" size={30} />
 );
 
+const CalendarOutlineIcon = () => (
+    <Icon name="calendar-outline" size={30} />
+);
+
 const MapIcon = () => (
     <Icon name="map" size={30} />
 );
@@ -31,23 +35,23 @@ const BicycleIcon = () => (
 );
 
 const PlayIcon = () => (
-    <Icon name="play" size={30} />
+    <Icon name="play" size={30} color="#fff" />
 );
 
 const StopIcon = () => (
-    <Icon name="stop" size={30} />
+    <Icon name="stop" size={30} color="#fff" />
 );
 
 const CloseIcon = () => (
-    <Icon name="close" size={30} />
+    <Icon name="close" size={30} color="#fff" />
 );
 
 const ChevronUpIcon = () => (
-    <Icon name="chevron-up" size={30} />
+    <Icon name="chevron-up" size={30} color="#fff" />
 );
 
 const ChevronDownIcon = () => (
-    <Icon name="chevron-down" size={30} />
+    <Icon name="chevron-down" size={30} color="#fff" />
 );
 
 export const HeartIconButton = (props) => {
@@ -67,11 +71,33 @@ export const CalendarIconButton = (props) => {
     const style = props.style;
     const item = props.item;
     const addToPlanificacion = props.addToPlanificacion;
+    const changeAdd = props.changeAdd;
 
     return (
         <IconButton
             icon={CalendarIcon}
-            onPress={() => addToPlanificacion ? addToPlanificacion(`${item.id}`) : console.log("Not function")}
+            onPress={() => {
+                addToPlanificacion ? addToPlanificacion(`${item.id}`) : console.log("Not function");
+                changeAdd(true);
+            }}
+            style={style} />
+    )
+};
+
+export const CalendarOutlineIconButton = (props) => {
+
+    const style = props.style;
+    const item = props.item;
+    const addToPlanificacion = props.addToPlanificacion;
+    const changeAdd = props.changeAdd;
+
+    return (
+        <IconButton
+            icon={CalendarOutlineIcon}
+            onPress={() => {
+                addToPlanificacion ? addToPlanificacion(`${item.id}`) : console.log("Not function");
+                changeAdd(true);
+            }}
             style={style} />
     )
 };
@@ -79,13 +105,14 @@ export const CalendarIconButton = (props) => {
 export const MapIconButton = (props) => {
 
     const showOnMap = props.showOnMap;
+    const onMapClick = props.onMapClick;
     const item = props.item;
     const style = props.style;
 
     return (
         <IconButton
             icon={MapIcon}
-            onPress={() => showOnMap ? showOnMap(`${item.id}`) : console.log("Not function")}
+            onPress={() => showOnMap ? showOnMap(`${item.id}`) : onMapClick()}
             style={style} />
     )
 };
@@ -156,7 +183,7 @@ export const CloseIconButton = (props) => {
 }
 
 export const ChevronUpIconButton = (props) => {
-    
+
     const style = props.style;
 
     return (

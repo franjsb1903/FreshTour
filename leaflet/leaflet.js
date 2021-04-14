@@ -7,7 +7,7 @@ const b_letter = require('../images/map/icons/letter_b.png');
 const c_letter = require('../images/map/icons/letter_c.png');
 var locateUri, centerUri, aLetterUri, bLetterUri, cLetterUri;
 
-if(Platform.OS!="web") {
+if (Platform.OS != "web") {
     locateUri = Image.resolveAssetSource(locate).uri;
     centerUri = Image.resolveAssetSource(center).uri;
     aLetterUri = Image.resolveAssetSource(a_letter).uri;
@@ -51,7 +51,68 @@ const leaflet = `
     .leaflet-center {
         background-image: url(${centerUri});
     }
-    
+    html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #map {
+        float: left;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      /*Wraperclass for the divicon*/
+      .map-label {
+        position: absolute;
+        bottom: 0;left: -50%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+      /*Wrap the content of the divicon (text) in this class*/
+      .map-label-content {
+        order: 1;
+        position: relative; left: -50%;
+        background-color: #fff;
+        border-radius: 5px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #444;
+        padding: 3px;
+        white-space: nowrap;
+      }
+      /*Add this arrow*/
+      .map-label-arrow {
+        order: 2;
+        width: 0px; height: 0px; left: 50%;
+        border-style: solid;
+        border-color: #444 transparent transparent transparent;
+        border-width: 10px 6px 0 6px; /*[first number is height, second/fourth are rigth/left width]*/
+        margin-left: -6px;
+      }
+      
+      /*Instance classes*/
+      .map-label.inactive {
+        opacity: 0.5;
+      }
+      
+      .map-label.redborder > .map-label-content {
+        border-color: #e00;
+      }
+      .map-label.redborder > .map-label-arrow {
+        border-top-color: #e00;
+      }
+      
+      .map-label.redbackground > .map-label-content {
+        white-space: default;
+        color: #fff;
+        background-color: #e00;
+      }
+      
+      
+
     </style>
 
 	
@@ -168,14 +229,17 @@ const leaflet = `
     }
 
     var marker = undefined;
-    var icon = 1;
 
-    function addMarkerNo(lat, lang, name) {
+    function addMarkerNo(lat, lang, name, c) {
+        var icon = L.divIcon({
+            iconSize:null,
+            html:'<div class="map-label"><div class="map-label-content">' + c + '</div><div class="map-label-arrow"></div></div>',
+            popupAnchor: [0, -30]
+          });
 
-        marker = L.marker([lang, lat]);
+        marker = L.marker([lang, lat], {icon: icon});
         marker.bindPopup('<p>' + name + '</p>');
         marker.addTo(myMap);
-        
     }
 
 </script>

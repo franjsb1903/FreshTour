@@ -178,41 +178,104 @@ export const stylesCardElement = StyleSheet.create({
 export const stylesCardElementPlanificacion = StyleSheet.create({
     container: {
         flex: 0,
-        padding: 10
+        padding: 10,
+        backgroundColor: properties.style.color.main
     },
     title: {
-        fontSize: 15,
-        fontWeight: "bold"
+        fontSize: 18,
+        fontWeight: "bold",
+        color: properties.style.color.text
     },
     rowContainer: {
         flexDirection: "row",
-        justifyContent: "flex-end",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "flex-end"
     },
     iconsContainer: {
-        flex: 2,
         flexDirection: "row"
     },
     titleContainer: {
-        flex: 1
+        flex: 2,
+        marginRight: 5
     },
     iconClose: {
         flex: 0
     },
     closeContainer: {
-        flexDirection: "row",
         justifyContent: "flex-end"
     }, 
     chevron: {
-        flexDirection: "column",
+        justifyContent: "flex-start",
         flex: 1
     },
-    dropDown: {
+    dropDownContainer: {
         flex: 1
     },
     tempo: {
         flexDirection: "row",
-        flex: 2
+        marginBottom: 10,
+        marginTop: 10,
+        justifyContent: "flex-end"
+    },
+    text: {
+        textAlign: "justify",
+        color: properties.style.color.text,
+        fontSize: 20
+    },
+    textBold: {
+        textAlign: "justify",
+        color: properties.style.color.text,
+        fontWeight: "bold",
+        fontSize: 20
+    },
+});
+
+export const stylesCardElementRuta = StyleSheet.create({
+    container: {
+        flex: 0,
+        backgroundColor: properties.style.color.main
+    },
+    rowContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end"
+    },
+    title: {
+        fontSize: 15,
+        color: properties.style.color.text
+    },
+    titleBold: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: properties.style.color.text
+    },
+    textTempo: {
+        fontSize: 15,
+        justifyContent: "flex-start",
+        color: properties.style.color.text
+    },
+    textDistancia: {
+        fontSize: 15,
+        justifyContent: "flex-end",
+        color: properties.style.color.text
+    },
+    text: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: properties.style.color.text
+    }
+});
+
+export const stylesDropDown = StyleSheet.create({
+    style: {
+        backgroundColor: properties.style.color.main
+    },
+    scroll: {
+        backgroundColor: properties.style.color.main,
+        height: 110
+    },
+    text: {
+        fontSize: 15,
+        color: properties.style.color.text
     }
 });
 
@@ -248,15 +311,15 @@ export const stylesPlanificadorScreens = StyleSheet.create({
         backgroundColor: properties.style.color.background
     },
     leftIconsContainer: {
+        flex: 3,
+        flexDirection: "row"
+    },
+    rightIconsContainer: {
         flex: 2,
         flexDirection: "row"
     },
     centerIconsContainer: {
-        flex: 2.5,
-        flexDirection: "row"
-    },
-    rightIconsContainer: {
-        flex: 1.1,
+        flex: 2,
         flexDirection: "row"
     }
 });

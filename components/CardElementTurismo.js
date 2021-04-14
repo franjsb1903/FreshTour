@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Text, ImageBackground, View, ToastAndroid } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';
 
-import { HeartIconButton, CalendarIconButton, MapIconButton } from './CustomIcons';
+import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
 
 import { stylesCardElement as styles } from '../styles/styles'
@@ -13,12 +13,28 @@ import AppContext from './PlanificadorAppContext';
 
 const CardElement = (props) => {
 
+    const [added, setAdded] = useState(false)
+
+    const context = useContext(AppContext);
+
+    const isAdded = context.existItem;
     const item = props.item;
+
+    useEffect(() => {
+        let mounted = true;
+        if (mounted) {
+            const value = isAdded(item.id);
+            setAdded(value);
+        }
+        return () => mounted = false;
+    }, [])
+
+    const changeAdd = () => {
+        setAdded(true);
+    }
 
     const showOnMap = props.showOnMap;
     const getGeoElementJson = props.getGeoElementJson;
-
-    const context = useContext(AppContext);
 
     const localUri = getImageUri(item.imaxe);
 
@@ -56,7 +72,11 @@ const CardElement = (props) => {
                             </View>
                             <View style={styles.iconRow}>
                                 <HeartIconButton />
-                                <CalendarIconButton addToPlanificacion={addToPlanificacion} item={item} />
+                                {
+                                    added ?
+                                        <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} /> :
+                                        <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} />
+                                }
                                 <MapIconButton showOnMap={showOnMap} item={item} />
                             </View>
                         </View>
