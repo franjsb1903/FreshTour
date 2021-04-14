@@ -1,10 +1,7 @@
 import { StyleSheet, Platform, StatusBar } from 'react-native';
 import properties from '../properties/properties_expo';
 
-export const styleTurismoItem = StyleSheet.create({
-    scroll: {
-        backgroundColor: properties.style.color.background
-    },
+export const stylesBorderContainer = StyleSheet.create({
     viewContainer: {
         borderColor: "#000",
         borderBottomWidth: 1,
@@ -19,21 +16,33 @@ export const styleTurismoItem = StyleSheet.create({
     },
     titleSize: {
         fontStyle: "italic",
-        fontSize: 16
+        fontSize: 20
     },
     viewTextContainer: {
         padding: 10,
         alignItems: "center"
     },
     text: {
-        fontSize: 15,
-        textAlign: "justify"
+        fontSize: 18,
+        textAlign: "center"
     },
     textBold: {
         fontWeight: "bold",
-        fontSize: 15,
-        textAlign: "justify"
+        fontSize: 18,
+        textAlign: "center"
+    }
+})
+
+export const stylesScroll = StyleSheet.create({
+    scroll: {
+        backgroundColor: properties.style.color.background
     },
+    containerScroll: {
+        paddingBottom: 20
+    }
+})
+
+export const styleTurismoItem = StyleSheet.create({
     url: {
         fontWeight: "bold",
         fontSize: 15,
@@ -307,9 +316,6 @@ export const stylesSearchBar = StyleSheet.create({
 });
 
 export const stylesPlanificadorScreens = StyleSheet.create({
-    scroll: {
-        backgroundColor: properties.style.color.background
-    },
     leftIconsContainer: {
         flex: 3,
         flexDirection: "row"
@@ -332,4 +338,29 @@ export const flexRowContainer = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     }
-})
+});
+
+export const stylesCardInstrucion = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: properties.style.color.main
+    },
+    rowContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-start"
+    },
+    titleBold: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: properties.style.color.text
+    },
+    text: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: properties.style.color.text
+    },
+    textNormal: {
+        fontSize: 15,
+        color: properties.style.color.text
+    }
+});

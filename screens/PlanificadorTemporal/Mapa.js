@@ -48,7 +48,7 @@ const Map = (props) => {
 
   useEffect(() => {
     if (context.route != '') {
-      const data = context.route;
+      const data = context.route.route;
       if (Platform.OS != "web") {
         global.map.injectJavaScript(`addRoute(${data})`);
         var i = 0;

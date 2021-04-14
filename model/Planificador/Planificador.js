@@ -25,14 +25,6 @@ export const getRoute = (coordinates) => {
                 }
             };
 
-            request.onreadystatechange = function () {
-                if (this.readyState === 4) {
-                  console.log('Status:', this.status);
-                  console.log('Headers:', this.getAllResponseHeaders());
-                  console.log('Body:', this.responseText);
-                }
-              };
-
             var body = '{"coordinates":[';
 
             for (var i = 0; i < coordinates.length; i++) {

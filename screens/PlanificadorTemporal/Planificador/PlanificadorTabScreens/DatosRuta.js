@@ -1,14 +1,59 @@
-import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { View, Text, ScrollView, StyleSheet, VirtualizedList } from 'react-native';
+import { Title } from 'react-native-paper';
+import * as Linking from 'expo-linking';
 
-import { stylesPlanificadorScreens as styles } from '../../../../styles/styles'
+import AppContext from '../../../../components/PlanificadorAppContext';
 
-const DatosRuta = () => {
+import { stylesScroll, stylesBorderContainer as borderStyle } from '../../../../styles/styles'
+
+const DatosRuta = (props) => {
+
+    const [data, setData] = useState(undefined);
+    const context = useContext(AppContext);
+
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted) {
+            setData(context.route.routeJson);
+        }
+
+        return () => mounted = false;
+    }, [context.route.routeJson]);
+
     return (
-        <ScrollView style={styles.scroll}>
-            <Text>Datos de ruta</Text>
+        <ScrollView style={stylesScroll.scroll}>
+            {
+                data && data.features ?
+                    <View style={borderStyle.viewContainer}>
+                        <Title style={borderStyle.title}> Datos de ruta </Title>
+                        <View style={borderStyle.viewTextContainer}>
+                            <Title style={borderStyle.titleSize}>Tempo total</Title>
+                            <Text style={borderStyle.textBold}>{Math.round(data.features[0].properties.summary.duration / 60) + context.tempoVisita} min</Text>
+                        </View>
+                        <View style={borderStyle.viewTextContainer}>
+                            <Title style={borderStyle.titleSize}>Tempo de ruta</Title>
+                            <Text style={borderStyle.textBold}>{Math.round(data.features[0].properties.summary.duration / 60)} min</Text>
+                        </View>
+                        <View style={borderStyle.viewTextContainer}>
+                            <Title style={borderStyle.titleSize}>Tempo de visita</Title>
+                            <Text style={borderStyle.textBold}>{context.tempoVisita} min</Text>
+                        </View>
+                        <View style={borderStyle.viewTextContainer}>
+                            <Title style={borderStyle.titleSize}>Distancia total</Title>
+                            <Text style={borderStyle.textBold}>{data.features[0].properties.summary.distance} km</Text>
+                        </View>
+                        <View style={borderStyle.viewTextContainer}>
+                            <Title style={borderStyle.titleSize}>Elementos a visitar</Title>
+                            <Text style={borderStyle.textBold}>{context.turismoItems.length} elementos</Text>
+                        </View>
+                    </View> :
+                    <Text>Non hai elementos</Text>
+
+            }
         </ScrollView>
-    );
+    )
 }
 
 export default DatosRuta;

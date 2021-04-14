@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, ToastAndroid } from 'react-native';
 import { Card } from 'react-native-elements';
-import DropDownPicker from 'react-native-dropdown-picker';
-
-import { PlayIconButton, CloseIconButton, ChevronDownIconButton, ChevronUpIconButton, StopIconButton } from '../components/CustomIcons'
 
 import { stylesCardElementRuta as styles } from '../styles/styles'
 
@@ -18,7 +15,7 @@ const CardElementRutaPlanificacion = (props) => {
     useEffect(() => {
         let mounted = true;
         try {
-            const data = JSON.parse(props.route)
+            const data = props.route;
             if (mounted) {
                 setstate(data);
             }

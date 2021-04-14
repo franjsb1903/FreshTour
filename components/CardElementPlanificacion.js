@@ -12,25 +12,32 @@ import AppContext from './PlanificadorAppContext';
 const CardElementPlanificacion = (props) => {
 
     const item = props.element;
+    const isFirst = props.isFirst;
+    const isLast = props.isLast;
 
     const [tipoVisita, setTipoVisita] = useState(item.features[0].properties.tempo_visita_rapida);
 
     const context = useContext(AppContext);
-
+/*
     useEffect(() => {
         let mounted = true;
         if (mounted) {
-            context.actualizaTempoVisita(tipoVisita, 0);
+            context.initTempoVisita(tipoVisita, 0);
         }
         return () => mounted = false;
-    }, [])
+    }, [])*/
 
     return (
         <Card containerStyle={styles.container}>
             <View style={styles.rowContainer}>
-                <View style={styles.chevron}>
-                    <ChevronUpIconButton />
-                </View>
+                {
+                    isFirst ?
+                        <></>
+                        :
+                        <View style={styles.chevron}>
+                            <ChevronUpIconButton />
+                        </View>
+                }
                 <View style={styles.closeContainer}>
                     <CloseIconButton style={styles.iconClose} />
                 </View>
@@ -74,9 +81,13 @@ const CardElementPlanificacion = (props) => {
             </View>
             <Card.Divider />
             <View style={styles.rowContainer}>
-                <View style={styles.chevron}>
-                    <ChevronDownIconButton />
-                </View>
+                {
+                    isLast ?
+                        <></>
+                        : <View style={styles.chevron}>
+                            <ChevronDownIconButton />
+                        </View>
+                }
                 <View style={styles.iconsContainer}>
                     <PlayIconButton />
                     <StopIconButton />

@@ -6,7 +6,7 @@ import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, Map
 import CardElementPlanificacion from '../../../../components/CardElementPlanificacion'
 import CardElementRuta from '../../../../components/CardElementRutaPlanificacion'
 
-import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow } from '../../../../styles/styles';
+import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow, stylesScroll } from '../../../../styles/styles';
 
 import AppContext from '../../../../components/PlanificadorAppContext';
 
@@ -31,10 +31,10 @@ const Planificacion = () => {
     useEffect(() => {
         let mounted = true;
         if (mounted)
-            setRoute(context.route);
+            setRoute(context.route.routeJson);
 
         return () => mounted = false;
-    }, [context.route]);
+    }, [context.route.routeJson]);
 
 
     const drawCards = () => {
@@ -42,13 +42,14 @@ const Planificacion = () => {
         for (var i = 0; i < items.length; i++) {
             if (i == 0) {
                 cards.push(
-                    <CardElementPlanificacion key={i} element={items[i]} />
+                    <CardElementPlanificacion key={i} element={items[i]} isFirst={true} isLast={false} />
                 )
             } else {
+                const isLast = i == items.length - 1;
                 cards.push(
                     <View key={i}>
                         <CardElementRuta anterior={items[i - 1]} element={items[i]} route={route} position={i - 1} />
-                        <CardElementPlanificacion element={items[i]} />
+                        <CardElementPlanificacion element={items[i]} isFirst={false} isLast={isLast} />
                     </View>
                 )
             }
@@ -61,7 +62,7 @@ const Planificacion = () => {
     }
 
     return (
-        <ScrollView style={styles.scroll}>
+        <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
             <View style={stylesRow.container}>
                 <View style={styles.leftIconsContainer}>
                     <SaveIconButton />

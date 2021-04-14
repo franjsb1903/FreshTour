@@ -11,7 +11,10 @@ const AppContextProvider = (props) => {
 
     const [coordinates, setCoordinates] = useState([]);
 
-    const [route, setRoute] = useState('');
+    const [route, setRoute] = useState({
+        route: '',
+        routeJson: {}
+    });
 
     const [tempoVisita, setTempoVisita] = useState(0);
 
@@ -31,7 +34,10 @@ const AppContextProvider = (props) => {
                 if (coordinates.length > 1) {
                     const route = await getRoute(coordinates);
                     if (route != undefined) {
-                        setRoute(route);
+                        setRoute({
+                            route: route,
+                            routeJson: JSON.parse(route)
+                        });
                     }
                 }
             } catch (err) {
@@ -47,10 +53,13 @@ const AppContextProvider = (props) => {
 
         var exist = existItem(`${item.features[0].properties.id}`);
 
+        
         if (!exist) {
             setTurismoItems({
                 items: [...turismoItems.items, item]
             });
+            const tempo = tempoVisita;
+            initTempoVisita(tempo + item.features[0].properties.tempo_visita_rapida);
         }
     };
 
@@ -85,13 +94,18 @@ const AppContextProvider = (props) => {
         setTempoVisita(tempoVisita - antigoTempo + novoTempo);
     }
 
+    const initTempoVisita = (tempo) => {
+        setTempoVisita(tempo);
+    }
+
     const settings = {
         addItem: addItem,
         route: route,
         existItem: existItem,
         coordinates: coordinates,
         turismoItems: turismoItems.items,
-        actualizaTempoVisita: actualizaTempoVisita
+        actualizaTempoVisita: actualizaTempoVisita,
+        tempoVisita: tempoVisita
     }
 
     return (

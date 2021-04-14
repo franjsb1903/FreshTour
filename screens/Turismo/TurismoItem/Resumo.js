@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 import { getCountElement } from '../../../model/Opinions/Opinions';
-import { styleTurismoItem as styles, flexRowContainer as container } from '../../../styles/styles'
+import { styleTurismoItem as styles, stylesScroll, flexRowContainer as container } from '../../../styles/styles'
 
 import { HeartIconButton, MapIconButton, CalendarIconButton } from '../../../components/CustomIcons'
 import Stars from '../../../components/CustomStarsDisplay';
@@ -20,14 +20,14 @@ const Resumo = (props) => {
             if (count == undefined) {
                 setCountOpinions(undefined);
                 return;
-            }
+            } 
             setCountOpinions(count[0].count);
         }
         updateCountOpinions();
     }, []);
 
     return (
-        <ScrollView style={styles.scroll}>
+        <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
             <View style={container.container}>
                 <Stars style={styles.stars} value={element.valoracion} />
                 {
