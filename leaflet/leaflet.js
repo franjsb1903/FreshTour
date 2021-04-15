@@ -156,9 +156,9 @@ const leaflet = `
                 } else {
                     layer.bindPopup('<p>'+feature.properties.display_name+'</p>');
                 }
-                myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 16);
+                myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 13);
                 layer.on('click', function(e) {
-                    myMap.setView(e.latlng, 16);
+                    myMap.setView(e.latlng, 13);
                 });
             }
         }).addTo(myMap);
@@ -225,10 +225,11 @@ const leaflet = `
 
     function addMarker(lat, lang) {
         L.marker([lat, lang]).addTo(myMap);
-        myMap.setView([lat, lang], 16);
+        myMap.setView([lat, lang], 13);
     }
 
     var marker = undefined;
+    var arrayMarkers = [];
 
     function addMarkerNo(lat, lang, name, c) {
         var icon = L.divIcon({
@@ -240,6 +241,14 @@ const leaflet = `
         marker = L.marker([lang, lat], {icon: icon});
         marker.bindPopup('<p>' + name + '</p>');
         marker.addTo(myMap);
+        arrayMarkers.push(marker);
+    }
+
+    function deleteMarkerPlanificacionLayer() {
+        for(var i=0; i<arrayMarkers.length; i++) {
+            myMap.removeLayer(arrayMarkers[i]);
+        }
+        arrayMarkers=[];
     }
 
 </script>

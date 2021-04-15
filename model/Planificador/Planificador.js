@@ -25,6 +25,7 @@ export const getRoute = (coordinates) => {
                 }
             };
 
+            console.log(coordinates);
             var body = '{"coordinates":[';
 
             for (var i = 0; i < coordinates.length; i++) {

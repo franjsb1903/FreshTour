@@ -8,16 +8,13 @@ import { stylesMapa as styles } from '../../styles/styles'
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
 import AppContext from '../../components/PlanificadorAppContext';
+import { PointsInterestIconButton } from '../../components/CustomIcons';
 
 import { getIconContent } from '../../Util/IconMapUtil'
 
 import LeafletMap from '../../components/LeafletMap';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList';
-
-const PointsInterestIcon = () => (
-  <Icon name="business" size={32} />
-);
 
 const Map = (props) => {
 
@@ -41,27 +38,31 @@ const Map = (props) => {
   let injectedData = `addLayer(${selected.selected})`;
 
   useEffect(() => {
+    global.setSelected = updateSelected;
+  }, []);
+
+  useEffect(() => {
     if (Platform.OS != "web") {
       global.map.injectJavaScript(injectedData);
     }
   }, [selected.selected]);
 
   useEffect(() => {
-    if (context.route != '') {
-      const data = context.route.route;
-      if (Platform.OS != "web") {
-        global.map.injectJavaScript(`addRoute(${data})`);
-        var i = 0;
-        context.turismoItems.map(e => {
-            i++;
-            const content = getIconContent(i);
-            const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
-            const name = `${e.features[0].properties.titulo}`;
-            global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}", "${content}")`);
-        });
-        
-      }
+    global.map.injectJavaScript(`deleteMarkerPlanificacionLayer()`);
+    const data = context.route.route;
+    if (Platform.OS != "web") {
+      global.map.injectJavaScript(`addRoute(${data})`);
+      var i = 0;
+      context.turismoItems.map(e => {
+        i++;
+        const content = getIconContent(i);
+        const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
+        const name = `${e.features[0].properties.titulo}`;
+        global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}", "${content}")`);
+      });
+
     }
+
 
   }, [context.route]);
 
@@ -141,14 +142,7 @@ const Map = (props) => {
             <Text style={styles.titleText}>FreshTour</Text>
           </View>
           <View style={styles.icon}>
-            <IconButton
-              icon={PointsInterestIcon}
-              onPress={() => {
-                props.navigation.navigate("Turism", {
-                  updateItem: updateSelected
-                });
-              }}
-            />
+            <PointsInterestIconButton navigate={props.navigation.navigate} updateSelected={updateSelected} />
           </View>
         </View>
         <View style={styles.search}>

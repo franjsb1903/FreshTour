@@ -28,7 +28,8 @@ const properties = {
             title: "#fff",
             topTabIndicator: "#90ee90",
             background: "rgba(63, 191, 76, 0.30)",
-            backgroundNoA: "rgb(63,191,76)"
+            backgroundNoA: "rgb(63,191,76)",
+            iconColor: "#fff"
         },
         text: {
             title_font_family: "serif"

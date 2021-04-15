@@ -56,7 +56,7 @@ export default function App() {
   return (
     <AppContextProvider>
       <SafeAreaView style={styles.AndroidSafeArea}>
-        <NavigationContainer >
+        <NavigationContainer>
           <MyStack />
         </NavigationContainer>
       </SafeAreaView>

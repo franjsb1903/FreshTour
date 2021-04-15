@@ -84,7 +84,7 @@ const Turism = (props) => {
             }
             const update = props.route.params.updateItem;
             update(text);
-            props.navigation.navigate('BottomTabNavigator');
+            props.navigation.navigate('Map');
         } catch (err) {
             ToastAndroid.show('Erro xeolocalizando elemento, probe de novo', ToastAndroid.SHORT);
         }

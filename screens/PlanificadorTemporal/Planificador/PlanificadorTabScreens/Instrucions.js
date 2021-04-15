@@ -3,7 +3,8 @@ import { Text, View, ScrollView } from 'react-native';
 
 import AppContext from '../../../../components/PlanificadorAppContext';
 
-import CustomListInstrucions from '../../../../components/CustomListInstrucions'
+import CustomListInstrucions from '../../../../components/CustomListInstrucions';
+import NoElementsPlanificadorView from '../../../../components/NoElementsPlanificadorView';
 
 import { stylesScroll as styles } from '../../../../styles/styles';
 
@@ -46,13 +47,12 @@ const Instrucions = () => {
     }
 
     return (
-        <ScrollView style={styles.scroll}>
-            {
-                data && data.features && data.features[0].properties.segments[items.length - 2] ?
-                drawList():
-                <Text>Non hai elementos</Text>
-            }
-        </ScrollView>
+        data && data.features && data.features[0].properties.segments[items.length - 2] ?
+            <ScrollView style={styles.scroll}>
+                {drawList()}
+            </ScrollView>
+            :
+            <NoElementsPlanificadorView />
     );
 }
 

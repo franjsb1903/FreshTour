@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
+import { ToastAndroid } from 'react-native'
 
 import { getRoute } from '../model/Planificador/Planificador';
 
@@ -19,12 +20,13 @@ const AppContextProvider = (props) => {
     const [tempoVisita, setTempoVisita] = useState(0);
 
     useEffect(() => {
+        var arrayCoordinates = [];
         turismoItems.items.map(e => {
             const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
-            if (!existCoordinate(coord)) {
-                setCoordinates([...coordinates, coord]);
-            }
+            arrayCoordinates.push(coord);
+
         });
+        setCoordinates(arrayCoordinates);
     }, [turismoItems.items]);
 
     useEffect(() => {
@@ -39,8 +41,14 @@ const AppContextProvider = (props) => {
                             routeJson: JSON.parse(route)
                         });
                     }
+                } else {
+                    setRoute({
+                        route: '',
+                        routeJson: {}
+                    });
                 }
             } catch (err) {
+                ToastAndroid.show("Erro na obtención da ruta", ToastAndroid.SHORT);
                 console.error(err);
             }
         }
@@ -53,7 +61,7 @@ const AppContextProvider = (props) => {
 
         var exist = existItem(`${item.features[0].properties.id}`);
 
-        
+
         if (!exist) {
             setTurismoItems({
                 items: [...turismoItems.items, item]
@@ -72,20 +80,6 @@ const AppContextProvider = (props) => {
                 break;
             }
         }
-        
-        return exist;
-    }
-
-    const existCoordinate = (coordinate) => {
-        var exist = false;
-
-        for (var i = 0; i < coordinates.length; i++) {
-            const e = coordinates[i];
-            if (e[0] === coordinate[0] && e[1] == coordinate[1]) {
-                exist = true;
-                break;
-            }
-        }
 
         return exist;
     }
@@ -98,6 +92,12 @@ const AppContextProvider = (props) => {
         setTempoVisita(tempo);
     }
 
+    const updateItems = (newItems) => {
+        setTurismoItems({
+            items: newItems
+        })
+    }
+
     const settings = {
         addItem: addItem,
         route: route,
@@ -105,7 +105,8 @@ const AppContextProvider = (props) => {
         coordinates: coordinates,
         turismoItems: turismoItems.items,
         actualizaTempoVisita: actualizaTempoVisita,
-        tempoVisita: tempoVisita
+        tempoVisita: tempoVisita,
+        updateItems: updateItems
     }
 
     return (

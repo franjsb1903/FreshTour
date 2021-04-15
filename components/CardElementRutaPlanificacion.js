@@ -33,7 +33,7 @@ const CardElementRutaPlanificacion = (props) => {
             <Card.Divider />
             {
                 route == undefined || route.features == undefined || route.features[0].properties.segments[position] == undefined ?
-                    <Text>Waiting</Text> :
+                    <Text style={styles.text}>Calculando ruta...</Text> :
                     <View style={styles.rowContainer}>
                         <View style={{ flex: 1, justifyContent: "flex-start" }}>
                             <Text style={styles.textTempo}>Tempo: <Text style={styles.text}>{

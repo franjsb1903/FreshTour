@@ -18,14 +18,13 @@ const CardElementPlanificacion = (props) => {
     const [tipoVisita, setTipoVisita] = useState(item.features[0].properties.tempo_visita_rapida);
 
     const context = useContext(AppContext);
-/*
-    useEffect(() => {
-        let mounted = true;
-        if (mounted) {
-            context.initTempoVisita(tipoVisita, 0);
-        }
-        return () => mounted = false;
-    }, [])*/
+
+    const onDeleteItemPlanificador = props.onDeleteItemPlanificador;
+
+    const closeIconOnPress = () => {
+        onDeleteItemPlanificador(item.features[0].properties.id);
+        context.actualizaTempoVisita(0, tipoVisita);
+    }
 
     return (
         <Card containerStyle={styles.container}>
@@ -39,7 +38,9 @@ const CardElementPlanificacion = (props) => {
                         </View>
                 }
                 <View style={styles.closeContainer}>
-                    <CloseIconButton style={styles.iconClose} />
+                    <CloseIconButton
+                        style={styles.iconClose}
+                        closeIconOnPress={closeIconOnPress} />
                 </View>
             </View>
             <Card.Divider />
@@ -76,7 +77,7 @@ const CardElementPlanificacion = (props) => {
             <View style={styles.rowContainer}>
                 <View style={styles.tempo}>
                     <Text style={styles.text}>Tempo: </Text>
-                    <Text style={styles.textBold}>{tipoVisita > 60 ? <Text>{Number((tipoVisita/60).toFixed(1))} h</Text> : <Text>{Math.round(tipoVisita)} min</Text>}</Text>
+                    <Text style={styles.textBold}>{tipoVisita > 60 ? <Text>{Number((tipoVisita / 60).toFixed(1))} h</Text> : <Text>{Math.round(tipoVisita)} min</Text>}</Text>
                 </View>
             </View>
             <Card.Divider />

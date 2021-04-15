@@ -325,8 +325,20 @@ export const stylesPlanificadorScreens = StyleSheet.create({
         flexDirection: "row"
     },
     centerIconsContainer: {
-        flex: 2,
+        flex: 3,
         flexDirection: "row"
+    },
+    noElementsContainer: {
+        flex: 1,
+        padding: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: properties.style.color.background
+    },
+    textNoElements: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 30
     }
 });
 
@@ -336,7 +348,8 @@ export const flexRowContainer = StyleSheet.create({
         flexDirection: "row",
         padding: 20,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: properties.style.color.main
     }
 });
 

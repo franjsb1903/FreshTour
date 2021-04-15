@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, ScrollView, Vibration } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import { View, ScrollView } from 'react-native';
 
-import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton } from '../../../../components/CustomIcons';
-import CardElementPlanificacion from '../../../../components/CardElementPlanificacion'
-import CardElementRuta from '../../../../components/CardElementRutaPlanificacion'
+import CardElementPlanificacion from '../../../../components/CardElementPlanificacion';
+import CardElementRuta from '../../../../components/CardElementRutaPlanificacion';
+import NoElementsPlanificadorView from '../../../../components/NoElementsPlanificadorView';
 
-import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow, stylesScroll } from '../../../../styles/styles';
+import { stylesScroll } from '../../../../styles/styles';
 
 import AppContext from '../../../../components/PlanificadorAppContext';
 
@@ -14,8 +13,6 @@ const Planificacion = () => {
 
     const [items, setItems] = useState([]);
     const [route, setRoute] = useState({});
-
-    const navigation = useNavigation();
 
     const context = useContext(AppContext);
 
@@ -42,14 +39,14 @@ const Planificacion = () => {
         for (var i = 0; i < items.length; i++) {
             if (i == 0) {
                 cards.push(
-                    <CardElementPlanificacion key={i} element={items[i]} isFirst={true} isLast={false} />
+                    <CardElementPlanificacion key={i} element={items[i]} isFirst={true} isLast={false} onDeleteItemPlanificador={onDeleteItem} />
                 )
             } else {
                 const isLast = i == items.length - 1;
                 cards.push(
                     <View key={i}>
                         <CardElementRuta anterior={items[i - 1]} element={items[i]} route={route} position={i - 1} />
-                        <CardElementPlanificacion element={items[i]} isFirst={false} isLast={isLast} />
+                        <CardElementPlanificacion element={items[i]} isFirst={false} isLast={isLast} onDeleteItemPlanificador={onDeleteItem} />
                     </View>
                 )
             }
@@ -57,32 +54,28 @@ const Planificacion = () => {
         return cards;
     }
 
-    const onMapClick = () => {
-        navigation.navigate('Map');
+    const onDeleteItem = (id) => {
+        var aux = [];
+        for (var i = 0; i < items.length; i++) {
+            const e = items[i];
+            if (`${e.features[0].properties.id}` != id) {
+                aux.push(e);
+            }
+        }
+        setItems(aux);
+        context.updateItems(aux);
     }
 
     return (
-        <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
-            <View style={stylesRow.container}>
-                <View style={styles.leftIconsContainer}>
-                    <SaveIconButton />
-                    <ShareIconButton />
-                </View>
-                <View style={styles.rightIconsContainer}>
-                    <MapIconButton onMapClick={onMapClick} />
-                </View>
-                <View style={styles.centerIconsContainer}>
-                    <WalkIconButton />
-                    <BicycleIconButton />
-                </View>
-            </View>
-            {
-                items.length > 0 ?
-                    drawCards()
-                    :
-                    <Text>Cree unha planificación</Text>
-            }
-        </ScrollView>
+
+        items.length > 0 ?
+            <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
+                {drawCards()}
+            </ScrollView>
+            :
+            <NoElementsPlanificadorView />
+
+
     );
 }
 

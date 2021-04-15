@@ -1,39 +1,44 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { IconButton } from 'react-native-paper';
 
+import properties from '../properties/properties_expo'
+
 const HeartIcon = () => (
-    <Icon name="heart-outline" size={30} />
+    <Icon name="heart-outline" size={30} color="#000" />
 );
 
 const CalendarIcon = () => (
-    <Icon name="calendar" size={30} />
+    <Icon name="calendar" size={30} color="#000" />
 );
 
 const CalendarOutlineIcon = () => (
-    <Icon name="calendar-outline" size={30} />
+    <Icon name="calendar-outline" size={30} color="#000" />
 );
 
 const MapIcon = () => (
-    <Icon name="map" size={30} />
+    <Icon name="map" size={30} color="#000" />
+);
+
+const MapIconWhite = () => (
+    <Icon name="map" size={30} color="#fff" />
 );
 
 const ShareIcon = () => (
-    <Icon name="share-outline" size={30} />
+    <Icon name="share-outline" size={30} color={properties.style.color.iconColor} />
 );
 
 const SaveIcon = () => (
-    <Icon name="bookmark-outline" size={30} />
+    <Icon name="bookmark-outline" size={30} color={properties.style.color.iconColor} />
 );
 
 const WalkIcon = () => (
-    <Icon name="walk-outline" size={30} />
+    <Icon name="walk-outline" size={30} color={properties.style.color.iconColor} />
 );
 
 const BicycleIcon = () => (
-    <Icon name="bicycle-outline" size={30} />
+    <Icon name="bicycle-outline" size={30} color={properties.style.color.iconColor} />
 );
 
 const PlayIcon = () => (
@@ -54,6 +59,10 @@ const ChevronUpIcon = () => (
 
 const ChevronDownIcon = () => (
     <Icon name="chevron-down" size={30} color="#fff" />
+);
+
+const PointsInterestIcon = () => (
+    <Icon name="business" size={30} color={properties.style.color.iconColor} />
 );
 
 export const MarkerIcon = () => (
@@ -118,10 +127,11 @@ export const MapIconButton = (props) => {
     const onMapClick = props.onMapClick;
     const item = props.item;
     const style = props.style;
+    const white = props.white
 
     return (
         <IconButton
-            icon={MapIcon}
+            icon={white ? MapIconWhite : MapIcon}
             onPress={() => showOnMap ? showOnMap(`${item.id}`) : onMapClick()}
             style={style} />
     )
@@ -183,10 +193,14 @@ export const StopIconButton = () => {
 
 export const CloseIconButton = (props) => {
     const style = props.style;
+    const id = props.id;
+    const closeIconOnPress = props.closeIconOnPress;
     return (
         <IconButton
             icon={CloseIcon}
-            onPress={() => console.log("Close")}
+            onPress={() => {
+                closeIconOnPress();
+            }}
             style={style}
         />
     )
@@ -216,4 +230,21 @@ export const ChevronDownIconButton = (props) => {
             style={style}
         />
     )
+}
+
+export const PointsInterestIconButton = (props) => {
+
+    const navigate = props.navigate;
+    const updateSelected = props.updateSelected;
+
+    return (
+        <IconButton
+            icon={PointsInterestIcon}
+            onPress={() => {
+                navigate("Turism", {
+                    updateItem: updateSelected
+                });
+            }}
+        />
+    );
 }
