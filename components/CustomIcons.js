@@ -22,7 +22,7 @@ const MapIcon = () => (
 );
 
 const MapIconWhite = () => (
-    <Icon name="map" size={30} color="#fff" />
+    <Icon name="map-outline" size={30} color="#fff" />
 );
 
 const ShareIcon = () => (
@@ -39,6 +39,14 @@ const WalkIcon = () => (
 
 const BicycleIcon = () => (
     <Icon name="bicycle-outline" size={30} color={properties.style.color.iconColor} />
+);
+
+const WalkIconSelected = () => (
+    <Icon name="walk-outline" size={30} color="red" />
+);
+
+const BicycleIconSelected = () => (
+    <Icon name="bicycle-outline" size={30} color="red" />
 );
 
 const PlayIcon = () => (
@@ -155,20 +163,28 @@ export const SaveIconButton = () => {
     )
 }
 
-export const WalkIconButton = () => {
+export const WalkIconButton = (props) => {
+
+    const walking = props.walking;
+    const changeProfile = props.changeProfile;
+
     return (
         <IconButton
-            icon={WalkIcon}
-            onPress={() => console.log("Walk")}
+            icon={walking ? WalkIconSelected : WalkIcon}
+            onPress={() => changeProfile()}
         />
     )
 }
 
-export const BicycleIconButton = () => {
+export const BicycleIconButton = (props) => {
+
+    const walking = props.walking;
+    const changeProfile = props.changeProfile;
+
     return (
         <IconButton
-            icon={BicycleIcon}
-            onPress={() => console.log("Bicycle")}
+            icon={walking ? BicycleIcon : BicycleIconSelected}
+            onPress={() => changeProfile()}
         />
     )
 }
@@ -209,11 +225,13 @@ export const CloseIconButton = (props) => {
 export const ChevronUpIconButton = (props) => {
 
     const style = props.style;
+    const changeOrderUp = props.onPressIcon;
+    const id = props.id;
 
     return (
         <IconButton
             icon={ChevronUpIcon}
-            onPress={() => console.log("Up")}
+            onPress={() => changeOrderUp(id)}
             style={style}
         />
     )
@@ -222,11 +240,13 @@ export const ChevronUpIconButton = (props) => {
 export const ChevronDownIconButton = (props) => {
 
     const style = props.style;
+    const changeOrderDown = props.onPressIcon;
+    const id = props.id;
 
     return (
         <IconButton
             icon={ChevronDownIcon}
-            onPress={() => console.log("Down")}
+            onPress={() => changeOrderDown(id)}
             style={style}
         />
     )

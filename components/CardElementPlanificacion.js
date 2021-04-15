@@ -34,7 +34,7 @@ const CardElementPlanificacion = (props) => {
                         <></>
                         :
                         <View style={styles.chevron}>
-                            <ChevronUpIconButton />
+                            <ChevronUpIconButton onPressIcon={context.changeOrderUp} id={item.features[0].properties.id} />
                         </View>
                 }
                 <View style={styles.closeContainer}>
@@ -86,7 +86,7 @@ const CardElementPlanificacion = (props) => {
                     isLast ?
                         <></>
                         : <View style={styles.chevron}>
-                            <ChevronDownIconButton />
+                            <ChevronDownIconButton onPressIcon={context.changeOrderDown} id={item.features[0].properties.id} />
                         </View>
                 }
                 <View style={styles.iconsContainer}>

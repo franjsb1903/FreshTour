@@ -1,12 +1,21 @@
 import properties from '../../properties/properties_expo'
 
-export const getRoute = (coordinates) => {
+export const getRoute = (coordinates, walking) => {
     return new Promise((resolve, reject) => {
 
-        const url = properties.routes.url + properties.routes.walk_profile + properties.routes.format;
+        const urlWalk = properties.routes.url + properties.routes.walk_profile + properties.routes.format;
+        const urlCycle = properties.routes.url + properties.routes.clycling_profile + properties.routes.format;
 
         try {
             let request = new XMLHttpRequest();
+
+            var url;
+
+            if(walking) {
+                url = urlWalk;
+            } else {
+                url = urlCycle;
+            }
 
             request.open('POST', url);
 
@@ -20,12 +29,11 @@ export const getRoute = (coordinates) => {
                 } else {
                     reject({
                         status: this.status,
-                        statusText: request.statusText
+                        statusText: request.responseText
                     });
                 }
             };
 
-            console.log(coordinates);
             var body = '{"coordinates":[';
 
             for (var i = 0; i < coordinates.length; i++) {

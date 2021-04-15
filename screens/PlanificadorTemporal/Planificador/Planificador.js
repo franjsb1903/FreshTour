@@ -33,8 +33,8 @@ const Planificador = (props) => {
                         <ShareIconButton />
                     </View>
                     <View style={styles.centerIconsContainer}>
-                        <WalkIconButton />
-                        <BicycleIconButton />
+                        <WalkIconButton walking={context.walking} changeProfile={context.changeProfile} />
+                        <BicycleIconButton walking={context.walking} changeProfile={context.changeProfile} />
                     </View>
                     <View style={styles.rightIconsContainer}>
                         <MapIconButton onMapClick={onMapClick} white={true} />

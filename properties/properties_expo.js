@@ -41,7 +41,8 @@ const properties = {
     routes: {
         url: "https://api.openrouteservice.org/v2/directions",
         format: "geojson",
-        walk_profile: "/foot-walking/"
+        walk_profile: "/foot-walking/",
+        clycling_profile: "/cycling-regular/"
     }
 }
 
