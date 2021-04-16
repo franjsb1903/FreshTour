@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './components/BottomTabNavigator';
 import TurismoList from './screens/Turismo/TurismoList';
 import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
+import Register from './screens/Usuarios/screens/auth/Register';
 
 import AppContextProvider from './components/PlanificadorAppContextProvider'
 
@@ -46,6 +47,16 @@ function MyStack() {
             )
           }
         })}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerShown: true,
+          title: "Registro",
+          headerStyle: styles.headerStyle,
+          headerTintColor: "#fff"
+        }}
       />
     </Stack.Navigator>
   )

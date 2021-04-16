@@ -220,7 +220,7 @@ export const stylesCardElementPlanificacion = StyleSheet.create({
     },
     closeContainer: {
         justifyContent: "flex-end"
-    }, 
+    },
     chevron: {
         justifyContent: "flex-start",
         flex: 1
@@ -344,9 +344,10 @@ export const stylesPlanificadorScreens = StyleSheet.create({
         backgroundColor: properties.style.color.background
     },
     textNoElements: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: "bold",
-        marginBottom: 30
+        marginBottom: 30,
+        textAlign: "center"
     }
 });
 
@@ -367,5 +368,111 @@ export const stylesListInstrucion = StyleSheet.create({
     },
     text: {
         fontSize: 18
+    }
+});
+
+export const notLoggedIn = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: properties.style.color.background
+    },
+    header: {
+        backgroundColor: properties.style.color.main,
+        flex: 3,
+        justifyContent: "center",
+        alignContent: "center"
+    },
+    titleText: {
+        fontSize: 50,
+        color: properties.style.color.title,
+        fontFamily: Platform.OS == "ios" ? "San Francisco" : properties.style.text.title_font_family,
+        textAlign: "center"
+    },
+    subtitleContainer: {
+        paddingRight: 50,
+        paddingLeft: 50
+    },
+    subtitleText: {
+        fontSize: 24,
+        color: properties.style.color.title,
+        textAlign: "center"
+    },
+    bottom: {
+        flex: 2,
+        justifyContent: "center",
+        alignContent: "center",
+        padding: 10
+    },
+    textBottom: {
+        fontSize: 20,
+        textAlign: "center",
+        paddingTop: 10,
+        fontWeight: "bold"
+    },
+    rowTextBottom: {
+        flexDirection: "row"
+    },
+    textLogIn: {
+        fontSize: 20,
+        color: properties.style.color.darkGreen,
+        textDecorationLine: "underline",
+        paddingTop: 10
+    },
+    image: {
+        flex: 3,
+        resizeMode: "cover",
+        justifyContent: "center",
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        justifyContent: "flex-end"
+    }
+});
+
+export const customTouchableOpacity = {
+    buttonContainer: {
+        elevation: 0,
+        backgroundColor: properties.style.color.button,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12
+    },
+    buttonText: {
+        fontSize: 25,
+        color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase"
+    },
+    buttonTextSmaller: {
+        fontSize: 18,
+        color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase"
+    }
+}
+
+export const registerScreen = StyleSheet.create({
+    conatiner: {
+        flex: 1,
+        padding: 35,
+        backgroundColor: properties.style.color.background
+    },
+    inputGroup: {
+        flex: 1,
+        padding: 0,
+        marginBottom: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: "#006400"
+    },
+    textInput: {
+        fontSize: 20,
+        color: properties.style.color.darkGreen
+    },
+    buttonViewContainer: {
+        paddingTop: 20
     }
 });

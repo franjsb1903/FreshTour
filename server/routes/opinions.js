@@ -21,7 +21,7 @@ router.get('/opinions/count/:type/:id', async function (req, res) {
         const { type, id } = req.params;
 
         if (type === "Lugar turistico") {
-            onSearch("selec count(id) from fresh_tour.comentarios_valoracions_lugares_turisticos where id = $1", id, res);
+            onSearch("select count(id) from fresh_tour.comentarios_valoracions_lugares_turisticos where id = $1", id, res);
         } else if (type === "Monumento") {
             onSearch("select count(id) from fresh_tour.comentarios_valoracions_monumentos where id = $1", id, res);
         } else {

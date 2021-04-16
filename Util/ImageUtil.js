@@ -38,6 +38,13 @@ const getImageUri = (name) => {
                 return undefined;
             }
             break
+        case "catedral_app":
+            try {
+                locateUri = Image.resolveAssetSource(require('../images/app/catedral.jpg')).uri;
+            } catch (err) {
+                return undefined;
+            }
+            break
         default:
             return undefined;
     }

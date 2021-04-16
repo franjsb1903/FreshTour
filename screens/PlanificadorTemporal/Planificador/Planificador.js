@@ -7,7 +7,9 @@ import NoElementsPlanificadorView from '../../../components/NoElementsPlanificad
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
 import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton } from '../../../components/CustomIcons';
 
-import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow, stylesScroll } from '../../../styles/styles';
+import properties from '../../../properties/properties_expo'
+
+import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow } from '../../../styles/styles';
 
 const Planificador = (props) => {
 
@@ -41,7 +43,7 @@ const Planificador = (props) => {
                         <PointsInterestIconButton navigate={navigation.navigate} updateSelected={global.setSelected} />
                     </View>
                 </View>
-                <Button title="Limpar planificación" color="#006400" onPress={() => onClear()} />
+                <Button title="Limpar planificación" color={properties.style.color.button} onPress={() => onClear()} />
                 <TopTabNavigator />
             </>
             :

@@ -17,7 +17,6 @@ const Resumo = (props) => {
     useEffect(() => {
         const updateCountOpinions = async () => {
             const count = await getCountElement(element.tipo, element.id);
-            console.log(count);
             setCountOpinions(count);
         }
         updateCountOpinions();

@@ -67,7 +67,7 @@ const BottomTabNavigator = () => {
         name="User"
         component={User}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Perfil',
           tabBarColor: '#2e8b57',
           tabBarIcon: ({ color }) => (
             <Icon name="person-circle-outline" color={color} size={26} />

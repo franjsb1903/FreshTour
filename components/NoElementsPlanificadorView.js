@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { stylesPlanificadorScreens as styles } from '../styles/styles';
+import { stylesPlanificadorScreens as styles, customTouchableOpacity as styleButton } from '../styles/styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const NoElementsPlanificadorView = () => {
 
@@ -11,9 +12,13 @@ const NoElementsPlanificadorView = () => {
     return (
         <View style={styles.noElementsContainer}>
             <Text style={styles.textNoElements}>Engada elementos á súa planificación!</Text>
-            <Button title="Engadir elementos" color="#2e8b57" onPress={() => navigation.navigate("Turism",{
-                updateItem: global.setSelected
-            })} />
+            <TouchableOpacity style={styleButton.buttonContainer} onPress={() => {
+                navigation.navigate("Turism",{
+                    updateItem: global.setSelected
+                });
+            }}>
+                <Text style={styleButton.buttonText}>Engadir elementos</Text>
+            </TouchableOpacity>
         </View>
     )
 }

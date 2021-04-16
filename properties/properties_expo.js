@@ -29,7 +29,9 @@ const properties = {
             topTabIndicator: "#90ee90",
             background: "rgba(63, 191, 76, 0.30)",
             backgroundNoA: "rgb(63,191,76)",
-            iconColor: "#fff"
+            iconColor: "#fff",
+            button: "#006400",
+            darkGreen: "#006400"
         },
         text: {
             title_font_family: "serif"
