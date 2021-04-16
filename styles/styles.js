@@ -69,6 +69,14 @@ export const styleTurismoItem = StyleSheet.create({
     resumo: {
         textAlign: "justify",
         fontSize: 18
+    },
+    container: {
+        flex: 0,
+        flexDirection: "row",
+        padding: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: properties.style.color.background
     }
 });
 

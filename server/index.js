@@ -2,16 +2,15 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
-const db = require('../database/database');
-const pool = require('../database/database');
+const AuthController = require('./routes/auth/AuthController');
 
 app.use(cors());
 app.use(express.json());
 
-app.use(require("./routes/usuarios"));
 app.use(require("./routes/nominatim"));
 app.use(require("./routes/turismo"));
 app.use(require("./routes/opinions"));
+app.use('/auth', AuthController);
 
 const hostname = "192.168.1.71";
 

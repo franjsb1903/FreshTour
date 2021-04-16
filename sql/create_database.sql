@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.usuarios (
     apelidos VARCHAR(50),
     email VARCHAR(70) NOT NULL,
     contrasinal VARCHAR(50) NOT NULL,
+    data TIMESTAMP NOT NULL,
     CONSTRAINT pk_usuarios PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS fresh_tour.monumentos (

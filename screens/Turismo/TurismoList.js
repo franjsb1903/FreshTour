@@ -30,6 +30,9 @@ const Turism = (props) => {
                         data: data
                     });
                 }
+                if(data.status != 200) {
+                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                }
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
@@ -62,16 +65,20 @@ const Turism = (props) => {
     const doSearch = async (data) => {
         try {
             const element = await getElement(data);
-            if (element != undefined && element.length > 0) {
+            if(element.status != 200) {
+                ToastAndroid.show(element.message, ToastAndroid.SHORT);
+                return;
+            }
+            if (element != undefined && element.turismo.length > 0) {
                 setState({
                     data: element,
                     loading: false
                 });
             } else {
-                ToastAndroid.show('Non se atopa o elemento', ToastAndroid.SHORT);
+                ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
             }
         } catch (err) {
-            ToastAndroid.show('Non se atopa o elemento', ToastAndroid.SHORT);
+            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
         }
     }
 
@@ -97,24 +104,28 @@ const Turism = (props) => {
                 <ProgressBar />
             </View>
             :
-                <ScrollView refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-                    style={styles.scroll}>
-                    <View style={{ flex: 0 }}>
-                        <CustomSearchBar
-                            placeholder="Nome"
-                            doSearch={doSearch}
-                            updateItems={() => { }}
-                            onChange={true}
-                        />
-                    </View>
-                    {
-                        state.data == undefined || state.data.length == 0 ?
+            <ScrollView refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+                style={styles.scroll}>
+                <View style={{ flex: 0 }}>
+                    <CustomSearchBar
+                        placeholder="Nome"
+                        doSearch={doSearch}
+                        updateItems={() => { }}
+                        onChange={true}
+                    />
+                </View>
+                {
+                    state.data.status != 200 ?
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+                            <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
+                        </View> :
+                        state.data == undefined || state.data.turismo.length == 0 ?
                             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
                                 <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
                             </View> :
-                            state.data.map(element => {
+                            state.data.turismo.map(element => {
                                 return (
                                     <TouchableOpacity
                                         key={element.id}
@@ -127,8 +138,8 @@ const Turism = (props) => {
                                 )
                             })
 
-                    }
-                </ScrollView>
+                }
+            </ScrollView>
     )
 }
 

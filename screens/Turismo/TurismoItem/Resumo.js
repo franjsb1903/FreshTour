@@ -17,22 +17,19 @@ const Resumo = (props) => {
     useEffect(() => {
         const updateCountOpinions = async () => {
             const count = await getCountElement(element.tipo, element.id);
-            if (count == undefined) {
-                setCountOpinions(undefined);
-                return;
-            } 
-            setCountOpinions(count[0].count);
+            console.log(count);
+            setCountOpinions(count);
         }
         updateCountOpinions();
     }, []);
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
-            <View style={container.container}>
+            <View style={styles.container}>
                 <Stars style={styles.stars} value={element.valoracion} />
                 {
-                    countOpinions != undefined ?
-                        <Text style={styles.valoracion}>{countOpinions} valoracións</Text>
+                    countOpinions != undefined && countOpinions.status == 200 ?
+                        <Text style={styles.valoracion}>{countOpinions.count[0].count} valoracións</Text>
                         :
                         <Text style={styles.valoracion}></Text>
                 }
