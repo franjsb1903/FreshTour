@@ -79,7 +79,11 @@ export const MarkerIcon = () => (
 
 export const RouteIcon = () => (
     <MaterialIcons name="directions" size={30} />
-)
+);
+
+export const CloseCircleIcon = () => (
+    <Icon name="close-circle-outline" size={20} />
+);
 
 export const HeartIconButton = (props) => {
 
@@ -265,6 +269,22 @@ export const PointsInterestIconButton = (props) => {
                     updateItem: updateSelected
                 });
             }}
+        />
+    );
+}
+
+export const CloseCircleIconButton = (props) => {
+
+    const clear = props.clear;
+    const styles = props.style;
+
+    return (
+        <IconButton
+            icon={CloseCircleIcon}
+            onPress={() => {
+                clear();
+            }}
+            style={styles}
         />
     );
 }

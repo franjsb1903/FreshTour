@@ -464,15 +464,22 @@ export const registerScreen = StyleSheet.create({
     inputGroup: {
         flex: 1,
         padding: 0,
-        marginBottom: 15,
+        marginBottom: 0,
         borderBottomWidth: 1,
-        borderBottomColor: "#006400"
+        borderBottomColor: "#006400",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
     },
     textInput: {
         fontSize: 20,
-        color: properties.style.color.darkGreen
+        color: properties.style.color.darkGreen,
+        flex: 1
     },
     buttonViewContainer: {
         paddingTop: 20
+    },
+    clearButton: {
+        justifyContent: "center"
     }
 });

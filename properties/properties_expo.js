@@ -19,6 +19,11 @@ const properties = {
         },
         opinions: {
             opinions_count: "/opinions/count/"          // /opinions/count/:type/:id
+        },
+        usuarios: {
+            main: '/auth/',
+            register: 'register',
+            login: 'login'
         }
     },
     style: {

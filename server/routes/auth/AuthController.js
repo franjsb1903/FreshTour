@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var config = require('../../config/config');
 
+const helpers = require('../../lib/helpers');
+
 const pool = require('../../../database/database');
 
 var VerifyToken = require('./VerifyToken');
@@ -31,14 +33,16 @@ router.post('/register', (req, res) => {
                     if (err) {
                         return res.status(500).json({
                             status: 500,
-                            message: "Erro interno do servidor, tenteo de novo"
+                            message: "Erro interno do servidor, tenteo de novo",
+                            auth: false
                         });
                     }
                     // release the client back to the pool
                     done()
                     return res.status(500).json({
                         status: 500,
-                        message: "Erro interno do servidor, tenteo de novo"
+                        message: "Erro interno do servidor, tenteo de novo",
+                        auth: false
                     });
                 })
             }
@@ -74,7 +78,8 @@ router.post('/register', (req, res) => {
                         if (err) {
                             return res.status(500).json({
                                 status: 500,
-                                message: "Erro interno do servidor, tenteo de novo"
+                                message: "Erro interno do servidor, tenteo de novo",
+                                auth: false
                             });
                         }
                         try {
@@ -100,7 +105,8 @@ router.post('/register', (req, res) => {
                             console.log(err);
                             return res.status(500).json({
                                 status: 500,
-                                message: "Erro interno do servidor, tenteo de novo"
+                                message: "Erro interno do servidor, tenteo de novo",
+                                auth: false
                             });
                         }
                     })
@@ -110,6 +116,38 @@ router.post('/register', (req, res) => {
     });
 });
 
+router.post('/login', (req, res) => {
+    const { usuario, contrasinal } = req.body;
+
+    const query = "SELECT usuario, nome, apelidos, email, data, contrasinal FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $1";
+
+    pool.query(query, [usuario], (err, results) => {
+        if (err) {
+            helpers.onErrorAuth(500, "Erro autenticando ao usuario", err, res);
+            return;
+        }
+        if (results.rowCount == 0) {
+            helpers.onErrorAuth(404, "Usuario non atopado", undefined, res);
+            return;
+        }
+        
+        var user = results.rows[0];
+        console.log(user);
+
+        var passwordIsValid = bcrypt.compareSync(contrasinal, user.contrasinal);
+        if (!passwordIsValid) {
+            helpers.onErrorAuth(401, "Contrasinal incorrecto", undefined, res);
+            return;
+        }
+        delete user.contrasinal;
+        var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400
+        });
+
+        helpers.onCorrectAuth(token, user, res);
+    })
+})
+
 router.get('/me', VerifyToken, (req, res) => {
 
     const userId = req.userId;
@@ -117,13 +155,13 @@ router.get('/me', VerifyToken, (req, res) => {
     const query = "SELECT usuario, nome, apelidos, email, data FROM fresh_tour.usuarios WHERE id = $1";
 
     pool.query(query, [userId], (err, results) => {
-        if(err) {
+        if (err) {
             return res.status(500).json({
                 status: 500,
                 message: "Erro buscando o usuario"
             });
         }
-        if(results.rowCount == 0) {
+        if (results.rowCount == 0) {
             return res.status(404).json({
                 status: 404,
                 message: "Usuario non atopado"

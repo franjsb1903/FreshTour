@@ -6,8 +6,6 @@ import { getData, getElement, getGeoElement, getGeoElementJson } from '../../mod
 import CardElement from '../../components/CardElementTurismo';
 import CustomSearchBar from '../../components/CustomSearchBar';
 
-import AppContextProvider from '../../components/PlanificadorAppContextProvider';
-
 import { stylesTurismoList as styles } from '../../styles/styles'
 
 const Turism = (props) => {

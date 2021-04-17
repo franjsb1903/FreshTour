@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const LoggedIn = () => {
+const LoggedIn = (props) => {
+
+    const user = props.user;
+
     return (
         <View>
             <Text>
-                O usuario está logeado
+                {user.usuario}
             </Text>
         </View>
     )

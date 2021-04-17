@@ -9,7 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 const NotLoggedIn = (props) => {
 
     const localUri = getImageUri("catedral_app");
-
+    const register = props.register;
+    const login = props.login;
     const navigation = useNavigation();
 
     return (
@@ -23,13 +24,13 @@ const NotLoggedIn = (props) => {
                 </View>
             </ImageBackground>
             <View style={styles.bottom}>
-                <TouchableOpacity style={buttonStyle.buttonContainer} onPress={() => navigation.navigate('Register')}>
+                <TouchableOpacity style={buttonStyle.buttonContainer} onPress={() => navigation.navigate('Register', { register: register })}>
                     <Text style={buttonStyle.buttonText}>CREAR CONTA</Text>
                 </TouchableOpacity>
                 <Text style={styles.textBottom}>ou</Text>
                 <View style={styles.rowTextBottom}>
                     <Text style={styles.textBottom}>Se xa estás rexistrado, </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login', { login: login })}>
                         <Text style={styles.textLogIn}>
                             Inicia sesión
                     </Text>

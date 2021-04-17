@@ -7,6 +7,7 @@ import BottomTabNavigator from './components/BottomTabNavigator';
 import TurismoList from './screens/Turismo/TurismoList';
 import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 import Register from './screens/Usuarios/screens/auth/Register';
+import Login from './screens/Usuarios/screens/auth/Login';
 
 import AppContextProvider from './components/PlanificadorAppContextProvider'
 
@@ -54,6 +55,16 @@ function MyStack() {
         options={{
           headerShown: true,
           title: "Registro",
+          headerStyle: styles.headerStyle,
+          headerTintColor: "#fff"
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: true,
+          title: "Iniciar sesión",
           headerStyle: styles.headerStyle,
           headerTintColor: "#fff"
         }}
