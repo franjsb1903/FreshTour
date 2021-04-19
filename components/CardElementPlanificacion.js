@@ -7,7 +7,7 @@ import { PlayIconButton, CloseIconButton, ChevronDownIconButton, ChevronUpIconBu
 
 import { stylesCardElementPlanificacion as styles, stylesDropDown as dropdown } from '../styles/styles';
 
-import AppContext from './PlanificadorAppContext';
+import AppContext from '../context/PlanificadorAppContext';
 
 const CardElementPlanificacion = (props) => {
 

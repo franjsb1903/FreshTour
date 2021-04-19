@@ -7,9 +7,9 @@ import { getImageUri } from '../Util/ImageUtil';
 import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
 
-import { stylesCardElement as styles } from '../styles/styles'
+import { stylesCardElement as styles } from '../styles/styles';
 
-import AppContext from './PlanificadorAppContext';
+import AppContext from '../context/PlanificadorAppContext';
 
 const CardElement = (props) => {
 
@@ -38,20 +38,6 @@ const CardElement = (props) => {
 
     const localUri = getImageUri(item.imaxe);
 
-    const addToPlanificacion = async (id) => {
-        try {
-            const data = await getGeoElementJson(id);
-            if (data == undefined) {
-                ToastAndroid.show('Elemento non engadido', ToastAndroid.SHORT);
-                return;
-            }
-            context.addItem(data);
-        } catch (err) {
-            console.log(err);
-            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
-        }
-    }
-
     return (
         <Card containerStyle={[localUri ? styles.imageCardStyle : styles.noImageCardStyle]}>
             {
@@ -74,8 +60,8 @@ const CardElement = (props) => {
                                 <HeartIconButton />
                                 {
                                     added ?
-                                        <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} /> :
-                                        <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} />
+                                        <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
+                                        <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
                                 }
                                 <MapIconButton showOnMap={showOnMap} item={item} />
                             </View>
@@ -96,7 +82,11 @@ const CardElement = (props) => {
                             </View>
                             <View style={styles.iconRow}>
                                 <HeartIconButton />
-                                <CalendarIconButton />
+                                {
+                                    added ?
+                                        <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} /> :
+                                        <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} />
+                                }
                                 <MapIconButton showOnMap={showOnMap} item={item} />
                             </View>
                         </View>

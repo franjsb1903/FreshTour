@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
 import { ToastAndroid } from 'react-native'
-
+import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
 
 const AppContextProvider = (props) => {
@@ -169,6 +169,25 @@ const AppContextProvider = (props) => {
         })
     }
 
+    const addToPlanificacion = async (id, added) => {
+        try {
+            if(!added) {
+                const data = await getGeoElementJson(id);
+                if (data == undefined) {
+                    ToastAndroid.show('Elemento non engadido', ToastAndroid.SHORT);
+                    return;
+                }
+                ToastAndroid.show('Elemento engadido á planificación', ToastAndroid.SHORT);
+                addItem(data);   
+            } else {
+                ToastAndroid.show('Elemento xa engadido á planificación', ToastAndroid.SHORT);
+            }
+        } catch (err) {
+            console.log(err);
+            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+        }
+    }
+
     const settings = {
         addItem: addItem,
         route: route,
@@ -181,7 +200,8 @@ const AppContextProvider = (props) => {
         changeProfile: changeProfile,
         walking: walking,
         changeOrderUp: changeOrderUp,
-        changeOrderDown: changeOrderDown
+        changeOrderDown: changeOrderDown,
+        addToPlanificacion: addToPlanificacion
     }
 
     return (

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, View, Text, Button, TouchableOpacity } from 'react-native';
 
 import { AvatarIcon } from '../../../components/CustomIcons';
 import ListItemMenuUser from '../../../components/ListItemMenuUser';
 
+import UserContext from '../../../context/UserContext';
+
 import { loggedIn as styles, customTouchableOpacity as button } from '../../../styles/styles';
 
 const LoggedIn = (props) => {
 
-    const user = props.user;
-    const logout = props.logout;
+    const context = useContext(UserContext);
+    const user = context.user;
+    const logout = context.logout;
 
     const MenuUser = [
         {
@@ -39,7 +42,9 @@ const LoggedIn = (props) => {
         {
             id: 5,
             label: "Pechar sesión",
-            onPress: () => logout()
+            onPress: () => { 
+                logout();
+            }
         }
     ];
 

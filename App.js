@@ -9,7 +9,7 @@ import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 import Register from './screens/Usuarios/screens/auth/Register';
 import Login from './screens/Usuarios/screens/auth/Login';
 
-import AppContextProvider from './components/PlanificadorAppContextProvider'
+import AppContextProvider from './context/PlanificadorAppContextProvider'
 
 import { stylesApp as styles } from './styles/styles';
 

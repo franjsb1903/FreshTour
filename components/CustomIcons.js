@@ -111,12 +111,13 @@ export const CalendarIconButton = (props) => {
     const item = props.item;
     const addToPlanificacion = props.addToPlanificacion;
     const changeAdd = props.changeAdd;
+    const added = props.added;
 
     return (
         <IconButton
             icon={CalendarIcon}
             onPress={() => {
-                addToPlanificacion ? addToPlanificacion(`${item.id}`) : console.log("Not function");
+                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : console.log("Not function");
                 changeAdd(true);
             }}
             style={style} />
@@ -129,12 +130,13 @@ export const CalendarOutlineIconButton = (props) => {
     const item = props.item;
     const addToPlanificacion = props.addToPlanificacion;
     const changeAdd = props.changeAdd;
+    const added = props.added;
 
     return (
         <IconButton
             icon={CalendarOutlineIcon}
             onPress={() => {
-                addToPlanificacion ? addToPlanificacion(`${item.id}`) : console.log("Not function");
+                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : console.log("Not function");
                 changeAdd(true);
             }}
             style={style} />

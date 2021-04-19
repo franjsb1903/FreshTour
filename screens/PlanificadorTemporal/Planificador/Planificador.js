@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Text, View, ScrollView, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import AppContext from '../../../components/PlanificadorAppContext';
+import AppContext from '../../../context/PlanificadorAppContext';
 import NoElementsPlanificadorView from '../../../components/NoElementsPlanificadorView'
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
 import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton } from '../../../components/CustomIcons';

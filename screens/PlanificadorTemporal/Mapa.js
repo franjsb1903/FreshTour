@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { LogBox, Text, View, Platform, ToastAndroid } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { IconButton } from 'react-native-paper';
 
 import { stylesMapa as styles } from '../../styles/styles'
 
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
-import AppContext from '../../components/PlanificadorAppContext';
+import AppContext from '../../context/PlanificadorAppContext';
 import { PointsInterestIconButton } from '../../components/CustomIcons';
 
 import { getIconContent } from '../../Util/IconMapUtil'
@@ -38,7 +36,13 @@ const Map = (props) => {
   let injectedData = `addLayer(${selected.selected})`;
 
   useEffect(() => {
-    global.setSelected = updateSelected;
+    let mounted = true;
+
+    if (mounted) {
+      global.setSelected = updateSelected;
+    }
+
+    return () => mounted = false;
   }, []);
 
   useEffect(() => {

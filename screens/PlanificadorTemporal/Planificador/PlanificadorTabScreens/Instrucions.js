@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 
-import AppContext from '../../../../components/PlanificadorAppContext';
+import AppContext from '../../../../context/PlanificadorAppContext';
 
 import CustomListInstrucions from '../../../../components/CustomListInstrucions';
 import NoElementsPlanificadorView from '../../../../components/NoElementsPlanificadorView';

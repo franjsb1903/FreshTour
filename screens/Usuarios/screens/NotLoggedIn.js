@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Button, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 
 import { notLoggedIn as styles, customTouchableOpacity as buttonStyle } from '../../../styles/styles';
@@ -6,11 +6,15 @@ import { getImageUri } from '../../../Util/ImageUtil'
 
 import { useNavigation } from '@react-navigation/native';
 
+import UserContext from '../../../context/UserContext';
+
 const NotLoggedIn = (props) => {
 
+    const context = useContext(UserContext);
+
     const localUri = getImageUri("catedral_app");
-    const register = props.register;
-    const login = props.login;
+    const register = context.register;
+    const login = context.login;
     const navigation = useNavigation();
 
     return (
