@@ -33,7 +33,6 @@
     "node-fetch": "^2.6.1",
     "node-geocoder": "^3.27.0",
     "node-open-geocoder": "^4.0.1",
-    "nominatim-geocoder": "^0.1.4",
     "openrouteservice-js": "^0.1.18",
     "pg": "^8.5.1",
     "properties-reader": "^2.2.0",
@@ -45,7 +44,6 @@
     "react-native-elements": "^3.3.2",
     "react-native-fs": "^2.0.1-rc.2",
     "react-native-gesture-handler": "~1.8.0",
-    "react-native-keychain": "^7.0.0",
     "react-native-paper": "^4.7.2",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
@@ -59,7 +57,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "nominatim-geocoder": "^0.1.4"
+  },
+  "resolutions": {
+    "axios": "v0.21.1",
+    "node-fetch": "2.6.1",
+    "xmldom": "0.6.0"
   },
   "private": true
 }
