@@ -23,7 +23,7 @@ router.get('/turismo', function (req, res) {
     }
 });
 
-router.get('/turismo/:name', async function (req, res) {
+router.get('/turismo/:name', function (req, res) {
     try {
         const { name } = req.params;
         const namePerc = '%' + name + '%'

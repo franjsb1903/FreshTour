@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { ToastAndroid, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { registerUser, loginUser } from '../../model/Usuarios/Usuarios'
+import { registerUser, loginUser } from '../../model/Usuarios/Usuarios';
+import { stylesTurismoList as progress } from '../../styles/styles';
+
+import ProgressBar from '../../components/ProgressBar';
 
 import LoggedIn from './screens/LoggedIn';
 import NotLoggedIn from './screens/NotLoggedIn';
@@ -11,8 +14,14 @@ const User = () => {
 
     const [user, setUser] = useState({
         user: {},
-        isLoggedIn: false
+        isLoggedIn: false,
+        planificacions: [],
+        planificacionsFav: [],
+        opinions: [],
+        elementosFav: []
     });
+
+    const [loading, setLoading] = useState(false);
 
     const register = async (user) => {
         try {
@@ -36,7 +45,6 @@ const User = () => {
     const login = async (user) => {
         try {
             const data = await loginUser(user);
-            console.log(data);
             if (!data.auth) {
                 ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 return false;
@@ -44,7 +52,11 @@ const User = () => {
             await AsyncStorage.setItem('id_token', data.token);
             setUser({
                 user: data.user,
-                isLoggedIn: true
+                isLoggedIn: true,
+                planificacions: data.planificacions,
+                planificacionsFav: data.planificacionsFav,
+                opinions: data.opinions,
+                elementosFav: data.elementosFav
             });
             return true;
         } catch (err) {
@@ -53,12 +65,38 @@ const User = () => {
         }
     }
 
+    const logout = async () => {
+        try {
+            setLoading(true);
+            await AsyncStorage.removeItem('id_token');
+            setUser({
+                user: {},
+                isLoggedIn: false,
+                planificacions: [],
+                planificacionsFav: [],
+                opinions: [],
+                elementosFav: []
+            });
+            ToastAndroid.show("Sesión pechada satisfactoriamente", ToastAndroid.SHORT);
+            setLoading(false);
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro no peche de sesión', ToastAndroid.SHORT);
+        }
+    }
+
     return (
 
-        user.isLoggedIn ?
-            <LoggedIn user={user.user} />
+        loading ?
+            <View style={progress.container}>
+                <ProgressBar />
+            </View>
             :
-            <NotLoggedIn register={register} login={login} />
+            user.isLoggedIn ?
+                <LoggedIn user={user} logout={logout} />
+                :
+                <NotLoggedIn register={register} login={login} />
+
     )
 }
 

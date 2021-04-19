@@ -447,11 +447,19 @@ export const customTouchableOpacity = {
         textTransform: "uppercase"
     },
     buttonTextSmaller: {
-        fontSize: 18,
+        fontSize: 15,
         color: "#fff",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
+    },
+    buttonContainerFlex: {
+        elevation: 0,
+        backgroundColor: properties.style.color.button,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        flex: 0
     }
 }
 
@@ -483,3 +491,54 @@ export const registerScreen = StyleSheet.create({
         justifyContent: "center"
     }
 });
+
+export const loggedIn = StyleSheet.create({
+    container: {
+        padding: 20,
+        backgroundColor: properties.style.color.background
+    },
+    header: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: "bold",
+        flex: 2
+    },
+    icon: {
+        flex: 1
+    },
+    data: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    textData: {
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    menuUser: {
+        paddingTop: 50
+    },
+    listItem: { 
+        borderColor: "green", 
+        borderWidth: 1 
+    },
+    listItemContainer: {
+        backgroundColor: properties.style.color.background
+    },
+    listItemContent: {
+        flexDirection: "row",
+    },
+    labelMenu: {
+        fontWeight: "bold",
+        flex: 1,
+        justifyContent: "flex-start",
+        color: "darkgreen"
+    },
+    numberMenu: {
+        flex: 0,
+        justifyContent: "flex-end",
+        color: "darkgreen"
+    }
+})

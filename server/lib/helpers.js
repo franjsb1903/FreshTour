@@ -19,8 +19,8 @@ helpers.onErrorAuth = (code, message, err, res) => {
     });
 }
 
-helpers.onCorrectAuth = (token, user, res) => {
-    return res.status(200).send({ auth: true, token: token, user: user });
+helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav) => {
+    return res.status(200).send({ auth: true, token: token, user: user, planificacionsFav: planificacionsFav, planificacions: planificacions, opinions: opinions, elementosFav: elementosFav });
 }
 
 module.exports = helpers;
