@@ -8,7 +8,7 @@ const helpers = require('../../lib/helpers');
 
 const pool = require('../../../database/database');
 
-var VerifyToken = require('./VerifyToken');
+var verify = require('../../lib/VerifyToken');
 
 router.use(express.urlencoded({
     extended: true
@@ -102,8 +102,8 @@ router.post('/login', (req, res) => {
 
     const query = "SELECT id, usuario, nome, apelidos, email, data, contrasinal, to_char(data, 'DD-MM-YY') as data FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $1";
 
-    const elementos_favoritos = "SELECT *, 'Monumento' as tipo FROM fresh_tour.monumentos m where id = ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turistico' as tipo FROM fresh_tour.lugares_turisticos lt WHERE id = ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
-    const plan_fav = "SELECT * FROM fresh_tour.planificacions p2 WHERE id = ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
+    const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turistico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
+    const plan_fav = "SELECT * FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
     const opinions = "SELECT id, id_usuario, titulo, data, valoracion, comentario, id_lugar_turistico as id,'Lugar turistico' as tipo FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_monumento as id, 'Monumento' as tipo FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_planificacion as id, 'Planificacion' as tipo FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
     const plansUsuario = "SELECT * FROM fresh_tour.planificacions p WHERE id_usuario = $1"
 
@@ -134,6 +134,7 @@ router.post('/login', (req, res) => {
 
             if (err) {
                 helpers.onErrorAuth(500, "Erro obtendo os elementos favoritos do usuario", err, res);
+                return;
             } else {
                 elementosFavArray = elementos.rows;
             }
@@ -143,6 +144,7 @@ router.post('/login', (req, res) => {
 
                 if (err) {
                     helpers.onErrorAuth(500, "Erro obtendo as planificacions favoritas do usuario", err, res);
+                    return;
                 } else {
                     planificacionsFavArray = planificacions.rows;
                 }
@@ -152,6 +154,7 @@ router.post('/login', (req, res) => {
 
                     if (err) {
                         helpers.onErrorAuth(500, "Erro obtendo as opinions do usuario", err, res);
+                        return;
                     } else {
                         opinionsArray = opinions.rows;
                     }
@@ -161,6 +164,7 @@ router.post('/login', (req, res) => {
 
                         if (err) {
                             helpers.onErrorAuth(500, "Erro obtendo as opinions do usuario", err, res);
+                            return;
                         } else {
                             plansArray = plans.rows;
                         }
@@ -174,11 +178,16 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/me', VerifyToken, (req, res) => {
+router.get('/me', verify.verifyToken, (req, res) => {
 
     const userId = req.userId;
 
-    const query = "SELECT usuario, nome, apelidos, email, data FROM fresh_tour.usuarios WHERE id = $1";
+    const query = "SELECT id, usuario, nome, apelidos, email, data, contrasinal, to_char(data, 'DD-MM-YY') as data FROM fresh_tour.usuarios WHERE id = $1";
+
+    const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turistico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
+    const plan_fav = "SELECT * FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
+    const opinions = "SELECT id, id_usuario, titulo, data, valoracion, comentario, id_lugar_turistico as id,'Lugar turistico' as tipo FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_monumento as id, 'Monumento' as tipo FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_planificacion as id, 'Planificacion' as tipo FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
+    const plansUsuario = "SELECT * FROM fresh_tour.planificacions p WHERE id_usuario = $1"
 
     pool.query(query, [userId], (err, results) => {
         if (err) {
@@ -193,10 +202,55 @@ router.get('/me', VerifyToken, (req, res) => {
                 message: "Usuario non atopado"
             });
         }
-        res.status(200).json({
-            user: results.rows[0],
-            status: 200
-        });
+
+        var user = results.rows[0];
+
+        pool.query(elementos_favoritos, [user.id], (err, elementos) => {
+            var elementosFavArray;
+
+            if (err) {
+                helpers.onErrorAuth(500, "Erro obtendo os elementos favoritos do usuario", err, res);
+                return;
+            } else {
+                elementosFavArray = elementos.rows;
+            }
+
+            pool.query(plan_fav, [user.id], (err, planificacions) => {
+                var planificacionsFavArray;
+
+                if (err) {
+                    helpers.onErrorAuth(500, "Erro obtendo as planificacions favoritas do usuario", err, res);
+                    return;
+                } else {
+                    planificacionsFavArray = planificacions.rows;
+                }
+
+                pool.query(opinions, [user.id], (err, opinions) => {
+                    var opinionsArray;
+
+                    if (err) {
+                        helpers.onErrorAuth(500, "Erro obtendo as opinions do usuario", err, res);
+                        return;
+                    } else {
+                        opinionsArray = opinions.rows;
+                    }
+
+                    pool.query(plansUsuario, [user.id], (err, plans) => {
+                        var plansArray;
+
+                        if (err) {
+                            helpers.onErrorAuth(500, "Erro obtendo as opinions do usuario", err, res);
+                            return;
+                        } else {
+                            plansArray = plans.rows;
+                        }
+
+                        helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray);
+                    })
+                });
+            });
+
+        })
     });
 
 });

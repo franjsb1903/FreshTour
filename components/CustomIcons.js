@@ -5,8 +5,12 @@ import { IconButton } from 'react-native-paper';
 
 import properties from '../properties/properties_expo'
 
-const HeartIcon = () => (
+const HeartIconOutline = () => (
     <Icon name="heart-outline" size={30} color="#000" />
+);
+
+const HeartIcon = () => (
+    <Icon name="heart" size={30} color="#000" />
 );
 
 const CalendarIcon = () => (
@@ -96,11 +100,29 @@ export const AvatarIcon = (props) => {
 export const HeartIconButton = (props) => {
 
     const style = props.style;
+    const onPressFav = props.onPressFav;
 
     return (
         <IconButton
             icon={HeartIcon}
-            onPress={() => console.log("hola")}
+            onPress={() => {
+                onPressFav ? onPressFav() : console.log("Not function");
+            }}
+            style={style} />
+    )
+};
+
+export const HeartOutlineIconButton = (props) => {
+
+    const style = props.style;
+    const onPressFav = props.onPressFav;
+
+    return (
+        <IconButton
+            icon={HeartIconOutline}
+            onPress={() => {
+                onPressFav ? onPressFav() : console.log("Not function");
+            }}
             style={style} />
     )
 };
@@ -118,7 +140,7 @@ export const CalendarIconButton = (props) => {
             icon={CalendarIcon}
             onPress={() => {
                 addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : console.log("Not function");
-                changeAdd(true);
+                changeAdd ? changeAdd(true) : console.log("Not function");
             }}
             style={style} />
     )
@@ -137,7 +159,7 @@ export const CalendarOutlineIconButton = (props) => {
             icon={CalendarOutlineIcon}
             onPress={() => {
                 addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : console.log("Not function");
-                changeAdd(true);
+                changeAdd ? changeAdd(true) : console.log("Not function");
             }}
             style={style} />
     )

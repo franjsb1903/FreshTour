@@ -2,9 +2,9 @@ const XestionDatosTurismo = require('../../XestionDatos/XestionDatosTurismo')
 
 const Turismo = new XestionDatosTurismo();
 
-export const getData = async () => {
+export const getData = async (token) => {
     try {
-        var data = await Turismo.getTurismData();
+        var data = await Turismo.getTurismData(token);
         return data;
     } catch (err) {
         console.error(err);

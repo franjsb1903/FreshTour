@@ -1,18 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, View, Text, Button, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { AvatarIcon } from '../../../components/CustomIcons';
 import ListItemMenuUser from '../../../components/ListItemMenuUser';
 
-import UserContext from '../../../context/UserContext';
+import AppContext from '../../../context/PlanificadorAppContext';
 
 import { loggedIn as styles, customTouchableOpacity as button } from '../../../styles/styles';
 
 const LoggedIn = (props) => {
 
-    const context = useContext(UserContext);
+    const [elementosFav, setElementosFav] = useState([]);
+
+    const context = useContext(AppContext);
     const user = context.user;
-    const logout = context.logout;
+    const logout = props.logout;
+
+    useEffect(() => {
+        let mounted = true;
+
+        if(mounted) {
+            setElementosFav(context.user.elementosFav);
+        }
+
+        return () => mounted = false;
+    }, [context.user.elementosFav]);
+
+    const navigation = useNavigation();
 
     const MenuUser = [
         {
@@ -30,8 +45,10 @@ const LoggedIn = (props) => {
         {
             id: 3,
             label: "Elementos turisticos favoritos",
-            data: user.elementosFav,
-            onPress: () => console.log("Elementos turisticos favoritos")
+            data: elementosFav,
+            onPress: () => navigation.navigate('Turism', {
+                data: elementosFav
+            })
         },
         {
             id: 4,
@@ -42,7 +59,7 @@ const LoggedIn = (props) => {
         {
             id: 5,
             label: "Pechar sesión",
-            onPress: () => { 
+            onPress: () => {
                 logout();
             }
         }

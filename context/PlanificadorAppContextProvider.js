@@ -3,6 +3,7 @@ import AppContext from './PlanificadorAppContext';
 import { ToastAndroid } from 'react-native'
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
+import { addElementoFav as addElementoFavModel } from '../model/Usuarios/Usuarios';
 
 const AppContextProvider = (props) => {
 
@@ -188,6 +189,64 @@ const AppContextProvider = (props) => {
         }
     }
 
+    const [user, setUser] = useState({
+        user: {},
+        isLoggedIn: false,
+        planificacions: [],
+        planificacionsFav: [],
+        opinions: [],
+        elementosFav: []
+    });
+
+    const addElementoFav = async (token, changeFavView, item) => {
+        try {
+            const response = await addElementoFavModel(token, item.id, item.tipo);
+            if (response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                return;
+            }
+            item.favorito = true;
+            setUser({
+                user: user.user,
+                isLoggedIn: user.isLoggedIn,
+                planificacions: user.planificacions,
+                planificacionsFav: user.planificacionsFav,
+                opinions: user.opinions,
+                elementosFav: [...user.elementosFav, item]
+            });
+            changeFavView();
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro marcando o elemento como favorito', ToastAndroid.SHORT);
+        }
+    }
+
+    const setNewUser = (data) => {
+        console.log("object")
+        if (data != undefined) {
+            setUser({
+                user: data.user,
+                isLoggedIn: true,
+                planificacions: data.planificacions,
+                planificacionsFav: data.planificacionsFav,
+                opinions: data.opinions,
+                elementosFav: data.elementosFav
+            })
+        }
+    }
+
+    const resetUser = () => {
+        setUser({
+            user: {},
+            isLoggedIn: false,
+            planificacions: [],
+            planificacionsFav: [],
+            opinions: [],
+            elementosFav: []
+        })
+
+    }
+
     const settings = {
         addItem: addItem,
         route: route,
@@ -201,7 +260,11 @@ const AppContextProvider = (props) => {
         walking: walking,
         changeOrderUp: changeOrderUp,
         changeOrderDown: changeOrderDown,
-        addToPlanificacion: addToPlanificacion
+        addToPlanificacion: addToPlanificacion,
+        user: user,
+        addElementoFav: addElementoFav,
+        setUser: setNewUser,
+        resetUser: resetUser
     }
 
     return (

@@ -76,12 +76,13 @@ function MyStack() {
 export default function App() {
 
   return (
-    <AppContextProvider>
-      <SafeAreaView style={styles.AndroidSafeArea}>
-        <NavigationContainer>
-          <MyStack />
-        </NavigationContainer>
-      </SafeAreaView>
-    </AppContextProvider>
+    
+      <AppContextProvider>
+        <SafeAreaView style={styles.AndroidSafeArea}>
+          <NavigationContainer>
+            <MyStack />
+          </NavigationContainer>
+        </SafeAreaView>
+      </AppContextProvider>
   );
 }

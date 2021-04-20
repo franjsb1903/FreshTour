@@ -4,10 +4,10 @@ import { fetchJsonGet, fetchTextGet } from '../Util/FetchUtil'
 
 class XestionDatosTurismo {
 
-    async getTurismData() {
+    async getTurismData(token) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo;
         try {
-            const json = await fetchJsonGet(url);
+            const json = await fetchJsonGet(url, token);
             return json;
         } catch (err) {
             return undefined;

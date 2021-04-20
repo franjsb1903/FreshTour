@@ -6,12 +6,14 @@ import Info from '../screens/Info/Info'
 import Map from '../screens/PlanificadorTemporal/Mapa'
 import Routes from '../screens/PlanificadorTemporal/RutasRecomendadas'
 import Planificator from '../screens/PlanificadorTemporal/Planificador/Planificador'
-import User from '../screens/Usuarios/Usuarios'
+import User from '../screens/Usuarios/Usuarios';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
+
     <Tab.Navigator
       initialRouteName="Map"
       activeColor="#fff"

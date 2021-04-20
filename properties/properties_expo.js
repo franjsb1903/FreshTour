@@ -21,9 +21,12 @@ const properties = {
             opinions_count: "/opinions/count/"          // /opinions/count/:type/:id
         },
         usuarios: {
-            main: '/auth/',
+            auth: '/auth/',
             register: 'register',
-            login: 'login'
+            login: 'login',
+            main: '/usuario',
+            turismo: '/turismo/fav',
+            me: 'me'
         }
     },
     style: {

@@ -6,15 +6,15 @@ import { getImageUri } from '../../../Util/ImageUtil'
 
 import { useNavigation } from '@react-navigation/native';
 
-import UserContext from '../../../context/UserContext';
+import AppContext from '../../../context/PlanificadorAppContext';
 
 const NotLoggedIn = (props) => {
 
-    const context = useContext(UserContext);
+    const context = useContext(AppContext);
 
     const localUri = getImageUri("catedral_app");
-    const register = context.register;
-    const login = context.login;
+    const register = props.register;
+    const login = props.login;
     const navigation = useNavigation();
 
     return (

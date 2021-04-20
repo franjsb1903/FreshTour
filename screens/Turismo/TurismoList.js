@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid, Platform } from 'react-native'
+import * as SecureStore from 'expo-secure-store';
 
 import ProgressBar from '../../components/ProgressBar';
 import { getData, getElement, getGeoElement, getGeoElementJson } from '../../model/Turismo/Turismo';
@@ -17,18 +18,21 @@ const Turism = (props) => {
 
     const [refreshing, setRefreshing] = useState(false);
 
+    const data = props.route.params.data;
+
     useEffect(() => {
         let mounted = true;
         async function getElements() {
             try {
-                var data = await getData();
+                const token = await SecureStore.getItemAsync('id_token');
+                var data = await getData(token);
                 if (mounted) {
                     setState({
                         loading: false,
                         data: data
                     });
                 }
-                if(data.status != 200) {
+                if (data.status != 200) {
                     ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 }
             } catch (err) {
@@ -36,7 +40,14 @@ const Turism = (props) => {
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
             }
         }
-        getElements();
+        if (!data) {
+            getElements();
+        } else {
+            setState({
+                loading: false,
+                data: data
+            })
+        }
 
         return () => mounted = false;
 
@@ -63,7 +74,7 @@ const Turism = (props) => {
     const doSearch = async (data) => {
         try {
             const element = await getElement(data);
-            if(element.status != 200) {
+            if (element.status != 200) {
                 ToastAndroid.show(element.message, ToastAndroid.SHORT);
                 return;
             }
@@ -103,7 +114,8 @@ const Turism = (props) => {
             </View>
             :
             <ScrollView refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                !data ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> :
+                    <></>
             }
                 style={styles.scroll}>
                 <View style={{ flex: 0 }}>
@@ -115,27 +127,48 @@ const Turism = (props) => {
                     />
                 </View>
                 {
-                    state.data.status != 200 ?
-                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
-                            <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
-                        </View> :
-                        state.data == undefined || state.data.turismo.length == 0 ?
+                    state.data.turismo != undefined ?
+                        state.data.status != 200 ?
                             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
                                 <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
                             </View> :
-                            state.data.turismo.map(element => {
-                                return (
-                                    <TouchableOpacity
-                                        key={element.id}
-                                        onPress={() => props.navigation.navigate('TurismoItem', {
-                                            element: element,
-                                            showOnMap: showOnMap
-                                        })}>
-                                        <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
-                                    </TouchableOpacity>
-                                )
-                            })
-
+                            state.data == undefined || state.data.turismo.length == 0 ?
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+                                    <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
+                                </View> :
+                                state.data.turismo.map(element => {
+                                    return (
+                                        <TouchableOpacity
+                                            key={element.id}
+                                            onPress={() => props.navigation.navigate('TurismoItem', {
+                                                element: element,
+                                                showOnMap: showOnMap
+                                            })}>
+                                            <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
+                                        </TouchableOpacity>
+                                    )
+                                })
+                        :
+                        state.data == undefined ?
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+                                <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
+                            </View> :
+                            state.data.length == 0 ?
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+                                    <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
+                                </View> :
+                                state.data.map(element => {
+                                    return (
+                                        <TouchableOpacity
+                                            key={element.id}
+                                            onPress={() => props.navigation.navigate('TurismoItem', {
+                                                element: element,
+                                                showOnMap: showOnMap
+                                            })}>
+                                            <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
+                                        </TouchableOpacity>
+                                    )
+                                })
                 }
             </ScrollView>
     )

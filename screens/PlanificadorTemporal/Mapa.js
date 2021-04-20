@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { LogBox, Text, View, Platform, ToastAndroid } from 'react-native';
 
+import * as SecureStore from 'expo-secure-store';
+
 import { stylesMapa as styles } from '../../styles/styles'
 
 import { getData, getItem } from '../../model/Planificador/Mapa';
