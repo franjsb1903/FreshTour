@@ -18,7 +18,9 @@ const properties = {
             item: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+"                    // /geoserver/:id
         },
         opinions: {
-            opinions_count: "/opinions/count/"          // /opinions/count/:type/:id
+            main: "/opinions",
+            opinions_count: "/opinions/count/",         // /opinions/count/:type/:id
+            opinions: "/"                               // /opinions/:type/:id
         },
         usuarios: {
             auth: '/auth/',

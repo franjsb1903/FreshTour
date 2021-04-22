@@ -2,14 +2,12 @@ import XestionDatosOpinions from '../../XestionDatos/XestionDatosOpinions';
 
 const Opinions = new XestionDatosOpinions();
 
-const getCountElement = async (type, id) => {
+export const getOpinions = async (type, id) => {
+
     try {
-        const json = await Opinions.getOpinionsCount(type, id);
-        
+        const json = await Opinions.getOpinions(type, id);
         return json;
     } catch (err) {
-        console.error(err);
+        throw new Error(err);
     }
 }
-
-export { getCountElement }

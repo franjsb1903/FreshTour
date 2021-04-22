@@ -19,6 +19,7 @@ const TopTabNavigator = (props) => {
 
     const element = props.element;
     const showOnMap = props.showOnMap;
+    const opinions = props.opinions;
 
     const uriImage = getImageUri(element.imaxe);
 
@@ -40,7 +41,7 @@ const TopTabNavigator = (props) => {
                 }}>
                 <Tab.Screen
                     name="Resumo"
-                    children={() => <Resumo element={element} showOnMap={showOnMap} />}
+                    children={() => <Resumo element={element} showOnMap={showOnMap} opinions={opinions} />}
                     options={{
                         tabBarLabel: 'Resumo'
                     }} />
@@ -58,7 +59,7 @@ const TopTabNavigator = (props) => {
                     }} />
                 <Tab.Screen
                     name="Opinions"
-                    component={Opinions}
+                    children={() => <Opinions opinions={opinions} />}
                     options={{
                         tabBarLabel: 'Opinions'
                     }} />

@@ -12,7 +12,6 @@ import AppContext from '../../../context/PlanificadorAppContext';
 
 const Resumo = (props) => {
 
-    const [countOpinions, setCountOpinions] = useState(0);
     const [added, setAdded] = useState(false);
     const [fav, setFav] = useState(false);
     const [modal, setModal] = useState(false);
@@ -21,19 +20,21 @@ const Resumo = (props) => {
 
     const element = props.element;
     const showOnMap = props.showOnMap;
+    const opinions = props.opinions;
 
     const showModal = () => {
         setModal(!modal);
     }
 
     useEffect(() => {
-        const updateCountOpinions = async () => {
-            const count = await getCountElement(element.tipo, element.id);
-            setCountOpinions(count);
+        let mounted = true;
+
+        if (mounted) {
+            setAdded(context.existItem(element.id));
+            setFav(element.favorito);
         }
-        setAdded(context.existItem(element.id));
-        setFav(element.favorito);
-        updateCountOpinions();
+
+        return () => mounted = false;
     }, []);
 
     const changeAdd = () => {
@@ -70,11 +71,11 @@ const Resumo = (props) => {
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
-            <View style={styles.container}>
-                <Stars style={styles.stars} value={element.valoracion} />
+            <View style={[styles.container, styles.background]}>
+                <Stars style={styles.stars} value={opinions.valoracion ? opinions.valoracion : 0} />
                 {
-                    countOpinions != undefined && countOpinions.status == 200 ?
-                        <Text style={styles.valoracion}>{countOpinions.count[0].count} valoracións</Text>
+                    opinions.count != undefined && opinions.status == 200 ?
+                        <Text style={styles.valoracion}>{opinions.count} valoracións</Text>
                         :
                         <Text style={styles.valoracion}></Text>
                 }

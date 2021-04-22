@@ -6,7 +6,7 @@ const pool = require('../../database/database');
 const helpers = require('../lib/helpers');
 const verify = require('../lib/VerifyToken');
 
-router.get('/turismo', function (req, res) {
+router.get('/', function (req, res) {
 
     try {
 
@@ -34,7 +34,7 @@ router.get('/turismo', function (req, res) {
     }
 });
 
-router.get('/turismo/:name', function (req, res) {
+router.get('/:name', function (req, res) {
     try {
         const { name } = req.params;
         const namePerc = '%' + name + '%'

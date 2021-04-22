@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use(require("./routes/nominatim"));
-app.use(require("./routes/turismo"));
-app.use(require("./routes/opinions"));
+app.use('/turismo', require("./routes/turismo"));
+app.use('/opinions', require("./routes/opinions"));
 app.use('/auth', AuthController);
 app.use('/usuario', usuarios);
 

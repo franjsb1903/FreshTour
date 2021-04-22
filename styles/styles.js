@@ -75,7 +75,9 @@ export const styleTurismoItem = StyleSheet.create({
         flexDirection: "row",
         padding: 20,
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
+    },
+    background: {
         backgroundColor: properties.style.color.background
     }
 });
