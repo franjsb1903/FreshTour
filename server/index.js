@@ -14,7 +14,7 @@ app.use(require("./routes/opinions"));
 app.use('/auth', AuthController);
 app.use('/usuario', usuarios);
 
-const hostname = "192.168.1.71";
+const hostname = "192.168.1.74";
 
 app.listen(3000, hostname, () => {
     console.log('Server on port 3000');

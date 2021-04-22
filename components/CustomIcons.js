@@ -100,13 +100,13 @@ export const AvatarIcon = (props) => {
 export const HeartIconButton = (props) => {
 
     const style = props.style;
-    const onPressFav = props.onPressFav;
+    const onQuitFav = props.onQuitFav;
 
     return (
         <IconButton
             icon={HeartIcon}
             onPress={() => {
-                onPressFav ? onPressFav() : console.log("Not function");
+                onQuitFav ? onQuitFav() : console.log("Not function");
             }}
             style={style} />
     )

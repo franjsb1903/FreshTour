@@ -3,9 +3,10 @@ import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 
 import { getCountElement } from '../../../model/Opinions/Opinions';
 import { styleTurismoItem as styles, stylesScroll } from '../../../styles/styles'
-import { getGeoElementJson } from '../../../model/Turismo/Turismo';
-import { HeartIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton } from '../../../components/CustomIcons'
+import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton } from '../../../components/CustomIcons'
 import Stars from '../../../components/CustomStarsDisplay';
+import ModalInicioSesion from '../../../components/ModalInicioSesion';
+import * as SecureStore from 'expo-secure-store';
 
 import AppContext from '../../../context/PlanificadorAppContext';
 
@@ -13,11 +14,17 @@ const Resumo = (props) => {
 
     const [countOpinions, setCountOpinions] = useState(0);
     const [added, setAdded] = useState(false);
+    const [fav, setFav] = useState(false);
+    const [modal, setModal] = useState(false);
 
     const context = useContext(AppContext);
 
     const element = props.element;
     const showOnMap = props.showOnMap;
+
+    const showModal = () => {
+        setModal(!modal);
+    }
 
     useEffect(() => {
         const updateCountOpinions = async () => {
@@ -25,11 +32,40 @@ const Resumo = (props) => {
             setCountOpinions(count);
         }
         setAdded(context.existItem(element.id));
+        setFav(element.favorito);
         updateCountOpinions();
     }, []);
 
     const changeAdd = () => {
         setAdded(true);
+    }
+
+    const changeFav = () => {
+        setFav(!fav);
+    }
+
+    const onPressFav = async () => {
+        try {
+            const token = await SecureStore.getItemAsync('id_token');
+            if (!token) {
+                setModal(true);
+            } else {
+                await context.addElementoFav(token, changeFav, element);
+            }
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro engadindo elemento como favorito', ToastAndroid.show);
+        }
+    }
+
+    const onQuitFav = async () => {
+        try {
+            const token = await SecureStore.getItemAsync('id_token');
+            await context.deleteElementoFav(token, changeFav, element);
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.show);
+        }
     }
 
     return (
@@ -42,7 +78,12 @@ const Resumo = (props) => {
                         :
                         <Text style={styles.valoracion}></Text>
                 }
-                <HeartIconButton style={styles.rightIcons} />
+                {
+                    fav ?
+                        <HeartIconButton onQuitFav={onQuitFav} />
+                        :
+                        <HeartOutlineIconButton onPressFav={onPressFav} />
+                }
                 {
                     added ?
                         <CalendarIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
@@ -56,6 +97,7 @@ const Resumo = (props) => {
             <View style={styles.resumoContainer}>
                 <Text style={styles.resumo}>{element.resumo}</Text>
             </View>
+            <ModalInicioSesion modal={modal} showModal={showModal} />
         </ScrollView>
     )
 }

@@ -3,7 +3,7 @@ import AppContext from './PlanificadorAppContext';
 import { ToastAndroid } from 'react-native'
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
-import { addElementoFav as addElementoFavModel } from '../model/Usuarios/Usuarios';
+import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Usuarios/Usuarios';
 
 const AppContextProvider = (props) => {
 
@@ -221,6 +221,41 @@ const AppContextProvider = (props) => {
         }
     }
 
+    const deleteElementoFavById = (id) => {
+        const elementos = user.elementosFav.map((e) => e);
+        for(var i=0; i<elementos.length; i++) {
+            const fav = elementos[i];
+            if(fav.id == id) {
+                elementos.splice(i, 1);
+                break;
+            }
+        }
+        setUser({
+            user: user.user,
+            isLoggedIn: user.isLoggedIn,
+            planificacions: user.planificacions,
+            planificacionsFav: user.planificacionsFav,
+            opinions: user.opinions,
+            elementosFav: elementos
+        });
+    }
+
+    const deleteElementoFav = async (token, changeFavView, item) => {
+        try {
+            const response = await deleteElementoFavModel(token, item.id, item.tipo);
+            if(response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                return;
+            }
+            deleteElementoFavById(item.id);
+            item.favorito=false;
+            changeFavView();
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.SHORT);
+        }
+    }
+
     const setNewUser = (data) => {
         console.log("object")
         if (data != undefined) {
@@ -264,7 +299,8 @@ const AppContextProvider = (props) => {
         user: user,
         addElementoFav: addElementoFav,
         setUser: setNewUser,
-        resetUser: resetUser
+        resetUser: resetUser,
+        deleteElementoFav: deleteElementoFav
     }
 
     return (

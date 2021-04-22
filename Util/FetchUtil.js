@@ -61,21 +61,12 @@ export const fecthJsonAuthGet = async (url, headers) => {
     return json;
 }
 
-export const fetchJsonActionUserPost = async (url, token, id_elemento, type) => {
-
-    var body = {
-        id_elemento: id_elemento,
-        type: type
-    }
+export const fetchJsonDelete = async (url, headers, body) => {
 
     const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'access-token': token
-        },
-        body: JSON.stringify(body)
+        method: 'DELETE',
+        headers: headers,
+        body: body
     });
 
     const json = await response.json();

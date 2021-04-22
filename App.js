@@ -26,12 +26,17 @@ function MyStack() {
       <Stack.Screen
         name="Turism"
         component={TurismoList}
-        options={{
+        options={({ route }) => ({
           headerShown: true,
-          title: "Puntos de interese",
+          title: route.params.title,
           headerStyle: styles.headerStyle,
-          headerTintColor: "#fff"
-        }}
+          headerTintColor: "#fff",
+          headerTitle: ({ children: title }) => {
+            return (
+              <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+            )
+          }
+        })}
       />
       <Stack.Screen
         name="TurismoItem"

@@ -38,3 +38,21 @@ export const addElementoFav = async (token, id_elemento, type) => {
         throw new Error(err);
     }
 }
+
+export const deleteElementoFav = async (token, id_elemento, type) => {
+    try {
+        const json = await Usuarios.deleteElementoFav(token, id_elemento, type);
+        return json;
+    } catch(err) {
+        throw new Error(err);
+    }
+}
+
+export const getElementFavByName = async (token, name) => {
+    try {
+        const json = await Usuarios.getElementFavByName(token, name);
+        return json;
+    } catch(err) {
+        throw new Error(err);
+    }
+}

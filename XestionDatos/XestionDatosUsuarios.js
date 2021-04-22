@@ -1,5 +1,5 @@
 import properties from '../properties/properties_expo';
-import { fecthJsonAuthPost, fetchJsonActionUserPost, fecthJsonAuthGet } from '../Util/FetchUtil'
+import { fecthJsonAuthPost, fecthJsonAuthGet, fetchJsonDelete } from '../Util/FetchUtil'
 
 class XestionDatosUsuarios {
 
@@ -62,7 +62,50 @@ class XestionDatosUsuarios {
     async addElementoFav(token, id_elemento, type) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.turismo;
         try {
-            const json = await fetchJsonActionUserPost(url, token, id_elemento, type);
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_elemento: id_elemento,
+                type: type
+            }
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async deleteElementoFav(token, id_elemento, type) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.turismo;
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_elemento: id_elemento,
+                type: type
+            }
+            const json = await fetchJsonDelete(url, headers, JSON.stringify(body));
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+    
+    async getElementFavByName(token, name) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.turismo + "/" + name;
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const json = await fecthJsonAuthGet(url, headers);
             return json;
         } catch (err) {
             throw new Error(err);

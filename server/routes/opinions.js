@@ -7,7 +7,8 @@ const helpers = require('../lib/helpers');
 const onSearch = (query, id, res) => {
     pool.query(query, [id], (err, results) => {
         if (err) {
-            helpers.onError(500, "Erro interno do servidor", err, res)
+            helpers.onError(500, "Erro interno do servidor", err, res);
+            return;
         }
         res.json({
             count: results.rows,

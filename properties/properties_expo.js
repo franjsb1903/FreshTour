@@ -2,7 +2,7 @@
 const properties = {
     connection: {
         type: "http",
-        host: "192.168.1.71",
+        host: "192.168.1.74",
         port: "3000"
     },
     url: {
@@ -14,7 +14,7 @@ const properties = {
             turismo: "/turismo/"                        // /turismo/, /turismo/:name
         },
         geoserver: {
-            url: "http://192.168.1.71:8080/geoserver",
+            url: "http://192.168.1.74:8080/geoserver",
             item: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+"                    // /geoserver/:id
         },
         opinions: {

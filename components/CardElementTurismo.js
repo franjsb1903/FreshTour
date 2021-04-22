@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, ImageBackground, View } from 'react-native';
+import { Text, ImageBackground, View, ToastAndroid } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';
@@ -30,7 +30,6 @@ const CardElement = (props) => {
             const value = isAdded(item.id);
             setAdded(value);
             setFav(item.favorito);
-
         }
         return () => mounted = false;
     }, [])
@@ -48,11 +47,26 @@ const CardElement = (props) => {
     }
 
     const onPressFav = async () => {
-        const token = await SecureStore.getItemAsync('id_token');
-        if (!token) {
-            setModal(true);
-        } else {
-            await context.addElementoFav(token, changeFav, item);
+        try {
+            const token = await SecureStore.getItemAsync('id_token');
+            if (!token) {
+                setModal(true);
+            } else {
+                await context.addElementoFav(token, changeFav, item);
+            }
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro engadindo elemento como favorito', ToastAndroid.show);
+        }
+    }
+
+    const onQuitFav = async () => {
+        try {
+            const token = await SecureStore.getItemAsync('id_token');
+            await context.deleteElementoFav(token, changeFav, item);
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.show);
         }
     }
 
@@ -82,7 +96,7 @@ const CardElement = (props) => {
                                 <View style={styles.iconRow}>
                                     {
                                         fav ?
-                                            <HeartIconButton />
+                                            <HeartIconButton onQuitFav={onQuitFav} />
                                             :
                                             <HeartOutlineIconButton onPressFav={onPressFav} />
                                     }

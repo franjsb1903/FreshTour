@@ -47,8 +47,6 @@ router.get('/nominatim/geojson/:search', (req, res) => {
     try {
         const { search } = req.params;
         getData(search, res, "geojson");
-
-
     } catch (err) {
         console.error(err.message)
     }

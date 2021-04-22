@@ -22,6 +22,7 @@ router.get('/turismo', function (req, res) {
         pool.query(query, values, (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+                return;
             }
             res.status(200).json({
                 turismo: results.rows,
@@ -40,6 +41,7 @@ router.get('/turismo/:name', function (req, res) {
         pool.query("SELECT *, 'Lugar turistico' as tipo FROM fresh_tour.lugares_turisticos lt WHERE prezo is not NULL and titulo like $1 ORDER BY titulo ASC", [namePerc], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro na busca", err, res);
+                return;
             }
             res.status(200).json({
                 turismo: results.rows,
