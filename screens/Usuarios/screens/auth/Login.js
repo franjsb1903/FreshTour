@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, ToastAndroid, Platform } from 'react-native'
 
-import { registerScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
+import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../../styles/styles';
 
 import ProgressBar from '../../../../components/ProgressBar';
-import { CloseCircleIconButton } from '../../../../components/CustomIcons'
+import { clearButton } from '../../../../components/Common'
 
 const Register = (props) => {
 
@@ -56,14 +56,6 @@ const Register = (props) => {
             props.navigation.navigate('User');
         }
     }
-
-
-    const clearButton = (func) => (
-        Platform.OS == "android" ?
-            <CloseCircleIconButton style={styles.clearButton} clear={func} />
-            :
-            <></>
-    )
 
     var usuarioInput, contrasinalInput;
 

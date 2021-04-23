@@ -29,8 +29,8 @@ router.post('/register', (req, res) => {
     pool.connect((err, client, done) => {
         const shouldAbort = err => {
             if (err) {
-                client.query('ROLLBACK', err => {
-                    if (err) {
+                client.query('ROLLBACK', error => {
+                    if (error) {
                         helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
                         return;
                     }
@@ -62,9 +62,9 @@ router.post('/register', (req, res) => {
                 client.query(query, values, (err, results) => {
                     if (shouldAbort(err)) return;
 
-                    client.query('COMMIT', err => {
-                        if (err) {
-                            helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
+                    client.query('COMMIT', error => {
+                        if (error) {
+                            helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", error, res);
                             return;
                         }
                         try {
@@ -83,9 +83,10 @@ router.post('/register', (req, res) => {
                                 expiresIn: 86400
                             });
 
-                            helpers.onCorrectAuth(token, user, res, [], [], [], []);
-
                             done();
+
+                            helpers.onCorrectAuth(token, user, res, [], [], [], []);
+                            
                         } catch (err) {
                             helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
                             return;

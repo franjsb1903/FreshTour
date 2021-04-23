@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
+import { useNavigation } from '@react-navigation/native';
 
 import Stars from '../../../components/CustomStarsDisplay';
 import { CommentIcon } from '../../../components/CustomIcons'
@@ -8,6 +9,9 @@ import { CommentIcon } from '../../../components/CustomIcons'
 const Opinions = (props) => {
 
     const opinions = props.opinions;
+    const element = props.element;
+
+    const navigation = useNavigation();
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
@@ -21,7 +25,10 @@ const Opinions = (props) => {
                 }
             </View>
             <View>
-                <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}>
+                <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
+                onPress={() => navigation.navigate('NewComment', {
+                    element: element
+                })}>
                     <CommentIcon />
                     <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
                 </ TouchableOpacity>

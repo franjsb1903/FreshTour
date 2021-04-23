@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Platform, ToastAndroid } from 'react-native'
 import { WebView } from 'react-native-webview';
-import Iframe from 'react-iframe';
+import { WebView as WebViewWeb } from 'react-native-web-webview'
 
 import { Asset } from 'expo-asset'
 
@@ -52,12 +52,22 @@ const LeafletMap = (props) => {
         javaScriptEnabledAndroid={true}
         injectedJavaScript={injectedData}
         onMessage={async e => {
-          console.log(e.nativeEvent.data);
-          //await getLocation();
+          await getLocation();
         }}
         androidHardwareAccelerationDisabled
       /> :
-      <iframe ref={ref => (global.iframe = ref)} srcDoc={state} style={{ flex: 1, width: "100%", height: 1000 }} onLoad={`diHola()`} />
+      <WebViewWeb
+        ref={r => (global.map = r)}
+        originWhitelist={["*"]}
+        source={{ html: leaflet_map }}
+        style={{ flex: 1 }}
+        javaScriptEnabledAndroid={true}
+        injectedJavaScript={injectedData}
+        onMessage={async e => {
+          //await getLocation();
+        }}
+        androidHardwareAccelerationDisabled
+      />
   );
 }
 

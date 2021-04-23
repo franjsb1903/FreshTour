@@ -30,7 +30,12 @@ const User = () => {
                 if (token) {
                     const data = await getUserByToken(token);
                     if (!data.auth) {
-                        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                        if(data.message == "jwt expired") {
+                            await SecureStore.deleteItemAsync('id_token');
+                        } else {
+                            ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                        }
+                        setLoading(false);
                         return false;
                     }
                     context.setUser(data);

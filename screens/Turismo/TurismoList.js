@@ -43,13 +43,22 @@ const Turism = (props) => {
     const onGetData = async () => {
         const token = await SecureStore.getItemAsync('id_token');
         var data = await getData(token);
-        setState({
-            loading: false,
-            data: data
-        });
-
-        if (data.status != 200) {
-            ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        if (data.status != 200 || data.auth == false) {
+            setState({
+                loading: false,
+                data: undefined
+            });
+            if (data.message == "jwt expired") {
+                await SecureStore.deleteItemAsync('id_token');
+            } else {
+                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                return;
+            }
+        } else {
+            setState({
+                loading: false,
+                data: data
+            });
         }
     }
 
@@ -107,16 +116,12 @@ const Turism = (props) => {
             });
         }
 
-    }, [isFocused])
+    }, [isFocused]);
 
     const onRefresh = async () => {
         setRefreshing(true);
         try {
-            var data = await getData();
-            setState({
-                loading: false,
-                data: data
-            });
+            await onGetData();
             setRefreshing(false);
         } catch (err) {
             console.error(err);
@@ -127,15 +132,16 @@ const Turism = (props) => {
     const doSearch = async (name) => {
         try {
             var element;
-            if(!data) {
+            if (!data) {
                 element = await getElement(name);
             } else {
                 const token = await SecureStore.getItemAsync('id_token');
                 element = await getElementFavByName(token, name);
             }
             if (element.status != 200) {
-                ToastAndroid.show(element.message, ToastAndroid.SHORT);
-                return;
+                if (element.message == "jwt expired") {
+                    await SecureStore.deleteItemAsync('id_token');
+                }
             }
             if (element != undefined) {
                 setState({
@@ -211,20 +217,21 @@ const Turism = (props) => {
                     />
                 </View>
                 {
-                    state.data.turismo != undefined ?
-                        state.data.status != 200 ?
-                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
-                                <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
-                            </View> :
-                            state.data == undefined || state.data.turismo.length == 0 ?
+                    state.data == undefined ?
+                        <NoData />
+                        :
+                        state.data.turismo != undefined ?
+                            state.data.status != 200 ?
                                 <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
                                     <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
                                 </View> :
-                                <ListData data={state.data.turismo} navigate={props.navigation.navigate} />
+                                state.data.turismo.length == 0 ?
+                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+                                        <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
+                                    </View> :
+                                    <ListData data={state.data.turismo} navigate={props.navigation.navigate} />
 
-                        :
-                        state.data == undefined ?
-                            <NoData /> :
+                            :
                             state.data.length == 0 ?
                                 <NoData /> :
                                 <ListData data={data} navigate={props.navigation.navigate} />

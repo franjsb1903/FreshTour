@@ -38,7 +38,7 @@ router.post('/turismo/fav', verify.verifyToken, (req, res) => {
         const monumento = "INSERT INTO fresh_tour.monumentos_favoritos (id_usuario, id_monumento) values ($1, $2)";
         const planificacion = "INSERT INTO fresh_tour.planificacions_favoritas (id_usuario, id_planificacion) values ($1, $2)";
 
-        if (type === "Lugar turistico") {
+        if (type === "Lugar turístico") {
             onExecuteQuery(lugar_turistico, userId, id_elemento, res);
         } else if (type === "Monumento") {
             onExecuteQuery(monumento, userId, id_elemento, res);
@@ -66,7 +66,7 @@ router.delete('/turismo/fav', verify.verifyToken, (req, res) => {
         const monumento = "DELETE FROM fresh_tour.monumentos_favoritos WHERE id_usuario = $1 and id_monumento = $2";
         const planificacion = "DELETE FROM fresh_tour.planificacions_favoritas WHERE id_usuario = $1 and id_planificacion = $2";
 
-        if (type === "Lugar turistico") {
+        if (type === "Lugar turístico") {
             onExecuteQuery(lugar_turistico, userId, id_elemento, res);
         } else if (type === "Monumento") {
             onExecuteQuery(monumento, userId, id_elemento, res);

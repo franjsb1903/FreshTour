@@ -12,7 +12,29 @@ verify.verifyToken = (req, res, next) => {
 
     jwt.verify(token, config.secret, (err, decoded) => {
         if(err) {
-            return res.status(500).send({ auth: false, message: 'Erro interno ao autenticar ao usuario, inténteo de novo.' });
+            console.log(err.message);
+            return res.status(500).send({ auth: false, message: err.message });
+        }
+        req.userId = decoded.id;
+        next();
+    })
+}
+
+verify.verifyTokenWithoutReturn = (req, res, next) => {
+
+    var token = req.headers['access-token'];
+    if(!token) {
+        req.userId = undefined;
+        next();
+        return;
+    }
+
+    jwt.verify(token, config.secret, (err, decoded) => {
+        if(err) {
+            console.log(err.message);
+            req.userId = undefined;
+            next();
+            return;
         }
         req.userId = decoded.id;
         next();

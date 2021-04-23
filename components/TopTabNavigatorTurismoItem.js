@@ -59,7 +59,7 @@ const TopTabNavigator = (props) => {
                     }} />
                 <Tab.Screen
                     name="Opinions"
-                    children={() => <Opinions opinions={opinions} />}
+                    children={() => <Opinions opinions={opinions} element={element} />}
                     options={{
                         tabBarLabel: 'Opinions'
                     }} />

@@ -50,8 +50,10 @@
     "react-native-screens": "~2.15.2",
     "react-native-stars": "^1.2.2",
     "react-native-tab-view": "^2.16.0",
+    "react-native-textarea": "^1.0.4",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
+    "react-native-web-webview": "^1.0.2",
     "react-native-webview": "^11.0.0",
     "unirest": "^0.6.0"
   },

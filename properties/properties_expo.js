@@ -20,7 +20,8 @@ const properties = {
         opinions: {
             main: "/opinions",
             opinions_count: "/opinions/count/",         // /opinions/count/:type/:id
-            opinions: "/"                               // /opinions/:type/:id
+            opinions: "/",                              // /opinions/:type/:id
+            newOpinion: "/new"
         },
         usuarios: {
             auth: '/auth/',

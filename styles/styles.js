@@ -514,7 +514,7 @@ export const customTouchableOpacity = {
     }
 }
 
-export const registerScreen = StyleSheet.create({
+export const fromScreen = StyleSheet.create({
     conatiner: {
         flex: 1,
         padding: 35,
@@ -530,6 +530,16 @@ export const registerScreen = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    textArea: {
+        flex: 1,
+        padding: 0,
+        marginBottom: 0,
+        borderWidth: 1,
+        borderColor: "#006400",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
     textInput: {
         fontSize: 20,
         color: properties.style.color.darkGreen,
@@ -540,6 +550,26 @@ export const registerScreen = StyleSheet.create({
     },
     clearButton: {
         justifyContent: "center"
+    },
+    containerArea: {
+        flex: 1,
+        padding: 5,
+        marginTop: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: "darkgreen",
+        borderWidth: 1,
+        backgroundColor: properties.style.color.background
+    },
+    textareaContainer: {
+        height: 250,
+        padding: 0
+    },
+    textarea: {
+        textAlignVertical: 'top',  // hack android
+        height: 240,
+        fontSize: 20,
+        color: properties.style.color.darkGreen
     }
 });
 

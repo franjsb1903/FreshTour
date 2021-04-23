@@ -8,6 +8,7 @@ import TurismoList from './screens/Turismo/TurismoList';
 import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 import Register from './screens/Usuarios/screens/auth/Register';
 import Login from './screens/Usuarios/screens/auth/Login';
+import NovoComentario from './screens/Opinions/NovoComentario';
 
 import AppContextProvider from './context/PlanificadorAppContextProvider'
 
@@ -73,6 +74,22 @@ function MyStack() {
           headerStyle: styles.headerStyle,
           headerTintColor: "#fff"
         }}
+      />
+      <Stack.Screen
+        name="NewComment"
+        component={NovoComentario}
+        options={({ route }) => ({
+          headerShown: true,
+          title: route.params.title,
+          headerStyle: styles.headerStyle,
+          headerTintColor: "#fff",
+          headerTitleAllowFontScaling: true,
+          headerTitle: ({ children: title }) => {
+            return (
+              <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+            )
+          }
+        })}
       />
     </Stack.Navigator>
   )
