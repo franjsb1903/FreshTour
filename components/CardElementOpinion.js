@@ -14,10 +14,14 @@ const CardElementOpinion = (props) => {
             <View style={styles.header}>
                 <AvatarIcon />
                 <Text>{opinion.usuario}</Text>
-                <Stars />
+                <Stars value={opinion.valoracion} />
                 <Text>{opinion.data}</Text>
             </View>
-        </Card >
+            <View>
+                <Text>{opinion.titulo}</Text>
+                <Text>{opinion.comentario}</Text>
+            </View>
+        </Card>
     )
 }
 

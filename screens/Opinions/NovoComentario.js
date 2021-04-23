@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, View, TextInput, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button } from '../../styles/styles'
 import Stars from '../../components/CustomStarsSelection';
 import { clearButton } from '../../components/Common';
-import TextArea from 'react-native-textarea'
+import ModalLoading from '../../components/ModalLoading';
+import ModalInicioSesion from '../../components/ModalInicioSesion';
+import TextArea from 'react-native-textarea';
+
+import * as SecureStore from 'expo-secure-store';
+import { newOpinion } from '../../model/Opinions/Opinions';
 
 const NovoComentario = (props) => {
 
@@ -14,7 +19,20 @@ const NovoComentario = (props) => {
         titulo: ''
     });
 
+    const [modal, setModal] = useState({
+        login: false,
+        loading: false
+    })
+
+    const showModal = () => {
+        setModal({
+            ...modal, login: !modal.login
+        });
+    }
+
+
     const element = props.route.params.element;
+    const updateOpinions = props.route.params.updateOpinions;
 
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -30,6 +48,43 @@ const NovoComentario = (props) => {
 
     const handleChangeText = (attr, value) => {
         setComentario({ ...comentario, [attr]: value })
+    }
+
+    const sendOpinion = async () => {
+        try {
+            const token = await SecureStore.getItemAsync('id_token');
+            if (!token) {
+                setModal({
+                    ...modal, ['login']: true
+                });
+                return;
+            }
+            setModal({
+                ...modal, ['loading']: true
+            });
+            const data = await newOpinion(token, element.tipo, element.id, comentario);
+            if (data.auth == false) {
+                ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
+                setModal({
+                    ...modal, ['loading']: false
+                });
+                return;
+            }
+            if (data.status != 200) {
+                ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
+                setModal({
+                    ...modal, ['loading']: false
+                });
+                return;
+            }
+            updateOpinions(data.comment, data.valoracion, data.status);
+            setModal({
+                ...modal, ['loading']: false
+            });
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
+        }
     }
 
     return (
@@ -65,10 +120,12 @@ const NovoComentario = (props) => {
                 />
             </View>
             <View style={formStyle.buttonViewContainer}>
-                <TouchableOpacity style={button.buttonContainer} >
+                <TouchableOpacity style={button.buttonContainer} onPress={() => sendOpinion()} >
                     <Text style={button.buttonTextSmaller}>Enviar comentario</Text>
                 </TouchableOpacity>
             </View>
+            <ModalInicioSesion showModal={showModal} />
+            <ModalLoading />
         </ScrollView>
     )
 

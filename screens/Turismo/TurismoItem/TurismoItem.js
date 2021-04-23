@@ -60,6 +60,15 @@ const TurismoItem = ({ route, navigation }) => {
         return () => mounted = false;
     }, []);
 
+    const updateOpinions = (comentario, valoracion, status) => {
+        setOpinions({
+            count: opinions.count + 1,
+            valoracion: valoracion,
+            opinions: [...opinions.opinions, comentario],
+            status: status
+        });
+    }
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
             title: `${element.titulo}`
@@ -71,7 +80,7 @@ const TurismoItem = ({ route, navigation }) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} />
+            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} updateOpinions={updateOpinions} />
     )
 }
 
