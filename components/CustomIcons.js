@@ -92,8 +92,10 @@ export const CloseCircleIcon = () => (
 export const AvatarIcon = (props) => {
 
     const style = props.style;
+    const size = props.size;
+
     return(
-        <Icon name="person-circle-outline" size={80} style={style} />
+        <Icon name="person-circle-outline" size={size ? size : 80} style={style} />
     )   
 }
 

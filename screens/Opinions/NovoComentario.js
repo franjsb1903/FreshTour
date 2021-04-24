@@ -32,7 +32,6 @@ const NovoComentario = (props) => {
 
 
     const element = props.route.params.element;
-    const updateOpinions = props.route.params.updateOpinions;
 
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -71,16 +70,16 @@ const NovoComentario = (props) => {
                 return;
             }
             if (data.status != 200) {
-                ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
+                ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 setModal({
                     ...modal, ['loading']: false
                 });
                 return;
             }
-            updateOpinions(data.comment, data.valoracion, data.status);
             setModal({
                 ...modal, ['loading']: false
             });
+            props.navigation.navigate("TurismoItem");
         } catch (err) {
             console.error(err);
             ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
@@ -124,8 +123,8 @@ const NovoComentario = (props) => {
                     <Text style={button.buttonTextSmaller}>Enviar comentario</Text>
                 </TouchableOpacity>
             </View>
-            <ModalInicioSesion showModal={showModal} />
-            <ModalLoading />
+            <ModalInicioSesion showModal={showModal} modal={modal.login} />
+            <ModalLoading modal={modal.loading} />
         </ScrollView>
     )
 

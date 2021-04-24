@@ -72,7 +72,7 @@ const Resumo = (props) => {
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
             <View style={[styles.container, styles.background]}>
-                <Stars style={styles.stars} value={opinions.valoracion ? parseFloat(opinions.valoracion) : 0} />
+                <Stars style={styles.stars} value={opinions.valoracion} />
                 {
                     opinions.count != undefined && opinions.status == 200 ?
                         <Text style={styles.valoracion}>{opinions.count} valoracións</Text>

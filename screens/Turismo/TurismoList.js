@@ -27,14 +27,19 @@ const Turism = (props) => {
     const data = props.route.params.data;
 
     React.useLayoutEffect(() => {
-        data ?
-            props.navigation.setOptions({
-                title: "Elementos turísticos favoritos"
-            })
-            :
-            props.navigation.setOptions({
-                title: "Puntos de interese"
-            })
+        let mounted = true;
+        if (mounted) {
+            data ?
+                props.navigation.setOptions({
+                    title: "Elementos turísticos favoritos"
+                })
+                :
+                props.navigation.setOptions({
+                    title: "Puntos de interese"
+                })
+        }
+
+        return () => mounted = false;
     }, []);
 
     const isFocused = useIsFocused();

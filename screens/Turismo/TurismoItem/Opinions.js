@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, RefreshControl } from 'react-native';
 import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,16 +9,30 @@ import CardElementOpinion from '../../../components/CardElementOpinion'
 
 const Opinions = (props) => {
 
+    const [refreshing, setRefreshing] = useState(false);
+
     const opinions = props.opinions;
     const element = props.element;
-    const updateOpinions = props.updateOpinions;
+    const onRefreshOpinions = props.onRefreshOpinions;
 
     const navigation = useNavigation();
 
+    const onRefresh = async () => {
+        try {
+            setRefreshing(true);
+            onRefreshOpinions();
+            setRefreshing(false);
+        } catch (err) {
+            ToastAndroid.show('Erro na actualización', ToastAndroid.SHORT);
+        }
+    }
+
     return (
-        <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
+        <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll} refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
             <View style={[styles.container, styles.background, { justifyContent: "flex-start" }]}>
-                <Stars style={styles.stars} value={opinions.valoracion ? parseFloat(opinions.valoracion) : 0} />
+                <Stars style={styles.stars} value={opinions.valoracion} />
                 {
                     opinions.count != undefined && opinions.status == 200 ?
                         <Text style={styles.valoracion}>{opinions.count} valoracións</Text>
@@ -29,8 +43,7 @@ const Opinions = (props) => {
             <View>
                 <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
                     onPress={() => navigation.navigate('NewComment', {
-                        element: element,
-                        updateOpinions: updateOpinions
+                        element: element
                     })}>
                     <CommentIcon />
                     <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>

@@ -4,8 +4,10 @@ import { ToastAndroid, Alert, Platform, View } from 'react-native'
 import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 
 import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
-import ProgressBar from '../../../components/ProgressBar'
-import { stylesTurismoList as styles } from '../../../styles/styles'
+import ProgressBar from '../../../components/ProgressBar';
+import { stylesTurismoList as styles } from '../../../styles/styles';
+
+import { useIsFocused } from '@react-navigation/native';
 
 const TurismoItem = ({ route, navigation }) => {
 
@@ -21,36 +23,44 @@ const TurismoItem = ({ route, navigation }) => {
     const element = route.params.element;
     const showOnMap = route.params.showOnMap;
 
-    useEffect(() => {
+    const isFocused = useIsFocused();
 
-        let mounted = true;
-
-        const getOpinions = async () => {
-            try {
-                const data = await getOpinionsModel(element.tipo, element.id);
-                if (data.status != 200) {
-                    if (Platform.OS == "android") {
-                        ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
-                    } else {
-                        Alert.alert('Erro na obtención das opinións do elemento');
-                    }
-                    return;
-                }
-                setOpinions({
-                    count: data.count,
-                    valoracion: data.valoracion,
-                    opinions: data.opinions,
-                    status: data.status
-                });
-                setLoading(false);
-            } catch (err) {
-                console.error(err);
+    const onGetData = async () => {
+        try {
+            const data = await getOpinionsModel(element.tipo, element.id);
+            if (data.status != 200) {
                 if (Platform.OS == "android") {
                     ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
                 } else {
                     Alert.alert('Erro na obtención das opinións do elemento');
                 }
+                setLoading(false);
+                return;
             }
+            setOpinions({
+                count: data.count,
+                valoracion: data.valoracion,
+                opinions: data.opinions,
+                status: data.status
+            });
+            setLoading(false);
+        } catch (err) {
+            setLoading(false);
+            console.error(err);
+            if (Platform.OS == "android") {
+                ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
+            } else {
+                Alert.alert('Erro na obtención das opinións do elemento');
+            }
+        }
+    }
+
+    useEffect(() => {
+
+        let mounted = true;
+
+        const getOpinions = async () => {
+            await onGetData();
         }
 
         if (mounted) {
@@ -58,16 +68,7 @@ const TurismoItem = ({ route, navigation }) => {
         }
 
         return () => mounted = false;
-    }, []);
-
-    const updateOpinions = (comentario, valoracion, status) => {
-        setOpinions({
-            count: opinions.count + 1,
-            valoracion: valoracion,
-            opinions: [...opinions.opinions, comentario],
-            status: status
-        });
-    }
+    }, [isFocused]);
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -75,12 +76,16 @@ const TurismoItem = ({ route, navigation }) => {
         });
     }, []);
 
+    const onRefreshOpinions = async () => {
+        await onGetData();
+    }
+
     return (
         loading ?
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} updateOpinions={updateOpinions} />
+            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} onRefreshOpinions={onRefreshOpinions}/>
     )
 }
 
