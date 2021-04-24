@@ -62,19 +62,23 @@ const StopIcon = () => (
 );
 
 const CloseIcon = () => (
-    <Icon name="close" size={30} color="#fff" />
+    <Icon name="close" size={30} color="#000" />
 );
 
 const ChevronUpIcon = () => (
-    <Icon name="chevron-up" size={30} color="#fff" />
+    <Icon name="chevron-up" size={30} color="#000" />
 );
 
 const ChevronDownIcon = () => (
-    <Icon name="chevron-down" size={30} color="#fff" />
+    <Icon name="chevron-down" size={30} color="#000" />
 );
 
 const PointsInterestIcon = () => (
     <Icon name="business" size={30} color={properties.style.color.iconColor} />
+);
+
+const EditIcon = () => (
+    <Icon name="create-outline" size={30} color="#000" />
 );
 
 export const MarkerIcon = () => (
@@ -269,7 +273,7 @@ export const CloseIconButton = (props) => {
         <IconButton
             icon={CloseIcon}
             onPress={() => {
-                closeIconOnPress();
+                closeIconOnPress ? closeIconOnPress() : console.log("Not function");
             }}
             style={style}
         />
@@ -333,6 +337,22 @@ export const CloseCircleIconButton = (props) => {
             icon={CloseCircleIcon}
             onPress={() => {
                 clear();
+            }}
+            style={styles}
+        />
+    );
+}
+
+export const EditIconButton = (props) => {
+
+    const onPress = props.onPress;
+    const styles = props.style;
+
+    return (
+        <IconButton
+            icon={EditIcon}
+            onPress={() => {
+                onPress ? onPress() : console.log("Not function")
             }}
             style={styles}
         />

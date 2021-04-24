@@ -23,16 +23,24 @@ const AppContextProvider = (props) => {
     const [tempoVisita, setTempoVisita] = useState(0);
 
     useEffect(() => {
-        var arrayCoordinates = [];
-        turismoItems.items.map(e => {
-            const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
-            arrayCoordinates.push(coord);
-        });
-        setCoordinates(arrayCoordinates);
+        let mounted = true;
+
+        if (mounted) {
+            var arrayCoordinates = [];
+            turismoItems.items.map(e => {
+                const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
+                arrayCoordinates.push(coord);
+            });
+            setCoordinates(arrayCoordinates);
+        }
+
+        return () => mounted = false;
     }, [turismoItems.items]);
 
     useEffect(() => {
 
+        let mounted = true;
+
         async function getAsyncRoute() {
             try {
                 if (coordinates.length > 1) {
@@ -55,11 +63,15 @@ const AppContextProvider = (props) => {
             }
         }
 
-        getAsyncRoute();
+        if (mounted) {
+            getAsyncRoute();
+        }
 
+        return () => mounted = false;
     }, [coordinates]);
 
     useEffect(() => {
+        let mounted = true;
 
         async function getAsyncRoute() {
             try {
@@ -83,8 +95,10 @@ const AppContextProvider = (props) => {
             }
         }
 
-        getAsyncRoute();
+        if (mounted)
+            getAsyncRoute();
 
+        return () => mounted = false;
     }, [walking]);
 
     const addItem = (item) => {
@@ -143,9 +157,9 @@ const AppContextProvider = (props) => {
             aux.push(e);
         }
         var elementDown = aux[index];
-        var elementUp = aux[index-1];
+        var elementUp = aux[index - 1];
         aux[index] = elementUp;
-        aux[index-1] = elementDown;
+        aux[index - 1] = elementDown;
         setTurismoItems({
             items: aux
         })
@@ -162,9 +176,9 @@ const AppContextProvider = (props) => {
             aux.push(e);
         }
         var elementUp = aux[index];
-        var elementDown = aux[index+1];
+        var elementDown = aux[index + 1];
         aux[index] = elementDown;
-        aux[index+1] = elementUp;
+        aux[index + 1] = elementUp;
         setTurismoItems({
             items: aux
         })
@@ -172,14 +186,14 @@ const AppContextProvider = (props) => {
 
     const addToPlanificacion = async (id, added) => {
         try {
-            if(!added) {
+            if (!added) {
                 const data = await getGeoElementJson(id);
                 if (data == undefined) {
                     ToastAndroid.show('Elemento non engadido', ToastAndroid.SHORT);
                     return;
                 }
                 ToastAndroid.show('Elemento engadido á planificación', ToastAndroid.SHORT);
-                addItem(data);   
+                addItem(data);
             } else {
                 ToastAndroid.show('Elemento xa engadido á planificación', ToastAndroid.SHORT);
             }
@@ -223,9 +237,9 @@ const AppContextProvider = (props) => {
 
     const deleteElementoFavById = (id) => {
         const elementos = user.elementosFav.map((e) => e);
-        for(var i=0; i<elementos.length; i++) {
+        for (var i = 0; i < elementos.length; i++) {
             const fav = elementos[i];
-            if(fav.id == id) {
+            if (fav.id == id) {
                 elementos.splice(i, 1);
                 break;
             }
@@ -243,12 +257,12 @@ const AppContextProvider = (props) => {
     const deleteElementoFav = async (token, changeFavView, item) => {
         try {
             const response = await deleteElementoFavModel(token, item.id, item.tipo);
-            if(response.status != 200) {
+            if (response.status != 200) {
                 ToastAndroid.show(response.message, ToastAndroid.SHORT);
                 return;
             }
             deleteElementoFavById(item.id);
-            item.favorito=false;
+            item.favorito = false;
             changeFavView();
         } catch (err) {
             console.error(err);

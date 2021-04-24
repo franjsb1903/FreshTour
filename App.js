@@ -9,6 +9,7 @@ import TurismoItem from './screens/Turismo/TurismoItem/TurismoItem';
 import Register from './screens/Usuarios/screens/auth/Register';
 import Login from './screens/Usuarios/screens/auth/Login';
 import NovoComentario from './screens/Opinions/NovoComentario';
+import OpinionsUser from './screens/Opinions/OpinionsUsuario';
 
 import AppContextProvider from './context/PlanificadorAppContextProvider'
 
@@ -90,6 +91,16 @@ function MyStack() {
             )
           }
         })}
+      />
+      <Stack.Screen
+        name="OpinionsUser"
+        component={OpinionsUser}
+        options={{
+          headerShown: true,
+          title: "Comentarios e valoracións",
+          headerStyle: styles.headerStyle,
+          headerTintColor: "#fff"
+        }}
       />
     </Stack.Navigator>
   )

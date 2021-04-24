@@ -10,20 +10,6 @@ import * as Location from 'expo-location'
 
 const LeafletMap = (props) => {
 
-  const [state, setstate] = useState('')
-
-  useEffect(() => {
-
-    const getUri = async () => {
-      const [{ localUri }] = await Asset.loadAsync(require('../leaflet/leaflet.html'));
-      setstate(localUri);
-    }
-
-    getUri();
-
-  }, []);
-
-
   const getLocation = async () => {
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {

@@ -66,59 +66,32 @@ const Turism = (props) => {
             });
         }
     }
-
-    useEffect(() => {
-        let mounted = true;
-        async function getElements() {
-            try {
-                if (mounted) {
-                    await onGetData();
-                }
-            } catch (err) {
-                console.error(err);
-                ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
-            }
-        }
-
-        if (!data) {
-            getElements();
-        } else {
-            setState({
-                loading: false,
-                data: data
-            })
-        }
-
-        return () => mounted = false;
-
-    }, []);
-
-
+    
     useEffect(() => {
 
         let mounted = true;
         const reload = async () => {
             try {
-                if (mounted) {
-                    setState({
-                        loading: true,
-                        data: []
-                    });
-                    await onGetData();
-                }
+                setState({
+                    loading: true,
+                    data: []
+                });
+                await onGetData();
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
             }
         }
 
-        if (!data) {
-            reload();
-        } else {
-            setState({
-                data: context.user.elementosFav,
-                loading: false
-            });
+        if (mounted) {
+            if (!data) {
+                reload();
+            } else {
+                setState({
+                    data: context.user.elementosFav,
+                    loading: false
+                });
+            }
         }
 
     }, [isFocused]);

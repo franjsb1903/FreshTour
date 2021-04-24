@@ -247,12 +247,12 @@ export const stylesCardElementPlanificacion = StyleSheet.create({
     container: {
         flex: 0,
         padding: 10,
-        backgroundColor: properties.style.color.main
+        backgroundColor: "#fff"
     },
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        color: properties.style.color.text
+        color: "#000"
     },
     rowContainer: {
         flexDirection: "row",
@@ -287,12 +287,12 @@ export const stylesCardElementPlanificacion = StyleSheet.create({
     },
     text: {
         textAlign: "justify",
-        color: properties.style.color.text,
+        color: "#000",
         fontSize: 20
     },
     textBold: {
         textAlign: "justify",
-        color: properties.style.color.text,
+        color: "#000",
         fontWeight: "bold",
         fontSize: 20
     },
@@ -301,7 +301,7 @@ export const stylesCardElementPlanificacion = StyleSheet.create({
 export const stylesCardElementRuta = StyleSheet.create({
     container: {
         flex: 0,
-        backgroundColor: properties.style.color.main
+        backgroundColor: "#fff"
     },
     rowContainer: {
         flexDirection: "row",
@@ -309,41 +309,41 @@ export const stylesCardElementRuta = StyleSheet.create({
     },
     title: {
         fontSize: 15,
-        color: properties.style.color.text
+        color: "#000"
     },
     titleBold: {
         fontSize: 18,
         fontWeight: "bold",
-        color: properties.style.color.text
+        color: "#000"
     },
     textTempo: {
         fontSize: 15,
         justifyContent: "flex-start",
-        color: properties.style.color.text
+        color: "#000"
     },
     textDistancia: {
         fontSize: 15,
         justifyContent: "flex-end",
-        color: properties.style.color.text
+        color: "#000"
     },
     text: {
         fontSize: 18,
         fontWeight: "bold",
-        color: properties.style.color.text
+        color: "#000"
     }
 });
 
 export const stylesDropDown = StyleSheet.create({
     style: {
-        backgroundColor: properties.style.color.main
+        backgroundColor: "#fff"
     },
     scroll: {
-        backgroundColor: properties.style.color.main,
+        backgroundColor: "#fff",
         height: 110
     },
     text: {
         fontSize: 15,
-        color: properties.style.color.text
+        color: "#000"
     }
 });
 

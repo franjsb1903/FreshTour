@@ -24,27 +24,27 @@ const User = () => {
         let mounted = true;
 
         const getUser = async () => {
-            if (mounted) {
-                setLoading(true);
-                const token = await SecureStore.getItemAsync('id_token');
-                if (token) {
-                    const data = await getUserByToken(token);
-                    if (!data.auth) {
-                        if(data.message == "jwt expired") {
-                            await SecureStore.deleteItemAsync('id_token');
-                        } else {
-                            ToastAndroid.show(data.message, ToastAndroid.SHORT);
-                        }
-                        setLoading(false);
-                        return false;
+            setLoading(true);
+            const token = await SecureStore.getItemAsync('id_token');
+            if (token) {
+                const data = await getUserByToken(token);
+                if (!data.auth) {
+                    if (data.message == "jwt expired") {
+                        await SecureStore.deleteItemAsync('id_token');
+                    } else {
+                        ToastAndroid.show(data.message, ToastAndroid.SHORT);
                     }
-                    context.setUser(data);
-                    setIsLoggedIn(true);
+                    setLoading(false);
+                    return false;
                 }
-                setLoading(false);
+                context.setUser(data);
+                setIsLoggedIn(true);
             }
+            setLoading(false);
+
         }
-        getUser();
+        if (mounted)
+            getUser();
         return () => { mounted = false }
     }, []);
 

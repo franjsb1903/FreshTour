@@ -71,9 +71,14 @@ const TurismoItem = ({ route, navigation }) => {
     }, [isFocused]);
 
     React.useLayoutEffect(() => {
-        navigation.setOptions({
-            title: `${element.titulo}`
-        });
+        let mounted = true;
+
+        if (mounted)
+            navigation.setOptions({
+                title: `${element.titulo}`
+            });
+            
+        return () => mounted = false;
     }, []);
 
     const onRefreshOpinions = async () => {
@@ -85,7 +90,7 @@ const TurismoItem = ({ route, navigation }) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} onRefreshOpinions={onRefreshOpinions}/>
+            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} onRefreshOpinions={onRefreshOpinions} />
     )
 }
 

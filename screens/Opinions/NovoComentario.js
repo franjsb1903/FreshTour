@@ -34,9 +34,14 @@ const NovoComentario = (props) => {
     const element = props.route.params.element;
 
     React.useLayoutEffect(() => {
+        let mounted = true;
+
+        if(mounted)
         props.navigation.setOptions({
             title: `${element.titulo}`
         });
+
+        return () => mounted = false;
     }, []);
 
     const updateValoracion = (valoracion) => {

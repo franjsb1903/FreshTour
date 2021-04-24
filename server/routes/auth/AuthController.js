@@ -105,7 +105,7 @@ router.post('/login', (req, res) => {
 
     const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turistico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
     const plan_fav = "SELECT * FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
-    const opinions = "SELECT id, id_usuario, titulo, data, valoracion, comentario, id_lugar_turistico as id,'Lugar turistico' as tipo FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_monumento as id, 'Monumento' as tipo FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_planificacion as id, 'Planificacion' as tipo FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
+    const opinions = "SELECT id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_lugar_turistico as id,'Lugar turistico' as tipo, (select titulo from fresh_tour.lugares_turisticos where id = cvlt.id_lugar_turistico) as elemento FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_monumento as id, 'Monumento' as tipo, (select titulo from fresh_tour.monumentos where id = cvm.id_monumento) as elemento FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_planificacion as id, 'Planificacion' as tipo, (select titulo from fresh_tour.planificacions where id = cvp.id_planificacion) FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
     const plansUsuario = "SELECT * FROM fresh_tour.planificacions p WHERE id_usuario = $1"
 
     pool.query(query, [usuario], (err, results) => {
@@ -135,7 +135,7 @@ router.post('/login', (req, res) => {
 
             if (err) {
                 helpers.onErrorAuth(500, "Erro obtendo os elementos favoritos do usuario", err, res);
-                return;
+                elementosFavArray = [];
             } else {
                 elementosFavArray = elementos.rows;
             }
@@ -145,7 +145,7 @@ router.post('/login', (req, res) => {
 
                 if (err) {
                     helpers.onErrorAuth(500, "Erro obtendo as planificacions favoritas do usuario", err, res);
-                    return;
+                    planificacionsFavArray = [];
                 } else {
                     planificacionsFavArray = planificacions.rows;
                 }
@@ -155,7 +155,7 @@ router.post('/login', (req, res) => {
 
                     if (err) {
                         helpers.onErrorAuth(500, "Erro obtendo as opinions do usuario", err, res);
-                        return;
+                        opinionsArray = [];
                     } else {
                         opinionsArray = opinions.rows;
                     }
@@ -164,8 +164,8 @@ router.post('/login', (req, res) => {
                         var plansArray;
 
                         if (err) {
-                            helpers.onErrorAuth(500, "Erro obtendo as opinions do usuario", err, res);
-                            return;
+                            helpers.onErrorAuth(500, "Erro obtendo os plans do usuario", err, res);
+                            plansArray = [];
                         } else {
                             plansArray = plans.rows;
                         }
@@ -184,10 +184,10 @@ router.get('/me', verify.verifyToken, (req, res) => {
     const userId = req.userId;
 
     const query = "SELECT id, usuario, nome, apelidos, email, data, contrasinal, to_char(data, 'DD-MM-YY') as data FROM fresh_tour.usuarios WHERE id = $1";
-
+    
     const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turistico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
     const plan_fav = "SELECT * FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
-    const opinions = "SELECT id, id_usuario, titulo, data, valoracion, comentario, id_lugar_turistico as id,'Lugar turistico' as tipo FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_monumento as id, 'Monumento' as tipo FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, data, valoracion, comentario, id_planificacion as id, 'Planificacion' as tipo FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
+    const opinions = "SELECT id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_lugar_turistico as id,'Lugar turistico' as tipo, (select titulo from fresh_tour.lugares_turisticos where id = cvlt.id_lugar_turistico) as elemento FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_monumento as id, 'Monumento' as tipo, (select titulo from fresh_tour.monumentos where id = cvm.id_monumento) as elemento FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_planificacion as id, 'Planificacion' as tipo, (select titulo from fresh_tour.planificacions where id = cvp.id_planificacion) FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
     const plansUsuario = "SELECT * FROM fresh_tour.planificacions p WHERE id_usuario = $1"
 
     pool.query(query, [userId], (err, results) => {

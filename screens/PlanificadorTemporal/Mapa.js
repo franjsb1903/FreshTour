@@ -48,28 +48,39 @@ const Map = (props) => {
   }, []);
 
   useEffect(() => {
-    if (Platform.OS != "web") {
-      global.map.injectJavaScript(injectedData);
+    let mounted = true;
+
+    if (mounted) {
+      if (Platform.OS != "web") {
+        global.map.injectJavaScript(injectedData);
+      }
     }
+
+    return () => mounted = false;
   }, [selected.selected]);
 
   useEffect(() => {
-    if (Platform.OS != "web") {
-      global.map.injectJavaScript(`deleteMarkerPlanificacionLayer()`);
-      const data = context.route.route;
-      if (Platform.OS != "web") {
-        global.map.injectJavaScript(`addRoute(${data})`);
-        var i = 0;
-        context.turismoItems.map(e => {
-          i++;
-          const content = getIconContent(i);
-          const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
-          const name = `${e.features[0].properties.titulo}`;
-          global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}", "${content}")`);
-        });
+    let mounted = true;
 
+    if (mounted) {
+      if (Platform.OS != "web") {
+        global.map.injectJavaScript(`deleteMarkerPlanificacionLayer()`);
+        const data = context.route.route;
+        if (Platform.OS != "web") {
+          global.map.injectJavaScript(`addRoute(${data})`);
+          var i = 0;
+          context.turismoItems.map(e => {
+            i++;
+            const content = getIconContent(i);
+            const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
+            const name = `${e.features[0].properties.titulo}`;
+            global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}", "${content}")`);
+          });
+
+        }
       }
     }
+    return () => mounted = false;
   }, [context.route]);
 
   const getElements = async (newSearch) => {
