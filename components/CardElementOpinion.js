@@ -9,6 +9,8 @@ const CardElementOpinion = (props) => {
 
     const opinion = props.opinion;
     const isUsuario = props.isUsuario;
+    const onEdit = props.onEdit;
+    const onDelete = props.onDelete;
 
     return (
         <Card>
@@ -24,8 +26,12 @@ const CardElementOpinion = (props) => {
                 {
                     isUsuario ?
                         <View style={{ flexDirection: "row", justifyContent: "flex-end", flex: 2 }}>
-                            <EditIconButton style={{ flex: 0 }} />
-                            <CloseIconButton style={{ flex: 0 }} />
+                            <EditIconButton style={{ flex: 0 }} onPress={() => {
+                                onEdit(opinion);
+                            }} />
+                            <CloseIconButton style={{ flex: 0 }} closeIconOnPress={() => {
+                                onDelete(opinion);
+                            }} />
                         </View>
                         :
                         <></>

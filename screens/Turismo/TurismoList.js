@@ -83,6 +83,8 @@ const Turism = (props) => {
             }
         }
 
+        console.log(data);
+
         if (mounted) {
             if (!data) {
                 reload();

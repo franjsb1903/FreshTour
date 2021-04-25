@@ -60,7 +60,7 @@ const TopTabNavigator = (props) => {
                     }} />
                 <Tab.Screen
                     name="Opinions"
-                    children={() => <Opinions opinions={opinions} element={element} onRefreshOpinions={onRefreshOpinions} />}
+                    children={() => <Opinions opinions={opinions} element={element} onRefreshOpinions={onRefreshOpinions} titulo={element.titulo} />}
                     options={{
                         tabBarLabel: 'Opinions'
                     }} />

@@ -21,7 +21,9 @@ const properties = {
             main: "/opinions",
             opinions_count: "/opinions/count/",         // /opinions/count/:type/:id
             opinions: "/",                              // /opinions/:type/:id
-            newOpinion: "/new"
+            newOpinion: "/new",
+            delete: "/",
+            edit: "/edit"
         },
         usuarios: {
             auth: '/auth/',

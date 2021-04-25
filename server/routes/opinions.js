@@ -16,11 +16,11 @@ router.get('/:type/:id', async (req, res) => {
         const { type, id } = req.params;
 
         if (type === "Lugar turístico") {
-            onSearch("select cvlt.id, id_usuario, usuario, titulo, valoracion, comentario, id_lugar_turistico, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_lugares_turisticos cvlt inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvlt.id_usuario = usuarios.id where cvlt.id_lugar_turistico = $1", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_lugares_turisticos where id_lugar_turistico = $1", id, res);
+            onSearch("select cvlt.id, id_usuario, usuario, titulo, valoracion, comentario, id_lugar_turistico as id_elemento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_lugares_turisticos cvlt inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvlt.id_usuario = usuarios.id where cvlt.id_lugar_turistico = $1 order by data asc", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_lugares_turisticos where id_lugar_turistico = $1", id, res);
         } else if (type === "Monumento") {
-            onSearch("select cvm.id, id_usuario, usuario, titulo, valoracion, comentario, id_monumento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_monumentos cvm inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvm.id_usuario = usuarios.id where cvm.id_monumento = $1", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_monumentos where id_monumento = $1", id, res);
+            onSearch("select cvm.id, id_usuario, usuario, titulo, valoracion, comentario, id_monumento as id_elemento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_monumentos cvm inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvm.id_usuario = usuarios.id where cvm.id_monumento = $1 order by data asc", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_monumentos where id_monumento = $1", id, res);
         } else {
-            onSearch("select cvp.id, id_usuario, usuario, titulo, valoracion, comentario, id_planificacion, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_planificacions cvp inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvp.id_usuario = usuarios.id where cvp.id_planificacion = $1", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_planificacions where id_planificacion = $1", id, res);
+            onSearch("select cvp.id, id_usuario, usuario, titulo, valoracion, comentario, id_planificacion as id_elemento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_planificacions cvp inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvp.id_usuario = usuarios.id where cvp.id_planificacion = $1 order by data asc", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_planificacions where id_planificacion = $1", id, res);
         }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
@@ -84,6 +84,70 @@ router.post('/new', verify.verifyToken, async (req, res) => {
     }
 });
 
+router.delete('/', verify.verifyToken, (req, res) => {
+
+    try {
+
+        const { id, id_elemento, type } = req.body;
+
+        const lugar_turistico = "DELETE FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id = $1";
+        const monumento = "DELETE FROM fresh_tour.comentarios_valoracions_monumentos WHERE id = $1";
+        const planificacion = "DELETE FROM fresh_tour.comentarios_valoracions_planificacions WHERE id = $1";
+
+        const mediaLugares = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_lugar_turistico = $1"
+        const updateValoracionLugares = "UPDATE fresh_tour.lugares_turisticos SET valoracion = $1 WHERE id = $2"
+
+        const mediaMonumentos = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_monumento = $1"
+        const updateValoracionMonumentos = "UPDATE fresh_tour.monumentos SET valoracion = $1 WHERE id = $2"
+
+        const mediaPlanificacions = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1"
+        const updateValoracionPlanificacions = "UPDATE fresh_tour.planificacions SET valoracion = $1 WHERE id = $2"
+
+        console.log(id, id_elemento, type);
+
+        if (type === "Lugar turístico") {
+            onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);
+        } else if (type === "Monumento") {
+            onTransactionUpdate(monumento, [id], mediaMonumentos, updateValoracionMonumentos, id_elemento, res);
+        } else {
+            onTransactionUpdate(planificacion, [id], mediaPlanificacions, updateValoracionPlanificacions, id_elemento, res);
+        }
+
+    } catch (err) {
+        helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+});
+
+router.post('/edit', verify.verifyToken, (req, res) => {
+    try {
+
+        const { id, valoracion, titulo, comentario, id_elemento, type } = req.body;
+
+        const queryLugares = "UPDATE fresh_tour.comentarios_valoracions_lugares_turisticos SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
+        const mediaLugares = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_lugar_turistico = $1"
+        const updateValoracionLugares = "UPDATE fresh_tour.lugares_turisticos SET valoracion = $1 WHERE id = $2"
+
+        const queryMonumentos = "UPDATE fresh_tour.comentarios_valoracions_monumentos SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
+        const mediaMonumentos = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_monumento = $1"
+        const updateValoracionMonumentos = "UPDATE fresh_tour.monumentos SET valoracion = $1 WHERE id = $2"
+
+        const queryPlanificacions = "UPDATE fresh_tour.comentarios_valoracions_planificacions SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
+        const mediaPlanificacions = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1"
+        const updateValoracionPlanificacions = "UPDATE fresh_tour.planificacions SET valoracion = $1 WHERE id = $2"
+
+        if (type === "Lugar turístico") {
+            onTransactionUpdate(queryLugares, [valoracion, titulo, comentario, id], mediaLugares, updateValoracionLugares, id_elemento, res);
+        } else if (type === "Monumento") {
+            onTransactionUpdate(queryMonumentos, [valoracion, titulo, comentario, id], mediaMonumentos, updateValoracionMonumentos, id_elemento, res);
+        } else {
+            onTransactionUpdate(queryPlanificacions, [valoracion, titulo, comentario, id], mediaPlanificacions, updateValoracionPlanificacions, id_elemento, res);
+        }
+
+    } catch (err) {
+        helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+})
+
 const onTransaction = (first, firstValues, second, third, type, res, idUsuario) => {
 
     pool.connect((err, client, done) => {
@@ -105,7 +169,6 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
 
         client.query('BEGIN', err => {
             if (shouldAbort(err)) return;
-
             client.query(first, firstValues, (err, results) => {
                 if (shouldAbort(err)) return;
 
@@ -118,12 +181,10 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                 } else {
                     id_elemento = comment.id_planificacion;
                 }
-
                 client.query(second, [id_elemento], (err, results) => {
                     if (shouldAbort(err)) return;
 
                     const media = results.rows[0].media;
-
                     client.query(third, [media, id_elemento], (err, results) => {
                         if (shouldAbort(err)) return;
 
@@ -132,8 +193,6 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                         client.query("SELECT usuario FROM fresh_tour.usuarios WHERE id = $1", [idUsuario], (err, results) => {
 
                             if (shouldAbort(err)) return;
-
-
                             const { usuario } = results.rows[0];
 
                             client.query('COMMIT', error => {
@@ -155,6 +214,63 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                                     return;
                                 }
                             })
+                        })
+
+                    })
+                });
+            });
+        })
+    });
+}
+
+const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res) => {
+
+    pool.connect((err, client, done) => {
+        const shouldAbort = err => {
+            if (err) {
+                client.query('ROLLBACK', error => {
+                    if (error) {
+                        helpers.onError(500, "Erro interno no servidor", error, res);
+                        return;
+                    }
+
+                    done()
+                    helpers.onError(500, "Erro interno no servidor", err, res);
+                    return;
+                })
+            }
+            return !!err
+        }
+
+
+        client.query('BEGIN', err => {
+            if (shouldAbort(err)) return;
+
+            client.query(first, firstValues, (err, results) => {
+                if (shouldAbort(err)) return;
+
+                client.query(second, [id_elemento], (err, results) => {
+                    if (shouldAbort(err)) return;
+
+                    const media = results.rows[0].media;
+                    client.query(third, [media, id_elemento], (err, results) => {
+                        if (shouldAbort(err)) return;
+
+                        client.query('COMMIT', error => {
+                            if (error) {
+                                helpers.onError(500, "Erro interno no servidor", error, res);
+                                return;
+                            }
+                            try {
+                                done();
+                                return res.status(200).send({
+                                    status: 200
+                                });
+
+                            } catch (err) {
+                                helpers.onError(500, "Erro interno no servidor", err, res);
+                                return;
+                            }
                         })
 
                     })
@@ -190,7 +306,6 @@ const onSearch = (query, secondQuery, id, res) => {
                 helpers.onError(500, "Erro interno do servidor", err, res);
                 return;
             }
-
             res.json({
                 opinions: results.rows,
                 valoracion: resultsSecond.rows[0].valoracion,

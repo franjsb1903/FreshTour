@@ -34,4 +34,16 @@ helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, op
     return res.status(200).send({ auth: true, token: token, user: user, planificacionsFav: planificacionsFav, planificacions: planificacions, opinions: opinions, elementosFav: elementosFav });
 }
 
+helpers.onExecuteQuery = (query, id_usuario, id_elemento, res, pool) => {
+    pool.query(query, [id_usuario, id_elemento], (err, results) => {
+        if (err) {
+            helpers.onError(500, "Erro interno do servidor", err, res);
+            return;
+        }
+        res.json({
+            status: 200
+        });
+    });
+}
+
 module.exports = helpers;

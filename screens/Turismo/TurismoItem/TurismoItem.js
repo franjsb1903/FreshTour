@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ToastAndroid, Alert, Platform, View } from 'react-native'
 
 import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
@@ -6,6 +6,7 @@ import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
 import ProgressBar from '../../../components/ProgressBar';
 import { stylesTurismoList as styles } from '../../../styles/styles';
+import AppContext from '../../../context/PlanificadorAppContext'
 
 import { useIsFocused } from '@react-navigation/native';
 
@@ -77,7 +78,7 @@ const TurismoItem = ({ route, navigation }) => {
             navigation.setOptions({
                 title: `${element.titulo}`
             });
-            
+
         return () => mounted = false;
     }, []);
 
@@ -90,7 +91,12 @@ const TurismoItem = ({ route, navigation }) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <TopTabNavigator element={element} showOnMap={showOnMap} opinions={opinions} onRefreshOpinions={onRefreshOpinions} />
+            <TopTabNavigator
+                element={element}
+                showOnMap={showOnMap}
+                opinions={opinions}
+                onRefreshOpinions={onRefreshOpinions}
+                />
     )
 }
 

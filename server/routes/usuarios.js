@@ -11,18 +11,6 @@ router.use(express.urlencoded({
 }));
 router.use(express.json());
 
-const onExecuteQuery = (query, id_usuario, id_elemento, res) => {
-    pool.query(query, [id_usuario, id_elemento], (err, results) => {
-        if (err) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
-            return;
-        }
-        res.json({
-            status: 200
-        });
-    });
-}
-
 router.post('/turismo/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -39,11 +27,11 @@ router.post('/turismo/fav', verify.verifyToken, (req, res) => {
         const planificacion = "INSERT INTO fresh_tour.planificacions_favoritas (id_usuario, id_planificacion) values ($1, $2)";
 
         if (type === "Lugar turístico") {
-            onExecuteQuery(lugar_turistico, userId, id_elemento, res);
+            helpers.onExecuteQuery(lugar_turistico, userId, id_elemento, res, pool);
         } else if (type === "Monumento") {
-            onExecuteQuery(monumento, userId, id_elemento, res);
+            helpers.onExecuteQuery(monumento, userId, id_elemento, res, pool);
         } else {
-            onExecuteQuery(planificacion, userId, id_elemento, res);
+            helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
         }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
@@ -67,11 +55,11 @@ router.delete('/turismo/fav', verify.verifyToken, (req, res) => {
         const planificacion = "DELETE FROM fresh_tour.planificacions_favoritas WHERE id_usuario = $1 and id_planificacion = $2";
 
         if (type === "Lugar turístico") {
-            onExecuteQuery(lugar_turistico, userId, id_elemento, res);
+            helpers.onExecuteQuery(lugar_turistico, userId, id_elemento, res, pool);
         } else if (type === "Monumento") {
-            onExecuteQuery(monumento, userId, id_elemento, res);
+            helpers.onExecuteQuery(monumento, userId, id_elemento, res, pool);
         } else {
-            onExecuteQuery(planificacion, userId, id_elemento, res);
+            helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
         }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
@@ -83,7 +71,7 @@ router.get('/turismo/fav/', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
 
-        const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turistico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)";
+        const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)";
         pool.query(elementos_favoritos, [userId], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro na busca", err, res);
@@ -106,7 +94,7 @@ router.get('/turismo/fav/:name', verify.verifyToken, (req, res) => {
 
         const namePerc = '%' + name + '%'
 
-        const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) and titulo LIKE $2 UNION ALL SELECT *, 'Lugar turistico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1) and titulo LIKE $2";
+        const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) and titulo LIKE $2 UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1) and titulo LIKE $2";
         pool.query(elementos_favoritos, [userId, namePerc], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro na busca", err, res);

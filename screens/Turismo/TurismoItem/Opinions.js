@@ -14,6 +14,7 @@ const Opinions = (props) => {
     const opinions = props.opinions;
     const element = props.element;
     const onRefreshOpinions = props.onRefreshOpinions;
+    const titulo = props.titulo;
 
     const navigation = useNavigation();
 
@@ -43,7 +44,8 @@ const Opinions = (props) => {
             <View>
                 <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
                     onPress={() => navigation.navigate('NewComment', {
-                        element: element
+                        element: element,
+                        titulo: titulo
                     })}>
                     <CommentIcon />
                     <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>

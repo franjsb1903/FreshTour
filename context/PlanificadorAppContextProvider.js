@@ -3,6 +3,7 @@ import AppContext from './PlanificadorAppContext';
 import { ToastAndroid } from 'react-native'
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
+import { deleteOpinion as deleteOpinionModel, editOpinion as editOpinionModel } from '../model/Opinions/Opinions'
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Usuarios/Usuarios';
 
 const AppContextProvider = (props) => {
@@ -220,14 +221,6 @@ const AppContextProvider = (props) => {
                 return;
             }
             item.favorito = true;
-            setUser({
-                user: user.user,
-                isLoggedIn: user.isLoggedIn,
-                planificacions: user.planificacions,
-                planificacionsFav: user.planificacionsFav,
-                opinions: user.opinions,
-                elementosFav: [...user.elementosFav, item]
-            });
             changeFavView();
         } catch (err) {
             console.error(err);
@@ -235,33 +228,14 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const deleteElementoFavById = (id) => {
-        const elementos = user.elementosFav.map((e) => e);
-        for (var i = 0; i < elementos.length; i++) {
-            const fav = elementos[i];
-            if (fav.id == id) {
-                elementos.splice(i, 1);
-                break;
-            }
-        }
-        setUser({
-            user: user.user,
-            isLoggedIn: user.isLoggedIn,
-            planificacions: user.planificacions,
-            planificacionsFav: user.planificacionsFav,
-            opinions: user.opinions,
-            elementosFav: elementos
-        });
-    }
-
     const deleteElementoFav = async (token, changeFavView, item) => {
         try {
+            console.log(token, item.id, item.tipo);
             const response = await deleteElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
                 ToastAndroid.show(response.message, ToastAndroid.SHORT);
                 return;
             }
-            deleteElementoFavById(item.id);
             item.favorito = false;
             changeFavView();
         } catch (err) {
@@ -270,8 +244,34 @@ const AppContextProvider = (props) => {
         }
     }
 
+
+    const deleteOpinion = async (token, id_elemento, type, id) => {
+        try {
+            const response = await deleteOpinionModel(token, id_elemento, type, id);
+            if(response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                return;
+            }
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro eliminando a opinión', ToastAndroid.SHORT);
+        }
+    }
+
+    const editOpinion = async (token, type, id_elemento, comentario, id) => {
+        try {
+            const response = await editOpinionModel(token, type, id_elemento, comentario);
+            if(response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                return;
+            }
+        } catch(err) {
+            console.error(err);
+            ToastAndroid.show('Erro na edición da opinión', ToastAndroid.SHORT);
+        }
+    }
+
     const setNewUser = (data) => {
-        console.log("object")
         if (data != undefined) {
             setUser({
                 user: data.user,
@@ -293,7 +293,6 @@ const AppContextProvider = (props) => {
             opinions: [],
             elementosFav: []
         })
-
     }
 
     const settings = {
@@ -314,7 +313,9 @@ const AppContextProvider = (props) => {
         addElementoFav: addElementoFav,
         setUser: setNewUser,
         resetUser: resetUser,
-        deleteElementoFav: deleteElementoFav
+        deleteElementoFav: deleteElementoFav,
+        deleteOpinion: deleteOpinion,
+        editOpinion: editOpinion
     }
 
     return (

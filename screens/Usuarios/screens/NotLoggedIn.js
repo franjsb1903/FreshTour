@@ -1,16 +1,12 @@
-import React, {useContext} from 'react';
-import { Button, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 
 import { notLoggedIn as styles, customTouchableOpacity as buttonStyle } from '../../../styles/styles';
-import { getImageUri } from '../../../Util/ImageUtil'
+import { getImageUri } from '../../../Util/ImageUtil';
 
 import { useNavigation } from '@react-navigation/native';
 
-import AppContext from '../../../context/PlanificadorAppContext';
-
 const NotLoggedIn = (props) => {
-
-    const context = useContext(AppContext);
 
     const localUri = getImageUri("catedral_app");
     const register = props.register;
@@ -43,7 +39,6 @@ const NotLoggedIn = (props) => {
             </View>
         </View>
     );
-
 }
 
 export default NotLoggedIn;

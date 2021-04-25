@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, TextInput, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button } from '../../styles/styles'
@@ -9,7 +9,7 @@ import ModalInicioSesion from '../../components/ModalInicioSesion';
 import TextArea from 'react-native-textarea';
 
 import * as SecureStore from 'expo-secure-store';
-import { newOpinion } from '../../model/Opinions/Opinions';
+import { newOpinion, editOpinion } from '../../model/Opinions/Opinions';
 
 const NovoComentario = (props) => {
 
@@ -24,22 +24,38 @@ const NovoComentario = (props) => {
         loading: false
     })
 
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted && comment) {
+            setComentario({
+                valoracion: comment.valoracion,
+                comentario: comment.comentario,
+                titulo: comment.titulo
+            });
+        }
+
+        return () => mounted = false;
+    }, [])
+
     const showModal = () => {
         setModal({
             ...modal, login: !modal.login
         });
     }
 
-
     const element = props.route.params.element;
+    const comment = props.route.params.comment;
+    const titulo = props.route.params.titulo;
 
     React.useLayoutEffect(() => {
         let mounted = true;
 
-        if(mounted)
-        props.navigation.setOptions({
-            title: `${element.titulo}`
-        });
+        if (mounted) {
+            props.navigation.setOptions({
+                title: titulo
+            });
+        }
 
         return () => mounted = false;
     }, []);
@@ -66,7 +82,12 @@ const NovoComentario = (props) => {
             setModal({
                 ...modal, ['loading']: true
             });
-            const data = await newOpinion(token, element.tipo, element.id, comentario);
+            var data;
+            if (comment) {
+                data = await editOpinion(token, comment.tipo, comment.id_elemento, comentario, comment.id);
+            } else {
+                data = await newOpinion(token, element.tipo, element.id, comentario);
+            }
             if (data.auth == false) {
                 ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
                 setModal({
@@ -84,7 +105,11 @@ const NovoComentario = (props) => {
             setModal({
                 ...modal, ['loading']: false
             });
-            props.navigation.navigate("TurismoItem");
+            if (comment) {
+                props.navigation.navigate("User");
+            } else {
+                props.navigation.navigate("TurismoItem");
+            }
         } catch (err) {
             console.error(err);
             ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
@@ -107,6 +132,7 @@ const NovoComentario = (props) => {
                     textContentType="name"
                     clearButtonMode="always"
                     multiline={true}
+                    value={comentario.titulo}
                     numberOfLines={3} />
                 {
                     clearButton(() => tituloInput.clear())
@@ -114,19 +140,22 @@ const NovoComentario = (props) => {
             </View>
             <View style={formStyle.containerArea}>
                 <TextArea
-                    ref={ref => comentarioInput = ref}
                     onChangeText={(value) => handleChangeText('comentario', value)}
                     placeholder="Comentario"
                     containerStyle={formStyle.textareaContainer}
                     style={formStyle.textarea}
                     maxLength={250}
                     placeholderTextColor={'#808080'}
+                    defaultValue={comentario.comentario}
                 />
             </View>
             <View style={formStyle.buttonViewContainer}>
-                <TouchableOpacity style={button.buttonContainer} onPress={() => sendOpinion()} >
-                    <Text style={button.buttonTextSmaller}>Enviar comentario</Text>
-                </TouchableOpacity>
+                {
+                    <TouchableOpacity style={button.buttonContainer} onPress={() => sendOpinion()} >
+                        <Text style={button.buttonTextSmaller}>Enviar comentario</Text>
+                    </TouchableOpacity>
+                }
+
             </View>
             <ModalInicioSesion showModal={showModal} modal={modal.login} />
             <ModalLoading modal={modal.loading} />

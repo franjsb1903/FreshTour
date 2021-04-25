@@ -1,52 +1,61 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, ToastAndroid } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-
+import { useIsFocused } from '@react-navigation/native';
 import { stylesTurismoList as progress } from '../../styles/styles';
 
+import { getUserByToken } from '../../model/Usuarios/Usuarios'
 import ProgressBar from '../../components/ProgressBar';
 
 import LoggedIn from './screens/LoggedIn';
 import NotLoggedIn from './screens/NotLoggedIn';
 
 import AppContext from '../../context/PlanificadorAppContext';
-import { registerUser, loginUser, addElementoFav as addElementoFavModel, getUserByToken } from '../../model/Usuarios/Usuarios';
+import { registerUser, loginUser } from '../../model/Usuarios/Usuarios';
 
 const User = () => {
 
     const [loading, setLoading] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const context = useContext(AppContext);
+    const isFocused = useIsFocused();
+
+    const changeLoading = (value) => {
+        setLoading(value);
+    }
 
     useEffect(() => {
 
         let mounted = true;
 
         const getUser = async () => {
-            setLoading(true);
-            const token = await SecureStore.getItemAsync('id_token');
-            if (token) {
-                const data = await getUserByToken(token);
-                if (!data.auth) {
-                    if (data.message == "jwt expired") {
-                        await SecureStore.deleteItemAsync('id_token');
-                    } else {
-                        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+            try {
+                setLoading(true);
+                const token = await SecureStore.getItemAsync('id_token');
+                if (token) {
+                    const data = await getUserByToken(token);
+                    if (!data.auth) {
+                        if (data.message == "jwt expired") {
+                            await SecureStore.deleteItemAsync('id_token');
+                        } else {
+                            ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                        }
+                        setLoading(false);
+                        return false;
                     }
-                    setLoading(false);
-                    return false;
+                    context.setUser(data);
+                    setLoggedIn(true);
                 }
-                context.setUser(data);
-                setIsLoggedIn(true);
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
             }
-            setLoading(false);
-
         }
         if (mounted)
             getUser();
         return () => { mounted = false }
-    }, []);
+    }, [isFocused]);
 
     const register = async (user) => {
         try {
@@ -57,7 +66,6 @@ const User = () => {
             }
             await SecureStore.setItemAsync('id_token', data.token);
             context.setUser(data);
-            setIsLoggedIn(true);
             return true;
         } catch (err) {
             console.error(err);
@@ -74,7 +82,6 @@ const User = () => {
             }
             await SecureStore.setItemAsync('id_token', data.token);
             context.setUser(data);
-            setIsLoggedIn(true);
             return true;
         } catch (err) {
             console.error(err);
@@ -87,7 +94,6 @@ const User = () => {
             setLoading(true);
             await SecureStore.deleteItemAsync('id_token');
             context.resetUser();
-            setIsLoggedIn(false);
             ToastAndroid.show("Sesión pechada satisfactoriamente", ToastAndroid.SHORT);
             setLoading(false);
         } catch (err) {
@@ -103,10 +109,10 @@ const User = () => {
                 <ProgressBar />
             </View>
             :
-            isLoggedIn ?
+            loggedIn ?
                 <LoggedIn logout={logout} />
                 :
-                <NotLoggedIn login={login} register={register} />
+                <NotLoggedIn login={login} register={register} changeLoading={changeLoading} />
 
     )
 }

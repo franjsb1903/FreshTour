@@ -21,3 +21,21 @@ export const newOpinion = async (token, type, id_elemento, comentario) => {
         throw new Error(err);
     }
 }
+
+export const deleteOpinion = async (token, id_elemento, type, id) => {
+    try {
+        const json = await Opinions.deleteOpinion(token, id_elemento, type, id);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const editOpinion = async (token, type, id_elemento, comentario, id) => {
+    try {
+        const json = await Opinions.editOpinion(token, type, id_elemento, comentario, id);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
