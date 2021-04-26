@@ -15,7 +15,7 @@ const AppContextProvider = (props) => {
     const [coordinates, setCoordinates] = useState([]);
 
     const [walking, setWalking] = useState(true);
-    const [isShared, setIsShared] = useState(false);
+    const [geoMap, setGeoMap] = useState('');
 
     const [route, setRoute] = useState({
         route: '',
@@ -209,6 +209,10 @@ const AppContextProvider = (props) => {
         }
     }
 
+    const updateGeoMap = async (text) => {
+        setGeoMap(text);
+    }
+
     const [user, setUser] = useState({
         user: {},
         isLoggedIn: false,
@@ -314,14 +318,15 @@ const AppContextProvider = (props) => {
         changeOrderUp: changeOrderUp,
         changeOrderDown: changeOrderDown,
         addToPlanificacion: addToPlanificacion,
-        isShared: isShared,
         user: user,
         addElementoFav: addElementoFav,
         setUser: setNewUser,
         resetUser: resetUser,
         deleteElementoFav: deleteElementoFav,
         deleteOpinion: deleteOpinion,
-        editOpinion: editOpinion
+        editOpinion: editOpinion,
+        updateGeoMap: updateGeoMap,
+        geoMap: geoMap
     }
 
     return (

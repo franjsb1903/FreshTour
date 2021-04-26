@@ -14,6 +14,7 @@ const LoggedIn = (props) => {
 
     const [elementosFav, setElementosFav] = useState([]);
     const [opinions, setOpinions] = useState([]);
+    const [planificacions, setPlanificacions] = useState([]);
 
     const context = useContext(AppContext);
     const user = context.user;
@@ -39,6 +40,17 @@ const LoggedIn = (props) => {
         return () => mounted = false;
     }, [context.user.opinions]);
 
+    useEffect(() => {
+        let mounted = true;
+
+        if(mounted) {
+            setPlanificacions(context.user.planificacions);
+        }
+
+        return () => mounted = false;
+
+    }, [context.user.planificacions])
+
     const navigation = useNavigation();
 
     const MenuUser = [
@@ -51,15 +63,18 @@ const LoggedIn = (props) => {
         {
             id: 2,
             label: "As miñas rutas",
-            data: user.planificacionsFav,
-            onPress: () => console.log("As miñas rutas")
+            data: planificacions,
+            onPress: () => navigation.navigate('RutasUsuario', {
+                planificacions: planificacions
+            })
         },
         {
             id: 3,
             label: "Elementos turisticos favoritos",
             data: elementosFav,
             onPress: () => navigation.navigate('Turism', {
-                data: elementosFav
+                data: elementosFav,
+                updateItem: context.updateGeoMap
             })
         },
         {

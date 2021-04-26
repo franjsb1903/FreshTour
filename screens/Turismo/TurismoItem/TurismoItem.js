@@ -66,7 +66,8 @@ const TurismoItem = ({ route, navigation }) => {
         let mounted = true;
 
         const getOpinions = async () => {
-            await onGetData(mounted);
+            if (mounted)
+                await onGetData(mounted);
         }
 
         getOpinions();

@@ -63,6 +63,18 @@ const Map = (props) => {
     let mounted = true;
 
     if (mounted) {
+      setSelected({
+        selected: context.geoMap
+      })
+    }
+
+    return () => mounted = false;
+  }, [context.geoMap]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    if (mounted) {
       if (Platform.OS != "web") {
         global.map.injectJavaScript(`deleteMarkerPlanificacionLayer()`);
         const data = context.route.route;

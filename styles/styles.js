@@ -191,6 +191,11 @@ export const stylesCardElement = StyleSheet.create({
     iconRow: {
         flex: 1,
         flexDirection: "row"
+    },
+    columnView: {
+        flexDirection: "column",
+        padding: 5,
+        alignItems: "center"
     }
 });
 

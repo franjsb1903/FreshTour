@@ -155,4 +155,27 @@ router.get('/', (req, res) => {
     }
 })
 
+router.post('/share', verify.verifyToken, (req, res) => {
+
+    try {
+        const { isShare, id } = req.body;
+
+        console.log(isShare, id);
+
+        pool.query(sql.planificacions.share, [isShare, id], (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                return;
+            }
+            res.status(200).json({
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
+
+});
+
 module.exports = router;

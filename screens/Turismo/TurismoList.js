@@ -82,7 +82,9 @@ const Turism = (props) => {
                         data: []
                     });
                 }
-                await onGetData(mounted);
+                if (mounted) {
+                    await onGetData(mounted);
+                }
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
@@ -153,6 +155,7 @@ const Turism = (props) => {
             update(text);
             props.navigation.navigate('Map');
         } catch (err) {
+            console.error(err);
             ToastAndroid.show('Erro xeolocalizando elemento, probe de novo', ToastAndroid.SHORT);
         }
     }
@@ -206,13 +209,9 @@ const Turism = (props) => {
                         :
                         state.data.turismo != undefined ?
                             state.data.status != 200 ?
-                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
-                                    <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
-                                </View> :
+                                <NoData /> :
                                 state.data.turismo.length == 0 ?
-                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
-                                        <Text style={{ fontSize: 20 }}>Non hai elementos que mostrar</Text>
-                                    </View> :
+                                    <NoData /> :
                                     <ListData data={state.data.turismo} navigate={props.navigation.navigate} />
 
                             :

@@ -33,6 +33,18 @@ const ShareIcon = () => (
     <Icon name="share-outline" size={30} color={properties.style.color.iconColor} />
 );
 
+const SharedIcon = () => (
+    <Icon name="share" size={30} color={properties.style.color.iconColor} />
+);
+
+const ShareIconBlack = () => (
+    <Icon name="share-outline" size={30} color="#000" />
+);
+
+const SharedIconBlack = () => (
+    <Icon name="share" size={30} color="#000" />
+);
+
 const SaveIcon = () => (
     <Icon name="bookmark-outline" size={30} color={properties.style.color.iconColor} />
 );
@@ -212,6 +224,39 @@ export const ShareIconButton = () => {
         <IconButton
             icon={ShareIcon}
             onPress={() => console.log("Share")}
+        />
+    )
+}
+
+export const SharedIconButton = () => {
+    return (
+        <IconButton
+            icon={SharedIcon}
+            onPress={() => console.log("Share")}
+        />
+    )
+}
+
+export const ShareIconButtonBlack = (props) => {
+
+    const _onPress = props._onPress;
+
+    return (
+        <IconButton
+            icon={ShareIconBlack}
+            onPress={() => _onPress()}
+        />
+    )
+}
+
+export const SharedIconButtonBlack = (props) => {
+
+    const _onPress = props._onPress;
+
+    return (
+        <IconButton
+            icon={SharedIconBlack}
+            onPress={() => _onPress()}
         />
     )
 }

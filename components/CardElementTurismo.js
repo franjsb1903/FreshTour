@@ -9,7 +9,7 @@ import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIcon
 import Stars from './CustomStarsDisplay';
 import ModalInicioSesion from './ModalInicioSesion';
 
-import { stylesCardElement as styles, modal as modalStyle } from '../styles/styles';
+import { stylesCardElement as styles } from '../styles/styles';
 
 import AppContext from '../context/PlanificadorAppContext';
 

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
-import { stylesScroll, styleTurismoItem as styles } from '../../styles/styles';
+import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
 import * as SecureStore from 'expo-secure-store';
 
-import CardElementOpinion from '../../components/CardElementOpinion';
-import AppContext from '../../context/PlanificadorAppContext';
-import { noElementsStyle as noElementsStyles } from '../../styles/styles';
+import CardElementOpinion from '../../../components/CardElementOpinion';
+import AppContext from '../../../context/PlanificadorAppContext';
+import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
 
 const OpinionsUsuario = (props) => {
 

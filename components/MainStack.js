@@ -9,8 +9,9 @@ import TurismoItem from '../screens/Turismo/TurismoItem/TurismoItem';
 import Register from '../screens/Usuarios/screens/auth/Register';
 import Login from '../screens/Usuarios/screens/auth/Login';
 import NovoComentario from '../screens/Opinions/NovoComentario';
-import OpinionsUser from '../screens/Opinions/OpinionsUsuario';
+import OpinionsUser from '../screens/Usuarios/Opinions/OpinionsUsuario';
 import GardarPlanificacion from '../screens/PlanificadorTemporal/Rutas/Social/GardarPlanificacion'
+import RutasUsuario from '../screens/Usuarios/Rutas/RutasUsuario'
 
 import { stylesApp as styles } from '../styles/styles';
 
@@ -107,6 +108,16 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "Gardar planificación",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="RutasUsuario"
+                component={RutasUsuario}
+                options={{
+                    headerShown: true,
+                    title: "As miñas rutas",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}

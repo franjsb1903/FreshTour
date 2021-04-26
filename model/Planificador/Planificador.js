@@ -14,7 +14,7 @@ export const getRoute = (coordinates, walking) => {
 
             var url;
 
-            if(walking) {
+            if (walking) {
                 url = urlWalk;
             } else {
                 url = urlCycle;
@@ -62,6 +62,24 @@ export const getRoute = (coordinates, walking) => {
 export const savePlanificacion = async (token, planificacion, elementos) => {
     try {
         const json = await Planificador.savePlanificacion(token, planificacion, elementos);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getPlanificacions = async () => {
+    try {
+        const json = await Planificador.getPlanificacions();
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const sharePlanificacion = async (token, isShared, id) => {
+    try {
+        const json = await Planificador.sharePlanificacion(token, isShared, id);
         return json;
     } catch (err) {
         throw new Error(err);
