@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastAndroid, Alert, Platform, View } from 'react-native'
 
 import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
@@ -6,7 +6,6 @@ import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
 import ProgressBar from '../../../components/ProgressBar';
 import { stylesTurismoList as styles } from '../../../styles/styles';
-import AppContext from '../../../context/PlanificadorAppContext'
 
 import { useIsFocused } from '@react-navigation/native';
 
@@ -26,7 +25,7 @@ const TurismoItem = ({ route, navigation }) => {
 
     const isFocused = useIsFocused();
 
-    const onGetData = async () => {
+    const onGetData = async (mounted) => {
         try {
             const data = await getOpinionsModel(element.tipo, element.id);
             if (data.status != 200) {
@@ -35,18 +34,24 @@ const TurismoItem = ({ route, navigation }) => {
                 } else {
                     Alert.alert('Erro na obtención das opinións do elemento');
                 }
-                setLoading(false);
+                if (mounted) {
+                    setLoading(false);
+                }
                 return;
             }
-            setOpinions({
-                count: data.count,
-                valoracion: data.valoracion,
-                opinions: data.opinions,
-                status: data.status
-            });
-            setLoading(false);
+            if (mounted) {
+                setOpinions({
+                    count: data.count,
+                    valoracion: data.valoracion,
+                    opinions: data.opinions,
+                    status: data.status
+                });
+                setLoading(false);
+            }
         } catch (err) {
-            setLoading(false);
+            if (mounted) {
+                setLoading(false);
+            }
             console.error(err);
             if (Platform.OS == "android") {
                 ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
@@ -61,12 +66,10 @@ const TurismoItem = ({ route, navigation }) => {
         let mounted = true;
 
         const getOpinions = async () => {
-            await onGetData();
+            await onGetData(mounted);
         }
 
-        if (mounted) {
-            getOpinions();
-        }
+        getOpinions();
 
         return () => mounted = false;
     }, [isFocused]);
@@ -83,7 +86,7 @@ const TurismoItem = ({ route, navigation }) => {
     }, []);
 
     const onRefreshOpinions = async () => {
-        await onGetData();
+        await onGetData(true);
     }
 
     return (
@@ -96,7 +99,7 @@ const TurismoItem = ({ route, navigation }) => {
                 showOnMap={showOnMap}
                 opinions={opinions}
                 onRefreshOpinions={onRefreshOpinions}
-                />
+            />
     )
 }
 

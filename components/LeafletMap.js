@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import { Platform, ToastAndroid } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { WebView as WebViewWeb } from 'react-native-web-webview'
-
-import { Asset } from 'expo-asset'
 
 import leaflet_map from '../leaflet/leaflet.js';
 import * as Location from 'expo-location'

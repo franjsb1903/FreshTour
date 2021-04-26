@@ -386,7 +386,10 @@ export const stylesPlanificadorScreens = StyleSheet.create({
     centerIconsContainer: {
         flex: 3,
         flexDirection: "row"
-    },
+    }
+});
+
+export const noElementsStyle = StyleSheet.create({
     noElementsContainer: {
         flex: 1,
         padding: 20,
@@ -400,7 +403,7 @@ export const stylesPlanificadorScreens = StyleSheet.create({
         marginBottom: 30,
         textAlign: "center"
     }
-});
+})
 
 export const flexRowContainer = StyleSheet.create({
     container: {
@@ -623,3 +626,14 @@ export const loggedIn = StyleSheet.create({
         color: "darkgreen"
     }
 })
+
+export const formSocial = StyleSheet.create({
+    container: {
+        justifyContent: "center"
+    },
+    containerInput: {
+        padding: 20,
+        justifyContent: "center",
+        alignItems: "center"
+    }
+});

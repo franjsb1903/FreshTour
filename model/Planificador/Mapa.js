@@ -10,7 +10,7 @@ const getData = async (newSearch) => {
         const json = await Planificador.getSearchData(newSearch);
         return json;
     } catch (err) {
-        console.error(err);
+        throw new Error(err);
     }
 }
 
@@ -19,7 +19,7 @@ const getItem = async (item) => {
         const text = await Planificador.getSearchItem(item);
         return text;
     } catch (err) {
-        console.error(err);
+        throw new Error(err);
     }
 }
 

@@ -45,14 +45,16 @@ const Turism = (props) => {
     const isFocused = useIsFocused();
     const context = useContext(AppContext)
 
-    const onGetData = async () => {
+    const onGetData = async (mounted) => {
         const token = await SecureStore.getItemAsync('id_token');
         var data = await getData(token);
         if (data.status != 200 || data.auth == false) {
-            setState({
-                loading: false,
-                data: undefined
-            });
+            if (mounted) {
+                setState({
+                    loading: false,
+                    data: undefined
+                });
+            }
             if (data.message == "jwt expired") {
                 await SecureStore.deleteItemAsync('id_token');
             } else {
@@ -60,35 +62,37 @@ const Turism = (props) => {
                 return;
             }
         } else {
-            setState({
-                loading: false,
-                data: data
-            });
+            if (mounted) {
+                setState({
+                    loading: false,
+                    data: data
+                });
+            }
         }
     }
-    
+
     useEffect(() => {
 
         let mounted = true;
         const reload = async () => {
             try {
-                setState({
-                    loading: true,
-                    data: []
-                });
-                await onGetData();
+                if (mounted) {
+                    setState({
+                        loading: true,
+                        data: []
+                    });
+                }
+                await onGetData(mounted);
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
             }
         }
 
-        console.log(data);
-
-        if (mounted) {
-            if (!data) {
-                reload();
-            } else {
+        if (!data) {
+            reload();
+        } else {
+            if (mounted) {
                 setState({
                     data: context.user.elementosFav,
                     loading: false
@@ -101,7 +105,7 @@ const Turism = (props) => {
     const onRefresh = async () => {
         setRefreshing(true);
         try {
-            await onGetData();
+            await onGetData(true);
             setRefreshing(false);
         } catch (err) {
             console.error(err);

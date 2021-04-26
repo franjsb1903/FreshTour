@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { stylesPlanificadorScreens as styles, customTouchableOpacity as styleButton } from '../styles/styles';
+import { noElementsStyle as styles, customTouchableOpacity as styleButton } from '../styles/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const NoElementsPlanificadorView = () => {

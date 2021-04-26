@@ -1,5 +1,5 @@
 import properties from '../properties/properties_expo';
-import { fetchJsonGet, fetchTextGet } from '../Util/FetchUtil'
+import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost } from '../Util/FetchUtil'
 
 
 class XestionDatosPlanificador {
@@ -24,6 +24,32 @@ class XestionDatosPlanificador {
         }
     }
 
+    async savePlanificacion(token, planificacion, elementos) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.new;
+        console.log(url);
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                titulo: planificacion.titulo,
+                comentario: planificacion.comentario,
+                isShared: planificacion.isShared,
+                elementos: elementos,
+                distancia: planificacion.distancia,
+                tempoVisita: planificacion.tempoVisita,
+                tempoRuta: planificacion.tempoRuta
+            }
+            
+            const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+
+        } catch (err) {
+            return undefined;
+        }
+    }
 }
 
 

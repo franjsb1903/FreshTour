@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import CardElementOpinion from '../../components/CardElementOpinion';
 import AppContext from '../../context/PlanificadorAppContext';
+import { noElementsStyle as noElementsStyles } from '../../styles/styles';
 
 const OpinionsUsuario = (props) => {
 
@@ -42,8 +43,8 @@ const OpinionsUsuario = (props) => {
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
             {
                 opinions.length == 0 ?
-                    <View>
-                        <Text>Non realizou ningún comentario</Text>
+                    <View style={noElementsStyles.noElementsContainer}>
+                        <Text style={noElementsStyles.textNoElements}>Non realizou ningún comentario</Text>
                     </View>
                     :
                     opinions.map(opinion => {

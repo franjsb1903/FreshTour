@@ -15,15 +15,15 @@ const CardElementRutaPlanificacion = (props) => {
     useEffect(() => {
         let mounted = true;
 
-        if (mounted) {
-            try {
-                const data = props.route;
+        try {
+            const data = props.route;
+            if (mounted) {
                 setstate(data);
-
-            } catch (err) {
-                console.error(err);
             }
+        } catch (err) {
+            console.error(err);
         }
+
         return () => mounted = false;
     }, [props.route])
 

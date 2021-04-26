@@ -39,14 +39,14 @@ const Planificacion = () => {
         for (var i = 0; i < items.length; i++) {
             if (i == 0) {
                 cards.push(
-                    <CardElementPlanificacion key={i} element={items[i]} isFirst={true} isLast={false} onDeleteItemPlanificador={onDeleteItem} />
+                    <CardElementPlanificacion key={i} numberElements={items.length} element={items[i]} isFirst={true} isLast={false} onDeleteItemPlanificador={onDeleteItem} />
                 )
             } else {
                 const isLast = i == items.length - 1;
                 cards.push(
                     <View key={i}>
                         <CardElementRuta anterior={items[i - 1]} element={items[i]} route={route} position={i - 1} />
-                        <CardElementPlanificacion element={items[i]} isFirst={false} isLast={isLast} onDeleteItemPlanificador={onDeleteItem} />
+                        <CardElementPlanificacion element={items[i]} numberElements={items.length} isFirst={false} isLast={isLast} onDeleteItemPlanificador={onDeleteItem} />
                     </View>
                 )
             }

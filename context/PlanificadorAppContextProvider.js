@@ -15,6 +15,7 @@ const AppContextProvider = (props) => {
     const [coordinates, setCoordinates] = useState([]);
 
     const [walking, setWalking] = useState(true);
+    const [isShared, setIsShared] = useState(false);
 
     const [route, setRoute] = useState({
         route: '',
@@ -25,13 +26,12 @@ const AppContextProvider = (props) => {
 
     useEffect(() => {
         let mounted = true;
-
+        var arrayCoordinates = [];
+        turismoItems.items.map(e => {
+            const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
+            arrayCoordinates.push(coord);
+        });
         if (mounted) {
-            var arrayCoordinates = [];
-            turismoItems.items.map(e => {
-                const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
-                arrayCoordinates.push(coord);
-            });
             setCoordinates(arrayCoordinates);
         }
 
@@ -47,16 +47,20 @@ const AppContextProvider = (props) => {
                 if (coordinates.length > 1) {
                     const route = await getRoute(coordinates, walking);
                     if (route != undefined) {
-                        setRoute({
-                            route: route,
-                            routeJson: JSON.parse(route)
-                        });
+                        if (mounted) {
+                            setRoute({
+                                route: route,
+                                routeJson: JSON.parse(route)
+                            });
+                        }
                     }
                 } else {
-                    setRoute({
-                        route: '',
-                        routeJson: {}
-                    });
+                    if (mounted) {
+                        setRoute({
+                            route: '',
+                            routeJson: {}
+                        });
+                    }
                 }
             } catch (err) {
                 ToastAndroid.show("Erro na obtención da ruta", ToastAndroid.SHORT);
@@ -64,9 +68,7 @@ const AppContextProvider = (props) => {
             }
         }
 
-        if (mounted) {
-            getAsyncRoute();
-        }
+        getAsyncRoute();
 
         return () => mounted = false;
     }, [coordinates]);
@@ -79,16 +81,20 @@ const AppContextProvider = (props) => {
                 if (coordinates.length > 1) {
                     const route = await getRoute(coordinates, walking);
                     if (route != undefined) {
-                        setRoute({
-                            route: route,
-                            routeJson: JSON.parse(route)
-                        });
+                        if (mounted) {
+                            setRoute({
+                                route: route,
+                                routeJson: JSON.parse(route)
+                            });
+                        }
                     }
                 } else {
-                    setRoute({
-                        route: '',
-                        routeJson: {}
-                    });
+                    if (mounted) {
+                        setRoute({
+                            route: '',
+                            routeJson: {}
+                        });
+                    }
                 }
             } catch (err) {
                 ToastAndroid.show("Erro na obtención da ruta", ToastAndroid.SHORT);
@@ -96,8 +102,7 @@ const AppContextProvider = (props) => {
             }
         }
 
-        if (mounted)
-            getAsyncRoute();
+        getAsyncRoute();
 
         return () => mounted = false;
     }, [walking]);
@@ -248,7 +253,7 @@ const AppContextProvider = (props) => {
     const deleteOpinion = async (token, id_elemento, type, id) => {
         try {
             const response = await deleteOpinionModel(token, id_elemento, type, id);
-            if(response.status != 200) {
+            if (response.status != 200) {
                 ToastAndroid.show(response.message, ToastAndroid.SHORT);
                 return;
             }
@@ -261,11 +266,11 @@ const AppContextProvider = (props) => {
     const editOpinion = async (token, type, id_elemento, comentario, id) => {
         try {
             const response = await editOpinionModel(token, type, id_elemento, comentario);
-            if(response.status != 200) {
+            if (response.status != 200) {
                 ToastAndroid.show(response.message, ToastAndroid.SHORT);
                 return;
             }
-        } catch(err) {
+        } catch (err) {
             console.error(err);
             ToastAndroid.show('Erro na edición da opinión', ToastAndroid.SHORT);
         }
@@ -309,6 +314,7 @@ const AppContextProvider = (props) => {
         changeOrderUp: changeOrderUp,
         changeOrderDown: changeOrderDown,
         addToPlanificacion: addToPlanificacion,
+        isShared: isShared,
         user: user,
         addElementoFav: addElementoFav,
         setUser: setNewUser,

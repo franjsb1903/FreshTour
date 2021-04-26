@@ -7,8 +7,10 @@ const properties = {
     },
     url: {
         planificador: {
-            nominatim_json: "/nominatim/",              // /nominatim/:search
-            nominatim_geojson: "/nominatim/geojson/"    // /nominatim/geojson/:search
+            main: "/planificacions",
+            nominatim_json: "/nominatim/",               // /nominatim/:search
+            nominatim_geojson: "/nominatim/geojson/",    // /nominatim/geojson/:search
+            new: "/new"
         },
         turismo: {
             turismo: "/turismo/"                        // /turismo/, /turismo/:name

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Stars from 'react-native-stars'
 import Icon from 'react-native-vector-icons/Ionicons';
 

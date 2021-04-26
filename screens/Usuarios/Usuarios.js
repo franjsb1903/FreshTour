@@ -31,7 +31,9 @@ const User = () => {
 
         const getUser = async () => {
             try {
-                setLoading(true);
+                if (mounted) {
+                    setLoading(true);
+                }
                 const token = await SecureStore.getItemAsync('id_token');
                 if (token) {
                     const data = await getUserByToken(token);
@@ -41,19 +43,25 @@ const User = () => {
                         } else {
                             ToastAndroid.show(data.message, ToastAndroid.SHORT);
                         }
-                        setLoading(false);
+                        if (mounted) {
+                            setLoading(false);
+                        }
                         return false;
                     }
-                    context.setUser(data);
-                    setLoggedIn(true);
+                    if (mounted) {
+                        context.setUser(data);
+                        setLoggedIn(true);
+                    }
                 }
-                setLoading(false);
+                if (mounted) {
+                    setLoading(false);
+                }
             } catch (err) {
                 console.error(err);
             }
         }
-        if (mounted)
-            getUser();
+
+        getUser();
         return () => { mounted = false }
     }, [isFocused]);
 

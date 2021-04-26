@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
-import { Text, View, ScrollView, Button } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Button, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import AppContext from '../../../context/PlanificadorAppContext';
 import NoElementsPlanificadorView from '../../../components/NoElementsPlanificadorView'
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
-import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton } from '../../../components/CustomIcons';
+import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton } from '../../../components/CustomIcons';
 
 import properties from '../../../properties/properties_expo'
 
 import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow } from '../../../styles/styles';
 
 const Planificador = (props) => {
+
+    const [isSaved, setIsSaved] = useState(false);
 
     const onMapClick = () => {
         navigation.navigate('Map');
@@ -24,6 +26,10 @@ const Planificador = (props) => {
         context.updateItems([]);
     }
 
+    const changeIsSaved = () => {
+        setIsSaved(true);
+    }
+
     return (
 
 
@@ -31,7 +37,19 @@ const Planificador = (props) => {
             <>
                 <View style={stylesRow.container}>
                     <View style={styles.leftIconsContainer}>
-                        <SaveIconButton />
+                        {
+                            isSaved ?
+                                <SavedIconButton  /> :
+                                <SaveIconButton _onPress={() => {
+                                    context.turismoItems.length > 1 ?
+                                        props.navigation.navigate("GardarPlanificacion", {
+                                            changeIsSaved: changeIsSaved,
+                                            data: context.route.routeJson,
+                                            tempoVisita: context.tempoVisita
+                                        })
+                                        : ToastAndroid.show('Engada máis elementos á planificación', ToastAndroid.SHORT);
+                                }} />
+                        }
                         <ShareIconButton />
                     </View>
                     <View style={styles.centerIconsContainer}>

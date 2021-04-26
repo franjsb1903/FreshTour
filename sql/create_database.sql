@@ -89,7 +89,10 @@ CREATE TABLE IF NOT EXISTS fresh_tour.planificacions (
     titulo VARCHAR(50) NOT NULL,
     comentario VARCHAR(250) NOT NULL,
     esta_compartida BOOLEAN NOT NULL,
-    imaxe BYTEA,
+    valoracion FLOAT,
+    distancia FLOAT NOT NULL,
+    tempo_visita FLOAT NOT NULL,
+    tempo_ruta FLOAT NOT NULL,
     CONSTRAINT pk_planificacions PRIMARY KEY (id),
     CONSTRAINT fk_planificacions FOREIGN KEY (id_usuario) REFERENCES fresh_tour.usuarios(id)
 );

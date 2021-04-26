@@ -37,6 +37,10 @@ const SaveIcon = () => (
     <Icon name="bookmark-outline" size={30} color={properties.style.color.iconColor} />
 );
 
+const SavedIcon = () => (
+    <Icon name="bookmark" size={30} color={properties.style.color.iconColor} />
+);
+
 const WalkIcon = () => (
     <Icon name="walk-outline" size={30} color={properties.style.color.iconColor} />
 );
@@ -212,11 +216,23 @@ export const ShareIconButton = () => {
     )
 }
 
-export const SaveIconButton = () => {
+export const SaveIconButton = (props) => {
+
+    const _onPress = props._onPress;
+
     return (
         <IconButton
             icon={SaveIcon}
-            onPress={() => console.log("Save")}
+            onPress={() => _onPress()}
+        />
+    )
+}
+
+export const SavedIconButton = () => {
+
+    return (
+        <IconButton
+            icon={SavedIcon}
         />
     )
 }

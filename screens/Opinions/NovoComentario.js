@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, TextInput, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 
-import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button } from '../../styles/styles'
+import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button, formSocial as styles, stylesTurismoList as stylesProgress } from '../../styles/styles'
 import Stars from '../../components/CustomStarsSelection';
 import { clearButton } from '../../components/Common';
-import ModalLoading from '../../components/ModalLoading';
 import ModalInicioSesion from '../../components/ModalInicioSesion';
+import ProgressBar from '../../components/ProgressBar';
+
 import TextArea from 'react-native-textarea';
 
 import * as SecureStore from 'expo-secure-store';
@@ -82,21 +83,21 @@ const NovoComentario = (props) => {
             setModal({
                 ...modal, ['loading']: true
             });
-            var data;
+            var response;
             if (comment) {
-                data = await editOpinion(token, comment.tipo, comment.id_elemento, comentario, comment.id);
+                response = await editOpinion(token, comment.tipo, comment.id_elemento, comentario, comment.id);
             } else {
-                data = await newOpinion(token, element.tipo, element.id, comentario);
+                response = await newOpinion(token, element.tipo, element.id, comentario);
             }
-            if (data.auth == false) {
+            if (response.auth == false) {
                 ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
                 setModal({
                     ...modal, ['loading']: false
                 });
                 return;
             }
-            if (data.status != 200) {
-                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+            if (response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
                 setModal({
                     ...modal, ['loading']: false
                 });
@@ -117,62 +118,52 @@ const NovoComentario = (props) => {
     }
 
     return (
-        <ScrollView style={[scroll.scroll, formStyle.conatiner]} contentContainerStyle={scroll.containerScroll}>
-            <View style={styles.containerInput}>
-                <Text style={{ fontSize: 20, fontStyle: "italic" }}>Valoración</Text>
-                <Stars valoracion={comentario.valoracion} updateValoracion={updateValoracion} />
+        modal.loading ?
+            <View style={stylesProgress.container}>
+                <ProgressBar />
             </View>
-            <View style={formStyle.inputGroup}>
-                <TextInput
-                    ref={ref => tituloInput = ref}
-                    style={formStyle.textInput}
-                    placeholder="Titulo"
-                    onChangeText={(value) => handleChangeText('titulo', value)}
-                    placeholderTextColor="#808080"
-                    textContentType="name"
-                    clearButtonMode="always"
-                    multiline={true}
-                    value={comentario.titulo}
-                    numberOfLines={3} />
-                {
-                    clearButton(() => tituloInput.clear())
-                }
-            </View>
-            <View style={formStyle.containerArea}>
-                <TextArea
-                    onChangeText={(value) => handleChangeText('comentario', value)}
-                    placeholder="Comentario"
-                    containerStyle={formStyle.textareaContainer}
-                    style={formStyle.textarea}
-                    maxLength={250}
-                    placeholderTextColor={'#808080'}
-                    defaultValue={comentario.comentario}
-                />
-            </View>
-            <View style={formStyle.buttonViewContainer}>
-                {
+            :
+            <ScrollView style={[scroll.scroll, formStyle.conatiner]} contentContainerStyle={scroll.containerScroll}>
+                <View style={styles.containerInput}>
+                    <Text style={{ fontSize: 20, fontStyle: "italic" }}>Valoración</Text>
+                    <Stars valoracion={comentario.valoracion} updateValoracion={updateValoracion} />
+                </View>
+                <View style={formStyle.inputGroup}>
+                    <TextInput
+                        ref={ref => tituloInput = ref}
+                        style={formStyle.textInput}
+                        placeholder="Titulo"
+                        onChangeText={(value) => handleChangeText('titulo', value)}
+                        placeholderTextColor="#808080"
+                        textContentType="name"
+                        clearButtonMode="always"
+                        multiline={true}
+                        value={comentario.titulo}
+                        numberOfLines={3} />
+                    {
+                        clearButton(() => tituloInput.clear())
+                    }
+                </View>
+                <View style={formStyle.containerArea}>
+                    <TextArea
+                        onChangeText={(value) => handleChangeText('comentario', value)}
+                        placeholder="Comentario"
+                        containerStyle={formStyle.textareaContainer}
+                        style={formStyle.textarea}
+                        maxLength={250}
+                        placeholderTextColor={'#808080'}
+                        defaultValue={comentario.comentario}
+                    />
+                </View>
+                <View style={formStyle.buttonViewContainer}>
                     <TouchableOpacity style={button.buttonContainer} onPress={() => sendOpinion()} >
                         <Text style={button.buttonTextSmaller}>Enviar comentario</Text>
                     </TouchableOpacity>
-                }
-
-            </View>
-            <ModalInicioSesion showModal={showModal} modal={modal.login} />
-            <ModalLoading modal={modal.loading} />
-        </ScrollView>
+                </View>
+                <ModalInicioSesion showModal={showModal} modal={modal.login} />
+            </ScrollView>
     )
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        justifyContent: "center"
-    },
-    containerInput: {
-        padding: 20,
-        justifyContent: "center",
-        alignItems: "center"
-    }
-});
 
 export default NovoComentario;

@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import Stars from '../../../components/CustomStarsDisplay';
 import { CommentIcon } from '../../../components/CustomIcons';
-import CardElementOpinion from '../../../components/CardElementOpinion'
+import CardElementOpinion from '../../../components/CardElementOpinion';
+import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
 
 const Opinions = (props) => {
 
@@ -53,8 +54,8 @@ const Opinions = (props) => {
             </View>
             {
                 opinions.opinions.length == 0 ?
-                    <View>
-                        <Text>Realiza un primeiro comentario!</Text>
+                    <View style={noElementsStyles.noElementsContainer}>
+                        <Text style={noElementsStyles.textNoElements}>Non hai comentarios sobre este elemento</Text>
                     </View>
                     :
                     opinions.opinions.map(opinion => {

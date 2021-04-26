@@ -14,6 +14,7 @@ const CardElementPlanificacion = (props) => {
     const item = props.element;
     const isFirst = props.isFirst;
     const isLast = props.isLast;
+    const numberElements = props.numberElements;
 
     const [tipoVisita, setTipoVisita] = useState(item.features[0].properties.tempo_visita_rapida);
 
@@ -30,7 +31,7 @@ const CardElementPlanificacion = (props) => {
         <Card containerStyle={styles.container}>
             <View style={styles.rowContainer}>
                 {
-                    isFirst ?
+                    isFirst || numberElements == 1 ?
                         <></>
                         :
                         <View style={styles.chevron}>

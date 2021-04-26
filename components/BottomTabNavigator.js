@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Info from '../screens/Info/Info'
 import Map from '../screens/PlanificadorTemporal/Mapa'
-import Routes from '../screens/PlanificadorTemporal/RutasRecomendadas'
+import Routes from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasList'
 import Planificator from '../screens/PlanificadorTemporal/Planificador/Planificador'
 import User from '../screens/Usuarios/Usuarios';
 

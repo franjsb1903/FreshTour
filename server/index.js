@@ -13,6 +13,7 @@ app.use('/turismo', require("./routes/turismo"));
 app.use('/opinions', require("./routes/opinions"));
 app.use('/auth', AuthController);
 app.use('/usuario', usuarios);
+app.use('/planificacions', require('./routes/planificacions'));
 
 const hostname = "192.168.1.74";
 

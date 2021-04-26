@@ -1,4 +1,7 @@
-import properties from '../../properties/properties_expo'
+import properties from '../../properties/properties_expo';
+const XestionDatosPlanificador = require('../../XestionDatos/XestionDatosPlanificador')
+
+const Planificador = new XestionDatosPlanificador();
 
 export const getRoute = (coordinates, walking) => {
     return new Promise((resolve, reject) => {
@@ -54,6 +57,13 @@ export const getRoute = (coordinates, walking) => {
             throw new Error(err);
         }
     })
+}
 
-
+export const savePlanificacion = async (token, planificacion, elementos) => {
+    try {
+        const json = await Planificador.savePlanificacion(token, planificacion, elementos);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
 }

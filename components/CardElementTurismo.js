@@ -26,11 +26,13 @@ const CardElement = (props) => {
 
     useEffect(() => {
         let mounted = true;
+
+        const value = isAdded(item.id);
         if (mounted) {
-            const value = isAdded(item.id);
             setAdded(value);
             setFav(item.favorito);
         }
+
         return () => mounted = false;
     }, [])
 
