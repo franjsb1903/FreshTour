@@ -4,7 +4,6 @@ const router = express.Router();
 var unirest = require("unirest");
 
 const getData = (query, res, format) => {
-    console.log(query);
     var request = unirest("GET", "https://forward-reverse-geocoding.p.rapidapi.com/v1/search");
     request.query({
         "q": query,

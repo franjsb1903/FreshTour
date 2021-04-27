@@ -24,8 +24,7 @@ const TurismoItem = ({ route, navigation }) => {
     const [loading, setLoading] = useState(true);
 
     const planificacion = route.params.planificacion;
-
-    const isFocused = useIsFocused();
+    const onRefresh = route.params.onRefresh;
 
     const onGetData = async (mounted, signal) => {
         try {
@@ -63,6 +62,12 @@ const TurismoItem = ({ route, navigation }) => {
             }
             if (mounted) {
                 setElements(elements);
+                setOpinions({
+                    count: opinions.count,
+                    valoracion: opinions.valoracion,
+                    opinions: opinions.opinions,
+                    status: opinions.status
+                });
                 setLoading(false);
             }
         } catch (err) {
@@ -85,8 +90,7 @@ const TurismoItem = ({ route, navigation }) => {
         const signal = abortController.signal;
 
         const getData = async () => {
-            if (mounted)
-                await onGetData(mounted, signal);
+            await onGetData(mounted, signal);
         }
 
         if (mounted)
@@ -110,7 +114,7 @@ const TurismoItem = ({ route, navigation }) => {
     }, []);
 
     const onRefreshOpinions = async () => {
-        await onGetData();
+        await onGetData(true);
     }
 
     return (
@@ -123,6 +127,7 @@ const TurismoItem = ({ route, navigation }) => {
                 opinions={opinions}
                 onRefreshOpinions={onRefreshOpinions}
                 elements={elements}
+                onRefresh={onRefresh}
             />
     )
 }

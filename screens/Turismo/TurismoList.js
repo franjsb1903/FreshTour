@@ -42,7 +42,6 @@ const Turism = (props) => {
         return () => mounted = false;
     }, []);
 
-    const isFocused = useIsFocused();
     const context = useContext(AppContext)
 
     const onGetData = async (mounted, signal) => {
@@ -83,30 +82,7 @@ const Turism = (props) => {
                         loading: true,
                         data: []
                     });
-                const token = await SecureStore.getItemAsync('id_token');
-                var data = await getData(token, signal);
-                if (data.status != 200 || data.auth == false) {
-                    if (mounted) {
-                        setState({
-                            loading: false,
-                            data: undefined
-                        });
-                    }
-                    if (data.message == "jwt expired") {
-                        await SecureStore.deleteItemAsync('id_token');
-                    } else {
-                        ToastAndroid.show(data.message, ToastAndroid.SHORT);
-                        return;
-                    }
-                } else {
-                    if (mounted) {
-                        setState({
-                            loading: false,
-                            data: data
-                        });
-                    }
-                }
-
+                await onGetData(mounted, signal);
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
@@ -121,7 +97,6 @@ const Turism = (props) => {
                 data: context.user.elementosFav,
                 loading: false
             });
-
         }
 
         return () => {
@@ -200,7 +175,8 @@ const Turism = (props) => {
                             key={element.id}
                             onPress={() => navigate('TurismoItem', {
                                 element: element,
-                                showOnMap: showOnMap
+                                showOnMap: showOnMap,
+                                onRefresh: onRefresh
                             })}>
                             <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
                         </TouchableOpacity>

@@ -85,12 +85,12 @@ const CardElement = (props) => {
                                         <View style={styles.iconRow}>
                                             {
                                                 fav ?
-                                                    <HeartIconButton onQuitFav={() => {
-                                                        onQuitFav(changeFav, item);
+                                                    <HeartIconButton onQuitFav={async () => {
+                                                        await onQuitFav(changeFav, item, context);
                                                     }} />
                                                     :
-                                                    <HeartOutlineIconButton onPressFav={() => {
-                                                        onPressFav(changeFav, item, changeModal);
+                                                    <HeartOutlineIconButton onPressFav={async () => {
+                                                        await onPressFav(changeFav, item, changeModal, context);
                                                     }} />
                                             }
 

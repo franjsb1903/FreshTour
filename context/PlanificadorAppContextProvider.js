@@ -3,7 +3,6 @@ import AppContext from './PlanificadorAppContext';
 import { ToastAndroid } from 'react-native'
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
-import { deleteOpinion as deleteOpinionModel, editOpinion as editOpinionModel } from '../model/Opinions/Opinions'
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Usuarios/Usuarios';
 
 const AppContextProvider = (props) => {
@@ -212,7 +211,7 @@ const AppContextProvider = (props) => {
                 ToastAndroid.show('Elemento xa engadido á planificación', ToastAndroid.SHORT);
             }
         } catch (err) {
-            console.log(err);
+            console.error(err);
             ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
         }
     }
@@ -238,7 +237,6 @@ const AppContextProvider = (props) => {
                 return;
             }
             item.favorito = true;
-            console.log(item);
             changeFavView();
         } catch (err) {
             console.error(err);
@@ -248,45 +246,16 @@ const AppContextProvider = (props) => {
 
     const deleteElementoFav = async (token, changeFavView, item) => {
         try {
-            console.log(token, item.id, item.tipo);
             const response = await deleteElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
                 ToastAndroid.show(response.message, ToastAndroid.SHORT);
                 return;
             }
             item.favorito = false;
-            console.log(item);
             changeFavView();
         } catch (err) {
             console.error(err);
             ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.SHORT);
-        }
-    }
-
-
-    const deleteOpinion = async (token, id_elemento, type, id) => {
-        try {
-            const response = await deleteOpinionModel(token, id_elemento, type, id);
-            if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
-                return;
-            }
-        } catch (err) {
-            console.error(err);
-            ToastAndroid.show('Erro eliminando a opinión', ToastAndroid.SHORT);
-        }
-    }
-
-    const editOpinion = async (token, type, id_elemento, comentario, id) => {
-        try {
-            const response = await editOpinionModel(token, type, id_elemento, comentario);
-            if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
-                return;
-            }
-        } catch (err) {
-            console.error(err);
-            ToastAndroid.show('Erro na edición da opinión', ToastAndroid.SHORT);
         }
     }
 
@@ -333,8 +302,6 @@ const AppContextProvider = (props) => {
         setUser: setNewUser,
         resetUser: resetUser,
         deleteElementoFav: deleteElementoFav,
-        deleteOpinion: deleteOpinion,
-        editOpinion: editOpinion,
         updateGeoMap: updateGeoMap,
         geoMap: geoMap
     }

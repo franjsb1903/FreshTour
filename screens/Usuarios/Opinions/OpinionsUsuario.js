@@ -3,16 +3,14 @@ import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
 import * as SecureStore from 'expo-secure-store';
 
+import { deleteOpinion as deleteOpinionModel } from '../../../model/Opinions/Opinions'
 import CardElementOpinion from '../../../components/CardElementOpinion';
-import AppContext from '../../../context/PlanificadorAppContext';
 import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
 
 const OpinionsUsuario = (props) => {
 
     const opinions = props.route.params.opinions;
     const usuario = props.route.params.usuario;
-
-    const context = useContext(AppContext);
 
     const onEdit = (opinion) => {
         try {
@@ -32,7 +30,11 @@ const OpinionsUsuario = (props) => {
                 ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
                 return;
             }
-            await context.deleteOpinion(token, opinion.id_elemento, opinion.tipo, opinion.id);
+            const response = await deleteOpinionModel(token, opinion.id_elemento, opinion.tipo, opinion.id);
+            if (response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                return;
+            }
             props.navigation.navigate('User');
         } catch(err) {
             console.error(err);

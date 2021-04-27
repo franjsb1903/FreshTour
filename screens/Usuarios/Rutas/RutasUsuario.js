@@ -4,23 +4,17 @@ import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles
 import * as SecureStore from 'expo-secure-store';
 
 import CardElementRuta from '../../../components/CardElementRuta';
-import AppContext from '../../../context/PlanificadorAppContext';
-import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
+import NoData from '../../../components/NoData'
 
 const OpinionsUsuario = (props) => {
 
     const planificacions = props.route.params.planificacions;
-    const usuario = props.route.params.usuario;
-
-    const context = useContext(AppContext);
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
             {
                 planificacions.length == 0 ?
-                    <View style={noElementsStyles.noElementsContainer}>
-                        <Text style={noElementsStyles.textNoElements}>Non ten gardada ningunha planificación</Text>
-                    </View>
+                    <NoData />
                     :
                     planificacions.map(planificacion => {
                         return (

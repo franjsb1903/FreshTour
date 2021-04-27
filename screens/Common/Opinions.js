@@ -17,7 +17,7 @@ const Opinions = (props) => {
     const onRefreshOpinions = props.onRefreshOpinions;
     const titulo = props.titulo;
     const isPlanificacion = props.isPlanificacion;
-    
+
     const navigation = useNavigation();
 
     const onRefresh = async () => {
@@ -29,6 +29,19 @@ const Opinions = (props) => {
             ToastAndroid.show('Erro na actualización', ToastAndroid.SHORT);
         }
     }
+
+    const ButtonOpinion = () => (
+        <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
+            onPress={() => navigation.navigate('NewComment', {
+                element: element,
+                titulo: titulo,
+                isPlanificacion: isPlanificacion,
+                onRefreshOpinions: onRefreshOpinions
+            })}>
+            <CommentIcon />
+            <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
+        </ TouchableOpacity>
+    )
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll} refreshControl={
@@ -46,33 +59,18 @@ const Opinions = (props) => {
             <View>
                 {
                     isPlanificacion ?
-                        element.id_actual_usuario == element.id_usuario ?
-                            <></>
-                            : <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
-                                onPress={() => navigation.navigate('NewComment', {
-                                    element: element,
-                                    titulo: titulo,
-                                    isPlanificacion: isPlanificacion
-                                })}>
-                                <CommentIcon />
-                                <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
-                            </ TouchableOpacity>
-                        : <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
-                            onPress={() => navigation.navigate('NewComment', {
-                                element: element,
-                                titulo: titulo,
-                                isPlanificacion: isPlanificacion
-                            })}>
-                            <CommentIcon />
-                            <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
-                        </ TouchableOpacity>
+                        element.id_actual_usuario ?
+                            element.id_actual_usuario == element.id_usuario ?
+                                <></>
+                                : <ButtonOpinion />
+                            : <ButtonOpinion />
+                        :
+                        <ButtonOpinion />
                 }
             </View>
             {
                 opinions.opinions.length == 0 ?
-                    <View style={noElementsStyles.noElementsContainer}>
-                        <Text style={noElementsStyles.textNoElements}>Non hai comentarios sobre este elemento</Text>
-                    </View>
+                    <></>
                     :
                     opinions.opinions.map(opinion => {
                         return (

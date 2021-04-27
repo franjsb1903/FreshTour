@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ScrollView, View, TextInput, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import TextArea from 'react-native-textarea';
 
@@ -8,7 +8,7 @@ import ModalInicioSesion from '../../../../components/ModalInicioSesion';
 import AppContext from '../../../../context/PlanificadorAppContext';
 import ProgressBar from '../../../../components/ProgressBar'
 
-import { savePlanificacion } from '../../../../model/Planificador/Planificador';
+import { savePlanificacion, editPlanificacion } from '../../../../model/Planificador/Planificador';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -29,6 +29,33 @@ const GardarPlanificacion = (props) => {
     const changeIsSaved = props.route.params.changeIsSaved;
     const data = props.route.params.data;
     const tempoVisita = props.route.params.tempoVisita;
+    const edit = props.route.params.edit;
+    const titulo = props.route.params.titulo;
+
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted && edit) {
+            setPlanificacion({
+                comentario: edit.comentario,
+                titulo: edit.titulo
+            });
+        }
+
+        return () => mounted = false;
+    }, []);
+
+    React.useLayoutEffect(() => {
+        let mounted = true;
+
+        if (mounted) {
+            props.navigation.setOptions({
+                title: titulo
+            });
+        }
+
+        return () => mounted = false;
+    }, []);
 
     const handleChangeText = (attr, value) => {
         setPlanificacion({ ...planificacion, [attr]: value })
@@ -52,11 +79,16 @@ const GardarPlanificacion = (props) => {
             setModal({
                 ...modal, ['loading']: true
             });
-            planificacion['isShared'] = context.isShared;
-            planificacion['distancia'] = data.features[0].properties.summary.distance;
-            planificacion['tempoVisita'] = tempoVisita;
-            planificacion['tempoRuta'] = data.features[0].properties.summary.duration;
-            const response = await savePlanificacion(token, planificacion, context.turismoItems);
+            var response;
+            if (!edit) {
+                planificacion['isShared'] = false;
+                planificacion['distancia'] = data.features[0].properties.summary.distance;
+                planificacion['tempoVisita'] = tempoVisita;
+                planificacion['tempoRuta'] = data.features[0].properties.summary.duration;
+                response = await savePlanificacion(token, planificacion, context.turismoItems);
+            } else {
+                response = await editPlanificacion(planificacion.titulo, planificacion.comentario, edit.id, token);
+            }
             if (response.auth == false) {
                 ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
                 setModal({
@@ -74,10 +106,14 @@ const GardarPlanificacion = (props) => {
             setModal({
                 ...modal, ['loading']: false
             });
-            changeIsSaved();
-            ToastAndroid.show('Planificación almacenada correctamente', ToastAndroid.SHORT);
-            props.navigation.navigate("Planificator");
-        } catch(err) {
+            if (!edit) {
+                changeIsSaved();
+                ToastAndroid.show('Planificación almacenada correctamente', ToastAndroid.SHORT);
+                props.navigation.navigate("Planificator");
+            } else {
+                props.navigation.navigate("User");
+            }
+        } catch (err) {
             console.error(err);
             ToastAndroid.show('Erro no almacenamento da planificación', ToastAndroid.SHORT);
         }

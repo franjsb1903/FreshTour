@@ -12,7 +12,8 @@ import NovoComentario from '../screens/Opinions/NovoComentario';
 import OpinionsUser from '../screens/Usuarios/Opinions/OpinionsUsuario';
 import GardarPlanificacion from '../screens/PlanificadorTemporal/Rutas/Social/GardarPlanificacion';
 import RutasUsuario from '../screens/Usuarios/Rutas/RutasUsuario';
-import RutasRecomendadasItem from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasItem/RutasRecomendadasItem'
+import RutasRecomendadasItem from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasItem/RutasRecomendadasItem';
+import RutasRecomendadasList from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasList'
 
 import { stylesApp as styles } from '../styles/styles';
 
@@ -106,12 +107,18 @@ const MainStack = () => {
             <Stack.Screen
                 name="GardarPlanificacion"
                 component={GardarPlanificacion}
-                options={{
+                options={({ route }) => ({
                     headerShown: true,
-                    title: "Gardar planificación",
+                    title: route.params.title,
                     headerStyle: styles.headerStyle,
-                    headerTintColor: "#fff"
-                }}
+                    headerTintColor: "#fff",
+                    headerTitleAllowFontScaling: true,
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
             />
             <Stack.Screen
                 name="RutasUsuario"
@@ -138,6 +145,16 @@ const MainStack = () => {
                         )
                     }
                 })}
+            />
+            <Stack.Screen
+                name="RutasFavoritas"
+                component={RutasRecomendadasList}
+                options={{
+                    headerShown: true,
+                    title: "Rutas favoritas",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
             />
         </Stack.Navigator>
     )

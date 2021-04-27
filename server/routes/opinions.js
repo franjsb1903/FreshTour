@@ -49,7 +49,6 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 
         if (type == "Lugar turístico") {
             const exists = await onExists(existLugares, id_elemento, userId, res);
-            console.log(exists);
             if (!exists) {
                 onTransaction(queryLugares, [userId, titulo, valoracion, comentario, id_elemento], mediaLugares, updateValoracionLugares, type, res, userId);
             } else {
@@ -97,8 +96,6 @@ router.delete('/', verify.verifyToken, (req, res) => {
 
         const mediaPlanificacions = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1"
         const updateValoracionPlanificacions = "UPDATE fresh_tour.planificacions SET valoracion = $1 WHERE id = $2"
-
-        console.log(id, id_elemento, type);
 
         if (type === "Lugar turístico") {
             onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);

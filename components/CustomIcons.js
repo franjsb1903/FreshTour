@@ -328,7 +328,6 @@ export const StopIconButton = () => {
 
 export const CloseIconButton = (props) => {
     const style = props.style;
-    const id = props.id;
     const closeIconOnPress = props.closeIconOnPress;
     return (
         <IconButton

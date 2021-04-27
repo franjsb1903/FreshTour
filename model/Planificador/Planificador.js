@@ -94,3 +94,21 @@ export const getElements = async (id, signal) => {
         throw new Error(err);
     }
 }
+
+export const deletePlanificacion = async (id, token) => {
+    try {
+        const json = await Planificador.deletePlanificacion(id, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const editPlanificacion = async (titulo, comentario, id, token) => {
+    try {
+        const json = await Planificador.editPlanificacion(token, titulo, comentario, id);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}

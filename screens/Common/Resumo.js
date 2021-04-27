@@ -8,6 +8,8 @@ import Stars from '../../components/CustomStarsDisplay';
 import ModalInicioSesion from '../../components/ModalInicioSesion';
 import * as SecureStore from 'expo-secure-store';
 
+import { onPressFav, onQuitFav } from '../../components/Common'
+
 import AppContext from '../../context/PlanificadorAppContext';
 
 const Resumo = (props) => {
@@ -22,6 +24,7 @@ const Resumo = (props) => {
     const showOnMap = props.showOnMap;
     const opinions = props.opinions;
     const isRuta = props.isRuta;
+    const onRefresh = props.onRefresh;
 
     const showModal = () => {
         setModal(!modal);
@@ -45,30 +48,24 @@ const Resumo = (props) => {
 
     const changeFav = () => {
         setFav(!fav);
+        onRefresh();
     }
 
-    const onPressFav = async () => {
-        try {
-            const token = await SecureStore.getItemAsync('id_token');
-            if (!token) {
-                setModal(true);
-            } else {
-                await context.addElementoFav(token, changeFav, element);
-            }
-        } catch (err) {
-            console.error(err);
-            ToastAndroid.show('Erro engadindo elemento como favorito', ToastAndroid.show);
-        }
+    const changeModal = () => {
+        setModal(!modal);
     }
 
-    const onQuitFav = async () => {
-        try {
-            const token = await SecureStore.getItemAsync('id_token');
-            await context.deleteElementoFav(token, changeFav, element);
-        } catch (err) {
-            console.error(err);
-            ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.show);
-        }
+    const HeartIcons = () => {
+        return (
+            fav ?
+                <HeartIconButton onQuitFav={() => {
+                    onQuitFav(changeFav, element, context);
+                }} />
+                :
+                <HeartOutlineIconButton onPressFav={() => {
+                    onPressFav(changeFav, element, changeModal, context);
+                }} />
+        )
     }
 
     return (
@@ -83,17 +80,13 @@ const Resumo = (props) => {
                 }
                 {
                     isRuta ?
-                        element.id_actual_usuario == element.id_usuario ?
-                            fav ?
-                                <HeartIconButton onQuitFav={onQuitFav} />
+                        element.id_actual_usuario ?
+                            element.id_actual_usuario != element.id_usuario ?
+                                <HeartIcons />
                                 :
-                                <HeartOutlineIconButton onPressFav={onPressFav} />
-                            :
-                            <></>
-                        : fav ?
-                            <HeartIconButton onQuitFav={onQuitFav} />
-                            :
-                            <HeartOutlineIconButton onPressFav={onPressFav} />
+                                <></>
+                            : <HeartIcons />
+                        : <HeartIcons />
                 }
                 {
                     added ?

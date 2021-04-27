@@ -1,11 +1,10 @@
-import React, {useContext} from 'react';
-import { Platform, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { Platform, TouchableOpacity, ToastAndroid } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
 import { fromScreen as styles } from '../styles/styles';
 import { CloseCircleIconButton } from './CustomIcons';
 
-import AppContext from '../context/PlanificadorAppContext';
 
 export const clearButton = (func) => (
     Platform.OS == "android" ?
@@ -14,8 +13,7 @@ export const clearButton = (func) => (
         <></>
 )
 
-export const onPressFav = async (changeFav, item, changeModal) => {
-    const context = useContext(AppContext);
+export const onPressFav = async (changeFav, item, changeModal, context) => {
     try {
         const token = await SecureStore.getItemAsync('id_token');
         if (!token) {
@@ -29,8 +27,7 @@ export const onPressFav = async (changeFav, item, changeModal) => {
     }
 }
 
-export const onQuitFav = async (changeFav, item) => {
-    const context = useContext(AppContext);
+export const onQuitFav = async (changeFav, item, context) => {
     try {
         const token = await SecureStore.getItemAsync('id_token');
         await context.deleteElementoFav(token, changeFav, item);

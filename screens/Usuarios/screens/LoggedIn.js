@@ -15,6 +15,7 @@ const LoggedIn = (props) => {
     const [elementosFav, setElementosFav] = useState([]);
     const [opinions, setOpinions] = useState([]);
     const [planificacions, setPlanificacions] = useState([]);
+    const [planificacionsFav, setPlanificacionsFav] = useState([]);
 
     const context = useContext(AppContext);
     const user = context.user;
@@ -43,7 +44,7 @@ const LoggedIn = (props) => {
     useEffect(() => {
         let mounted = true;
 
-        if(mounted) {
+        if (mounted) {
             setPlanificacions(context.user.planificacions);
         }
 
@@ -51,14 +52,27 @@ const LoggedIn = (props) => {
 
     }, [context.user.planificacions])
 
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted) {
+            setPlanificacionsFav(context.user.planificacionsFav);
+        }
+
+        return () => mounted = false;
+
+    }, [context.user.planificacionsFav])
+
     const navigation = useNavigation();
 
     const MenuUser = [
         {
             id: 1,
             label: "Rutas favoritas",
-            data: user.planificacionsFav,
-            onPress: () => console.log("Rutas favoritas")
+            data: planificacionsFav,
+            onPress: () => navigation.navigate('RutasFavoritas', {
+                data: planificacionsFav
+            })
         },
         {
             id: 2,

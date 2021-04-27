@@ -49,6 +49,7 @@ const NovoComentario = (props) => {
     const comment = props.route.params.comment;
     const titulo = props.route.params.titulo;
     const isPlanificacion = props.route.params.isPlanificacion;
+    const onRefreshOpinions = props.route.params.onRefreshOpinions;
 
     React.useLayoutEffect(() => {
         let mounted = true;
@@ -115,6 +116,7 @@ const NovoComentario = (props) => {
                 } else {
                     props.navigation.navigate("TurismoItem");
                 }
+                onRefreshOpinions();
             }
         } catch (err) {
             console.error(err);

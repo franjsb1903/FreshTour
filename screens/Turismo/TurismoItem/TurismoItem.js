@@ -7,8 +7,6 @@ import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinion
 import ProgressBar from '../../../components/ProgressBar';
 import { stylesTurismoList as styles } from '../../../styles/styles';
 
-import { useIsFocused } from '@react-navigation/native';
-
 const TurismoItem = ({ route, navigation }) => {
 
     const [opinions, setOpinions] = useState({
@@ -22,8 +20,7 @@ const TurismoItem = ({ route, navigation }) => {
 
     const element = route.params.element;
     const showOnMap = route.params.showOnMap;
-
-    const isFocused = useIsFocused();
+    const onRefresh = route.params.onRefresh;
 
     const onGetData = async (mounted, signal) => {
         try {
@@ -106,6 +103,7 @@ const TurismoItem = ({ route, navigation }) => {
                 showOnMap={showOnMap}
                 opinions={opinions}
                 onRefreshOpinions={onRefreshOpinions}
+                onRefresh={onRefresh}
             />
     )
 }

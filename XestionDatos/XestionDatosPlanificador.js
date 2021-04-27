@@ -91,6 +91,46 @@ class XestionDatosPlanificador {
             throw new Error(err);
         }
     }
+
+    async deletePlanificacion(id, token) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.delete;
+
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id: id
+            }
+            const json = fetchJsonDelete(url, headers, JSON.stringify(body));
+            return json;
+        } catch(err) {
+            throw new Error(err);
+        }
+    }
+
+    async editPlanificacion(token, titulo, comentario, id) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.edit;
+
+        try{
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                titulo: titulo,
+                comentario: comentario,
+                id: id
+            }
+            const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+        } catch(err) {
+            throw new Error(err);
+        }
+    }
 }
 
 

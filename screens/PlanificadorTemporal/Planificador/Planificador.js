@@ -45,7 +45,8 @@ const Planificador = (props) => {
                                         props.navigation.navigate("GardarPlanificacion", {
                                             changeIsSaved: changeIsSaved,
                                             data: context.route.routeJson,
-                                            tempoVisita: context.tempoVisita
+                                            tempoVisita: context.tempoVisita,
+                                            titulo: "Gardar planificación"
                                         })
                                         : ToastAndroid.show('Engada máis elementos á planificación', ToastAndroid.SHORT);
                                 }} />

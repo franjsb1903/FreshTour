@@ -46,7 +46,6 @@ router.post('/new', verify.verifyToken, (req, res) => {
                     var index = 0;
                     for (var i = 0; i < elementos.length; i++) {
                         var elemento = elementos[i];
-                        console.log(elemento.features[0].properties.tipo);
                         if (elemento.features[0].properties.tipo == "Lugar turístico") {
                             if (i < elementos.length - 1) {
                                 lugares = lugares + "($" + (index + 1) + ", $" + (index + 2) + ", $" + (index + 3) + "),"
@@ -64,7 +63,6 @@ router.post('/new', verify.verifyToken, (req, res) => {
                         }
                         index += 3;
                     }
-                    console.log(lugares)
 
                     if (valuesMonumentos.length > 0 && valuesLugares.length > 0) {
                         client.query(lugares, valuesLugares, (err, results) => {
@@ -101,7 +99,6 @@ router.post('/new', verify.verifyToken, (req, res) => {
                             query = monumentos;
                             values = valuesMonumentos.map(e => e);
                         }
-                        console.log(values);
 
                         client.query(query, values, (err, results) => {
                             if (shouldAbort(err)) return;
@@ -194,6 +191,94 @@ router.get('/elements/:id', (req, res) => {
             res.status(200).json({
                 status: 200,
                 elementos: results.rows
+            });
+        });
+
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
+});
+
+router.delete('/', verify.verifyToken, (req, res) => {
+    try {
+        const { id } = req.body;
+
+        pool.connect((err, client, done) => {
+            const shouldAbort = err => {
+                if (err) {
+                    client.query('ROLLBACK', error => {
+                        if (error) {
+                            helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
+                            return;
+                        }
+
+                        done()
+                        helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
+                        return;
+                    })
+                }
+                return !!err
+            }
+
+            client.query('BEGIN', err => {
+                if (shouldAbort(err)) return;
+
+                client.query(sql.planificacions.delete.favoritas, [id], (err, results) => {
+                    if (shouldAbort(err)) return;
+
+                    client.query(sql.planificacions.delete.comentarios, [id], (err, results) => {
+                        if (shouldAbort(err)) return;
+
+                        client.query(sql.planificacions.delete.lugares, [id], (err, results) => {
+                            if (shouldAbort(err)) return;
+
+                            client.query(sql.planificacions.delete.monumentos, [id], (err, results) => {
+                                if (shouldAbort(err)) return;
+
+                                client.query(sql.planificacions.delete.planificacion, [id], (err, results) => {
+                                    if (shouldAbort(err)) return;
+
+                                    client.query('COMMIT', error => {
+                                        if (error) {
+                                            helpers.onError(500, "Erro interno no servidor", error, res);
+                                            return;
+                                        }
+                                        try {
+                                            done();
+                                            return res.status(200).send({
+                                                status: 200
+                                            });
+                                        } catch (err) {
+                                            helpers.onError(500, "Erro interno no servidor", err, res);
+                                            return;
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
+});
+
+router.post('/edit', verify.verifyToken, (req, res) => {
+    try {
+
+        const { titulo, comentario, id } = req.body;
+
+        pool.query(sql.planificacions.edit, [titulo, comentario, id], (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                return;
+            }
+            res.status(200).json({
+                status: 200
             });
         });
 

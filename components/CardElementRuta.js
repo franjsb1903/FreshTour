@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, StyleSheet, Text, ToastAndroid, Alert, Platform } from 'react-native';
 import { Card } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
+import { useNavigation } from '@react-navigation/native';
 
 import { stylesCardElement as stylesCard } from '../styles/styles';
 import { ShareIconButtonBlack, SharedIconButtonBlack, CloseIconButton, EditIconButton, CalendarOutlineIconButton, HeartIconButton, HeartOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
-import { sharePlanificacion } from '../model/Planificador/Planificador';
+import { sharePlanificacion, deletePlanificacion } from '../model/Planificador/Planificador';
 import ModalInicioSesion from './ModalInicioSesion';
 
-import { onPressFav, onQuitFav } from './Common'
+import { onQuitFav, onPressFav } from './Common';
+
+import AppContext from '../context/PlanificadorAppContext';
 
 const CardElementRuta = (props) => {
 
@@ -19,6 +22,9 @@ const CardElementRuta = (props) => {
 
     const planificacion = props.planificacion;
     const isUser = props.isUser;
+
+    const context = useContext(AppContext);
+    const navigation = useNavigation();
 
     useEffect(() => {
         let mounted = true;
@@ -46,6 +52,10 @@ const CardElementRuta = (props) => {
     const onShare = async () => {
         try {
             const token = await SecureStore.getItemAsync('id_token');
+            if (!token) {
+                ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
+                return;
+            }
             const response = await sharePlanificacion(token, !shared, planificacion.id);
             if (response.status != 200) {
                 if (Platform.OS == "android") {
@@ -67,13 +77,67 @@ const CardElementRuta = (props) => {
         }
     }
 
+    const onDelete = async () => {
+        try {
+            const token = await SecureStore.getItemAsync('id_token');
+            if (!token) {
+                ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
+                return;
+            }
+            const response = await deletePlanificacion(planificacion.id, token);
+            if (response.status != 200) {
+                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                return;
+            }
+            navigation.navigate("User");
+        } catch (err) {
+            ToastAndroid.show('Erro eliminando a planificación', ToastAndroid.SHORT);
+            return;
+        }
+    }
+
+    const onEdit = async () => {
+        try {
+            navigation.navigate('GardarPlanificacion', {
+                titulo: planificacion.titulo,
+                edit: planificacion
+            })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const HeartIcons = () => {
+    
+        return (
+            fav ?
+                <>
+                    <HeartIconButton onQuitFav={() => {
+                        onQuitFav(changeFav, planificacion, context);
+                    }} />
+                    <CalendarOutlineIconButton />
+                </>
+                :
+                <>
+                    <HeartOutlineIconButton onPressFav={() => {
+                        onPressFav(changeFav, planificacion, changeModal, context);
+                    }} />
+                    <CalendarOutlineIconButton />
+                </>
+        )
+    }
+
     return (
         <>
             <Card containerStyle={styles.container}>
                 <View style={stylesCard.rowView}>
                     <Card.Title style={stylesCard.title}>{planificacion.titulo}</Card.Title>
-                    <Stars value={planificacion.valoracion} />
-                    <CloseIconButton />
+                    {
+                        isUser ?
+                            <CloseIconButton closeIconOnPress={onDelete} />
+                            :
+                            <></>
+                    }
                 </View>
                 <Card.Divider />
                 <View style={stylesCard.rowView}>
@@ -103,37 +167,30 @@ const CardElementRuta = (props) => {
                 </View>
                 <Card.Divider />
                 <View style={[stylesCard.rowView, { justifyContent: "flex-end" }]}>
+                    <Stars value={planificacion.valoracion} />
+                    <View style={{ flex: 1 }}></View>
                     {
                         isUser ?
                             shared ?
                                 <>
                                     <SharedIconButtonBlack _onPress={onShare} />
-                                    <EditIconButton />
+                                    <EditIconButton onPress={onEdit} />
                                     <CalendarOutlineIconButton />
                                 </>
                                 :
                                 <>
                                     <ShareIconButtonBlack _onPress={onShare} />
-                                    <EditIconButton />
+                                    <EditIconButton onPress={onEdit} />
                                     <CalendarOutlineIconButton />
                                 </>
                             :
-                            planificacion.id_actual_usuario == planificacion.id_usuario ?
-                                fav ?
-                                    <>
-                                        <HeartIconButton onQuitFav={() => {
-                                            onQuitFav(changeFav, item);
-                                        }} />
-                                        <CalendarOutlineIconButton />
-                                    </>
+                            planificacion.id_actual_usuario ?
+                                planificacion.id_actual_usuario != planificacion.id_usuario ?
+                                    <HeartIcons />
                                     :
-                                    <>
-                                        <HeartOutlineIconButton onPressFav={() => {
-                                            onPressFav(changeFav, item, changeModal);
-                                        }} />
-                                        <CalendarOutlineIconButton />
-                                    </> :
-                                <CalendarOutlineIconButton />
+                                    <CalendarOutlineIconButton />
+                                :
+                                <HeartIcons />
                     }
                 </View>
             </Card >
