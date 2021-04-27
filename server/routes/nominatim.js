@@ -28,7 +28,7 @@ const getData = (query, res, format) => {
     });
 };
 
-router.get('/nominatim/:search', (req, res) => {
+router.get('/:search', (req, res) => {
     try {
         var { search } = req.params;
 
@@ -43,7 +43,7 @@ router.get('/nominatim/:search', (req, res) => {
     }
 })
 
-router.get('/nominatim/geojson/:search', (req, res) => {
+router.get('/geojson/:search', (req, res) => {
     try {
         const { search } = req.params;
         getData(search, res, "geojson");

@@ -6,11 +6,6 @@ const helpers = require('../lib/helpers');
 const pool = require('../../database/database');
 const verify = require('../lib/VerifyToken');
 
-router.use(express.urlencoded({
-    extended: true
-}));
-router.use(express.json());
-
 router.post('/turismo/fav', verify.verifyToken, (req, res) => {
 
     try {

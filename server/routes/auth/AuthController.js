@@ -10,11 +10,6 @@ const pool = require('../../../database/database');
 
 var verify = require('../../lib/VerifyToken');
 
-router.use(express.urlencoded({
-    extended: true
-}));
-router.use(express.json());
-
 router.post('/register', (req, res) => {
 
     const { usuario, nome, apelidos, email, contrasinal } = req.body;

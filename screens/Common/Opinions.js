@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, RefreshControl } from 'react-native';
-import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
+import { stylesScroll, styleTurismoItem as styles } from '../../styles/styles';
 import { useNavigation } from '@react-navigation/native';
 
-import Stars from '../../../components/CustomStarsDisplay';
-import { CommentIcon } from '../../../components/CustomIcons';
-import CardElementOpinion from '../../../components/CardElementOpinion';
-import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
+import Stars from '../../components/CustomStarsDisplay';
+import { CommentIcon } from '../../components/CustomIcons';
+import CardElementOpinion from '../../components/CardElementOpinion';
+import { noElementsStyle as noElementsStyles } from '../../styles/styles';
 
 const Opinions = (props) => {
 
@@ -16,7 +16,8 @@ const Opinions = (props) => {
     const element = props.element;
     const onRefreshOpinions = props.onRefreshOpinions;
     const titulo = props.titulo;
-
+    const isPlanificacion = props.isPlanificacion;
+    
     const navigation = useNavigation();
 
     const onRefresh = async () => {
@@ -43,14 +44,29 @@ const Opinions = (props) => {
                 }
             </View>
             <View>
-                <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
-                    onPress={() => navigation.navigate('NewComment', {
-                        element: element,
-                        titulo: titulo
-                    })}>
-                    <CommentIcon />
-                    <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
-                </ TouchableOpacity>
+                {
+                    isPlanificacion ?
+                        element.id_actual_usuario == element.id_usuario ?
+                            <></>
+                            : <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
+                                onPress={() => navigation.navigate('NewComment', {
+                                    element: element,
+                                    titulo: titulo,
+                                    isPlanificacion: isPlanificacion
+                                })}>
+                                <CommentIcon />
+                                <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
+                            </ TouchableOpacity>
+                        : <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
+                            onPress={() => navigation.navigate('NewComment', {
+                                element: element,
+                                titulo: titulo,
+                                isPlanificacion: isPlanificacion
+                            })}>
+                            <CommentIcon />
+                            <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>
+                        </ TouchableOpacity>
+                }
             </View>
             {
                 opinions.opinions.length == 0 ?

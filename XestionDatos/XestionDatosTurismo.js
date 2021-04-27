@@ -4,24 +4,24 @@ import { fetchJsonGet, fetchTextGet } from '../Util/FetchUtil'
 
 class XestionDatosTurismo {
 
-    async getTurismData(token) {
+    async getTurismData(token, signal) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo;
         try {
-            const json = await fetchJsonGet(url, token);
+            const json = await fetchJsonGet(url, token, signal);
             return json;
         } catch (err) {
-            return undefined;
+            throw new Error(err);
         }
         
     }
 
-    async getElementData(name) {
+    async getElementData(name, token) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + name;
         try {
-            const json = await fetchJsonGet(url);
+            const json = await fetchJsonGet(url, token);
             return json;
         } catch (err) {
-            return undefined;
+            throw new Error(err);
         }
     }
 
@@ -31,7 +31,7 @@ class XestionDatosTurismo {
             const text = await fetchTextGet(url);
             return text;
         } catch (err) {
-            return undefined;
+            throw new Error(err);
         }
     }
 
@@ -41,7 +41,7 @@ class XestionDatosTurismo {
             const json = await fetchJsonGet(url);
             return json;
         } catch (err) {
-            return undefined;
+            throw new Error(err);
         }
     }
 }

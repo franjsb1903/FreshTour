@@ -1,5 +1,5 @@
 import properties from '../properties/properties_expo';
-import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost } from '../Util/FetchUtil'
+import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
 
 
 class XestionDatosPlanificador {
@@ -50,11 +50,11 @@ class XestionDatosPlanificador {
         }
     }
 
-    async getPlanificacions() {
+    async getPlanificacions(signal, token) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main;
 
         try {
-            const json = await fetchJsonGet(url);
+            const json = await fetchJsonGet(url, token, signal);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -77,6 +77,17 @@ class XestionDatosPlanificador {
             const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
             return json;
         } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getElements(id, signal) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.elements + id;
+
+        try {
+            const json = fetchJsonGet(url, undefined, signal);
+            return json;
+        } catch(err) {
             throw new Error(err);
         }
     }

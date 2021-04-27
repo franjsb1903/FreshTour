@@ -68,9 +68,9 @@ export const savePlanificacion = async (token, planificacion, elementos) => {
     }
 }
 
-export const getPlanificacions = async () => {
+export const getPlanificacions = async (signal, token) => {
     try {
-        const json = await Planificador.getPlanificacions();
+        const json = await Planificador.getPlanificacions(signal, token);
         return json;
     } catch (err) {
         throw new Error(err);
@@ -80,6 +80,15 @@ export const getPlanificacions = async () => {
 export const sharePlanificacion = async (token, isShared, id) => {
     try {
         const json = await Planificador.sharePlanificacion(token, isShared, id);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getElements = async (id, signal) => {
+    try {
+        const json = await Planificador.getElements(id, signal);
         return json;
     } catch (err) {
         throw new Error(err);

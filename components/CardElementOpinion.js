@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 
 import { AvatarIcon, CloseIconButton, EditIconButton } from './CustomIcons'
 import Stars from './CustomStarsDisplay';
+import { cardElementOpinion as styles } from '../styles/styles'
 
 const CardElementOpinion = (props) => {
 
@@ -54,24 +55,5 @@ const CardElementOpinion = (props) => {
         </Card>
     )
 }
-
-const styles = StyleSheet.create({
-    header: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    textContainer: {
-        alignItems: "flex-start",
-        flexDirection: "column",
-        padding: 10
-    },
-    dataContanier: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        paddingLeft: 10,
-        paddingRight: 10
-    }
-})
 
 export default CardElementOpinion;

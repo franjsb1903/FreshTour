@@ -2,18 +2,17 @@ import React, { useEffect, useState, useContext } from 'react'
 import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid, Platform } from 'react-native'
 import * as SecureStore from 'expo-secure-store';
 
-import { useIsFocused } from '@react-navigation/native';
-
 import ProgressBar from '../../../components/ProgressBar';
 import { getPlanificacions as getPlanificacionsModel } from '../../../model/Planificador/Planificador'
 import CardElement from '../../../components/CardElementRuta';
+import { ListData } from '../../../components/Common';
 import NoData from '../../../components/NoData';
 
 import AppContext from '../../../context/PlanificadorAppContext'
 
 import { stylesTurismoList as styles, stylesScroll } from '../../../styles/styles'
 
-const Turism = (props) => {
+const RutasRecomendadasList = (props) => {
 
     const [state, setState] = useState({
         loading: true,
@@ -22,31 +21,24 @@ const Turism = (props) => {
 
     const [refreshing, setRefreshing] = useState(false);
 
-    React.useLayoutEffect(() => {
-        let mounted = true;
-        if (mounted) {
-            props.navigation.setOptions({
-                title: "Rutas recomendadas"
-            })
-        }
-
-        return () => mounted = false;
-    }, []);
-
-    const isFocused = useIsFocused();
     const context = useContext(AppContext)
 
-    const onGetData = async (mounted) => {
-        var data = await getPlanificacionsModel();
-        if (data.status != 200) {
+    const onGetData = async (mounted, signal) => {
+        const token = await SecureStore.getItemAsync('id_token');
+        var data = await getPlanificacionsModel(signal, token);
+        if (data.status != 200 || data.auth == false) {
             if (mounted) {
                 setState({
                     loading: false,
                     data: undefined
                 });
             }
-            ToastAndroid.show(data.message, ToastAndroid.SHORT);
-            return;
+            if (data.message == "jwt expired") {
+                await SecureStore.deleteItemAsync('id_token');
+            } else {
+                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                return;
+            }
         } else {
             if (mounted) {
                 setState({
@@ -60,6 +52,10 @@ const Turism = (props) => {
     useEffect(() => {
 
         let mounted = true;
+
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
         const reload = async () => {
             try {
                 if (mounted) {
@@ -68,16 +64,43 @@ const Turism = (props) => {
                         data: []
                     });
                 }
-                await onGetData(mounted);
+                const token = await SecureStore.getItemAsync('id_token');
+                var data = await getPlanificacionsModel(signal, token);
+                if (data.status != 200 || data.auth == false) {
+                    if (mounted) {
+                        setState({
+                            loading: false,
+                            data: undefined
+                        });
+                    }
+                    if (data.message == "jwt expired") {
+                        await SecureStore.deleteItemAsync('id_token');
+                    } else {
+                        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                        return;
+                    }
+                } else {
+                    if (mounted) {
+                        setState({
+                            loading: false,
+                            data: data
+                        });
+                    }
+                }
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
             }
         }
 
-        reload();
+        if (mounted)
+            reload();
 
-    }, [isFocused]);
+        return () => {
+            mounted = false;
+            abortController.abort();
+        };
+    }, []);
 
     const onRefresh = async () => {
         setRefreshing(true);
@@ -101,7 +124,9 @@ const Turism = (props) => {
                 return (
                     <TouchableOpacity
                         key={element.id}
-                        onPress={() => console.log("epa")}>
+                        onPress={() => navigate('RutasRecomendadasItem', {
+                            planificacion: element
+                        })}>
                         <CardElement planificacion={element} />
                     </TouchableOpacity>
                 )
@@ -135,4 +160,4 @@ const Turism = (props) => {
     )
 }
 
-export default Turism;
+export default RutasRecomendadasList;

@@ -11,7 +11,8 @@ const properties = {
             nominatim_json: "/nominatim/",               // /nominatim/:search
             nominatim_geojson: "/nominatim/geojson/",    // /nominatim/geojson/:search
             new: "/new",
-            share: "/share"
+            share: "/share",
+            elements: "/elements/"                       // /planificacions/elements/:id
         },
         turismo: {
             turismo: "/turismo/"                        // /turismo/, /turismo/:name

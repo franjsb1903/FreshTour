@@ -6,11 +6,11 @@ const { fetchJsonGet, fetchTextGet } = require('../Util/FetchUtil');*/
 
 class XestionDatosOpinions {
 
-    async getOpinions(type, id) {
+    async getOpinions(type, id, signal) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.opinions + type + "/" + id
 
         try {
-            const json = await fetchJsonGet(url);
+            const json = await fetchJsonGet(url, undefined, signal);
             return json;
         } catch (err) {
             return undefined;

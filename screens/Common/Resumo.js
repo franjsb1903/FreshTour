@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 
-import { getCountElement } from '../../../model/Opinions/Opinions';
-import { styleTurismoItem as styles, stylesScroll } from '../../../styles/styles'
-import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton } from '../../../components/CustomIcons'
-import Stars from '../../../components/CustomStarsDisplay';
-import ModalInicioSesion from '../../../components/ModalInicioSesion';
+import { getCountElement } from '../../model/Opinions/Opinions';
+import { styleTurismoItem as styles, stylesScroll } from '../../styles/styles'
+import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton } from '../../components/CustomIcons'
+import Stars from '../../components/CustomStarsDisplay';
+import ModalInicioSesion from '../../components/ModalInicioSesion';
 import * as SecureStore from 'expo-secure-store';
 
-import AppContext from '../../../context/PlanificadorAppContext';
+import AppContext from '../../context/PlanificadorAppContext';
 
 const Resumo = (props) => {
 
@@ -21,6 +21,7 @@ const Resumo = (props) => {
     const element = props.element;
     const showOnMap = props.showOnMap;
     const opinions = props.opinions;
+    const isRuta = props.isRuta;
 
     const showModal = () => {
         setModal(!modal);
@@ -30,7 +31,8 @@ const Resumo = (props) => {
         let mounted = true;
 
         if (mounted) {
-            setAdded(context.existItem(element.id));
+            if (!isRuta)
+                setAdded(context.existItem(element.id));
             setFav(element.favorito);
         }
 
@@ -80,23 +82,35 @@ const Resumo = (props) => {
                         <Text style={styles.valoracion}></Text>
                 }
                 {
-                    fav ?
-                        <HeartIconButton onQuitFav={onQuitFav} />
-                        :
-                        <HeartOutlineIconButton onPressFav={onPressFav} />
+                    isRuta ?
+                        element.id_actual_usuario == element.id_usuario ?
+                            fav ?
+                                <HeartIconButton onQuitFav={onQuitFav} />
+                                :
+                                <HeartOutlineIconButton onPressFav={onPressFav} />
+                            :
+                            <></>
+                        : fav ?
+                            <HeartIconButton onQuitFav={onQuitFav} />
+                            :
+                            <HeartOutlineIconButton onPressFav={onPressFav} />
                 }
                 {
                     added ?
                         <CalendarIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                        <CalendarOutlineIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} />
+                        <CalendarOutlineIconButton style={styles.rightIcons} changeAdd={isRuta ? changeAdd : undefined} addToPlanificacion={isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
                 }
-                <MapIconButton
-                    showOnMap={showOnMap}
-                    item={element}
-                    style={styles.rightIcons} />
+                {
+                    isRuta ?
+                        <></>
+                        : <MapIconButton
+                            showOnMap={isRuta ? showOnMap : undefined}
+                            item={element}
+                            style={styles.rightIcons} />
+                }
             </View>
             <View style={styles.resumoContainer}>
-                <Text style={styles.resumo}>{element.resumo}</Text>
+                <Text style={styles.resumo}>{isRuta ? element.comentario : element.resumo}</Text>
             </View>
             <ModalInicioSesion modal={modal} showModal={showModal} />
         </ScrollView>

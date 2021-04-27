@@ -44,7 +44,7 @@ class XestionDatosUsuarios {
         }
     }
 
-    async getUserByToken(token) {
+    async getUserByToken(token, signal) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.me;
         try {
             const headers = {
@@ -52,7 +52,7 @@ class XestionDatosUsuarios {
                 'Content-Type': 'application/json',
                 'access-token': token
             }
-            const json = await fecthJsonAuthGet(url, headers);
+            const json = await fecthJsonAuthGet(url, headers, signal);
             return json;
         } catch (err) {
             throw new Error(err);

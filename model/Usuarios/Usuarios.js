@@ -21,9 +21,9 @@ export const loginUser = async (user) => {
     }
 }
 
-export const getUserByToken = async (token) => {
+export const getUserByToken = async (token, signal) => {
     try {
-        const json = await Usuarios.getUserByToken(token);
+        const json = await Usuarios.getUserByToken(token, signal);
         return json;
     } catch (err) {
         throw new Error(err);

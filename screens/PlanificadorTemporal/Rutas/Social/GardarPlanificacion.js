@@ -114,7 +114,6 @@ const GardarPlanificacion = (props) => {
                         placeholder="Comentario"
                         containerStyle={formStyle.textareaContainer}
                         style={formStyle.textarea}
-                        maxLength={250}
                         placeholderTextColor={'#808080'}
                         defaultValue={planificacion.comentario}
                     />

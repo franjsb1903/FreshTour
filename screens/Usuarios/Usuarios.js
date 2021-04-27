@@ -29,6 +29,9 @@ const User = () => {
 
         let mounted = true;
 
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
         const getUser = async () => {
             try {
                 if (mounted) {
@@ -36,7 +39,7 @@ const User = () => {
                 }
                 const token = await SecureStore.getItemAsync('id_token');
                 if (token) {
-                    const data = await getUserByToken(token);
+                    const data = await getUserByToken(token, signal);
                     if (!data.auth) {
                         if (data.message == "jwt expired") {
                             await SecureStore.deleteItemAsync('id_token');
@@ -61,8 +64,13 @@ const User = () => {
             }
         }
 
-        getUser();
-        return () => { mounted = false }
+        if (mounted)
+            getUser();
+
+        return () => {
+            mounted = false;
+            abortController.abort();
+        }
     }, [isFocused]);
 
     const register = async (user) => {
@@ -104,6 +112,7 @@ const User = () => {
             context.resetUser();
             ToastAndroid.show("Sesión pechada satisfactoriamente", ToastAndroid.SHORT);
             setLoading(false);
+            setLoggedIn(false);
         } catch (err) {
             console.error(err);
             ToastAndroid.show('Erro no peche de sesión', ToastAndroid.SHORT);

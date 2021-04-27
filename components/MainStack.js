@@ -10,8 +10,9 @@ import Register from '../screens/Usuarios/screens/auth/Register';
 import Login from '../screens/Usuarios/screens/auth/Login';
 import NovoComentario from '../screens/Opinions/NovoComentario';
 import OpinionsUser from '../screens/Usuarios/Opinions/OpinionsUsuario';
-import GardarPlanificacion from '../screens/PlanificadorTemporal/Rutas/Social/GardarPlanificacion'
-import RutasUsuario from '../screens/Usuarios/Rutas/RutasUsuario'
+import GardarPlanificacion from '../screens/PlanificadorTemporal/Rutas/Social/GardarPlanificacion';
+import RutasUsuario from '../screens/Usuarios/Rutas/RutasUsuario';
+import RutasRecomendadasItem from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasItem/RutasRecomendadasItem'
 
 import { stylesApp as styles } from '../styles/styles';
 
@@ -121,6 +122,22 @@ const MainStack = () => {
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}
+            />
+            <Stack.Screen
+                name="RutasRecomendadasItem"
+                component={RutasRecomendadasItem}
+                options={({ route }) => ({
+                    headerShown: true,
+                    title: route.params.title,
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff",
+                    headerTitleAllowFontScaling: true,
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
             />
         </Stack.Navigator>
     )

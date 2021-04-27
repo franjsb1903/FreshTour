@@ -5,11 +5,6 @@ const pool = require('../../database/database');
 const verify = require('../lib/VerifyToken');
 const helpers = require('../lib/helpers');
 
-router.use(express.urlencoded({
-    extended: true
-}));
-router.use(express.json());
-
 router.get('/:type/:id', async (req, res) => {
 
     try {

@@ -1,13 +1,10 @@
 import React from 'react';
-import { View, Image } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { getImageUri } from '../Util/ImageUtil';
-
-import Informacion from '../screens/Turismo/TurismoItem/Informacion';
+import DatosRuta from '../screens/Common/DatosRuta';
 import Resumo from '../screens/Common/Resumo';
-import TiposVisita from '../screens/Turismo/TurismoItem/TiposVisita';
 import Opinions from '../screens/Common/Opinions';
+import ElementosVisitar from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasItem/ElementosVisitar'
 
 import properties from '../properties/properties_expo';
 import { stylesTopNavigator as styles } from '../styles/styles'
@@ -15,20 +12,15 @@ import { stylesTopNavigator as styles } from '../styles/styles'
 const Tab = createMaterialTopTabNavigator();
 
 
-const TopTabNavigator = (props) => {
+const TopTabNavigatorRuta = (props) => {
 
-    const element = props.element;
-    const showOnMap = props.showOnMap;
+    const planificacion = props.planificacion;
     const opinions = props.opinions;
+    const elements = props.elements;
     const onRefreshOpinions = props.onRefreshOpinions;
-
-    const uriImage = getImageUri(element.imaxe);
 
     return (
         <>
-            <View>
-                <Image source={{ uri: uriImage }} style={styles.image} />
-            </View>
             <Tab.Navigator
                 initialRouteName="Resumo"
                 tabBarOptions={{
@@ -42,31 +34,31 @@ const TopTabNavigator = (props) => {
                 }}>
                 <Tab.Screen
                     name="Resumo"
-                    children={() => <Resumo element={element} showOnMap={showOnMap} opinions={opinions} />}
+                    children={() => <Resumo element={planificacion} opinions={opinions} isRuta={true} />}
                     options={{
                         tabBarLabel: 'Resumo'
                     }} />
                 <Tab.Screen
-                    name="Informacion"
-                    children={() => <Informacion element={element} /> }
+                    name="ElementosVisitar"
+                    children={() => <ElementosVisitar elements={elements} />}
                     options={{
-                        tabBarLabel: 'Información'
+                        tabBarLabel: 'Elementos a visitar'
                     }} />
                 <Tab.Screen
-                    name="TiposVisita"
-                    children={() => <TiposVisita element={element} /> }
+                    name="DatosRuta"
+                    children={() => <DatosRuta planificacion={planificacion} elements={elements} />}
                     options={{
-                        tabBarLabel: 'Tipos de visita'
+                        tabBarLabel: 'Datos de ruta'
                     }} />
                 <Tab.Screen
                     name="Opinions"
-                    children={() => <Opinions opinions={opinions} element={element} onRefreshOpinions={onRefreshOpinions} titulo={element.titulo} />}
+                    children={() => <Opinions opinions={opinions} element={planificacion} titulo={planificacion.titulo} onRefreshOpinions={onRefreshOpinions} isPlanificacion={true} />}
                     options={{
-                        tabBarLabel: 'Opinions'
+                        tabBarLabel: 'Opinións'
                     }} />
             </Tab.Navigator>
         </>
     )
 }
 
-export default TopTabNavigator;
+export default TopTabNavigatorRuta;

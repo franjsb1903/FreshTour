@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { Text, View, ToastAndroid } from 'react-native';
+import React, { useState, useContext } from 'react'
+import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 

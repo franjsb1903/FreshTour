@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Image } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import DatosRuta from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/DatosRuta';
+import DatosRuta from '../screens/Common/DatosRuta';
 import Instrucions from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/Instrucions';
 import Planificacion from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/Planificacion'
 

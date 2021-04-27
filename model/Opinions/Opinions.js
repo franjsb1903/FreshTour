@@ -2,10 +2,10 @@ import XestionDatosOpinions from '../../XestionDatos/XestionDatosOpinions';
 
 const Opinions = new XestionDatosOpinions();
 
-export const getOpinions = async (type, id) => {
+export const getOpinions = async (type, id, signal) => {
 
     try {
-        const json = await Opinions.getOpinions(type, id);
+        const json = await Opinions.getOpinions(type, id, signal);
         return json;
     } catch (err) {
         throw new Error(err);

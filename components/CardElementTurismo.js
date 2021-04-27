@@ -9,6 +9,8 @@ import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIcon
 import Stars from './CustomStarsDisplay';
 import ModalInicioSesion from './ModalInicioSesion';
 
+import { onPressFav, onQuitFav } from './Common'
+
 import { stylesCardElement as styles } from '../styles/styles';
 
 import AppContext from '../context/PlanificadorAppContext';
@@ -23,6 +25,7 @@ const CardElement = (props) => {
 
     const isAdded = context.existItem;
     const item = props.item;
+    const isRuta = props.isRuta;
 
     useEffect(() => {
         let mounted = true;
@@ -48,28 +51,8 @@ const CardElement = (props) => {
         setModal(!modal);
     }
 
-    const onPressFav = async () => {
-        try {
-            const token = await SecureStore.getItemAsync('id_token');
-            if (!token) {
-                setModal(true);
-            } else {
-                await context.addElementoFav(token, changeFav, item);
-            }
-        } catch (err) {
-            console.error(err);
-            ToastAndroid.show('Erro engadindo elemento como favorito', ToastAndroid.show);
-        }
-    }
-
-    const onQuitFav = async () => {
-        try {
-            const token = await SecureStore.getItemAsync('id_token');
-            await context.deleteElementoFav(token, changeFav, item);
-        } catch (err) {
-            console.error(err);
-            ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.show);
-        }
+    const changeModal = () => {
+        setModal(!modal);
     }
 
     const showOnMap = props.showOnMap;
@@ -95,21 +78,30 @@ const CardElement = (props) => {
                                 <View style={{ flex: 1.3 }}>
                                     <Text style={styles.textBold}>Tipo: {item.tipo} </Text>
                                 </View>
-                                <View style={styles.iconRow}>
-                                    {
-                                        fav ?
-                                            <HeartIconButton onQuitFav={onQuitFav} />
-                                            :
-                                            <HeartOutlineIconButton onPressFav={onPressFav} />
-                                    }
+                                {
+                                    isRuta ?
+                                        <></>
+                                        :
+                                        <View style={styles.iconRow}>
+                                            {
+                                                fav ?
+                                                    <HeartIconButton onQuitFav={() => {
+                                                        onQuitFav(changeFav, item);
+                                                    }} />
+                                                    :
+                                                    <HeartOutlineIconButton onPressFav={() => {
+                                                        onPressFav(changeFav, item, changeModal);
+                                                    }} />
+                                            }
 
-                                    {
-                                        added ?
-                                            <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
-                                            <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
-                                    }
-                                    <MapIconButton showOnMap={showOnMap} item={item} />
-                                </View>
+                                            {
+                                                added ?
+                                                    <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
+                                                    <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
+                                            }
+                                            <MapIconButton showOnMap={showOnMap} item={item} />
+                                        </View>
+                                }
                             </View>
                         </ImageBackground>
                         :

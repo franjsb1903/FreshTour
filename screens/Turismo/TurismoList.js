@@ -45,9 +45,9 @@ const Turism = (props) => {
     const isFocused = useIsFocused();
     const context = useContext(AppContext)
 
-    const onGetData = async (mounted) => {
+    const onGetData = async (mounted, signal) => {
         const token = await SecureStore.getItemAsync('id_token');
-        var data = await getData(token);
+        var data = await getData(token, signal);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
                 setState({
@@ -72,19 +72,41 @@ const Turism = (props) => {
     }
 
     useEffect(() => {
-
         let mounted = true;
+
+        const abortController = new AbortController();
+        const signal = abortController.signal;
         const reload = async () => {
             try {
-                if (mounted) {
+                if (mounted)
                     setState({
                         loading: true,
                         data: []
                     });
+                const token = await SecureStore.getItemAsync('id_token');
+                var data = await getData(token, signal);
+                if (data.status != 200 || data.auth == false) {
+                    if (mounted) {
+                        setState({
+                            loading: false,
+                            data: undefined
+                        });
+                    }
+                    if (data.message == "jwt expired") {
+                        await SecureStore.deleteItemAsync('id_token');
+                    } else {
+                        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                        return;
+                    }
+                } else {
+                    if (mounted) {
+                        setState({
+                            loading: false,
+                            data: data
+                        });
+                    }
                 }
-                if (mounted) {
-                    await onGetData(mounted);
-                }
+
             } catch (err) {
                 console.error(err);
                 ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
@@ -92,17 +114,21 @@ const Turism = (props) => {
         }
 
         if (!data) {
-            reload();
+            if (mounted)
+                reload();
         } else {
-            if (mounted) {
-                setState({
-                    data: context.user.elementosFav,
-                    loading: false
-                });
-            }
+            setState({
+                data: context.user.elementosFav,
+                loading: false
+            });
+
         }
 
-    }, [isFocused]);
+        return () => {
+            mounted = false;
+            abortController.abort();
+        };
+    }, []);
 
     const onRefresh = async () => {
         setRefreshing(true);
@@ -118,10 +144,10 @@ const Turism = (props) => {
     const doSearch = async (name) => {
         try {
             var element;
+            const token = await SecureStore.getItemAsync('id_token');
             if (!data) {
-                element = await getElement(name);
+                element = await getElement(name, token);
             } else {
-                const token = await SecureStore.getItemAsync('id_token');
                 element = await getElementFavByName(token, name);
             }
             if (element.status != 200) {
@@ -135,8 +161,7 @@ const Turism = (props) => {
                     loading: false
                 });
             } else {
-                console.error(err);
-                ToastAndroid.show('Erro de conexiónn', ToastAndroid.SHORT);
+                ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
             }
         } catch (err) {
             console.error(err);
@@ -167,18 +192,20 @@ const Turism = (props) => {
 
         return (
 
-            data.map(element => {
-                return (
-                    <TouchableOpacity
-                        key={element.id}
-                        onPress={() => navigate('TurismoItem', {
-                            element: element,
-                            showOnMap: showOnMap
-                        })}>
-                        <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
-                    </TouchableOpacity>
-                )
-            })
+            data == undefined ?
+                <NoData /> :
+                data.map(element => {
+                    return (
+                        <TouchableOpacity
+                            key={element.id}
+                            onPress={() => navigate('TurismoItem', {
+                                element: element,
+                                showOnMap: showOnMap
+                            })}>
+                            <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
+                        </TouchableOpacity>
+                    )
+                })
 
         )
     }

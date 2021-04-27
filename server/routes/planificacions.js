@@ -6,11 +6,6 @@ const verify = require('../lib/VerifyToken');
 const helpers = require('../lib/helpers');
 const sql = require('../lib/sql');
 
-router.use(express.urlencoded({
-    extended: true
-}));
-router.use(express.json());
-
 router.post('/new', verify.verifyToken, (req, res) => {
     try {
 
@@ -137,9 +132,18 @@ router.post('/new', verify.verifyToken, (req, res) => {
     }
 });
 
-router.get('/', (req, res) => {
+router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
-        pool.query(sql.planificacions.all, (err, results) => {
+        const userId = req.userId;
+        var values = [];
+
+        if (userId) {
+            values.push(userId);
+        } else {
+            values.push(-1);
+        }
+
+        pool.query(sql.planificacions.all, values, (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
                 return;
@@ -160,8 +164,6 @@ router.post('/share', verify.verifyToken, (req, res) => {
     try {
         const { isShare, id } = req.body;
 
-        console.log(isShare, id);
-
         pool.query(sql.planificacions.share, [isShare, id], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
@@ -176,6 +178,29 @@ router.post('/share', verify.verifyToken, (req, res) => {
         return;
     }
 
+});
+
+router.get('/elements/:id', (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        pool.query(sql.planificacions.elementos, [id], (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                return;
+            }
+            res.status(200).json({
+                status: 200,
+                elementos: results.rows
+            });
+        });
+
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
 });
 
 module.exports = router;

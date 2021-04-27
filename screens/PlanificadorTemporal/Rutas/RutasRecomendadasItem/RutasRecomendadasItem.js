@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ToastAndroid, Alert, Platform, View } from 'react-native'
 
-import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
+import TopTabNavigator from '../../../../components/TopTabNavigatorRuta';
 
-import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
-import ProgressBar from '../../../components/ProgressBar';
-import { stylesTurismoList as styles } from '../../../styles/styles';
+import { getOpinions as getOpinionsModel } from '../../../../model/Opinions/Opinions';
+import { getElements } from '../../../../model/Planificador/Planificador'
+import ProgressBar from '../../../../components/ProgressBar';
+import { stylesTurismoList as styles } from '../../../../styles/styles';
 
 import { useIsFocused } from '@react-navigation/native';
 
@@ -18,17 +19,18 @@ const TurismoItem = ({ route, navigation }) => {
         status: 0
     });
 
+    const [elements, setElements] = useState([]);
+
     const [loading, setLoading] = useState(true);
 
-    const element = route.params.element;
-    const showOnMap = route.params.showOnMap;
+    const planificacion = route.params.planificacion;
 
     const isFocused = useIsFocused();
 
     const onGetData = async (mounted, signal) => {
         try {
-            const data = await getOpinionsModel(element.tipo, element.id, signal);
-            if (data.status != 200) {
+            const opinions = await getOpinionsModel(planificacion.tipo, planificacion.id, signal);
+            if (opinions.status != 200) {
                 if (Platform.OS == "android") {
                     ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
                 } else {
@@ -41,18 +43,32 @@ const TurismoItem = ({ route, navigation }) => {
             }
             if (mounted) {
                 setOpinions({
-                    count: data.count,
-                    valoracion: data.valoracion,
-                    opinions: data.opinions,
-                    status: data.status
+                    count: opinions.count,
+                    valoracion: opinions.valoracion,
+                    opinions: opinions.opinions,
+                    status: opinions.status
                 });
+            }
+            const elements = await getElements(planificacion.id, signal);
+            if (elements.status != 200) {
+                if (Platform.OS == "android") {
+                    ToastAndroid.show(elements.message, ToastAndroid.SHORT);
+                } else {
+                    Alert.alert(elements.message);
+                }
+                if (mounted) {
+                    setLoading(false);
+                }
+                return;
+            }
+            if (mounted) {
+                setElements(elements);
                 setLoading(false);
             }
         } catch (err) {
             if (mounted) {
                 setLoading(false);
             }
-            console.error(err);
             if (Platform.OS == "android") {
                 ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
             } else {
@@ -68,17 +84,18 @@ const TurismoItem = ({ route, navigation }) => {
         const abortController = new AbortController();
         const signal = abortController.signal;
 
-        const getOpinions = async () => {
-            await onGetData(mounted, signal);
+        const getData = async () => {
+            if (mounted)
+                await onGetData(mounted, signal);
         }
 
         if (mounted)
-            getOpinions();
+            getData();
 
         return () => {
             mounted = false;
             abortController.abort();
-        };
+        }
     }, []);
 
     React.useLayoutEffect(() => {
@@ -86,14 +103,14 @@ const TurismoItem = ({ route, navigation }) => {
 
         if (mounted)
             navigation.setOptions({
-                title: `${element.titulo}`
+                title: `${planificacion.titulo}`
             });
 
         return () => mounted = false;
     }, []);
 
     const onRefreshOpinions = async () => {
-        await onGetData(true);
+        await onGetData();
     }
 
     return (
@@ -102,10 +119,10 @@ const TurismoItem = ({ route, navigation }) => {
                 <ProgressBar />
             </View> :
             <TopTabNavigator
-                element={element}
-                showOnMap={showOnMap}
+                planificacion={planificacion}
                 opinions={opinions}
                 onRefreshOpinions={onRefreshOpinions}
+                elements={elements}
             />
     )
 }

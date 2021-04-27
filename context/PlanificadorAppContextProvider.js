@@ -70,16 +70,21 @@ const AppContextProvider = (props) => {
 
         getAsyncRoute();
 
-        return () => mounted = false;
+        return () => {
+            mounted = false;
+        }
     }, [coordinates]);
 
     useEffect(() => {
         let mounted = true;
 
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
         async function getAsyncRoute() {
             try {
                 if (coordinates.length > 1) {
-                    const route = await getRoute(coordinates, walking);
+                    const route = await getRoute(coordinates, walking, signal);
                     if (route != undefined) {
                         if (mounted) {
                             setRoute({
@@ -104,7 +109,10 @@ const AppContextProvider = (props) => {
 
         getAsyncRoute();
 
-        return () => mounted = false;
+        return () => {
+            abortController.abort();
+            mounted = false;
+        }
     }, [walking]);
 
     const addItem = (item) => {
@@ -230,6 +238,7 @@ const AppContextProvider = (props) => {
                 return;
             }
             item.favorito = true;
+            console.log(item);
             changeFavView();
         } catch (err) {
             console.error(err);
@@ -246,6 +255,7 @@ const AppContextProvider = (props) => {
                 return;
             }
             item.favorito = false;
+            console.log(item);
             changeFavView();
         } catch (err) {
             console.error(err);

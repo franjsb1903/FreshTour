@@ -34,11 +34,20 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
     }
 });
 
-router.get('/:name', function (req, res) {
+router.get('/:name',verify.verifyTokenWithoutReturn, function (req, res) {
     try {
+        const userId = req.userId;
+        var values = [];
+        if(userId) {
+            values.push(userId);
+        } else {
+            values.push(-1);
+        }
+
         const { name } = req.params;
         const namePerc = '%' + name + '%'
-        pool.query("SELECT *, 'Lugar turístico' as tipo FROM fresh_tour.lugares_turisticos lt WHERE prezo is not NULL and titulo like $1 ORDER BY titulo ASC", [namePerc], (err, results) => {
+        values.push(namePerc);
+        pool.query("SELECT *, 'Lugar turístico' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE ltf.id_lugar_turistico = lt.id AND ltf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_turisticos lt WHERE prezo is not NULL and titulo like $2 ORDER BY titulo ASC", values, (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro na busca", err, res);
                 return;

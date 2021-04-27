@@ -642,3 +642,22 @@ export const formSocial = StyleSheet.create({
         alignItems: "center"
     }
 });
+
+export const cardElementOpinion = StyleSheet.create({
+    header: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    textContainer: {
+        alignItems: "flex-start",
+        flexDirection: "column",
+        padding: 10
+    },
+    dataContanier: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        paddingLeft: 10,
+        paddingRight: 10
+    }
+})
