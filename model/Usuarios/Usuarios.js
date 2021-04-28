@@ -56,3 +56,12 @@ export const getElementFavByName = async (token, name) => {
         throw new Error(err);
     }
 }
+
+export const editUser = async (token, user) => {
+    try{
+        const json = await Usuarios.editUser(token, user);
+        return json;
+    } catch(err) {
+        throw new Error(err);
+    }
+}

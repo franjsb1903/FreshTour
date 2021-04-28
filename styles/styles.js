@@ -203,14 +203,13 @@ export const modal = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
+        alignItems: "center"
       },
       modalView: {
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 35,
+        padding: 30,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -224,7 +223,7 @@ export const modal = StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: "center",
-        fontSize: 18
+        fontSize: 20
       },
       button: {
         borderRadius: 20,
@@ -241,7 +240,8 @@ export const modal = StyleSheet.create({
       textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 18
       },
       rowButton: {
           flexDirection: "row"

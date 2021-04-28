@@ -224,7 +224,7 @@ const CardElementRuta = (props) => {
                 </View>
             </Card >
             <ModalInicioSesion modal={modal} showModal={showModal} />
-            <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} />
+            <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"A planificación borrarase para sempre, está seguro?"} />
         </>
     )
 }

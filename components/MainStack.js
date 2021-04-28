@@ -14,6 +14,7 @@ import GardarPlanificacion from '../screens/PlanificadorTemporal/Rutas/Social/Ga
 import RutasUsuario from '../screens/Usuarios/Rutas/RutasUsuario';
 import RutasRecomendadasItem from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasItem/RutasRecomendadasItem';
 import RutasRecomendadasList from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasList'
+import EditarUsuario from '../screens/Usuarios/Editar/Editar'
 
 import { stylesApp as styles } from '../styles/styles';
 
@@ -152,6 +153,16 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "Rutas favoritas",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="EditarUsuario"
+                component={EditarUsuario}
+                options={{
+                    headerShown: true,
+                    title: "Editar perfil",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}

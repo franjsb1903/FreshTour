@@ -111,7 +111,10 @@ router.post('/new', verify.verifyToken, (req, res) => {
                                 try {
                                     done();
                                     return res.status(200).send({
-                                        status: 200
+                                        status: 200,
+                                        planificacion: {
+                                            id: id
+                                        }
                                     });
                                 } catch (err) {
                                     helpers.onError(500, "Erro interno no servidor", err, res);

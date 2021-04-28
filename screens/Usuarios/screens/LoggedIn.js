@@ -114,7 +114,11 @@ const LoggedIn = (props) => {
             <View style={styles.header}>
                 <AvatarIcon style={styles.icon} />
                 <Text style={styles.title}>{user.user.usuario}</Text>
-                <TouchableOpacity style={button.buttonContainerFlex}>
+                <TouchableOpacity style={button.buttonContainerFlex} onPress={() => {
+                    navigation.navigate('EditarUsuario', {
+                        user: user.user
+                    });
+                }}>
                     <Text style={button.buttonTextSmaller}>
                         Editar
                     </Text>

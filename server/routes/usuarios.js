@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 const helpers = require('../lib/helpers');
-
+var bcrypt = require('bcryptjs');
 const pool = require('../../database/database');
 const verify = require('../lib/VerifyToken');
+const sql = require('../lib/sql');
 
 router.post('/turismo/fav', verify.verifyToken, (req, res) => {
 
@@ -104,5 +105,85 @@ router.get('/turismo/fav/:name', verify.verifyToken, (req, res) => {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
 });
+
+router.post('/edit', verify.verifyToken, (req, res) => {
+    try {
+        const userId = req.userId;
+        const { usuario, nome, apelidos, email, contrasinal } = req.body;
+
+        var hashedPssw = bcrypt.hashSync(contrasinal, 10);
+
+        const values = [usuario, nome, apelidos, email, hashedPssw, userId];
+
+        pool.connect((err, client, done) => {
+            const shouldAbort = err => {
+                if (err) {
+                    client.query('ROLLBACK', error => {
+                        if (error) {
+                            helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
+                            return;
+                        }
+    
+                        done()
+                        helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
+                        return;
+                    })
+                }
+                return !!err
+            }
+    
+            client.query('BEGIN', err => {
+                if (shouldAbort(err)) return;
+    
+                client.query(sql.usuarios.exists, [usuario, email], (err, results) => {
+                    if (shouldAbort(err)) return;
+    
+                    if (results.rowCount > 0) {
+                        if (email == results.rows[0].email) {
+                            helpers.onErrorAuth(401, "Email xa rexistrado na plataforma", err, res);
+                            return;
+                        } else if (usuario == results.rows[0].usuario) {
+                            helpers.onErrorAuth(401, "Nome de usuario xa existente", err, res);
+                            return;
+                        }
+                    }
+    
+                    client.query(sql.usuarios.edit, values, (err, results) => {
+                        if (shouldAbort(err)) return;
+    
+                        client.query('COMMIT', error => {
+                            if (error) {
+                                helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", error, res);
+                                return;
+                            }
+                            try {
+                                const { id, usuario, nome, apelidos, email, data } = results.rows[0];
+    
+                                const user = {
+                                    id: id,
+                                    usuario: usuario,
+                                    nome: nome,
+                                    apelidos: apelidos,
+                                    email: email,
+                                    data: data
+                                }
+    
+                                done();
+    
+                                return res.status(200).send({ auth: true, user: user, status: 200 });
+    
+                            } catch (err) {
+                                helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
+                                return;
+                            }
+                        })
+                    });
+                });
+            })
+        });
+    } catch(err) {
+        helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+})
 
 module.exports = router;

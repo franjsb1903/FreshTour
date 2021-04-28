@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, ToastAndroid, Platform } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid, Platform } from 'react-native'
 
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../../styles/styles';

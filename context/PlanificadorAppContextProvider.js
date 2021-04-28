@@ -166,6 +166,10 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
+    const updatePlanificacion = (planificacion) => {
+        setPlanificacion(planificacion);
+    }
+
     const changeOrderUp = (id) => {
         var index;
         var aux = [];
@@ -343,7 +347,8 @@ const AppContextProvider = (props) => {
         geoMap: geoMap,
         addElementsToPlanificacion: addElementsToPlanificacion,
         planificacion: planificacion,
-        resetPlanificacion: resetPlanificacion
+        resetPlanificacion: resetPlanificacion,
+        updatePlanificacion: updatePlanificacion
     }
 
     return (

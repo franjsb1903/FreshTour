@@ -16,4 +16,8 @@ sql.planificacions.delete.comentarios = "DELETE FROM fresh_tour.comentarios_valo
 sql.planificacions.delete.favoritas = "DELETE FROM fresh_tour.planificacions_favoritas WHERE id_planificacion = $1";
 sql.planificacions.edit = "UPDATE fresh_tour.planificacions SET titulo = $1, comentario = $2 WHERE id = $3";
 
+sql.usuarios = {};
+sql.usuarios.edit = "UPDATE fresh_tour.usuarios SET usuario=$1, nome=$2, apelidos=$3, email=$4, contrasinal=$5 WHERE id=$6 RETURNING usuario, nome, apelidos, email, to_char(data, 'DD-MM-YY') as data";
+sql.usuarios.exists= "SELECT usuario, email FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $2";
+
 module.exports = sql;

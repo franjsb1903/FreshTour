@@ -112,6 +112,7 @@ const GardarPlanificacion = (props) => {
             if (!edit) {
                 changeIsSaved();
                 ToastAndroid.show('Planificación almacenada correctamente', ToastAndroid.SHORT);
+                context.updatePlanificacion(response.planificacion);
                 props.navigation.navigate("Planificator");
             } else {
                 props.navigation.navigate("User");

@@ -37,7 +37,8 @@ const properties = {
             login: 'login',
             main: '/usuario',
             turismo: '/turismo/fav',
-            me: 'me'
+            me: 'me',
+            edit: "/edit"
         }
     },
     style: {
