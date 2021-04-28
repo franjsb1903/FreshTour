@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid, Platform } from 'react-native'
-import * as SecureStore from 'expo-secure-store';
+import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid } from 'react-native'
 
 import ProgressBar from '../../../components/ProgressBar';
 import { getPlanificacions as getPlanificacionsModel } from '../../../model/Planificador/Planificador'
@@ -9,7 +8,9 @@ import NoData from '../../../components/NoData';
 
 import { useIsFocused } from '@react-navigation/native';
 
-import { stylesTurismoList as styles, stylesScroll } from '../../../styles/styles'
+import { stylesTurismoList as styles, stylesScroll } from '../../../styles/styles';
+
+import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
 const RutasRecomendadasList = (props) => {
 
@@ -28,7 +29,7 @@ const RutasRecomendadasList = (props) => {
     }
 
     const onGetData = async (mounted, signal) => {
-        const token = await SecureStore.getItemAsync('id_token');
+        const token = await getToken('id_token');
         var data = await getPlanificacionsModel(signal, token);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
@@ -37,9 +38,7 @@ const RutasRecomendadasList = (props) => {
                     data: undefined
                 });
             }
-            if (data.message == "jwt expired") {
-                await SecureStore.deleteItemAsync('id_token');
-            } else {
+            if(!await shouldDeleteToken(data.message, 'id_token')) {
                 ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 return;
             }

@@ -10,7 +10,7 @@ import ProgressBar from '../../../../components/ProgressBar'
 
 import { savePlanificacion, editPlanificacion } from '../../../../model/Planificador/Planificador';
 
-import * as SecureStore from 'expo-secure-store';
+import { getToken, shouldDeleteToken } from '../../../../Util/TokenUtil'
 
 const GardarPlanificacion = (props) => {
 
@@ -69,7 +69,7 @@ const GardarPlanificacion = (props) => {
 
     const gardarPlanificacion = async () => {
         try {
-            const token = await SecureStore.getItemAsync('id_token');
+            const token = await getToken('id_token');
             if (!token) {
                 setModal({
                     ...modal, ['login']: true
@@ -94,10 +94,13 @@ const GardarPlanificacion = (props) => {
                 setModal({
                     ...modal, ['loading']: false
                 });
+                await shouldDeleteToken(response.message, 'id_token');
                 return;
             }
             if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                }
                 setModal({
                     ...modal, ['loading']: false
                 });

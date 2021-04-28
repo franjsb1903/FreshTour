@@ -21,6 +21,7 @@ const TurismoItem = ({ route, navigation }) => {
     const element = route.params.element;
     const showOnMap = route.params.showOnMap;
     const onRefresh = route.params.onRefresh;
+    const isRuta = route.params.isRuta;
 
     const onGetData = async (mounted, signal) => {
         try {
@@ -104,6 +105,7 @@ const TurismoItem = ({ route, navigation }) => {
                 opinions={opinions}
                 onRefreshOpinions={onRefreshOpinions}
                 onRefresh={onRefresh}
+                isRuta={isRuta}
             />
     )
 }

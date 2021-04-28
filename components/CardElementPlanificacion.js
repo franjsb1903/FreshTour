@@ -24,6 +24,7 @@ const CardElementPlanificacion = (props) => {
 
     const closeIconOnPress = () => {
         onDeleteItemPlanificador(item.features[0].properties.id);
+        context.resetPlanificacion();
         context.actualizaTempoVisita(0, tipoVisita);
     }
 

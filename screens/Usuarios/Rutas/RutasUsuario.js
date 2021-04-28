@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { View, Text, ScrollView, ToastAndroid } from 'react-native';
+import React from 'react';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
-import * as SecureStore from 'expo-secure-store';
 
 import CardElementRuta from '../../../components/CardElementRuta';
-import NoData from '../../../components/NoData'
+import NoData from '../../../components/NoData';
+import ModalConfirmacion from '../../../components/ModalConfirmacion';
 
-const OpinionsUsuario = (props) => {
+const RutasUsuario = (props) => {
 
     const planificacions = props.route.params.planificacions;
 
@@ -18,7 +18,13 @@ const OpinionsUsuario = (props) => {
                     :
                     planificacions.map(planificacion => {
                         return (
-                            <CardElementRuta key={planificacion.id} planificacion={planificacion} isUser={true} />
+                            <TouchableOpacity
+                                key={planificacion.id}
+                                onPress={() => props.navigation.navigate('RutasRecomendadasItem', {
+                                    planificacion: planificacion
+                                })}>
+                                <CardElementRuta planificacion={planificacion} isUser={true} />
+                            </TouchableOpacity>
                         )
                     })
             }
@@ -26,4 +32,4 @@ const OpinionsUsuario = (props) => {
     )
 }
 
-export default OpinionsUsuario;
+export default RutasUsuario;

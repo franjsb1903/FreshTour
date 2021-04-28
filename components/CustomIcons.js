@@ -70,11 +70,11 @@ const BicycleIconSelected = () => (
 );
 
 const PlayIcon = () => (
-    <Icon name="play" size={30} color="#fff" />
+    <Icon name="play" size={30} color="#000" />
 );
 
 const StopIcon = () => (
-    <Icon name="stop" size={30} color="#fff" />
+    <Icon name="stop" size={30} color="#000" />
 );
 
 const CloseIcon = () => (
@@ -144,7 +144,7 @@ export const HeartIconButton = (props) => {
         <IconButton
             icon={HeartIcon}
             onPress={() => {
-                onQuitFav ? onQuitFav() : console.log("Not function");
+                onQuitFav ? onQuitFav() : {}
             }}
             style={style} />
     )
@@ -159,7 +159,7 @@ export const HeartOutlineIconButton = (props) => {
         <IconButton
             icon={HeartIconOutline}
             onPress={() => {
-                onPressFav ? onPressFav() : console.log("Not function");
+                onPressFav ? onPressFav() : {}
             }}
             style={style} />
     )
@@ -177,8 +177,8 @@ export const CalendarIconButton = (props) => {
         <IconButton
             icon={CalendarIcon}
             onPress={() => {
-                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : console.log("Not function");
-                changeAdd ? changeAdd(true) : console.log("Not function");
+                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : {}
+                changeAdd ? changeAdd(true) : {}
             }}
             style={style} />
     )
@@ -191,13 +191,14 @@ export const CalendarOutlineIconButton = (props) => {
     const addToPlanificacion = props.addToPlanificacion;
     const changeAdd = props.changeAdd;
     const added = props.added;
+    const _onPress = props._onPress;
 
     return (
         <IconButton
             icon={CalendarOutlineIcon}
             onPress={() => {
-                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : console.log("Not function");
-                changeAdd ? changeAdd(true) : console.log("Not function");
+                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : _onPress();
+                changeAdd ? changeAdd(true) : {}
             }}
             style={style} />
     )
@@ -219,20 +220,23 @@ export const MapIconButton = (props) => {
     )
 };
 
-export const ShareIconButton = () => {
+export const ShareIconButton = (props) => {
+
+    const _onPress = props._onPress;
     return (
         <IconButton
             icon={ShareIcon}
-            onPress={() => console.log("Share")}
+            onPress={() => _onPress ? _onPress() : {}}
         />
     )
 }
 
-export const SharedIconButton = () => {
+export const SharedIconButton = (props) => {
+    const _onPress = props._onPress;
     return (
         <IconButton
             icon={SharedIcon}
-            onPress={() => console.log("Share")}
+            onPress={() => _onPress ? _onPress() : {}}
         />
     )
 }
@@ -333,7 +337,7 @@ export const CloseIconButton = (props) => {
         <IconButton
             icon={CloseIcon}
             onPress={() => {
-                closeIconOnPress ? closeIconOnPress() : console.log("Not function");
+                closeIconOnPress ? closeIconOnPress() : {};
             }}
             style={style}
         />
@@ -412,7 +416,7 @@ export const EditIconButton = (props) => {
         <IconButton
             icon={EditIcon}
             onPress={() => {
-                onPress ? onPress() : console.log("Not function")
+                onPress ? onPress() : {}
             }}
             style={styles}
         />

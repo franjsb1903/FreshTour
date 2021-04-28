@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Button, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import AppContext from '../../../context/PlanificadorAppContext';
 import NoElementsPlanificadorView from '../../../components/NoElementsPlanificadorView'
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
-import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton } from '../../../components/CustomIcons';
+import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton, SharedIconButton } from '../../../components/CustomIcons';
+import { onShare } from '../../../components/Common'
 
 import properties from '../../../properties/properties_expo'
 
@@ -14,12 +15,28 @@ import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow } fr
 const Planificador = (props) => {
 
     const [isSaved, setIsSaved] = useState(false);
+    const [shared, setShared] = useState(false);
+    const [planificacion, setPlanificacion] = useState(undefined);
+
+    const context = useContext(AppContext);
+
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted) {
+            setPlanificacion(context.planificacion);
+            if (context.planificacion != undefined) {
+                setShared(context.planificacion.esta_compartida);
+            }
+        }
+
+        return () => mounted = false;
+    }, [context.planificacion]);
 
     const onMapClick = () => {
         navigation.navigate('Map');
     }
 
-    const context = useContext(AppContext);
     const navigation = useNavigation();
 
     const onClear = () => {
@@ -30,28 +47,49 @@ const Planificador = (props) => {
         setIsSaved(true);
     }
 
+    const changeShare = () => {
+        setShared(!shared);
+    }
+
+    const SaveIcon = () => (
+        <SaveIconButton _onPress={() => {
+            context.turismoItems.length > 1 ?
+                props.navigation.navigate("GardarPlanificacion", {
+                    changeIsSaved: changeIsSaved,
+                    data: context.route.routeJson,
+                    tempoVisita: context.tempoVisita,
+                    titulo: "Gardar planificación"
+                })
+                : ToastAndroid.show('Engada máis elementos á planificación', ToastAndroid.SHORT);
+        }} />
+    )
+
     return (
 
-
-        context.turismoItems.length > 0 ?
+        context.turismoItems != undefined && context.turismoItems.length > 0 ?
             <>
                 <View style={stylesRow.container}>
                     <View style={styles.leftIconsContainer}>
                         {
-                            isSaved ?
-                                <SavedIconButton  /> :
-                                <SaveIconButton _onPress={() => {
-                                    context.turismoItems.length > 1 ?
-                                        props.navigation.navigate("GardarPlanificacion", {
-                                            changeIsSaved: changeIsSaved,
-                                            data: context.route.routeJson,
-                                            tempoVisita: context.tempoVisita,
-                                            titulo: "Gardar planificación"
-                                        })
-                                        : ToastAndroid.show('Engada máis elementos á planificación', ToastAndroid.SHORT);
-                                }} />
+                            planificacion ?
+                                isSaved || planificacion.id_actual_usuario == planificacion.id_usuario ?
+                                    <>
+                                        <SavedIconButton />
+                                        {
+                                            shared ?
+                                                <SharedIconButton _onPress={() => {
+                                                    onShare(changeShare, shared, planificacion);
+                                                }} />
+                                                :
+                                                <ShareIconButton _onPress={() => {
+                                                    onShare(changeShare, shared, planificacion);
+                                                }} />
+                                        }
+                                    </> :
+                                    <SaveIcon />
+                                :
+                                <SaveIcon />
                         }
-                        <ShareIconButton />
                     </View>
                     <View style={styles.centerIconsContainer}>
                         <WalkIconButton walking={context.walking} changeProfile={context.changeProfile} />

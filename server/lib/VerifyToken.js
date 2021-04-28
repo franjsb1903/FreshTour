@@ -50,7 +50,7 @@ verify.verifyTokenGet = (req, res) => {
     var userId;
     jwt.verify(token, config.secret, (err, decoded) => {
         if(err) {
-            return res.status(500).send({ auth: false, message: 'Erro interno ao autenticar ao usuario, inténteo de novo.' });
+            return res.status(500).send({ auth: false, message: err.message });
         }
         userId = decoded.id;
     })

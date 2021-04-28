@@ -3,7 +3,6 @@ import { Text, ImageBackground, View, ToastAndroid } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';
-import * as SecureStore from 'expo-secure-store';
 
 import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton, HeartOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';

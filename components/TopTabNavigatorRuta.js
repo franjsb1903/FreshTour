@@ -19,6 +19,7 @@ const TopTabNavigatorRuta = (props) => {
     const elements = props.elements;
     const onRefreshOpinions = props.onRefreshOpinions;
     const onRefresh = props.onRefresh;
+    const showOnPlanificacion = props.showOnPlanificacion;
 
     return (
         <>
@@ -35,7 +36,7 @@ const TopTabNavigatorRuta = (props) => {
                 }}>
                 <Tab.Screen
                     name="Resumo"
-                    children={() => <Resumo element={planificacion} opinions={opinions} isRuta={true} onRefresh={onRefresh} />}
+                    children={() => <Resumo element={planificacion} opinions={opinions} isRuta={true} onRefresh={onRefresh} showOnPlanificacion={showOnPlanificacion} />}
                     options={{
                         tabBarLabel: 'Resumo'
                     }} />

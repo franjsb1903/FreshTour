@@ -5,21 +5,23 @@ import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Usuarios/Usuarios';
 
+import { shouldDeleteToken } from '../Util/TokenUtil'
+
 const AppContextProvider = (props) => {
 
     const [turismoItems, setTurismoItems] = useState({
         items: []
     });
-
     const [coordinates, setCoordinates] = useState([]);
-
-    const [walking, setWalking] = useState(true);
-    const [geoMap, setGeoMap] = useState('');
-
     const [route, setRoute] = useState({
         route: '',
         routeJson: {}
     });
+
+    const [planificacion, setPlanificacion] = useState(undefined);
+
+    const [walking, setWalking] = useState(true);
+    const [geoMap, setGeoMap] = useState('');
 
     const [tempoVisita, setTempoVisita] = useState(0);
 
@@ -118,13 +120,13 @@ const AppContextProvider = (props) => {
 
         var exist = existItem(`${item.features[0].properties.id}`);
 
-
         if (!exist) {
             setTurismoItems({
                 items: [...turismoItems.items, item]
             });
             const tempo = tempoVisita;
             initTempoVisita(tempo + item.features[0].properties.tempo_visita_rapida);
+            setPlanificacion(undefined);
         }
     };
 
@@ -152,11 +154,16 @@ const AppContextProvider = (props) => {
     const updateItems = (newItems) => {
         setTurismoItems({
             items: newItems
-        })
+        });
+        setPlanificacion(undefined);
     }
 
     const changeProfile = () => {
         setWalking(!walking);
+    }
+
+    const resetPlanificacion = () => {
+        setPlanificacion(undefined);
     }
 
     const changeOrderUp = (id) => {
@@ -175,7 +182,8 @@ const AppContextProvider = (props) => {
         aux[index - 1] = elementDown;
         setTurismoItems({
             items: aux
-        })
+        });
+        setPlanificacion(undefined);
     }
 
     const changeOrderDown = (id) => {
@@ -194,7 +202,8 @@ const AppContextProvider = (props) => {
         aux[index + 1] = elementUp;
         setTurismoItems({
             items: aux
-        })
+        });
+        setPlanificacion(undefined);
     }
 
     const addToPlanificacion = async (id, added) => {
@@ -216,7 +225,31 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const updateGeoMap = async (text) => {
+    const addElementsToPlanificacion = async (elements, planificacion, navigation) => {
+        try {
+            const newElements = [];
+            setTempoVisita(0);
+            var tempo_visita = 0;
+            elements.map(async (element) => {
+                const data = await getGeoElementJson(element.id);
+                newElements.push(data);
+                tempo_visita += data.features[0].properties.tempo_visita_rapida;
+            });
+            setTimeout(() => {
+                setTurismoItems({
+                    items: newElements
+                });
+                initTempoVisita(tempo_visita);
+                setPlanificacion(planificacion);
+                navigation.navigate('Map');
+            }, 1000);
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+        }
+    }
+
+    const updateGeoMap = (text) => {
         setGeoMap(text);
     }
 
@@ -233,8 +266,10 @@ const AppContextProvider = (props) => {
         try {
             const response = await addElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
-                return;
+                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                    return;
+                }
             }
             item.favorito = true;
             changeFavView();
@@ -248,8 +283,10 @@ const AppContextProvider = (props) => {
         try {
             const response = await deleteElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
-                return;
+                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                    return;
+                }
             }
             item.favorito = false;
             changeFavView();
@@ -303,7 +340,10 @@ const AppContextProvider = (props) => {
         resetUser: resetUser,
         deleteElementoFav: deleteElementoFav,
         updateGeoMap: updateGeoMap,
-        geoMap: geoMap
+        geoMap: geoMap,
+        addElementsToPlanificacion: addElementsToPlanificacion,
+        planificacion: planificacion,
+        resetPlanificacion: resetPlanificacion
     }
 
     return (

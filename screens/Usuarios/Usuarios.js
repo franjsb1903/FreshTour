@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, ToastAndroid } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from '@react-navigation/native';
 import { stylesTurismoList as progress } from '../../styles/styles';
+
+import { getToken, shouldDeleteToken, storeToken, deleteToken } from '../../Util/TokenUtil'
 
 import { getUserByToken } from '../../model/Usuarios/Usuarios'
 import ProgressBar from '../../components/ProgressBar';
@@ -37,13 +38,11 @@ const User = () => {
                 if (mounted) {
                     setLoading(true);
                 }
-                const token = await SecureStore.getItemAsync('id_token');
+                const token = await getToken('id_token');
                 if (token) {
                     const data = await getUserByToken(token, signal);
                     if (!data.auth) {
-                        if (data.message == "jwt expired") {
-                            await SecureStore.deleteItemAsync('id_token');
-                        } else {
+                        if (!await shouldDeleteToken(data.message, 'id_token')) {
                             ToastAndroid.show(data.message, ToastAndroid.SHORT);
                         }
                         if (mounted) {
@@ -51,6 +50,7 @@ const User = () => {
                         }
                         return false;
                     }
+                    delete data.token;
                     if (mounted) {
                         context.setUser(data);
                         setLoggedIn(true);
@@ -80,7 +80,8 @@ const User = () => {
                 ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 return false;
             }
-            await SecureStore.setItemAsync('id_token', data.token);
+            await storeToken('id_token', data.token);
+            delete data.token;
             context.setUser(data);
             return true;
         } catch (err) {
@@ -96,7 +97,8 @@ const User = () => {
                 ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 return false;
             }
-            await SecureStore.setItemAsync('id_token', data.token);
+            await storeToken('id_token', data.token);
+            delete data.token;
             context.setUser(data);
             return true;
         } catch (err) {
@@ -108,7 +110,7 @@ const User = () => {
     const logout = async () => {
         try {
             setLoading(true);
-            await SecureStore.deleteItemAsync('id_token');
+            await deleteToken('id_token');
             context.resetUser();
             ToastAndroid.show("Sesión pechada satisfactoriamente", ToastAndroid.SHORT);
             setLoading(false);

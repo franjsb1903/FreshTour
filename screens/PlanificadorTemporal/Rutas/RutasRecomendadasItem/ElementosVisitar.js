@@ -23,7 +23,8 @@ const ElementosVisitar = (props) => {
                     <TouchableOpacity
                         key={element.id}
                         onPress={() => navigation.navigate('TurismoItem', {
-                            element: element
+                            element: element,
+                            isRuta: true
                         })}>
                         <CardElement item={element} isRuta={true} />
                     </TouchableOpacity>

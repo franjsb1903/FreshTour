@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid, Platform } from 'react-native'
-import * as SecureStore from 'expo-secure-store';
-
-import { useIsFocused } from '@react-navigation/native';
+import { View, ScrollView, TouchableOpacity, RefreshControl, ToastAndroid } from 'react-native'
 
 import ProgressBar from '../../components/ProgressBar';
 import { getData, getElement, getGeoElement, getGeoElementJson } from '../../model/Turismo/Turismo';
@@ -11,7 +8,9 @@ import CardElement from '../../components/CardElementTurismo';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import NoData from '../../components/NoData';
 
-import AppContext from '../../context/PlanificadorAppContext'
+import AppContext from '../../context/PlanificadorAppContext';
+
+import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
 
 import { stylesTurismoList as styles } from '../../styles/styles'
 
@@ -45,7 +44,7 @@ const Turism = (props) => {
     const context = useContext(AppContext)
 
     const onGetData = async (mounted, signal) => {
-        const token = await SecureStore.getItemAsync('id_token');
+        const token = await getToken('id_token');
         var data = await getData(token, signal);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
@@ -54,9 +53,7 @@ const Turism = (props) => {
                     data: undefined
                 });
             }
-            if (data.message == "jwt expired") {
-                await SecureStore.deleteItemAsync('id_token');
-            } else {
+            if(!await shouldDeleteToken(data.message, 'id_token')) {
                 ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 return;
             }
@@ -119,16 +116,14 @@ const Turism = (props) => {
     const doSearch = async (name) => {
         try {
             var element;
-            const token = await SecureStore.getItemAsync('id_token');
+            const token = await getToken('id_token');
             if (!data) {
                 element = await getElement(name, token);
             } else {
                 element = await getElementFavByName(token, name);
             }
             if (element.status != 200) {
-                if (element.message == "jwt expired") {
-                    await SecureStore.deleteItemAsync('id_token');
-                }
+                await shouldDeleteToken(element.message, 'id_token');
             }
             if (element != undefined) {
                 setState({

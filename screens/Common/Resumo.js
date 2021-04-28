@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 
-import { getCountElement } from '../../model/Opinions/Opinions';
 import { styleTurismoItem as styles, stylesScroll } from '../../styles/styles'
 import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton } from '../../components/CustomIcons'
 import Stars from '../../components/CustomStarsDisplay';
 import ModalInicioSesion from '../../components/ModalInicioSesion';
-import * as SecureStore from 'expo-secure-store';
 
 import { onPressFav, onQuitFav } from '../../components/Common'
 
@@ -25,6 +23,7 @@ const Resumo = (props) => {
     const opinions = props.opinions;
     const isRuta = props.isRuta;
     const onRefresh = props.onRefresh;
+    const showOnPlanificacion = props.showOnPlanificacion;
 
     const showModal = () => {
         setModal(!modal);
@@ -34,8 +33,7 @@ const Resumo = (props) => {
         let mounted = true;
 
         if (mounted) {
-            if (!isRuta)
-                setAdded(context.existItem(element.id));
+            setAdded(context.existItem(element.id));
             setFav(element.favorito);
         }
 
@@ -68,6 +66,7 @@ const Resumo = (props) => {
         )
     }
 
+
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
             <View style={[styles.container, styles.background]}>
@@ -91,7 +90,7 @@ const Resumo = (props) => {
                 {
                     added ?
                         <CalendarIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                        <CalendarOutlineIconButton style={styles.rightIcons} changeAdd={isRuta ? changeAdd : undefined} addToPlanificacion={isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                        <CalendarOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
                 }
                 {
                     isRuta ?

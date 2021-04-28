@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, StyleSheet, Text, ToastAndroid, Alert, Platform } from 'react-native';
 import { Card } from 'react-native-elements';
-import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
 
 import { stylesCardElement as stylesCard } from '../styles/styles';
 import { ShareIconButtonBlack, SharedIconButtonBlack, CloseIconButton, EditIconButton, CalendarOutlineIconButton, HeartIconButton, HeartOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
-import { sharePlanificacion, deletePlanificacion } from '../model/Planificador/Planificador';
+import { deletePlanificacion, getElements as getElementsModel } from '../model/Planificador/Planificador';
 import ModalInicioSesion from './ModalInicioSesion';
+import ModalConfirmacion from './ModalConfirmacion';
 
-import { onQuitFav, onPressFav } from './Common';
+import { onQuitFav, onPressFav, onShare } from './Common';
+
+import { getToken, shouldDeleteToken } from '../Util/TokenUtil'
 
 import AppContext from '../context/PlanificadorAppContext';
 
@@ -19,6 +21,8 @@ const CardElementRuta = (props) => {
     const [shared, setShared] = useState(false);
     const [fav, setFav] = useState(false);
     const [modal, setModal] = useState(false);
+    const [confirmacion, setConfirmacion] = useState(false);
+    const [elements, setElements] = useState([]);
 
     const planificacion = props.planificacion;
     const isUser = props.isUser;
@@ -29,12 +33,38 @@ const CardElementRuta = (props) => {
     useEffect(() => {
         let mounted = true;
 
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        const getElements = async () => {
+            try {
+                const elements = await getElementsModel(planificacion.id, signal);
+                if (elements.status != 200) {
+                    if (Platform.OS == "android") {
+                        ToastAndroid.show(elements.message, ToastAndroid.SHORT);
+                    } else {
+                        Alert.alert(elements.message);
+                    }
+                    return;
+                }
+                if (mounted) {
+                    setElements(elements.elementos);
+                }
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+
         if (mounted) {
             setShared(planificacion.esta_compartida);
             setFav(planificacion.favorito);
+            getElements();
         }
 
-        return () => mounted = false;
+        return () => {
+            mounted = false;
+            abortController.abort();
+        }
     }, []);
 
     const changeFav = () => {
@@ -45,49 +75,44 @@ const CardElementRuta = (props) => {
         setModal(!modal);
     }
 
+    const showConfirmacion = () => {
+        setConfirmacion(!confirmacion);
+    }
+
     const changeModal = () => {
         setModal(!modal);
     }
 
-    const onShare = async () => {
+    const changeShare = () => {
+        setShared(!shared);
+    }
+
+    const showOnPlanificacion = async () => {
         try {
-            const token = await SecureStore.getItemAsync('id_token');
-            if (!token) {
-                ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
-                return;
-            }
-            const response = await sharePlanificacion(token, !shared, planificacion.id);
-            if (response.status != 200) {
-                if (Platform.OS == "android") {
-                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
-                } else {
-                    Alert.alert(response.message);
-                }
-            }
-            else {
-                setShared(!shared);
-            }
+            await context.addElementsToPlanificacion(elements, planificacion, navigation);
         } catch (err) {
-            console.error(err);
+            console.error(err.message);
             if (Platform.OS == "android") {
-                ToastAndroid.show('Erro na acción, tenteo de novo', ToastAndroid.SHORT);
+                ToastAndroid.show('Erro na planificación', ToastAndroid.SHORT);
             } else {
-                Alert.alert('Erro na acción, tenteo de novo');
+                Alert.alert('Erro na planificación');
             }
         }
     }
 
     const onDelete = async () => {
         try {
-            const token = await SecureStore.getItemAsync('id_token');
+            const token = await getToken('id_token');
             if (!token) {
                 ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
                 return;
             }
             const response = await deletePlanificacion(planificacion.id, token);
             if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
-                return;
+                if (!await shouldDeleteToken(response.message, 'id_token')) {
+                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                    return;
+                }
             }
             navigation.navigate("User");
         } catch (err) {
@@ -108,21 +133,21 @@ const CardElementRuta = (props) => {
     }
 
     const HeartIcons = () => {
-    
+
         return (
             fav ?
                 <>
                     <HeartIconButton onQuitFav={() => {
                         onQuitFav(changeFav, planificacion, context);
                     }} />
-                    <CalendarOutlineIconButton />
+                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                 </>
                 :
                 <>
                     <HeartOutlineIconButton onPressFav={() => {
                         onPressFav(changeFav, planificacion, changeModal, context);
                     }} />
-                    <CalendarOutlineIconButton />
+                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                 </>
         )
     }
@@ -134,7 +159,7 @@ const CardElementRuta = (props) => {
                     <Card.Title style={stylesCard.title}>{planificacion.titulo}</Card.Title>
                     {
                         isUser ?
-                            <CloseIconButton closeIconOnPress={onDelete} />
+                            <CloseIconButton closeIconOnPress={showConfirmacion} />
                             :
                             <></>
                     }
@@ -173,28 +198,33 @@ const CardElementRuta = (props) => {
                         isUser ?
                             shared ?
                                 <>
-                                    <SharedIconButtonBlack _onPress={onShare} />
+                                    <SharedIconButtonBlack _onPress={() => {
+                                        onShare(changeShare, shared, planificacion);
+                                    }} />
                                     <EditIconButton onPress={onEdit} />
-                                    <CalendarOutlineIconButton />
+                                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                                 </>
                                 :
                                 <>
-                                    <ShareIconButtonBlack _onPress={onShare} />
+                                    <ShareIconButtonBlack _onPress={() => {
+                                        onShare(changeShare, shared, planificacion);
+                                    }} />
                                     <EditIconButton onPress={onEdit} />
-                                    <CalendarOutlineIconButton />
+                                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                                 </>
                             :
                             planificacion.id_actual_usuario ?
                                 planificacion.id_actual_usuario != planificacion.id_usuario ?
                                     <HeartIcons />
                                     :
-                                    <CalendarOutlineIconButton />
+                                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                                 :
                                 <HeartIcons />
                     }
                 </View>
             </Card >
             <ModalInicioSesion modal={modal} showModal={showModal} />
+            <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} />
         </>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ToastAndroid, Alert, Platform, View } from 'react-native'
 
 import TopTabNavigator from '../../../../components/TopTabNavigatorRuta';
@@ -8,7 +8,7 @@ import { getElements } from '../../../../model/Planificador/Planificador'
 import ProgressBar from '../../../../components/ProgressBar';
 import { stylesTurismoList as styles } from '../../../../styles/styles';
 
-import { useIsFocused } from '@react-navigation/native';
+import AppContext from '../../../../context/PlanificadorAppContext';
 
 const TurismoItem = ({ route, navigation }) => {
 
@@ -26,14 +26,16 @@ const TurismoItem = ({ route, navigation }) => {
     const planificacion = route.params.planificacion;
     const onRefresh = route.params.onRefresh;
 
+    const context = useContext(AppContext);
+
     const onGetData = async (mounted, signal) => {
         try {
             const opinions = await getOpinionsModel(planificacion.tipo, planificacion.id, signal);
             if (opinions.status != 200) {
                 if (Platform.OS == "android") {
-                    ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
+                    ToastAndroid.show(opinions.message, ToastAndroid.SHORT);
                 } else {
-                    Alert.alert('Erro na obtención das opinións do elemento');
+                    Alert.alert(opinions.message);
                 }
                 if (mounted) {
                     setLoading(false);
@@ -74,6 +76,7 @@ const TurismoItem = ({ route, navigation }) => {
             if (mounted) {
                 setLoading(false);
             }
+            console.error(err);
             if (Platform.OS == "android") {
                 ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
             } else {
@@ -117,6 +120,19 @@ const TurismoItem = ({ route, navigation }) => {
         await onGetData(true);
     }
 
+    const showOnPlanificacion = async () => {
+        try {
+            await context.addElementsToPlanificacion(elements.elementos, planificacion, navigation);
+        } catch (err) {
+            console.error(err.message);
+            if (Platform.OS == "android") {
+                ToastAndroid.show('Erro na planificación', ToastAndroid.SHORT);
+            } else {
+                Alert.alert('Erro na planificación');
+            }
+        }
+    }
+
     return (
         loading ?
             <View style={styles.container}>
@@ -128,6 +144,7 @@ const TurismoItem = ({ route, navigation }) => {
                 onRefreshOpinions={onRefreshOpinions}
                 elements={elements}
                 onRefresh={onRefresh}
+                showOnPlanificacion={showOnPlanificacion}
             />
     )
 }

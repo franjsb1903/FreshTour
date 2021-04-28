@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
-import * as SecureStore from 'expo-secure-store';
 
 import { deleteOpinion as deleteOpinionModel } from '../../../model/Opinions/Opinions'
 import CardElementOpinion from '../../../components/CardElementOpinion';
 import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
+
+import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
 const OpinionsUsuario = (props) => {
 
@@ -25,14 +26,16 @@ const OpinionsUsuario = (props) => {
 
     const onDelete = async (opinion) => {
         try {
-            const token = await SecureStore.getItemAsync('id_token');
+            const token = await getToken('id_token');
             if(!token) {
                 ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
                 return;
             }
             const response = await deleteOpinionModel(token, opinion.id_elemento, opinion.tipo, opinion.id);
             if (response.status != 200) {
-                ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                }
                 return;
             }
             props.navigation.navigate('User');
