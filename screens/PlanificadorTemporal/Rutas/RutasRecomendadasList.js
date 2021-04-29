@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { View, ScrollView, Text, TouchableOpacity, RefreshControl, ToastAndroid } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native'
+import { showMessage } from "react-native-flash-message";
 
 import ProgressBar from '../../../components/ProgressBar';
 import { getPlanificacions as getPlanificacionsModel } from '../../../model/Planificador/Planificador'
@@ -24,7 +25,7 @@ const RutasRecomendadasList = (props) => {
     const isFocused = useIsFocused();
 
     let data;
-    if(props.route.params != undefined) {
+    if (props.route.params != undefined) {
         data = props.route.params.data;
     }
 
@@ -38,8 +39,11 @@ const RutasRecomendadasList = (props) => {
                     data: undefined
                 });
             }
-            if(!await shouldDeleteToken(data.message, 'id_token')) {
-                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+            if (!await shouldDeleteToken(data.message, 'id_token')) {
+                showMessage({
+                    message: data.message,
+                    type: "danger"
+                });
                 return;
             }
         } else {
@@ -70,7 +74,10 @@ const RutasRecomendadasList = (props) => {
                 await onGetData(mounted, signal);
             } catch (err) {
                 console.error(err);
-                ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Erro de conexión',
+                    type: "danger"
+                });
             }
         }
 
@@ -99,7 +106,10 @@ const RutasRecomendadasList = (props) => {
             setRefreshing(false);
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro de conexión',
+                type: "danger"
+            });
         }
     }
 

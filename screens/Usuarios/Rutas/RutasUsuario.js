@@ -1,10 +1,9 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
-import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
+import { stylesScroll } from '../../../styles/styles';
 
 import CardElementRuta from '../../../components/CardElementRuta';
 import NoData from '../../../components/NoData';
-import ModalConfirmacion from '../../../components/ModalConfirmacion';
 
 const RutasUsuario = (props) => {
 

@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Button, ToastAndroid } from 'react-native';
+import { View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { showMessage } from "react-native-flash-message";
 
 import AppContext from '../../../context/PlanificadorAppContext';
 import NoElementsPlanificadorView from '../../../components/NoElementsPlanificadorView'
@@ -60,7 +61,11 @@ const Planificador = (props) => {
                     tempoVisita: context.tempoVisita,
                     titulo: "Gardar planificación"
                 })
-                : ToastAndroid.show('Engada máis elementos á planificación', ToastAndroid.SHORT);
+                : 
+                showMessage({
+                    message: 'Engada máis elementos á planificación',
+                    type: "warning"
+                });
         }} />
     )
 

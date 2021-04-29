@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, ImageBackground, View, ToastAndroid } from 'react-native';
+import { Text, ImageBackground, View } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';

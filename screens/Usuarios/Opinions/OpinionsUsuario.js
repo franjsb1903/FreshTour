@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
-import { View, Text, ScrollView, ToastAndroid } from 'react-native';
-import { stylesScroll, styleTurismoItem as styles } from '../../../styles/styles';
+import React from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { stylesScroll } from '../../../styles/styles';
 
 import { deleteOpinion as deleteOpinionModel } from '../../../model/Opinions/Opinions'
 import CardElementOpinion from '../../../components/CardElementOpinion';
 import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
 
-import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
+import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil';
+
+import {showMessage} from "react-native-flash-message";
 
 const OpinionsUsuario = (props) => {
 
@@ -28,13 +30,19 @@ const OpinionsUsuario = (props) => {
         try {
             const token = await getToken('id_token');
             if(!token) {
-                ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Non se pode identificar ao usuario',
+                    type: "danger"
+                });
                 return;
             }
             const response = await deleteOpinionModel(token, opinion.id_elemento, opinion.tipo, opinion.id);
             if (response.status != 200) {
                 if(!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: data.message,
+                        type: "danger"
+                    });
                 }
                 return;
             }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ToastAndroid, Alert, Platform, View } from 'react-native'
-
+import { View } from 'react-native'
+import { showMessage } from "react-native-flash-message";
 import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 
 import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
@@ -27,11 +27,10 @@ const TurismoItem = ({ route, navigation }) => {
         try {
             const data = await getOpinionsModel(element.tipo, element.id, signal);
             if (data.status != 200) {
-                if (Platform.OS == "android") {
-                    ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
-                } else {
-                    Alert.alert('Erro na obtención das opinións do elemento');
-                }
+                showMessage({
+                    message: 'Erro na obtención das opinións do elemento',
+                    type: "danger"
+                });
                 if (mounted) {
                     setLoading(false);
                 }
@@ -51,11 +50,10 @@ const TurismoItem = ({ route, navigation }) => {
                 setLoading(false);
             }
             console.error(err);
-            if (Platform.OS == "android") {
-                ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
-            } else {
-                Alert.alert('Erro na obtención das opinións do elemento');
-            }
+            showMessage({
+                message: 'Erro na obtención das opinións do elemento',
+                type: "danger"
+            });
         }
     }
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { ScrollView, View, TextInput, Text, TouchableOpacity, ToastAndroid } from 'react-native';
+import { ScrollView, View, TextInput, Text, TouchableOpacity } from 'react-native';
 import TextArea from 'react-native-textarea';
+import { showMessage } from "react-native-flash-message";
 
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button, stylesTurismoList as stylesProgress } from '../../../../styles/styles'
 import { clearButton } from '../../../../components/Common';
@@ -96,7 +97,10 @@ const GardarPlanificacion = (props) => {
         try {
             const checked = checkFields();
             if (!checked.valid) {
-                ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: checked.message,
+                    type: "danger"
+                });
                 return;
             }
             const token = await getToken('id_token');
@@ -120,7 +124,10 @@ const GardarPlanificacion = (props) => {
                 response = await editPlanificacion(planificacion.titulo, planificacion.comentario, edit.id, token);
             }
             if (response.auth == false) {
-                ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Non se pode autenticar ao usuario',
+                    type: "danger"
+                });
                 setModal({
                     ...modal, ['loading']: false
                 });
@@ -128,8 +135,11 @@ const GardarPlanificacion = (props) => {
                 return;
             }
             if (response.status != 200) {
-                if(!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                if (!await shouldDeleteToken(response.message, 'id_token')) {
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                 }
                 setModal({
                     ...modal, ['loading']: false
@@ -141,7 +151,10 @@ const GardarPlanificacion = (props) => {
             });
             if (!edit) {
                 changeIsSaved();
-                ToastAndroid.show('Planificación almacenada correctamente', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Planificación almacenada correctamente',
+                    type: "success"
+                });
                 context.updatePlanificacion(response.planificacion);
                 props.navigation.navigate("Planificator");
             } else {
@@ -149,7 +162,10 @@ const GardarPlanificacion = (props) => {
             }
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro no almacenamento da planificación', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro no almacenamento da planificación',
+                type: "success"
+            });
         }
     }
 

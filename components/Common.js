@@ -1,8 +1,9 @@
 import React from 'react';
-import { Platform, ToastAndroid } from 'react-native';
+import { Platform } from 'react-native';
 import { sharePlanificacion } from '../model/Planificador/Planificador';
 import { fromScreen as styles } from '../styles/styles';
 import { CloseCircleIconButton } from './CustomIcons';
+import { showMessage } from "react-native-flash-message";
 
 import { getToken, shouldDeleteToken } from '../Util/TokenUtil'
 
@@ -23,7 +24,10 @@ export const onPressFav = async (changeFav, item, changeModal, context) => {
         }
     } catch (err) {
         console.error(err);
-        ToastAndroid.show('Erro engadindo elemento como favorito', ToastAndroid.show);
+        showMessage({
+            message: 'Erro engadindo elemento como favorito',
+            type: "danger"
+        });
     }
 }
 
@@ -33,7 +37,10 @@ export const onQuitFav = async (changeFav, item, context) => {
         await context.deleteElementoFav(token, changeFav, item);
     } catch (err) {
         console.error(err);
-        ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.show);
+        showMessage({
+            message: 'Erro quitando elemento como favorito',
+            type: "danger"
+        });
     }
 }
 
@@ -41,13 +48,19 @@ export const onShare = async (changeShared, shared, planificacion) => {
     try {
         const token = await getToken('id_token');
         if (!token) {
-            ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Non se pode identificar ao usuario',
+                type: "danger"
+            });
             return;
         }
         const response = await sharePlanificacion(token, !shared, planificacion.id);
         if (response.status != 200) {
             if(!await shouldDeleteToken(response.message, 'id_token')) {
-                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: response.message,
+                    type: "danger"
+                });
                 return;
             }
         }
@@ -56,10 +69,9 @@ export const onShare = async (changeShared, shared, planificacion) => {
         }
     } catch (err) {
         console.error(err);
-        if (Platform.OS == "android") {
-            ToastAndroid.show('Erro na acción, tenteo de novo', ToastAndroid.SHORT);
-        } else {
-            Alert.alert('Erro na acción, tenteo de novo');
-        }
+        showMessage({
+            message: 'Erro na acción, tenteo de novo',
+            type: "danger"
+        });
     }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { LogBox, Text, View, Platform, ToastAndroid } from 'react-native';
+import { LogBox, Text, View, Platform } from 'react-native';
+import { showMessage } from "react-native-flash-message";
 
 import { stylesMapa as styles } from '../../styles/styles'
 
@@ -110,7 +111,10 @@ const Map = (props) => {
       });
     } catch (err) {
       console.error(err);
-      ToastAndroid.show("Erro de conexión", ToastAndroid.SHORT);
+      showMessage({
+        message: 'Erro de conexión',
+        type: "danger"
+      });
     }
   }
 
@@ -132,7 +136,10 @@ const Map = (props) => {
       const text = await getItem(selected);
 
       if (text == undefined) {
-        ToastAndroid.show('Erro xeolocalizando o elemento, probe de novo', ToastAndroid.SHORT);
+        showMessage({
+          message: 'Erro xeolocalizando o elemento, probe de novo',
+          type: "danger"
+        });
         return;
       }
 
@@ -141,7 +148,10 @@ const Map = (props) => {
       });
     } catch (err) {
       console.error(err);
-      ToastAndroid.show("Erro de conexión", ToastAndroid.SHORT);
+      showMessage({
+        message: 'Erro de conexión',
+        type: "danger"
+      });
     }
   }
 

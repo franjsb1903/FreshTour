@@ -18,7 +18,7 @@ router.post('/register', (req, res) => {
 
     const queryDuplicateUser = 'SELECT usuario, email FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $2';
 
-    const query = "INSERT INTO fresh_tour.usuarios (usuario, nome, apelidos, email, contrasinal, data) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP) RETURNING usuario, nome, apelidos, email, to_char(data, 'DD-MM-YY') as data";
+    const query = "INSERT INTO fresh_tour.usuarios (usuario, nome, apelidos, email, contrasinal, data) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP) RETURNING id, usuario, nome, apelidos, email, to_char(data, 'DD-MM-YY') as data";
     const values = [usuario, nome, apelidos, email, hashedPssw];
 
     pool.connect((err, client, done) => {
@@ -74,7 +74,7 @@ router.post('/register', (req, res) => {
                                 data: data
                             }
 
-                            const token = jwt.sign({ id: user.id }, config.secret, {
+                            var token = jwt.sign({ id: user.id }, config.secret, {
                                 expiresIn: 86400
                             });
 

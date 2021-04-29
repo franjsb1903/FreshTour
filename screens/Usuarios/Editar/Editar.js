@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, ToastAndroid, Platform } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../styles/styles';
@@ -11,6 +11,8 @@ import ModalConfirmacion from '../../../components/ModalConfirmacion';
 import { editUser, deleteUser } from '../../../model/Usuarios/Usuarios';
 import { getToken, shouldDeleteToken, deleteToken } from '../../../Util/TokenUtil';
 
+import { showMessage } from "react-native-flash-message";
+import { checkEmail, checkName, checkUsername } from '../../../Util/CheckFieldsUtil'
 import AppContext from '../../../context/PlanificadorAppContext';
 
 const Register = (props) => {
@@ -87,6 +89,30 @@ const Register = (props) => {
                 message: 'Os contrasinais non coinciden'
             }
         }
+        if (!checkEmail(user.email)) {
+            return {
+                valid: false,
+                message: 'O email non é correcto'
+            }
+        }
+        if (!checkUsername(user.usuario)) {
+            return {
+                valid: false,
+                message: 'Nome de usuario inválido (demasiado longo, contén espacios ou contén caractéres raros)'
+            }
+        }
+        if (!checkName(user.nome)) {
+            return {
+                valid: false,
+                message: 'O nome non é correcto'
+            }
+        }
+        if (!checkName(user.apelidos)) {
+            return {
+                valid: false,
+                message: 'Os apelidos non son correctos'
+            }
+        }
         return {
             valid: true
         }
@@ -97,7 +123,10 @@ const Register = (props) => {
             setLoading(true);
             const checked = checkFields();
             if (!checked.valid) {
-                ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: checked.message,
+                    type: "danger"
+                });
                 setLoading(false);
                 return;
             }
@@ -110,14 +139,20 @@ const Register = (props) => {
             }
             const token = await getToken('id_token');
             if (!token) {
-                ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Non se pode autenticar ao usuario',
+                    type: "danger"
+                });
                 setLoading(false);
                 return
             }
             const response = await editUser(token, editedUser);
             if (response.auth == false || response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                     setLoading(false);
                     setUser({
                         ...user, contrasinal: '', confirm_contrasinal: ''
@@ -130,7 +165,10 @@ const Register = (props) => {
             props.navigation.navigate('User');
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro na edición, tenteo de novo', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro na edición, tenteo de novo',
+                type: "danger"
+            });
         }
     }
 
@@ -139,14 +177,20 @@ const Register = (props) => {
             setLoading(true);
             const token = await getToken('id_token');
             if (!token) {
-                ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Non se pode autenticar ao usuario',
+                    type: "danger"
+                });
                 setLoading(false);
                 return
             }
             const response = await deleteUser(token);
             if (response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                     setUser({
                         ...user, contrasinal: '', confirm_contrasinal: ''
                     })
@@ -161,7 +205,10 @@ const Register = (props) => {
             props.navigation.navigate('User');
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro na edición, tenteo de novo', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro na edición, tenteo de novo',
+                type: "danger"
+            });
         }
     }
 

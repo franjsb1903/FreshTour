@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, StyleSheet, Text, ToastAndroid, Alert, Platform } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { showMessage } from "react-native-flash-message";
 
 import { stylesCardElement as stylesCard } from '../styles/styles';
 import { ShareIconButtonBlack, SharedIconButtonBlack, CloseIconButton, EditIconButton, CalendarOutlineIconButton, HeartIconButton, HeartOutlineIconButton } from './CustomIcons';
@@ -40,11 +41,10 @@ const CardElementRuta = (props) => {
             try {
                 const elements = await getElementsModel(planificacion.id, signal);
                 if (elements.status != 200) {
-                    if (Platform.OS == "android") {
-                        ToastAndroid.show(elements.message, ToastAndroid.SHORT);
-                    } else {
-                        Alert.alert(elements.message);
-                    }
+                    showMessage({
+                        message: elements.message,
+                        type: "danger"
+                    });
                     return;
                 }
                 if (mounted) {
@@ -88,11 +88,10 @@ const CardElementRuta = (props) => {
             await context.addElementsToPlanificacion(elements, planificacion, navigation);
         } catch (err) {
             console.error(err.message);
-            if (Platform.OS == "android") {
-                ToastAndroid.show('Erro na planificación', ToastAndroid.SHORT);
-            } else {
-                Alert.alert('Erro na planificación');
-            }
+            showMessage({
+                message: 'Erro na planificación',
+                type: "danger"
+            });
         }
     }
 
@@ -100,19 +99,28 @@ const CardElementRuta = (props) => {
         try {
             const token = await getToken('id_token');
             if (!token) {
-                ToastAndroid.show('Non se pode identificar ao usuario', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Non se pode identificar ao usuario',
+                    type: "danger"
+                });
                 return;
             }
             const response = await deletePlanificacion(planificacion.id, token);
             if (response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                     return;
                 }
             }
             navigation.navigate("User");
         } catch (err) {
-            ToastAndroid.show('Erro eliminando a planificación', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro eliminando a planificación',
+                type: "danger"
+            });
             return;
         }
     }

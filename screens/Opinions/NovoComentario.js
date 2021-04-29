@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, TextInput, Text, TouchableOpacity, ToastAndroid } from 'react-native';
+import { ScrollView, View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { showMessage } from "react-native-flash-message";
 
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button, formSocial as styles, stylesTurismoList as stylesProgress } from '../../styles/styles'
 import Stars from '../../components/CustomStarsSelection';
@@ -103,7 +104,10 @@ const NovoComentario = (props) => {
         try {
             const checked = checkFields();
             if (!checked.valid) {
-                ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: checked.message,
+                    type: "danger"
+                });
                 return;
             }
             const token = await getToken('id_token');
@@ -123,7 +127,10 @@ const NovoComentario = (props) => {
                 response = await newOpinion(token, element.tipo, element.id, comentario);
             }
             if (response.auth == false) {
-                ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Non se pode autenticar ao usuario',
+                    type: "danger"
+                });
                 setModal({
                     ...modal, ['loading']: false
                 });
@@ -132,7 +139,10 @@ const NovoComentario = (props) => {
             }
             if (response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                 }
                 setModal({
                     ...modal, ['loading']: false
@@ -154,7 +164,10 @@ const NovoComentario = (props) => {
             }
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro no envío do comentario',
+                type: "danger"
+            });
         }
     }
 

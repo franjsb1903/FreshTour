@@ -1,7 +1,8 @@
 import React from 'react';
-import { Platform, ToastAndroid } from 'react-native'
+import { Platform } from 'react-native'
 import { WebView } from 'react-native-webview';
-import { WebView as WebViewWeb } from 'react-native-web-webview'
+import { WebView as WebViewWeb } from 'react-native-web-webview';
+import { showMessage } from "react-native-flash-message";
 
 import leaflet_map from '../leaflet/leaflet.js';
 import * as Location from 'expo-location'
@@ -11,8 +12,10 @@ const LeafletMap = (props) => {
   const getLocation = async () => {
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {
-      ToastAndroid.show("Habilite o GPS para localizar a súa posición actual", ToastAndroid.SHORT);
-      setErrorMsg('Permission to access location was denied');
+      showMessage({
+        message: 'Habilite o GPS para localizar a súa posición actual',
+        type: "warning"
+      });
       return;
     }
     try {
@@ -20,7 +23,10 @@ const LeafletMap = (props) => {
       let js = `addMarker(${location.coords.latitude}, ${location.coords.longitude})`;
       global.map.injectJavaScript(js);
     } catch (err) {
-      ToastAndroid.show("Habilite o GPS para xeolocalizar a súa posición", ToastAndroid.SHORT);
+      showMessage({
+        message: 'Habilite o GPS para localizar a súa posición actual',
+        type: "warning"
+      });
     }
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, ToastAndroid } from 'react-native';
+import { View } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { stylesTurismoList as progress } from '../../styles/styles';
 
@@ -13,6 +13,7 @@ import NotLoggedIn from './screens/NotLoggedIn';
 
 import AppContext from '../../context/PlanificadorAppContext';
 import { registerUser, loginUser } from '../../model/Usuarios/Usuarios';
+import { showMessage } from "react-native-flash-message";
 
 const User = () => {
 
@@ -44,14 +45,16 @@ const User = () => {
                     const data = await getUserByToken(token, signal);
                     if (!data.auth) {
                         if (!await shouldDeleteToken(data.message, 'id_token')) {
-                            ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                            showMessage({
+                                message: data.message,
+                                type: "danger"
+                            });
                         }
                         if (mounted) {
                             setLoading(false);
                         }
                         return false;
                     }
-                    delete data.token;
                     if (mounted) {
                         context.setUser(data);
                         setLoggedIn(true);
@@ -78,16 +81,21 @@ const User = () => {
         try {
             const data = await registerUser(user);
             if (!data.auth) {
-                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: data.message,
+                    type: "danger"
+                });
                 return false;
             }
             await storeToken('id_token', data.token);
-            delete data.token;
             context.setUser(data);
             return true;
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro no rexistro, tenteo de novo', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro no rexistro, tenteo de novo',
+                type: "danger"
+            });
         }
     }
 
@@ -95,16 +103,21 @@ const User = () => {
         try {
             const data = await loginUser(user);
             if (!data.auth) {
-                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: data.message,
+                    type: "danger"
+                });
                 return false;
             }
             await storeToken('id_token', data.token);
-            delete data.token;
             context.setUser(data);
             return true;
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro no rexistro, tenteo de novo', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro no login, tenteo de novo',
+                type: "danger"
+            });
         }
     }
 
@@ -113,12 +126,18 @@ const User = () => {
             setLoading(true);
             await deleteToken('id_token');
             context.resetUser();
-            ToastAndroid.show("Sesión pechada satisfactoriamente", ToastAndroid.SHORT);
+            showMessage({
+                message: 'Sesión pechada satisfactoriamente',
+                type: "success"
+            });
             setLoading(false);
             setLoggedIn(false);
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro no peche de sesión', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro no peche de sesión',
+                type: "danger"
+            });
         }
     }
 

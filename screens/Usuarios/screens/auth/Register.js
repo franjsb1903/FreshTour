@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, ToastAndroid, Platform } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../../styles/styles';
 
 import ProgressBar from '../../../../components/ProgressBar';
 import { clearButton } from '../../../../components/Common';
+import { showMessage } from "react-native-flash-message";
 
 import { checkEmail, checkName, checkUsername } from '../../../../Util/CheckFieldsUtil';
 
@@ -92,7 +93,10 @@ const Register = (props) => {
         setLoading(true);
         const checked = checkFields();
         if (!checked.valid) {
-            ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+            showMessage({
+                message: checked.message,
+                type: "danger"
+            });
             setLoading(false);
             return;
         }
@@ -106,6 +110,14 @@ const Register = (props) => {
         setLoading(false);
         if (nav) {
             props.navigation.navigate('User');
+        } else {
+            setUser({
+                usuario: '',
+                nome: '',
+                apelidos: '',
+                email: '',
+                contrasinal: ''
+            })
         }
     }
 

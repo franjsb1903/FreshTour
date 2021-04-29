@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
-import { ToastAndroid } from 'react-native'
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Usuarios/Usuarios';
-
+import { showMessage } from "react-native-flash-message";
 import { shouldDeleteToken } from '../Util/TokenUtil'
 
 const AppContextProvider = (props) => {
@@ -64,7 +63,10 @@ const AppContextProvider = (props) => {
                     }
                 }
             } catch (err) {
-                ToastAndroid.show("Erro na obtención da ruta", ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Erro na obtención da ruta',
+                    type: "danger"
+                });
                 console.error(err);
             }
         }
@@ -103,7 +105,10 @@ const AppContextProvider = (props) => {
                     }
                 }
             } catch (err) {
-                ToastAndroid.show("Erro na obtención da ruta", ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Erro na obtención da ruta',
+                    type: "danger"
+                });
                 console.error(err);
             }
         }
@@ -215,17 +220,29 @@ const AppContextProvider = (props) => {
             if (!added) {
                 const data = await getGeoElementJson(id);
                 if (data == undefined) {
-                    ToastAndroid.show('Elemento non engadido', ToastAndroid.SHORT);
+                    showMessage({
+                        message: 'Elemento non engadido',
+                        type: "danger"
+                    });
                     return;
                 }
-                ToastAndroid.show('Elemento engadido á planificación', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Elemento engadido á planificación',
+                    type: "success"
+                });
                 addItem(data);
             } else {
-                ToastAndroid.show('Elemento xa engadido á planificación', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Elemento xa engadido á planificación',
+                    type: "warning"
+                });
             }
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro de conexión',
+                type: "danger"
+            });
         }
     }
 
@@ -249,7 +266,10 @@ const AppContextProvider = (props) => {
             }, 1000);
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro de conexión',
+                type: "danger"
+            });
         }
     }
 
@@ -271,7 +291,10 @@ const AppContextProvider = (props) => {
             const response = await addElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
                 if(!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                     return;
                 }
             }
@@ -279,7 +302,10 @@ const AppContextProvider = (props) => {
             changeFavView();
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro marcando o elemento como favorito', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro marcando o elemento como favorito',
+                type: "danger"
+            });
         }
     }
 
@@ -288,7 +314,10 @@ const AppContextProvider = (props) => {
             const response = await deleteElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
                 if(!await shouldDeleteToken(response.message, 'id_token')) {
-                    ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                    showMessage({
+                        message: response.message,
+                        type: "danger"
+                    });
                     return;
                 }
             }
@@ -296,7 +325,10 @@ const AppContextProvider = (props) => {
             changeFavView();
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro quitando elemento como favorito', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro quitando elemento como favorito',
+                type: "danger"
+            });
         }
     }
 

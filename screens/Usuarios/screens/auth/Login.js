@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, ScrollView, TouchableOpacity, ToastAndroid, Platform } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../../styles/styles';
@@ -8,6 +8,7 @@ import ProgressBar from '../../../../components/ProgressBar';
 import { clearButton } from '../../../../components/Common';
 
 import { checkUsername, checkEmail } from '../../../../Util/CheckFieldsUtil'
+import {showMessage} from "react-native-flash-message";
 
 const Register = (props) => {
 
@@ -36,15 +37,15 @@ const Register = (props) => {
                 message: 'O campo de contrasinal é obrigatorio'
             }
         }
-        if(user.usuario.split('@').length > 0) {
-            if(!checkEmail(user.usuario)) {
+        if (user.usuario.split('@').length > 1) {
+            if (!checkEmail(user.usuario)) {
                 return {
                     valid: false,
                     message: 'O email non é correcto'
                 }
             }
         } else {
-            if(!checkUsername(user.usuario)) {
+            if (!checkUsername(user.usuario)) {
                 return {
                     valid: false,
                     message: 'O nome de usuario non é correcto'
@@ -60,7 +61,10 @@ const Register = (props) => {
         setLoading(true);
         const checked = checkFields();
         if (!checked.valid) {
-            ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+            showMessage({
+                message: checked.message,
+                type: "danger"
+            });
             setLoading(false);
             return;
         }
@@ -71,6 +75,11 @@ const Register = (props) => {
         setLoading(false);
         if (nav) {
             props.navigation.navigate('User');
+        } else {
+            setUser({
+                usuario: '',
+                contrasinal: ''
+            });
         }
     }
 

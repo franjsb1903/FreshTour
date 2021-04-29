@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { ToastAndroid, Alert, Platform, View } from 'react-native'
+import { View } from 'react-native'
+import { showMessage } from "react-native-flash-message";
 
 import TopTabNavigator from '../../../../components/TopTabNavigatorRuta';
 
@@ -32,11 +33,10 @@ const TurismoItem = ({ route, navigation }) => {
         try {
             const opinions = await getOpinionsModel(planificacion.tipo, planificacion.id, signal);
             if (opinions.status != 200) {
-                if (Platform.OS == "android") {
-                    ToastAndroid.show(opinions.message, ToastAndroid.SHORT);
-                } else {
-                    Alert.alert(opinions.message);
-                }
+                showMessage({
+                    message: opinions.message,
+                    type: "danger"
+                });
                 if (mounted) {
                     setLoading(false);
                 }
@@ -52,11 +52,10 @@ const TurismoItem = ({ route, navigation }) => {
             }
             const elements = await getElements(planificacion.id, signal);
             if (elements.status != 200) {
-                if (Platform.OS == "android") {
-                    ToastAndroid.show(elements.message, ToastAndroid.SHORT);
-                } else {
-                    Alert.alert(elements.message);
-                }
+                showMessage({
+                    message: elements.message,
+                    type: "danger"
+                });
                 if (mounted) {
                     setLoading(false);
                 }
@@ -77,11 +76,10 @@ const TurismoItem = ({ route, navigation }) => {
                 setLoading(false);
             }
             console.error(err);
-            if (Platform.OS == "android") {
-                ToastAndroid.show('Erro na obtención das opinións do elemento', ToastAndroid.SHORT);
-            } else {
-                Alert.alert('Erro na obtención das opinións do elemento');
-            }
+            showMessage({
+                message: 'Erro na obtención das opinións do elemento',
+                type: "danger"
+            });
         }
     }
 
@@ -125,11 +123,10 @@ const TurismoItem = ({ route, navigation }) => {
             await context.addElementsToPlanificacion(elements.elementos, planificacion, navigation);
         } catch (err) {
             console.error(err.message);
-            if (Platform.OS == "android") {
-                ToastAndroid.show('Erro na planificación', ToastAndroid.SHORT);
-            } else {
-                Alert.alert('Erro na planificación');
-            }
+            showMessage({
+                message: 'Erro na planificación',
+                type: "danger"
+            });
         }
     }
 

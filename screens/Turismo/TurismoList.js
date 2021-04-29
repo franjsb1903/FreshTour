@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { View, ScrollView, TouchableOpacity, RefreshControl, ToastAndroid } from 'react-native'
-
+import { View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native'
+import { showMessage } from "react-native-flash-message";
 import ProgressBar from '../../components/ProgressBar';
 import { getData, getElement, getGeoElement, getGeoElementJson } from '../../model/Turismo/Turismo';
 import { getElementFavByName } from '../../model/Usuarios/Usuarios';
@@ -54,7 +54,10 @@ const Turism = (props) => {
                 });
             }
             if(!await shouldDeleteToken(data.message, 'id_token')) {
-                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                showMessage({
+                    message: data.message,
+                    type: "danger"
+                });
                 return;
             }
         } else {
@@ -82,7 +85,10 @@ const Turism = (props) => {
                 await onGetData(mounted, signal);
             } catch (err) {
                 console.error(err);
-                ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Erro de conexión',
+                    type: "danger"
+                });
             }
         }
 
@@ -109,7 +115,10 @@ const Turism = (props) => {
             setRefreshing(false);
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro de conexión',
+                type: "danger"
+            });
         }
     }
 
@@ -131,11 +140,17 @@ const Turism = (props) => {
                     loading: false
                 });
             } else {
-                ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Erro de conexión',
+                    type: "danger"
+                });
             }
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro de conexión', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro de conexión',
+                type: "danger"
+            });
         }
     }
 
@@ -143,7 +158,10 @@ const Turism = (props) => {
         try {
             const text = await getGeoElement(id);
             if (text == undefined) {
-                ToastAndroid.show('Erro xeolocalizando elemento, probe de novo', ToastAndroid.SHORT);
+                showMessage({
+                    message: 'Erro xeolocalizando elemento, probe de novo',
+                    type: "danger"
+                });
                 return;
             }
             const update = props.route.params.updateItem;
@@ -151,7 +169,10 @@ const Turism = (props) => {
             props.navigation.navigate('Map');
         } catch (err) {
             console.error(err);
-            ToastAndroid.show('Erro xeolocalizando elemento, probe de novo', ToastAndroid.SHORT);
+            showMessage({
+                message: 'Erro xeolocalizando elemento, probe de novo',
+                type: "danger"
+            });
         }
     }
 
