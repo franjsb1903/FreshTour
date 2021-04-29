@@ -115,7 +115,6 @@ class XestionDatosUsuarios {
     async editUser(token, user) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.edit;
 
-        console.log(user);
         try {
             const body = {
                 usuario: user.usuario,
@@ -130,6 +129,22 @@ class XestionDatosUsuarios {
                 'access-token': token
             }
             const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async deleteUser(token) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.delete;
+
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const json = await fetchJsonDelete(url, headers, JSON.stringify({}));
             return json;
         } catch (err) {
             throw new Error(err);

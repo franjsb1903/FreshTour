@@ -19,5 +19,14 @@ sql.planificacions.edit = "UPDATE fresh_tour.planificacions SET titulo = $1, com
 sql.usuarios = {};
 sql.usuarios.edit = "UPDATE fresh_tour.usuarios SET usuario=$1, nome=$2, apelidos=$3, email=$4, contrasinal=$5 WHERE id=$6 RETURNING usuario, nome, apelidos, email, to_char(data, 'DD-MM-YY') as data";
 sql.usuarios.exists= "SELECT usuario, email FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $2";
+sql.usuarios.delete = {};
+sql.usuarios.delete.lugaresFav = "DELETE FROM fresh_tour.lugares_turisticos_favoritos WHERE id_usuario = $1";
+sql.usuarios.delete.monumentosFav = "DELETE FROM fresh_tour.monumentos_favoritos WHERE id_usuario = $1";
+sql.usuarios.delete.planificacionsFav = "DELETE FROM fresh_tour.planificacions_favoritas WHERE id_usuario = $1";
+sql.usuarios.delete.comentariosLugares = "DELETE FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_usuario = $1";
+sql.usuarios.delete.comentariosMonumentos = "DELETE FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_usuario = $1";
+sql.usuarios.delete.comentariosPlanificacions = "DELETE FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_usuario = $1";
+sql.usuarios.delete.planificacionsId = "SELECT id FROM fresh_tour.planificacions WHERE id_usuario = $1";
+sql.usuarios.delete.user = "DELETE FROM fresh_tour.usuarios WHERE id = $1";
 
 module.exports = sql;

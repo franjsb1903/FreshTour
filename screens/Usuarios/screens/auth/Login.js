@@ -5,7 +5,9 @@ import { fromScreen as styles, customTouchableOpacity as button } from '../../..
 import { stylesTurismoList as progress } from '../../../../styles/styles';
 
 import ProgressBar from '../../../../components/ProgressBar';
-import { clearButton } from '../../../../components/Common'
+import { clearButton } from '../../../../components/Common';
+
+import { checkUsername, checkEmail } from '../../../../Util/CheckFieldsUtil'
 
 const Register = (props) => {
 
@@ -32,6 +34,21 @@ const Register = (props) => {
             return {
                 valid: false,
                 message: 'O campo de contrasinal é obrigatorio'
+            }
+        }
+        if(user.usuario.split('@').length > 0) {
+            if(!checkEmail(user.usuario)) {
+                return {
+                    valid: false,
+                    message: 'O email non é correcto'
+                }
+            }
+        } else {
+            if(!checkUsername(user.usuario)) {
+                return {
+                    valid: false,
+                    message: 'O nome de usuario non é correcto'
+                }
             }
         }
         return {
@@ -95,8 +112,8 @@ const Register = (props) => {
                 </View>
                 <View style={styles.buttonViewContainer} >
                     <TouchableOpacity style={button.buttonContainer} onPress={() => {
-                    login();
-                }}>
+                        login();
+                    }}>
                         <Text style={button.buttonTextSmaller}>Iniciar sesión</Text>
                     </TouchableOpacity>
                 </View>

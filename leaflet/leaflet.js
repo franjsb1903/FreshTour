@@ -125,6 +125,21 @@ const leaflet = `
 <script>
 
     const tilesProvider = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    const transportTile = 'http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png';
+    const humanitarianTile = 'http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    const noLabelsTile = 'https://tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png';
+
+    var standard = L.tileLayer(tilesProvider, {id: 'standard', tileSize: 512, zoomOffset: -1, maxZoom: 18});
+    var transport = L.tileLayer(transportTile, {id: 'transport', tileSize: 512, zoomOffset: -1, maxZoom: 18});
+    var humanitarian = L.tileLayer(humanitarianTile, {id: 'humanitarian', tileSize: 512, zoomOffset: -1, maxZoom: 18});
+    var noLabels = L.tileLayer(noLabelsTile, {id: 'noLabels', tileSize: 512, zoomOffset: -1, maxZoom: 18});
+
+    var baseMaps = {
+        'Estándar': standard,
+        Transporte: transport,
+        Humanitario: humanitarian,
+        'Sin labels': noLabels
+    }
 
     const myMap = L.map('myMap').fitWorld();
 
@@ -141,6 +156,8 @@ const leaflet = `
         [42.843606832802664, -8.469888701549666],
         [42.84562062833106, -8.612024321842858]
     ]);
+
+    L.control.layers(baseMaps, {}).addTo(myMap);
 
     var geojson = undefined;
 

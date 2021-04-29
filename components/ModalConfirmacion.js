@@ -26,7 +26,7 @@ const ModalConfirmacion = (props) => {
                         <Text style={modalStyle.modalText}>{text}</Text>
                         <View style={modalStyle.rowButton}>
                             <TouchableOpacity
-                                style={[modalStyle.button, modalStyle.buttonClose]}
+                                style={[modalStyle.button, { backgroundColor: "red" }]}
                                 onPress={() => showModal(!modal)}
                             >
                                 <Text style={modalStyle.textStyle}>Cancelar</Text>

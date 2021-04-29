@@ -11,6 +11,7 @@ import ProgressBar from '../../../../components/ProgressBar'
 import { savePlanificacion, editPlanificacion } from '../../../../model/Planificador/Planificador';
 
 import { getToken, shouldDeleteToken } from '../../../../Util/TokenUtil'
+import { checkTitle } from '../../../../Util/CheckFieldsUtil';
 
 const GardarPlanificacion = (props) => {
 
@@ -67,8 +68,37 @@ const GardarPlanificacion = (props) => {
         });
     }
 
+    const checkFields = () => {
+        if (planificacion.titulo == '') {
+            return {
+                valid: false,
+                message: 'O campo título é obrigatorio'
+            }
+        }
+        if (planificacion.comentario == '') {
+            return {
+                valid: false,
+                message: 'O campo comentario é obrigatorio'
+            }
+        }
+        if (!checkTitle(planificacion.titulo)) {
+            return {
+                valid: false,
+                message: 'O título é demasiado longo'
+            }
+        }
+        return {
+            valid: true
+        }
+    }
+
     const gardarPlanificacion = async () => {
         try {
+            const checked = checkFields();
+            if (!checked.valid) {
+                ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+                return;
+            }
             const token = await getToken('id_token');
             if (!token) {
                 setModal({

@@ -71,10 +71,6 @@ const CardElementRuta = (props) => {
         setFav(!fav);
     }
 
-    const showModal = () => {
-        setModal(!modal);
-    }
-
     const showConfirmacion = () => {
         setConfirmacion(!confirmacion);
     }
@@ -214,7 +210,7 @@ const CardElementRuta = (props) => {
                                 </>
                             :
                             planificacion.id_actual_usuario ?
-                                planificacion.id_actual_usuario != planificacion.id_usuario ?
+                                planificacion.id_actual_usuario == planificacion.id_usuario ?
                                     <HeartIcons />
                                     :
                                     <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
@@ -223,7 +219,7 @@ const CardElementRuta = (props) => {
                     }
                 </View>
             </Card >
-            <ModalInicioSesion modal={modal} showModal={showModal} />
+            <ModalInicioSesion modal={modal} showModal={changeModal} />
             <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"A planificación borrarase para sempre, está seguro?"} />
         </>
     )

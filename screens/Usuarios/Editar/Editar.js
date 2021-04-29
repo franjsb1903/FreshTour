@@ -6,9 +6,10 @@ import { stylesTurismoList as progress } from '../../../styles/styles';
 
 import ProgressBar from '../../../components/ProgressBar';
 import { clearButton } from '../../../components/Common';
+import ModalConfirmacion from '../../../components/ModalConfirmacion';
 
-import { editUser } from '../../../model/Usuarios/Usuarios';
-import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
+import { editUser, deleteUser } from '../../../model/Usuarios/Usuarios';
+import { getToken, shouldDeleteToken, deleteToken } from '../../../Util/TokenUtil';
 
 import AppContext from '../../../context/PlanificadorAppContext';
 
@@ -24,6 +25,7 @@ const Register = (props) => {
     });
 
     const [loading, setLoading] = useState(false);
+    const [confirmacion, setConfirmacion] = useState(false);
 
     const usuario = props.route.params.user;
 
@@ -42,7 +44,11 @@ const Register = (props) => {
         }
 
         return () => mounted = false;
-    }, [])
+    }, []);
+
+    const showConfirmacion = () => {
+        setConfirmacion(!confirmacion);
+    }
 
     const context = useContext(AppContext);
 
@@ -120,6 +126,37 @@ const Register = (props) => {
                 }
             }
             context.setUser(response);
+            setLoading(false);
+            props.navigation.navigate('User');
+        } catch (err) {
+            console.error(err);
+            ToastAndroid.show('Erro na edición, tenteo de novo', ToastAndroid.SHORT);
+        }
+    }
+
+    const onDelete = async () => {
+        try {
+            setLoading(true);
+            const token = await getToken('id_token');
+            if (!token) {
+                ToastAndroid.show('Non se pode autenticar ao usuario', ToastAndroid.SHORT);
+                setLoading(false);
+                return
+            }
+            const response = await deleteUser(token);
+            if (response.status != 200) {
+                if (!await shouldDeleteToken(response.message, 'id_token')) {
+                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                    setUser({
+                        ...user, contrasinal: '', confirm_contrasinal: ''
+                    })
+                    return
+                }
+                setLoading(false);
+                return;
+            }
+            await deleteToken('id_token');
+            context.resetUser();
             setLoading(false);
             props.navigation.navigate('User');
         } catch (err) {
@@ -215,7 +252,7 @@ const Register = (props) => {
                         style={styles.textInput}
                         placeholder="Repita o contrasinal"
                         onChangeText={(value) => handleChangeText('confirm_contrasinal', value)}
-                        textContentType="password" 
+                        textContentType="password"
                         secureTextEntry={true}
                         placeholderTextColor="#808080"
                         clearButtonMode="always" />
@@ -230,6 +267,14 @@ const Register = (props) => {
                         <Text style={button.buttonTextSmaller}>Editar conta</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.buttonViewContainer}>
+                    <TouchableOpacity style={[button.buttonContainer, { backgroundColor: "red" }]} onPress={() => {
+                        showConfirmacion();
+                    }}>
+                        <Text style={button.buttonTextSmaller}>Eliminar conta</Text>
+                    </TouchableOpacity>
+                </View>
+                <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"Está a punto de borrar a súa conta de maneira permanente, está seguro?"} />
             </ScrollView>
     )
 }

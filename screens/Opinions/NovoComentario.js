@@ -11,7 +11,8 @@ import TextArea from 'react-native-textarea';
 
 import { newOpinion, editOpinion } from '../../model/Opinions/Opinions';
 
-import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
+import { getToken, shouldDeleteToken } from '../../Util/TokenUtil';
+import { checkTitle } from '../../Util/CheckFieldsUtil';
 
 const NovoComentario = (props) => {
 
@@ -74,8 +75,37 @@ const NovoComentario = (props) => {
         setComentario({ ...comentario, [attr]: value })
     }
 
+    const checkFields = () => {
+        if (comentario.titulo == '') {
+            return {
+                valid: false,
+                message: 'O campo título é obrigatorio'
+            }
+        }
+        if (comentario.comentario == '') {
+            return {
+                valid: false,
+                message: 'O campo comentario é obrigatorio'
+            }
+        }
+        if (!checkTitle(comentario.titulo)) {
+            return {
+                valid: false,
+                message: 'O título é demasiado longo'
+            }
+        }
+        return {
+            valid: true
+        }
+    }
+
     const sendOpinion = async () => {
         try {
+            const checked = checkFields();
+            if (!checked.valid) {
+                ToastAndroid.show(checked.message, ToastAndroid.SHORT);
+                return;
+            }
             const token = await getToken('id_token');
             if (!token) {
                 setModal({
@@ -101,7 +131,7 @@ const NovoComentario = (props) => {
                 return;
             }
             if (response.status != 200) {
-                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                if (!await shouldDeleteToken(response.message, 'id_token')) {
                     ToastAndroid.show(data.message, ToastAndroid.SHORT);
                 }
                 setModal({
@@ -127,6 +157,8 @@ const NovoComentario = (props) => {
             ToastAndroid.show('Erro no envío do comentario', ToastAndroid.SHORT);
         }
     }
+
+    var tituloInput;
 
     return (
         modal.loading ?

@@ -37,6 +37,7 @@ const User = () => {
             try {
                 if (mounted) {
                     setLoading(true);
+                    setLoggedIn(false);
                 }
                 const token = await getToken('id_token');
                 if (token) {

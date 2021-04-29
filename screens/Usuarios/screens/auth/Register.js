@@ -5,7 +5,9 @@ import { fromScreen as styles, customTouchableOpacity as button } from '../../..
 import { stylesTurismoList as progress } from '../../../../styles/styles';
 
 import ProgressBar from '../../../../components/ProgressBar';
-import { clearButton } from '../../../../components/Common'
+import { clearButton } from '../../../../components/Common';
+
+import { checkEmail, checkName, checkUsername } from '../../../../Util/CheckFieldsUtil';
 
 const Register = (props) => {
 
@@ -55,6 +57,30 @@ const Register = (props) => {
             return {
                 valid: false,
                 message: 'Os contrasinais non coinciden'
+            }
+        }
+        if (!checkEmail(user.email)) {
+            return {
+                valid: false,
+                message: 'O email non é correcto'
+            }
+        }
+        if (!checkUsername(user.usuario)) {
+            return {
+                valid: false,
+                message: 'Nome de usuario inválido (demasiado longo, contén espacios ou contén caractéres raros)'
+            }
+        }
+        if (!checkName(user.nome)) {
+            return {
+                valid: false,
+                message: 'O nome non é correcto'
+            }
+        }
+        if (!checkName(user.apelidos)) {
+            return {
+                valid: false,
+                message: 'Os apelidos non son correctos'
             }
         }
         return {

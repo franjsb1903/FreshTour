@@ -13,7 +13,7 @@ router.post('/turismo/fav', verify.verifyToken, (req, res) => {
         const { id_elemento, type } = req.body;
         const userId = req.userId;
 
-        if(userId == undefined || id_elemento == undefined || type == undefined) {
+        if (userId == undefined || id_elemento == undefined || type == undefined) {
             helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
@@ -41,7 +41,7 @@ router.delete('/turismo/fav', verify.verifyToken, (req, res) => {
         const { id_elemento, type } = req.body;
         const userId = req.userId;
 
-        if(userId == undefined || id_elemento == undefined || type == undefined) {
+        if (userId == undefined || id_elemento == undefined || type == undefined) {
             helpers.onError(500, "Erro quitando elemento como favorito no servidor", undefined, res);
             return;
         }
@@ -78,7 +78,7 @@ router.get('/turismo/fav/', verify.verifyToken, (req, res) => {
                 status: 200
             });
         });
-    } catch(err) {
+    } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
 });
@@ -101,7 +101,7 @@ router.get('/turismo/fav/:name', verify.verifyToken, (req, res) => {
                 status: 200
             });
         });
-    } catch(err) {
+    } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
 });
@@ -123,7 +123,7 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                             helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
                             return;
                         }
-    
+
                         done()
                         helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
                         return;
@@ -131,13 +131,13 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                 }
                 return !!err
             }
-    
+
             client.query('BEGIN', err => {
                 if (shouldAbort(err)) return;
-    
+
                 client.query(sql.usuarios.exists, [usuario, email], (err, results) => {
                     if (shouldAbort(err)) return;
-    
+
                     if (results.rowCount > 0) {
                         if (email == results.rows[0].email) {
                             helpers.onErrorAuth(401, "Email xa rexistrado na plataforma", err, res);
@@ -147,10 +147,10 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                             return;
                         }
                     }
-    
+
                     client.query(sql.usuarios.edit, values, (err, results) => {
                         if (shouldAbort(err)) return;
-    
+
                         client.query('COMMIT', error => {
                             if (error) {
                                 helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", error, res);
@@ -158,7 +158,7 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                             }
                             try {
                                 const { id, usuario, nome, apelidos, email, data } = results.rows[0];
-    
+
                                 const user = {
                                     id: id,
                                     usuario: usuario,
@@ -167,11 +167,11 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                                     email: email,
                                     data: data
                                 }
-    
+
                                 done();
-    
+
                                 return res.status(200).send({ auth: true, user: user, status: 200 });
-    
+
                             } catch (err) {
                                 helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", err, res);
                                 return;
@@ -181,8 +181,39 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                 });
             })
         });
-    } catch(err) {
+    } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+});
+
+router.delete('/', verify.verifyToken, async (req, res) => {
+    
+    const client = await pool.connect();
+    try {
+
+        const userId = req.userId;
+
+        await client.query(sql.usuarios.delete.lugaresFav, [userId]);
+        await client.query(sql.usuarios.delete.monumentosFav, [userId]);
+        await client.query(sql.usuarios.delete.planificacionsFav, [userId]);
+        await client.query(sql.usuarios.delete.comentariosLugares, [userId]);
+        await client.query(sql.usuarios.delete.comentariosMonumentos, [userId]);
+        await client.query(sql.usuarios.delete.comentariosPlanificacions, [userId]);
+        const response = await client.query(sql.usuarios.delete.planificacionsId, [userId]);
+        await Promise.all(response.rows.map(async (item) => {
+            await client.query(sql.planificacions.delete.lugares, [item.id]);
+            await client.query(sql.planificacions.delete.monumentos, [item.id]);
+            await client.query(sql.planificacions.delete.planificacion, [item.id]);
+        }));
+        await client.query(sql.usuarios.delete.user, [userId]);
+        await client.query('COMMIT');
+
+        return res.status(200).send({ auth: false, status: 200 });
+    } catch (err) {
+        await client.query('ROLLBACK');
+        helpers.onError(500, "Erro interno do servidor", err, res);
+    } finally {
+        client.release();
     }
 })
 

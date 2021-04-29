@@ -60,7 +60,7 @@ const Opinions = (props) => {
                 {
                     isPlanificacion ?
                         element.id_actual_usuario ?
-                            element.id_actual_usuario == element.id_usuario ?
+                            element.id_actual_usuario != element.id_usuario ?
                                 <></>
                                 : <ButtonOpinion />
                             : <ButtonOpinion />
