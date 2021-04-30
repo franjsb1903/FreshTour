@@ -14,7 +14,9 @@ import GardarPlanificacion from '../screens/PlanificadorTemporal/Rutas/Social/Ga
 import RutasUsuario from '../screens/Usuarios/Rutas/RutasUsuario';
 import RutasRecomendadasItem from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasItem/RutasRecomendadasItem';
 import RutasRecomendadasList from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasList'
-import EditarUsuario from '../screens/Usuarios/Editar/Editar'
+import EditarUsuario from '../screens/Usuarios/Editar/Editar';
+import InfoCommon from '../screens/Info/Screens/Common';
+import CovidScreen from '../screens/Info/Screens/CovidScreen';
 
 import { stylesApp as styles } from '../styles/styles';
 
@@ -163,6 +165,32 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "Editar perfil",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="InfoCommon"
+                component={InfoCommon}
+                options={({ route }) => ({
+                    headerShown: true,
+                    title: route.params.title,
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff",
+                    headerTitleAllowFontScaling: true,
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
+            />
+            <Stack.Screen
+                name="CovidScreen"
+                component={CovidScreen}
+                options={{
+                    headerShown: true,
+                    title: "COVID",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}

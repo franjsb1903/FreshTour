@@ -66,6 +66,10 @@ const properties = {
         format: "geojson",
         walk_profile: "/foot-walking/",
         clycling_profile: "/cycling-regular/"
+    },
+    info: {
+        covid_api: "https://api.covid19tracking.narrativa.com/api/",
+        covid_region: "/country/spain/region/galicia/sub_region/area_sanitaria_santiago"
     }
 }
 

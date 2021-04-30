@@ -135,6 +135,14 @@ export const CommentIcon = (props) => {
     )   
 }
 
+export const ChevronRightIcon = (props) => {
+
+    const style = props.style;
+    return(
+        <Icon name="chevron-forward" size={30} style={style} />
+    )   
+}
+
 export const HeartIconButton = (props) => {
 
     const style = props.style;

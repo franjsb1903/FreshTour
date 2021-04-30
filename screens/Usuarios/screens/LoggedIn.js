@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ProgressBar from '../../../components/ProgressBar';
 
 import { AvatarIcon } from '../../../components/CustomIcons';
 import ListItemMenuUser from '../../../components/ListItemMenuUser';
