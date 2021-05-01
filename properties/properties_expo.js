@@ -14,10 +14,14 @@ const properties = {
             share: "/share",
             elements: "/elements/",                      // /planificacions/elements/:id
             delete: "/",
-            edit: "/edit"
+            edit: "/edit",
+            sortBy: "/sortBy/",                           // /planificacions/sortBy/:type
+            fav: "/fav"
         },
         turismo: {
-            turismo: "/turismo/"                        // /turismo/, /turismo/:name
+            turismo: "/turismo/",                        // /turismo/, /turismo/:name
+            sortBy: "/sortBy/",                           // /turismo/sortBy/:type
+            fav: "/fav"
         },
         geoserver: {
             url: "http://192.168.1.74:8080/geoserver",

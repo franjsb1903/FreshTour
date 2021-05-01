@@ -12,7 +12,7 @@ class XestionDatosTurismo {
         } catch (err) {
             throw new Error(err);
         }
-        
+
     }
 
     async getElementData(name, token) {
@@ -39,6 +39,26 @@ class XestionDatosTurismo {
         const url = properties.url.geoserver.url + properties.url.geoserver.item + id;
         try {
             const json = await fetchJsonGet(url);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async sortBy(type, token) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.sortBy + type;
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async favsSortBy(type, token) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav + properties.url.turismo.sortBy + type;
+        try {
+            const json = await fetchJsonGet(url, token);
             return json;
         } catch (err) {
             throw new Error(err);

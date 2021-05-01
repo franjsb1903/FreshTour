@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native'
+import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
+import { Divider } from 'react-native-elements';
 import ProgressBar from '../../components/ProgressBar';
-import { getData, getElement, getGeoElement, getGeoElementJson } from '../../model/Turismo/Turismo';
+import { getData, getElement, getGeoElement, getGeoElementJson, sortBy, favsSortBy } from '../../model/Turismo/Turismo';
 import { getElementFavByName } from '../../model/Usuarios/Usuarios';
 import CardElement from '../../components/CardElementTurismo';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import NoData from '../../components/NoData';
+import DropDown from '../../components/CustomDropDown';
 
 import AppContext from '../../context/PlanificadorAppContext';
 
@@ -53,7 +55,7 @@ const Turism = (props) => {
                     data: undefined
                 });
             }
-            if(!await shouldDeleteToken(data.message, 'id_token')) {
+            if (!await shouldDeleteToken(data.message, 'id_token')) {
                 showMessage({
                     message: data.message,
                     type: "danger"
@@ -194,12 +196,58 @@ const Turism = (props) => {
                                 showOnMap: showOnMap,
                                 onRefresh: onRefresh
                             })}>
-                            <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} />
+                            <CardElement item={element} showOnMap={showOnMap} getGeoElementJson={getGeoElementJson} Separator={<Divider />} />
                         </TouchableOpacity>
                     )
                 })
 
         )
+    }
+
+    const itemsDropDown = [
+        { label: 'Ordear por título', value: 'titulo' },
+        { label: 'Ordear por valoración', value: 'valoracion' }
+    ];
+
+    const onChangeDropDown = async (item) => {
+        try {
+            setState({
+                loading: true,
+                data: []
+            });
+            const token = await getToken('id_token');
+            var elements
+            if(!data) {
+                elements = await sortBy(item.value, token);
+            } else {
+                elements = await favsSortBy(item.value, token);
+            }
+            if (elements.status != 200 || elements.auth == false) {
+                setState({
+                    loading: false,
+                    data: undefined
+                });
+                if (!await shouldDeleteToken(elements.message, 'id_token')) {
+                    showMessage({
+                        message: elements.message,
+                        type: "danger"
+                    });
+                    return;
+                }
+            } else {
+                setState({
+                    loading: false,
+                    data: elements
+                });
+            }
+
+        } catch (err) {
+            console.error(err);
+            showMessage({
+                message: "Erro na ordeación",
+                type: "danger"
+            });
+        }
     }
 
     return (
@@ -222,6 +270,9 @@ const Turism = (props) => {
                         onChange={true}
                     />
                 </View>
+                <View style={{ padding: 20 }}>
+                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropDownStyles} container={{ flex: 1 }} defaultValue={"titulo"} />
+                </View>
                 {
                     state.data == undefined ?
                         <NoData />
@@ -241,5 +292,21 @@ const Turism = (props) => {
             </ScrollView>
     )
 }
+
+const dropDownStyles = StyleSheet.create({
+    style: {
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderColor: "#000"
+    },
+    scroll: {
+        backgroundColor: "#fff",
+        height: 110
+    },
+    text: {
+        fontSize: 15,
+        color: "#000"
+    }
+});
 
 export default Turism;

@@ -87,7 +87,7 @@ class XestionDatosPlanificador {
         try {
             const json = fetchJsonGet(url, undefined, signal);
             return json;
-        } catch(err) {
+        } catch (err) {
             throw new Error(err);
         }
     }
@@ -106,7 +106,7 @@ class XestionDatosPlanificador {
             }
             const json = fetchJsonDelete(url, headers, JSON.stringify(body));
             return json;
-        } catch(err) {
+        } catch (err) {
             throw new Error(err);
         }
     }
@@ -114,7 +114,7 @@ class XestionDatosPlanificador {
     async editPlanificacion(token, titulo, comentario, id) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.edit;
 
-        try{
+        try {
             const headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -127,7 +127,29 @@ class XestionDatosPlanificador {
             }
             const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
             return json;
-        } catch(err) {
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async sortBy(token, type) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.sortBy + type;
+
+        try {
+            const json = fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async favSortBy(token, type) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
+
+        try {
+            const json = fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
             throw new Error(err);
         }
     }

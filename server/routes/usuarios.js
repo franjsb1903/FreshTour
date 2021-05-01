@@ -196,8 +196,16 @@ router.delete('/', verify.verifyToken, async (req, res) => {
         await client.query(sql.usuarios.delete.lugaresFav, [userId]);
         await client.query(sql.usuarios.delete.monumentosFav, [userId]);
         await client.query(sql.usuarios.delete.planificacionsFav, [userId]);
-        await client.query(sql.usuarios.delete.comentariosLugares, [userId]);
-        await client.query(sql.usuarios.delete.comentariosMonumentos, [userId]);
+        const lugares = await client.query(sql.usuarios.delete.comentariosLugares, [userId]);
+        await Promise.all(lugares.rows.map(async (item) => {
+            const results = await client.query(sql.elementos.updateValoracion.mediaLugares, [item.id_lugar_turistico]);
+            await client.query(sql.elementos.updateValoracion.updateLugares, [results.rows[0].media, item.id]);
+        }));
+        const monumentos = await client.query(sql.usuarios.delete.comentariosMonumentos, [userId]);
+        await Promise.all(monumentos.rows.map(async (item) => {
+            const results = await client.query(sql.elementos.updateValoracion.mediaMonumentos, [item.id_monumento]);
+            await client.query(sql.elementos.updateValoracion.updateMonumentos, [results.rows[0].media, item.id]);
+        }));
         await client.query(sql.usuarios.delete.comentariosPlanificacions, [userId]);
         const response = await client.query(sql.usuarios.delete.planificacionsId, [userId]);
         await Promise.all(response.rows.map(async (item) => {

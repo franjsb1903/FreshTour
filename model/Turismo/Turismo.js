@@ -37,3 +37,21 @@ export const getGeoElementJson = async (id) => {
         throw new Error(err);
     }
 }
+
+export const sortBy = async (type, token) => {
+    try {
+        var data = await Turismo.sortBy(type, token);
+        return data;
+    } catch(err) {
+        throw new Error(err);
+    }
+}
+
+export const favsSortBy = async (type, token) => {
+    try {
+        var data = await Turismo.favsSortBy(type, token);
+        return data;
+    } catch(err) {
+        throw new Error(err);
+    }
+}

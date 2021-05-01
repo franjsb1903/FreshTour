@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const pool = require('../../database/database');
-
+const sql = require('../lib/sql');
 const helpers = require('../lib/helpers');
 const verify = require('../lib/VerifyToken');
 
@@ -11,9 +11,9 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
     try {
 
         const userId = req.userId;
-        const query = "SELECT *, 'Lugar turístico' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE ltf.id_lugar_turistico = lt.id AND ltf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_turisticos lt  WHERE prezo is not NULL ORDER BY titulo asc"
+        const query = sql.elementos.sortBy.titulo;
         var values = [];
-        if(userId === undefined) {
+        if (userId === undefined) {
             values.push(-1);
         } else {
             values.push(userId);
@@ -34,11 +34,11 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
     }
 });
 
-router.get('/:name',verify.verifyTokenWithoutReturn, function (req, res) {
+router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
     try {
         const userId = req.userId;
         var values = [];
-        if(userId) {
+        if (userId) {
             values.push(userId);
         } else {
             values.push(-1);
@@ -47,7 +47,7 @@ router.get('/:name',verify.verifyTokenWithoutReturn, function (req, res) {
         const { name } = req.params;
         const namePerc = '%' + name + '%'
         values.push(namePerc);
-        pool.query("SELECT *, 'Lugar turístico' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE ltf.id_lugar_turistico = lt.id AND ltf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_turisticos lt WHERE prezo is not NULL and titulo like $2 ORDER BY titulo ASC", values, (err, results) => {
+        pool.query(sql.elementos.byName, values, (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro na busca", err, res);
                 return;
@@ -59,6 +59,80 @@ router.get('/:name',verify.verifyTokenWithoutReturn, function (req, res) {
         });
     } catch (err) {
         helpers.onError(500, "Erro na busca", err, res);
+    }
+});
+
+router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, function (req, res) {
+
+    try {
+
+        const userId = req.userId;
+        var query = undefined;
+
+        const { type } = req.params;
+
+        if (type === "titulo") {
+            query = sql.elementos.sortBy.titulo;
+        } else {
+            query = sql.elementos.sortBy.valoracion;
+        }
+
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+
+        pool.query(query, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+                return;
+            }
+            res.status(200).json({
+                turismo: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+    }
+});
+
+router.get('/fav/sortBy/:type', verify.verifyToken, function (req, res) {
+
+    try {
+
+        const userId = req.userId;
+        var query = undefined;
+
+        const { type } = req.params;
+
+        if (type === "titulo") {
+            query = sql.elementos.favs.sortBy.titulo;
+        } else {
+            query = sql.elementos.favs.sortBy.valoracion;
+        }
+
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+
+        pool.query(query, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+                return;
+            }
+            res.status(200).json({
+                turismo: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
     }
 });
 

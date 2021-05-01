@@ -3,13 +3,14 @@ import { View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native
 import { showMessage } from "react-native-flash-message";
 
 import ProgressBar from '../../../components/ProgressBar';
-import { getPlanificacions as getPlanificacionsModel } from '../../../model/Planificador/Planificador'
+import { getPlanificacions as getPlanificacionsModel, sortBy, favSortBy } from '../../../model/Planificador/Planificador'
 import CardElement from '../../../components/CardElementRuta';
 import NoData from '../../../components/NoData';
+import DropDown from '../../components/CustomDropDown';
 
 import { useIsFocused } from '@react-navigation/native';
 
-import { stylesTurismoList as styles, stylesScroll } from '../../../styles/styles';
+import { stylesTurismoList as styles, stylesScroll, dropDownBorderStyles as dropdownStyles } from '../../../styles/styles';
 
 import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
@@ -137,6 +138,59 @@ const RutasRecomendadasList = (props) => {
         )
     }
 
+    const itemsDropDown = [
+        { label: 'Ordear por valoración', value: 'valoracion' },
+        { label: 'Menor distancia primeiro', value: 'menor_distancia' },
+        { label: 'Maior distancia primeiro', value: 'maior_distancia' },
+        { label: 'Menor tempo visita primeiro', value: 'menor_tempo_visita' },
+        { label: 'Maior tempo visita primeiro', value: 'maior_distancia' },
+        { label: 'Menor tempo ruta primeiro', value: 'menor_tempo_ruta' },
+        { label: 'Maior tempo ruta primeiro', value: 'maior_tempo_ruta' },
+        { label: 'Menor tempo total primeiro', value: 'menor_tempo_total' },
+        { label: 'Maior tempo total primeiro', value: 'maior_tempo_total' }
+    ];
+
+    const onChangeDropDown = async (item) => {
+        try {
+            setState({
+                loading: true,
+                data: []
+            });
+            const token = await getToken('id_token');
+            var elements;
+            if(!data) {
+                elements = await sortBy(token, item.value);
+            } else {
+                elements = await favSortBy(token, item.value);
+            }
+            if (elements.status != 200 || elements.auth == false) {
+                setState({
+                    loading: false,
+                    data: undefined
+                });
+                if (!await shouldDeleteToken(elements.message, 'id_token')) {
+                    showMessage({
+                        message: elements.message,
+                        type: "danger"
+                    });
+                    return;
+                }
+            } else {
+                setState({
+                    loading: false,
+                    data: data
+                });
+            }
+
+        } catch (err) {
+            console.error(err);
+            showMessage({
+                message: "Erro na ordeación",
+                type: "danger"
+            });
+        }
+    }
+
     return (
 
         state.loading ?
@@ -149,6 +203,9 @@ const RutasRecomendadasList = (props) => {
                     <></>
             }
                 style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
+                <View style={{ padding: 20 }}>
+                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropdownStyles} container={{ flex: 1 }} defaultValue={"titulo"} />
+                </View>
                 {
                     state.data == undefined ?
                         <NoData />

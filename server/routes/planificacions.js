@@ -291,4 +291,106 @@ router.post('/edit', verify.verifyToken, (req, res) => {
     }
 });
 
+router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
+    try {
+        const userId = req.userId;
+
+        var query;
+        const { type } = req.params;
+
+        if(type === "menor_distancia") {
+            query = sql.planificacions.sortBy.menorDistancia;
+        } else if(type === "maior_distancia") {
+            query = sql.planificacions.sortBy.maiorDistancia;
+        } else if(type==="maior_tempo_visita") {
+            query = sql.planificacions.sortBy.maiorTempoVisita;
+        } else if(type === "menor_tempo_visita") {
+            query = sql.planificacions.sortBy.menorTempoVisita;
+        } else if(type === "maior_tempo_ruta") {
+            query = sql.planificacions.sortBy.maiorTempoRuta;
+        } else if(type === "menor_tempo_ruta") {
+            query = sql.planificacions.sortBy.menorTempoRuta;
+        } else if(type === "menor_tempo_total") {
+            query = sql.planificacions.sortBy.menorTempoTotalRuta;
+        } else if(type === "maior_tempo_total") {
+            query = sql.planificacions.sortBy.maiorTempoTotalRuta;
+        } else {
+            query = sql.planificacions.sortBy.valoracion;
+        }
+
+        var values = [];
+
+        if (userId) {
+            values.push(userId);
+        } else {
+            values.push(-1);
+        }
+
+        pool.query(query, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                return;
+            }
+            res.status(200).json({
+                planificacions: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
+});
+
+router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
+    try {
+        const userId = req.userId;
+
+        var query;
+        const { type } = req.params;
+
+        if(type === "menor_distancia") {
+            query = sql.planificacions.fav.sortBy.menorDistancia;
+        } else if(type === "maior_distancia") {
+            query = sql.planificacions.fav.sortBy.maiorDistancia;
+        } else if(type==="maior_tempo_visita") {
+            query = sql.planificacions.fav.sortBy.maiorTempoVisita;
+        } else if(type === "menor_tempo_visita") {
+            query = sql.planificacions.fav.sortBy.menorTempoVisita;
+        } else if(type === "maior_tempo_ruta") {
+            query = sql.planificacions.fav.sortBy.maiorTempoRuta;
+        } else if(type === "menor_tempo_ruta") {
+            query = sql.planificacions.fav.sortBy.menorTempoRuta;
+        } else if(type === "menor_tempo_total") {
+            query = sql.planificacions.fav.sortBy.menorTempoTotalRuta;
+        } else if(type === "maior_tempo_total") {
+            query = sql.planificacions.fav.sortBy.maiorTempoTotalRuta;
+        } else {
+            query = sql.planificacions.fav.sortBy.valoracion;
+        }
+
+        var values = [];
+
+        if (userId) {
+            values.push(userId);
+        } else {
+            values.push(-1);
+        }
+
+        pool.query(query, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                return;
+            }
+            res.status(200).json({
+                planificacions: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
+});
+
 module.exports = router;

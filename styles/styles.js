@@ -660,4 +660,20 @@ export const cardElementOpinion = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     }
-})
+});
+
+export const dropDownBorderStyles = StyleSheet.create({
+    style: {
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderColor: "#000"
+    },
+    scroll: {
+        backgroundColor: "#fff",
+        height: 110
+    },
+    text: {
+        fontSize: 15,
+        color: "#000"
+    }
+});

@@ -112,3 +112,21 @@ export const editPlanificacion = async (titulo, comentario, id, token) => {
         throw new Error(err);
     }
 }
+
+export const sortBy = async (token, type) => {
+    try {
+        const json = await Planificador.sortBy(token, type);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const favSortBy = async (token, type) => {
+    try {
+        const json = await Planificador.favSortBy(token, type);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
