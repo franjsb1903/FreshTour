@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../../database/database');
-
+const sql = require('../lib/sql');
 const verify = require('../lib/VerifyToken');
 const helpers = require('../lib/helpers');
 
@@ -11,11 +11,11 @@ router.get('/:type/:id', async (req, res) => {
         const { type, id } = req.params;
 
         if (type === "Lugar turístico") {
-            onSearch("select cvlt.id, id_usuario, usuario, titulo, valoracion, comentario, id_lugar_turistico as id_elemento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_lugares_turisticos cvlt inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvlt.id_usuario = usuarios.id where cvlt.id_lugar_turistico = $1 order by data asc", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_lugares_turisticos where id_lugar_turistico = $1", id, res);
+            onSearch(sql.opinions.get.lugares.get, sql.opinions.get.lugares.count_valoracion, id, res);
         } else if (type === "Monumento") {
-            onSearch("select cvm.id, id_usuario, usuario, titulo, valoracion, comentario, id_monumento as id_elemento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_monumentos cvm inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvm.id_usuario = usuarios.id where cvm.id_monumento = $1 order by data asc", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_monumentos where id_monumento = $1", id, res);
+            onSearch(sql.opinions.get.monumentos.get, sql.opinions.get.monumentos.count_valoracion, id, res);
         } else {
-            onSearch("select cvp.id, id_usuario, usuario, titulo, valoracion, comentario, id_planificacion as id_elemento, to_char(data, 'DD-MM-YY') as data from fresh_tour.comentarios_valoracions_planificacions cvp inner join (select id, usuario from fresh_tour.usuarios) as usuarios on cvp.id_usuario = usuarios.id where cvp.id_planificacion = $1 order by data asc", "select count(id) as count, avg(valoracion) as valoracion from fresh_tour.comentarios_valoracions_planificacions where id_planificacion = $1", id, res);
+            onSearch(sql.opinions.get.planificacions.get, sql.opinions.get.planificacions.count_valoracion, id, res);
         }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
@@ -30,22 +30,21 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 
         const { valoracion, titulo, comentario, id_elemento, type } = req.body;
 
-        const existLugares = "SELECT * FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_usuario = $1 AND id_lugar_turistico = $2";
-        const existMonumentos = "SELECT * FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_usuario = $1 AND id_monumento = $2";
-        const existPlanificacions = "SELECT * FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_usuario = $1 AND id_planificacion = $2";
+        const existLugares = sql.opinions.exists.lugares;
+        const existMonumentos = sql.opinions.exists.monumentos;
+        const existPlanificacions = sql.opinions.exists.planificacions;
 
-        const queryLugares = "INSERT INTO fresh_tour.comentarios_valoracions_lugares_turisticos(id_usuario, titulo, data, valoracion, comentario, id_lugar_turistico) values ($1, $2, CURRENT_TIMESTAMP, $3, $4, $5) RETURNING id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_lugar_turistico";
-        const mediaLugares = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_lugar_turistico = $1"
-        const updateValoracionLugares = "UPDATE fresh_tour.lugares_turisticos SET valoracion = $1 WHERE id = $2 RETURNING valoracion"
+        const queryLugares = sql.opinions.new.lugares.insert;
+        const mediaLugares = sql.opinions.new.lugares.media;
+        const updateValoracionLugares = sql.opinions.new.lugares.updateVal;
 
-        const queryMonumentos = "INSERT INTO fresh_tour.comentarios_valoracions_monumentos(id_usuario, titulo, data, valoracion, comentario, id_monumento) values ($1, $2, CURRENT_TIMESTAMP, $3, $4, $5) RETURNING id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_monumento";
-        const mediaMonumentos = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_monumento = $1"
-        const updateValoracionMonumentos = "UPDATE fresh_tour.monumentos SET valoracion = $1 WHERE id = $2 RETURNING valoracion"
+        const queryMonumentos = sql.opinions.new.monumentos.insert;
+        const mediaMonumentos = sql.opinions.new.monumentos.media;
+        const updateValoracionMonumentos = sql.opinions.new.monumentos.updateVal;
 
-        const queryPlanificacions = "INSERT INTO fresh_tour.comentarios_valoracions_planificacions(id_usuario, titulo, data, valoracion, comentario, id_planificacion) values ($1, $2, CURRENT_TIMESTAMP, $3, $4, $5) RETURNING id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_planificacion";
-        const mediaPlanificacions = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1"
-        const updateValoracionPlanificacions = "UPDATE fresh_tour.planificacions SET valoracion = $1 WHERE id = $2 RETURNING valoracion"
-
+        const queryPlanificacions = sql.opinions.new.planificacions.insert;
+        const mediaPlanificacions = sql.opinions.new.planificacions.media;
+        const updateValoracionPlanificacions = sql.opinions.new.planificacions.updateVal;
 
         if (type == "Lugar turístico") {
             const exists = await onExists(existLugares, id_elemento, userId, res);
@@ -84,18 +83,18 @@ router.delete('/', verify.verifyToken, (req, res) => {
 
         const { id, id_elemento, type } = req.body;
 
-        const lugar_turistico = "DELETE FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id = $1";
-        const monumento = "DELETE FROM fresh_tour.comentarios_valoracions_monumentos WHERE id = $1";
-        const planificacion = "DELETE FROM fresh_tour.comentarios_valoracions_planificacions WHERE id = $1";
+        const lugar_turistico = sql.opinions.delete.lugares;
+        const monumento = sql.opinions.delete.monumentos;
+        const planificacion = sql.opinions.delete.planificacions;
 
-        const mediaLugares = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_lugar_turistico = $1"
-        const updateValoracionLugares = "UPDATE fresh_tour.lugares_turisticos SET valoracion = $1 WHERE id = $2"
+        const mediaLugares = sql.opinions.new.lugares.media;
+        const updateValoracionLugares = sql.opinions.new.lugares.updateVal;
 
-        const mediaMonumentos = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_monumento = $1"
-        const updateValoracionMonumentos = "UPDATE fresh_tour.monumentos SET valoracion = $1 WHERE id = $2"
+        const mediaMonumentos = sql.opinions.new.monumentos.media;
+        const updateValoracionMonumentos = sql.opinions.new.monumentos.updateVal;
 
-        const mediaPlanificacions = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1"
-        const updateValoracionPlanificacions = "UPDATE fresh_tour.planificacions SET valoracion = $1 WHERE id = $2"
+        const mediaPlanificacions = sql.opinions.new.planificacions.media;
+        const updateValoracionPlanificacions = sql.opinions.new.planificacions.updateVal;
 
         if (type === "Lugar turístico") {
             onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);
@@ -115,17 +114,17 @@ router.post('/edit', verify.verifyToken, (req, res) => {
 
         const { id, valoracion, titulo, comentario, id_elemento, type } = req.body;
 
-        const queryLugares = "UPDATE fresh_tour.comentarios_valoracions_lugares_turisticos SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
-        const mediaLugares = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_lugares_turisticos WHERE id_lugar_turistico = $1"
-        const updateValoracionLugares = "UPDATE fresh_tour.lugares_turisticos SET valoracion = $1 WHERE id = $2"
+        const queryLugares = sql.opinions.edit.lugares;
+        const mediaLugares = sql.opinions.new.lugares.media;
+        const updateValoracionLugares = sql.opinions.new.lugares.updateVal;
 
-        const queryMonumentos = "UPDATE fresh_tour.comentarios_valoracions_monumentos SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
-        const mediaMonumentos = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_monumentos WHERE id_monumento = $1"
-        const updateValoracionMonumentos = "UPDATE fresh_tour.monumentos SET valoracion = $1 WHERE id = $2"
+        const queryMonumentos = sql.opinions.edit.monumentos;
+        const mediaMonumentos = sql.opinions.new.monumentos.media;
+        const updateValoracionMonumentos = sql.opinions.new.monumentos.updateVal;
 
-        const queryPlanificacions = "UPDATE fresh_tour.comentarios_valoracions_planificacions SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
-        const mediaPlanificacions = "SELECT avg(valoracion) as media FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1"
-        const updateValoracionPlanificacions = "UPDATE fresh_tour.planificacions SET valoracion = $1 WHERE id = $2"
+        const queryPlanificacions = sql.opinions.edit.planificacions;
+        const mediaPlanificacions = sql.opinions.new.planificacions.media;
+        const updateValoracionPlanificacions = sql.opinions.new.planificacions.updateVal;
 
         if (type === "Lugar turístico") {
             onTransactionUpdate(queryLugares, [valoracion, titulo, comentario, id], mediaLugares, updateValoracionLugares, id_elemento, res);

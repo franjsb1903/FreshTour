@@ -19,7 +19,7 @@ const properties = {
             fav: "/fav"
         },
         turismo: {
-            turismo: "/turismo/",                        // /turismo/, /turismo/:name
+            turismo: "/turismo",                        // /turismo/, /turismo/:name
             sortBy: "/sortBy/",                           // /turismo/sortBy/:type
             fav: "/fav"
         },
@@ -40,7 +40,6 @@ const properties = {
             register: 'register',
             login: 'login',
             main: '/usuario',
-            turismo: '/turismo/fav',
             me: 'me',
             edit: "/edit",
             delete: "/"

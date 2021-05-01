@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getRoute } from '../model/Planificador/Planificador';
-import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Usuarios/Usuarios';
+import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Turismo/Turismo';
 import { showMessage } from "react-native-flash-message";
 import { shouldDeleteToken } from '../Util/TokenUtil'
 

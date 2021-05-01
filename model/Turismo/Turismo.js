@@ -55,3 +55,30 @@ export const favsSortBy = async (type, token) => {
         throw new Error(err);
     }
 }
+
+export const addElementoFav = async (token, id_elemento, type) => {
+    try {
+        const json = await Turismo.addElementoFav(token, id_elemento, type);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const deleteElementoFav = async (token, id_elemento, type) => {
+    try {
+        const json = await Turismo.deleteElementoFav(token, id_elemento, type);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getElementFavByName = async (token, name) => {
+    try {
+        const json = await Turismo.getElementFavByName(token, name);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}

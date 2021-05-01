@@ -16,7 +16,7 @@ class XestionDatosTurismo {
     }
 
     async getElementData(name, token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + name;
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + "/" + name;
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -59,6 +59,59 @@ class XestionDatosTurismo {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav + properties.url.turismo.sortBy + type;
         try {
             const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async addElementoFav(token, id_elemento, type) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav;
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_elemento: id_elemento,
+                type: type
+            }
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async deleteElementoFav(token, id_elemento, type) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav;
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_elemento: id_elemento,
+                type: type
+            }
+            const json = await fetchJsonDelete(url, headers, JSON.stringify(body));
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+    
+    async getElementFavByName(token, name) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav + "/" + name;
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const json = await fecthJsonAuthGet(url, headers);
             return json;
         } catch (err) {
             throw new Error(err);

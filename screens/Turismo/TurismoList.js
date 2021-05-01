@@ -4,7 +4,7 @@ import { showMessage } from "react-native-flash-message";
 import { Divider } from 'react-native-elements';
 import ProgressBar from '../../components/ProgressBar';
 import { getData, getElement, getGeoElement, getGeoElementJson, sortBy, favsSortBy } from '../../model/Turismo/Turismo';
-import { getElementFavByName } from '../../model/Usuarios/Usuarios';
+import { getElementFavByName } from '../../model/Turismo/Turismo';
 import CardElement from '../../components/CardElementTurismo';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import NoData from '../../components/NoData';

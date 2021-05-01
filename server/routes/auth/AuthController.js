@@ -5,7 +5,7 @@ var bcrypt = require('bcryptjs');
 var config = require('../../config/config');
 
 const helpers = require('../../lib/helpers');
-
+const sql = require('../../lib/sql');
 const pool = require('../../../database/database');
 
 var verify = require('../../lib/VerifyToken');
@@ -16,9 +16,9 @@ router.post('/register', (req, res) => {
 
     var hashedPssw = bcrypt.hashSync(contrasinal, 10);
 
-    const queryDuplicateUser = 'SELECT usuario, email FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $2';
+    const queryDuplicateUser = sql.usuarios.exists;
 
-    const query = "INSERT INTO fresh_tour.usuarios (usuario, nome, apelidos, email, contrasinal, data) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP) RETURNING id, usuario, nome, apelidos, email, to_char(data, 'DD-MM-YY') as data";
+    const query = sql.usuarios.new;
     const values = [usuario, nome, apelidos, email, hashedPssw];
 
     pool.connect((err, client, done) => {
@@ -96,12 +96,12 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const { usuario, contrasinal } = req.body;
 
-    const query = "SELECT id, usuario, nome, apelidos, email, data, contrasinal, to_char(data, 'DD-MM-YY') as data FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $1";
+    const query = sql.usuarios.get.user;
 
-    const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
-    const plan_fav = "SELECT * FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
-    const opinions = "SELECT id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_lugar_turistico as id_elemento,'Lugar turístico' as tipo, (select titulo from fresh_tour.lugares_turisticos where id = cvlt.id_lugar_turistico) as elemento FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_monumento as id_elemento, 'Monumento' as tipo, (select titulo from fresh_tour.monumentos where id = cvm.id_monumento) as elemento FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_planificacion as id_elemento, 'Planificacion' as tipo, (select titulo from fresh_tour.planificacions where id = cvp.id_planificacion) FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
-    const plansUsuario = "SELECT *, 'Planificación' as tipo FROM fresh_tour.planificacions p WHERE id_usuario = $1"
+    const elementos_favoritos = sql.usuarios.get.elementosFav
+    const plan_fav = sql.usuarios.get.plansFav;
+    const opinions = sql.usuarios.get.opinions;
+    const plansUsuario = sql.usuarios.get.plans;
 
     pool.query(query, [usuario], (err, results) => {
         if (err) {
@@ -178,13 +178,13 @@ router.get('/me', verify.verifyToken, (req, res) => {
 
     const userId = req.userId;
 
-    const query = "SELECT id, usuario, nome, apelidos, email, data, contrasinal, to_char(data, 'DD-MM-YY') as data FROM fresh_tour.usuarios WHERE id = $1";
+    const query = sql.usuarios.get.user;
 
-    const elementos_favoritos = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)"
-    const plan_fav = "SELECT *,'Planificación' as tipo, true AS favorito, (SELECT id FROM fresh_tour.usuarios u WHERE id = p2.id_usuario) AS id_actual_usuario FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1)"
-    const opinions = "SELECT id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_lugar_turistico as id_elemento,'Lugar turístico' as tipo, (select titulo from fresh_tour.lugares_turisticos where id = cvlt.id_lugar_turistico) as elemento FROM fresh_tour.comentarios_valoracions_lugares_turisticos cvlt WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_monumento as id_elemento, 'Monumento' as tipo, (select titulo from fresh_tour.monumentos where id = cvm.id_monumento) as elemento FROM fresh_tour.comentarios_valoracions_monumentos cvm WHERE id_usuario = $1 UNION ALL select id, id_usuario, titulo, to_char(data, 'DD-MM-YY') as data, valoracion, comentario, id_planificacion as id_elemento, 'Planificacion' as tipo, (select titulo from fresh_tour.planificacions where id = cvp.id_planificacion) FROM fresh_tour.comentarios_valoracions_planificacions cvp WHERE id_usuario = $1"
-    const plansUsuario = "SELECT *, 'Planificación' as tipo, (SELECT id FROM fresh_tour.usuarios u WHERE id = p.id_usuario) AS id_actual_usuario FROM fresh_tour.planificacions p WHERE id_usuario = $1"
-
+    const elementos_favoritos = sql.usuarios.get.elementosFav
+    const plan_fav = sql.usuarios.get.plansFav;
+    const opinions = sql.usuarios.get.opinions;
+    const plansUsuario = sql.usuarios.get.plans;
+    
     pool.query(query, [userId], (err, results) => {
         if (err) {
             return res.status(500).json({
