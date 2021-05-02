@@ -46,27 +46,27 @@ router.post('/new', verify.verifyToken, (req, res) => {
                     for (var i = 0; i < elementos.length; i++) {
                         var elemento = elementos[i];
                         if (elemento.features[0].properties.tipo == "Lugar turístico") {
-                            valuesLugares.push(id, elemento.features[0].properties.id, i);
+                            valuesLugares.push(id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                         } else if (elemento.features[0].properties.tipo == "Monumento") {
-                            valuesMonumentos.push(id, elemento.features[0].properties.id, i);
+                            valuesMonumentos.push(id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                         }
                     }
                     if (valuesLugares.length > 0) {
                         var indexLug = 0;
-                        for (var i = 0; i < (valuesLugares.length / 3) - 1; i++) {
-                            lugares = lugares + "($" + (indexLug + 1) + ", $" + (indexLug + 2) + ", $" + (indexLug + 3) + "),";
-                            indexLug += 3;
+                        for (var i = 0; i < (valuesLugares.length / 4) - 1; i++) {
+                            lugares = lugares + "($" + (indexLug + 1) + ", $" + (indexLug + 2) + ", $" + (indexLug + 3) + ", $" + (indexLug + 4) + "), ";
+                            indexLug += 4;
                         }
-                        lugares = lugares + "($" + (indexLug + 1) + ", $" + (indexLug + 2) + ", $" + (indexLug + 3) + ")";
+                        lugares = lugares + "($" + (indexLug + 1) + ", $" + (indexLug + 2) + ", $" + (indexLug + 3) + ", $" + (indexLug + 4) + ")";
                     }
 
                     if (valuesMonumentos.length > 0) {
                         var indexMon = 0;
-                        for (var i = 0; i < (valuesMonumentos.length / 3) - 1; i++) {
-                            monumentos = monumentos + "($" + (indexMon + 1) + ", $" + (indexMon + 2) + ", $" + (indexMon + 3) + "),";
-                            indexMon += 3;
+                        for (var i = 0; i < (valuesMonumentos.length / 4) - 1; i++) {
+                            monumentos = monumentos + "($" + (indexMon + 1) + ", $" + (indexMon + 2) + ", $" + (indexMon + 3) + "), $" + (indexMon + 4) + "), ";
+                            indexMon += 4;
                         }
-                        monumentos = monumentos + "($" + (indexMon + 1) + ", $" + (indexMon + 2) + ", $" + (indexMon + 3) + ")";
+                        monumentos = monumentos + "($" + (indexMon + 1) + ", $" + (indexMon + 2) + ", $" + (indexMon + 3) + ", $" + (indexMon + 4) + ")";
                     }
 
                     if (valuesMonumentos.length > 0 && valuesLugares.length > 0) {
@@ -308,7 +308,6 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
         var query;
         const { type } = req.params;
 
-        console.log(type);
         if (type === "menor_distancia") {
             query = sql.planificacions.sortBy.menorDistancia;
         } else if (type === "maior_distancia") {

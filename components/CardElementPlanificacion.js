@@ -16,7 +16,7 @@ const CardElementPlanificacion = (props) => {
     const isLast = props.isLast;
     const numberElements = props.numberElements;
 
-    const [tipoVisita, setTipoVisita] = useState(item.features[0].properties.tempo_visita_rapida);
+    const [tipoVisita, setTipoVisita] = useState(item.features[0].properties.tipo_visita ? item.features[0].properties.tipo_visita : item.features[0].properties.tempo_visita_rapida);
 
     const context = useContext(AppContext);
 
@@ -61,9 +61,10 @@ const CardElementPlanificacion = (props) => {
                     style={dropdown.style}
                     globalTextStyle={dropdown.text}
                     defaultValue={tipoVisita}
-                    onChangeItem={item => {
-                        context.actualizaTempoVisita(item.value, tipoVisita);
-                        setTipoVisita(item.value);
+                    onChangeItem={e => {
+                        context.actualizaTempoVisita(e.value, tipoVisita);
+                        setTipoVisita(e.value);
+                        context.changeTipoVisita(item.features[0].properties.id, e.value);
                     }}
                     scrollViewProps={{ heigth: 90 }}
                     dropDownStyle={dropdown.scroll}

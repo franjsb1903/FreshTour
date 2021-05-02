@@ -41,7 +41,6 @@ const User = () => {
                     setLoggedIn(false);
                 }
                 const token = await getToken('id_token');
-                console.log(token);
                 if (token) {
                     const data = await getUserByToken(token, signal);
                     if (!data.auth) {
@@ -110,7 +109,6 @@ const User = () => {
                 });
                 return false;
             }
-            console.log(data);
             await storeToken('id_token', data.token);
             context.setUser(data);
             return true;

@@ -252,9 +252,14 @@ const AppContextProvider = (props) => {
             setTempoVisita(0);
             var tempo_visita = 0;
             elements.map(async (element) => {
-                const data = await getGeoElementJson(element.id);
+                const data = await getGeoElementJson(element.id, element.tipo);
+                data.features[0].properties["tipo_visita"] = element.tipo_visita;
                 newElements.push(data);
-                tempo_visita += data.features[0].properties.tempo_visita_rapida;
+                if (element.tipo_visita != null) {
+                    tempo_visita += element.tipo_visita;
+                } else {
+                    tempo_visita += data.features[0].properties.tempo_visita_rapida;
+                }
             });
             setTimeout(() => {
                 setTurismoItems({
@@ -270,6 +275,16 @@ const AppContextProvider = (props) => {
                 message: 'Erro de conexión',
                 type: "danger"
             });
+        }
+    }
+
+    const changeTipoVisita = (id, tipoVisita) => {
+        for (var i = 0; i < turismoItems.items.length; i++) {
+            const e = turismoItems.items[i];
+            if (`${e.features[0].properties.id}` == id) {
+                e.features[0].properties["tipo_visita"] = tipoVisita;
+                break;
+            }
         }
     }
 
@@ -290,7 +305,7 @@ const AppContextProvider = (props) => {
         try {
             const response = await addElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
-                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
                         type: "danger"
@@ -313,7 +328,7 @@ const AppContextProvider = (props) => {
         try {
             const response = await deleteElementoFavModel(token, item.id, item.tipo);
             if (response.status != 200) {
-                if(!await shouldDeleteToken(response.message, 'id_token')) {
+                if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
                         type: "danger"
@@ -380,7 +395,8 @@ const AppContextProvider = (props) => {
         addElementsToPlanificacion: addElementsToPlanificacion,
         planificacion: planificacion,
         resetPlanificacion: resetPlanificacion,
-        updatePlanificacion: updatePlanificacion
+        updatePlanificacion: updatePlanificacion,
+        changeTipoVisita: changeTipoVisita
     }
 
     return (

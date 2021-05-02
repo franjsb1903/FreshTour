@@ -157,6 +157,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.planificacions_lugares_turisticos (
     id_planificacion INT NOT NULL,
     id_lugar_turistico INT NOT NULL,
     posicion_visita INT NOT NULL,
+    tipo_visita FLOAT,
     CONSTRAINT pk_plan_lug_tur PRIMARY KEY (id_planificacion, id_lugar_turistico),
     CONSTRAINT fk_planificacion FOREIGN KEY (id_planificacion) REFERENCES fresh_tour.planificacions(id),
     CONSTRAINT fk_lugar_turistico FOREIGN KEY (id_lugar_turistico) REFERENCES fresh_tour.lugares_turisticos(id)
@@ -165,6 +166,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.planificacions_monumentos (
     id_planificacion INT NOT NULL,
     id_monumento INT NOT NULL,
     posicion_visita INT NOT NULL,
+    tipo_visita FLOAT,
     CONSTRAINT pk_plan_mon PRIMARY KEY (id_planificacion, id_monumento),
     CONSTRAINT fk_planificacion FOREIGN KEY (id_planificacion) REFERENCES fresh_tour.planificacions(id),
     CONSTRAINT fk_monumento FOREIGN KEY (id_monumento) REFERENCES fresh_tour.monumentos(id)

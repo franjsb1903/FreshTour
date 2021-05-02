@@ -136,9 +136,6 @@ const CardElementRuta = (props) => {
         }
     }
 
-    console.log(isUser);
-    console.log(planificacion.id_actual_usuario, planificacion.id_usuario)
-
     const HeartIcons = () => {
 
         return (
