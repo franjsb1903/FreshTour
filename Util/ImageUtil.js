@@ -45,6 +45,41 @@ const getImageUri = (name) => {
                 return undefined;
             }
             break
+        case "catedral":
+            try {
+                locateUri = Image.resolveAssetSource(require('../images/monumentos/catedral.jpg')).uri;
+            } catch (err) {
+                return undefined;
+            }
+            break;
+        case "hostal_reis_catolicos":
+            try {
+                locateUri = Image.resolveAssetSource(require('../images/monumentos/hostal_reis_catolicos.jpg')).uri;
+            } catch (err) {
+                return undefined;
+            }
+            break;
+        case "mercado_abastos":
+            try {
+                locateUri = Image.resolveAssetSource(require('../images/monumentos/mercado_abastos.jpg')).uri;
+            } catch (err) {
+                return undefined;
+            }
+            break;
+        case "pazo_xelmirez":
+            try {
+                locateUri = Image.resolveAssetSource(require('../images/monumentos/pazo_xelmirez.jpg')).uri;
+            } catch (err) {
+                return undefined;
+            }
+            break;
+        case "san_francisco":
+            try {
+                locateUri = Image.resolveAssetSource(require('../images/monumentos/san_francisco.jpg')).uri;
+            } catch (err) {
+                return undefined;
+            }
+            break;
         default:
             return undefined;
     }

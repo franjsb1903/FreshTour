@@ -130,3 +130,12 @@ export const favSortBy = async (token, type) => {
         throw new Error(err);
     }
 }
+
+export const getByName = async (token, name) => {
+    try {
+        const json = await Planificador.getByName(token, name);
+        return json
+    } catch(err) {
+        throw new Error(err);
+    }
+}

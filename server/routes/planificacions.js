@@ -43,25 +43,30 @@ router.post('/new', verify.verifyToken, (req, res) => {
 
                     const { id } = results.rows[0];
 
-                    var index = 0;
                     for (var i = 0; i < elementos.length; i++) {
                         var elemento = elementos[i];
                         if (elemento.features[0].properties.tipo == "Lugar turístico") {
-                            if (i < elementos.length - 1) {
-                                lugares = lugares + "($" + (index + 1) + ", $" + (index + 2) + ", $" + (index + 3) + "),"
-                            } else {
-                                lugares = lugares + "($" + (index + 1) + ", $" + (index + 2) + ", $" + (index + 3) + ")"
-                            }
                             valuesLugares.push(id, elemento.features[0].properties.id, i);
                         } else if (elemento.features[0].properties.tipo == "Monumento") {
-                            if (i < elementos.length - 1) {
-                                monumentos = monumentos + "($" + (index + 1) + ", $" + (index + 2) + ", $" + (index + 3) + "),"
-                            } else {
-                                monumentos = monumentos + "($" + (index + 1) + ", $" + (index + 2) + ", $" + (index + 3) + ")"
-                            }
                             valuesMonumentos.push(id, elemento.features[0].properties.id, i);
                         }
-                        index += 3;
+                    }
+                    if (valuesLugares.length > 0) {
+                        var indexLug = 0;
+                        for (var i = 0; i < (valuesLugares.length / 3) - 1; i++) {
+                            lugares = lugares + "($" + (indexLug + 1) + ", $" + (indexLug + 2) + ", $" + (indexLug + 3) + "),";
+                            indexLug += 3;
+                        }
+                        lugares = lugares + "($" + (indexLug + 1) + ", $" + (indexLug + 2) + ", $" + (indexLug + 3) + ")";
+                    }
+
+                    if (valuesMonumentos.length > 0) {
+                        var indexMon = 0;
+                        for (var i = 0; i < (valuesMonumentos.length / 3) - 1; i++) {
+                            monumentos = monumentos + "($" + (indexMon + 1) + ", $" + (indexMon + 2) + ", $" + (indexMon + 3) + "),";
+                            indexMon += 3;
+                        }
+                        monumentos = monumentos + "($" + (indexMon + 1) + ", $" + (indexMon + 2) + ", $" + (indexMon + 3) + ")";
                     }
 
                     if (valuesMonumentos.length > 0 && valuesLugares.length > 0) {
@@ -79,7 +84,10 @@ router.post('/new', verify.verifyToken, (req, res) => {
                                     try {
                                         done();
                                         return res.status(200).send({
-                                            status: 200
+                                            status: 200,
+                                            planificacion: {
+                                                id: id
+                                            }
                                         });
                                     } catch (err) {
                                         helpers.onError(500, "Erro interno no servidor", err, res);
@@ -139,7 +147,9 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
 
         if (userId) {
             values.push(userId);
+            values.push(userId);
         } else {
+            values.push(-1);
             values.push(-1);
         }
 
@@ -298,21 +308,22 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
         var query;
         const { type } = req.params;
 
-        if(type === "menor_distancia") {
+        console.log(type);
+        if (type === "menor_distancia") {
             query = sql.planificacions.sortBy.menorDistancia;
-        } else if(type === "maior_distancia") {
+        } else if (type === "maior_distancia") {
             query = sql.planificacions.sortBy.maiorDistancia;
-        } else if(type==="maior_tempo_visita") {
+        } else if (type === "maior_tempo_visita") {
             query = sql.planificacions.sortBy.maiorTempoVisita;
-        } else if(type === "menor_tempo_visita") {
+        } else if (type === "menor_tempo_visita") {
             query = sql.planificacions.sortBy.menorTempoVisita;
-        } else if(type === "maior_tempo_ruta") {
+        } else if (type === "maior_tempo_ruta") {
             query = sql.planificacions.sortBy.maiorTempoRuta;
-        } else if(type === "menor_tempo_ruta") {
+        } else if (type === "menor_tempo_ruta") {
             query = sql.planificacions.sortBy.menorTempoRuta;
-        } else if(type === "menor_tempo_total") {
+        } else if (type === "menor_tempo_total") {
             query = sql.planificacions.sortBy.menorTempoTotalRuta;
-        } else if(type === "maior_tempo_total") {
+        } else if (type === "maior_tempo_total") {
             query = sql.planificacions.sortBy.maiorTempoTotalRuta;
         } else {
             query = sql.planificacions.sortBy.valoracion;
@@ -322,7 +333,9 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
         if (userId) {
             values.push(userId);
+            values.push(userId);
         } else {
+            values.push(-1);
             values.push(-1);
         }
 
@@ -349,21 +362,21 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
         var query;
         const { type } = req.params;
 
-        if(type === "menor_distancia") {
+        if (type === "menor_distancia") {
             query = sql.planificacions.fav.sortBy.menorDistancia;
-        } else if(type === "maior_distancia") {
+        } else if (type === "maior_distancia") {
             query = sql.planificacions.fav.sortBy.maiorDistancia;
-        } else if(type==="maior_tempo_visita") {
+        } else if (type === "maior_tempo_visita") {
             query = sql.planificacions.fav.sortBy.maiorTempoVisita;
-        } else if(type === "menor_tempo_visita") {
+        } else if (type === "menor_tempo_visita") {
             query = sql.planificacions.fav.sortBy.menorTempoVisita;
-        } else if(type === "maior_tempo_ruta") {
+        } else if (type === "maior_tempo_ruta") {
             query = sql.planificacions.fav.sortBy.maiorTempoRuta;
-        } else if(type === "menor_tempo_ruta") {
+        } else if (type === "menor_tempo_ruta") {
             query = sql.planificacions.fav.sortBy.menorTempoRuta;
-        } else if(type === "menor_tempo_total") {
+        } else if (type === "menor_tempo_total") {
             query = sql.planificacions.fav.sortBy.menorTempoTotalRuta;
-        } else if(type === "maior_tempo_total") {
+        } else if (type === "maior_tempo_total") {
             query = sql.planificacions.fav.sortBy.maiorTempoTotalRuta;
         } else {
             query = sql.planificacions.fav.sortBy.valoracion;
@@ -373,7 +386,9 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
 
         if (userId) {
             values.push(userId);
+            values.push(userId);
         } else {
+            values.push(-1);
             values.push(-1);
         }
 
@@ -387,6 +402,37 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
                 status: 200
             });
         });
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
+});
+
+router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+    try {
+        const userId = req.userId;
+        var values = [];
+        if (userId) {
+            values.push(userId);
+        } else {
+            values.push(-1);
+        }
+
+        const { name } = req.params;
+        const namePerc = '%' + name + '%';
+        values.push(namePerc);
+
+        pool.query(sql.planificacions.get, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                return;
+            }
+            res.status(200).json({
+                planificacions: results.rows,
+                status: 200
+            });
+        });
+
     } catch (err) {
         helpers.onError(500, "Erro interno no servidor", err, res);
         return;

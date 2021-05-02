@@ -25,7 +25,6 @@ export const shouldDeleteToken = async (message, id) => {
 
 export const storeToken = async (id, token) => {
     try {
-        console.log(id, token);
         await SecureStore.setItemAsync(id, token);
     } catch (err) {
         throw new Error(err);

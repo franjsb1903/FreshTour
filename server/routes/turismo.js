@@ -11,7 +11,7 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
     try {
 
         const userId = req.userId;
-        const query = sql.elementos.sortBy.titulo;
+        const query = sql.elementos.sortBy.valoracion;
         var values = [];
         if (userId === undefined) {
             values.push(-1);

@@ -16,7 +16,8 @@ const properties = {
             delete: "/",
             edit: "/edit",
             sortBy: "/sortBy/",                           // /planificacions/sortBy/:type
-            fav: "/fav"
+            fav: "/fav",
+            byName: "/"                                   // /:name
         },
         turismo: {
             turismo: "/turismo",                        // /turismo/, /turismo/:name
@@ -25,7 +26,8 @@ const properties = {
         },
         geoserver: {
             url: "http://192.168.1.74:8080/geoserver",
-            item: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+"                    // /geoserver/:id
+            lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",                    // /geoserver/:id
+            monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+"
         },
         opinions: {
             main: "/opinions",

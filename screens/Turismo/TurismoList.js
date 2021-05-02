@@ -24,6 +24,7 @@ const Turism = (props) => {
     });
 
     const [refreshing, setRefreshing] = useState(false);
+    const [dropDownValue, setDropDownValue] = useState("valoracion");
 
     const data = props.route.params.data;
 
@@ -156,9 +157,9 @@ const Turism = (props) => {
         }
     }
 
-    const showOnMap = async (id) => {
+    const showOnMap = async (id, tipo) => {
         try {
-            const text = await getGeoElement(id);
+            const text = await getGeoElement(id, tipo);
             if (text == undefined) {
                 showMessage({
                     message: 'Erro xeolocalizando elemento, probe de novo',
@@ -205,8 +206,8 @@ const Turism = (props) => {
     }
 
     const itemsDropDown = [
-        { label: 'Ordear por título', value: 'titulo' },
-        { label: 'Ordear por valoración', value: 'valoracion' }
+        { label: 'Ordear por valoración', value: 'valoracion' },
+        { label: 'Ordear por título', value: 'titulo' }
     ];
 
     const onChangeDropDown = async (item) => {
@@ -239,6 +240,7 @@ const Turism = (props) => {
                     loading: false,
                     data: elements
                 });
+                setDropDownValue(item.value);
             }
 
         } catch (err) {
@@ -271,7 +273,7 @@ const Turism = (props) => {
                     />
                 </View>
                 <View style={{ padding: 20 }}>
-                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropDownStyles} container={{ flex: 1 }} defaultValue={"titulo"} />
+                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropDownStyles} container={{ flex: 1 }} defaultValue={dropDownValue} />
                 </View>
                 {
                     state.data == undefined ?

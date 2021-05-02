@@ -215,11 +215,11 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
-    const addToPlanificacion = async (id, added) => {
+    const addToPlanificacion = async (id, added, tipo) => {
         try {
             if (!added) {
-                const data = await getGeoElementJson(id);
-                if (data == undefined) {
+                const data = await getGeoElementJson(id, tipo);
+                if (data == undefined || data.features[0] == undefined) {
                     showMessage({
                         message: 'Elemento non engadido',
                         type: "danger"

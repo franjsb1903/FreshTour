@@ -179,7 +179,8 @@ const Register = (props) => {
                         placeholderTextColor="#808080"
                         textContentType="emailAddress"
                         autoCapitalize="none"
-                        clearButtonMode="always" />
+                        clearButtonMode="always"
+                         />
                     {
                         clearButton(() => emailInput.clear())
                     }

@@ -114,6 +114,7 @@ const GardarPlanificacion = (props) => {
                 ...modal, ['loading']: true
             });
             var response;
+            console.log(token);
             if (!edit) {
                 planificacion['isShared'] = false;
                 planificacion['distancia'] = data.features[0].properties.summary.distance;
@@ -123,9 +124,10 @@ const GardarPlanificacion = (props) => {
             } else {
                 response = await editPlanificacion(planificacion.titulo, planificacion.comentario, edit.id, token);
             }
+            console.log(response);
             if (response.auth == false) {
                 showMessage({
-                    message: 'Non se pode autenticar ao usuario',
+                    message: response.message,
                     type: "danger"
                 });
                 setModal({

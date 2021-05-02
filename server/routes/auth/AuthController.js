@@ -124,7 +124,6 @@ router.post('/login', (req, res) => {
         var token = jwt.sign({ id: user.id }, config.secret, {
             expiresIn: 86400
         });
-
         pool.query(elementos_favoritos, [user.id], (err, elementos) => {
             var elementosFavArray;
 
@@ -178,7 +177,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
 
     const userId = req.userId;
 
-    const query = sql.usuarios.get.user;
+    const query = sql.usuarios.get.byId;
 
     const elementos_favoritos = sql.usuarios.get.elementosFav
     const plan_fav = sql.usuarios.get.plansFav;
@@ -187,6 +186,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
     
     pool.query(query, [userId], (err, results) => {
         if (err) {
+            console.error(err);
             return res.status(500).json({
                 status: 500,
                 message: "Erro buscando o usuario"

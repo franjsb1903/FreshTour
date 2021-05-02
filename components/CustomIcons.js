@@ -185,7 +185,7 @@ export const CalendarIconButton = (props) => {
         <IconButton
             icon={CalendarIcon}
             onPress={() => {
-                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : {}
+                addToPlanificacion ? addToPlanificacion(`${item.id}`, added, item.tipo) : {}
                 changeAdd ? changeAdd(true) : {}
             }}
             style={style} />
@@ -205,7 +205,7 @@ export const CalendarOutlineIconButton = (props) => {
         <IconButton
             icon={CalendarOutlineIcon}
             onPress={() => {
-                addToPlanificacion ? addToPlanificacion(`${item.id}`, added) : _onPress();
+                addToPlanificacion ? addToPlanificacion(`${item.id}`, added, item.tipo) : _onPress();
                 changeAdd ? changeAdd(true) : {}
             }}
             style={style} />
@@ -223,7 +223,7 @@ export const MapIconButton = (props) => {
     return (
         <IconButton
             icon={white ? MapIconWhite : MapIcon}
-            onPress={() => showOnMap ? showOnMap(`${item.id}`) : onMapClick()}
+            onPress={() => showOnMap ? showOnMap(`${item.id}`, item.tipo) : onMapClick()}
             style={style} />
     )
 };

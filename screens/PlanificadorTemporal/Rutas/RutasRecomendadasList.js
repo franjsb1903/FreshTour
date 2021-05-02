@@ -6,7 +6,9 @@ import ProgressBar from '../../../components/ProgressBar';
 import { getPlanificacions as getPlanificacionsModel, sortBy, favSortBy } from '../../../model/Planificador/Planificador'
 import CardElement from '../../../components/CardElementRuta';
 import NoData from '../../../components/NoData';
-import DropDown from '../../components/CustomDropDown';
+import DropDown from '../../../components/CustomDropDown';
+import { getByName } from '../../../model/Planificador/Planificador';
+import CustomSearchBar from '../../../components/CustomSearchBar';
 
 import { useIsFocused } from '@react-navigation/native';
 
@@ -22,6 +24,7 @@ const RutasRecomendadasList = (props) => {
     });
 
     const [refreshing, setRefreshing] = useState(false);
+    const [dropDownValue, setDropDownValue] = useState("valoracion");
 
     const isFocused = useIsFocused();
 
@@ -74,7 +77,6 @@ const RutasRecomendadasList = (props) => {
                 }
                 await onGetData(mounted, signal);
             } catch (err) {
-                console.error(err);
                 showMessage({
                     message: 'Erro de conexión',
                     type: "danger"
@@ -158,7 +160,7 @@ const RutasRecomendadasList = (props) => {
             });
             const token = await getToken('id_token');
             var elements;
-            if(!data) {
+            if (!data) {
                 elements = await sortBy(token, item.value);
             } else {
                 elements = await favSortBy(token, item.value);
@@ -178,14 +180,43 @@ const RutasRecomendadasList = (props) => {
             } else {
                 setState({
                     loading: false,
-                    data: data
+                    data: elements
                 });
+                setDropDownValue(item.value);
             }
 
         } catch (err) {
             console.error(err);
             showMessage({
                 message: "Erro na ordeación",
+                type: "danger"
+            });
+        }
+    }
+
+    const doSearch = async (name) => {
+        try {
+            var element;
+            const token = await getToken('id_token');
+            element = await getByName(token, name);
+            if (element.status != 200) {
+                await shouldDeleteToken(element.message, 'id_token');
+            }
+            if (element != undefined) {
+                setState({
+                    data: element,
+                    loading: false
+                });
+            } else {
+                showMessage({
+                    message: 'Erro de conexión',
+                    type: "danger"
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            showMessage({
+                message: 'Erro de conexión',
                 type: "danger"
             });
         }
@@ -203,8 +234,16 @@ const RutasRecomendadasList = (props) => {
                     <></>
             }
                 style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
+                <View style={{ flex: 0 }}>
+                    <CustomSearchBar
+                        placeholder="Nome"
+                        doSearch={doSearch}
+                        updateItems={() => { }}
+                        onChange={true}
+                    />
+                </View>
                 <View style={{ padding: 20 }}>
-                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropdownStyles} container={{ flex: 1 }} defaultValue={"titulo"} />
+                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropdownStyles} container={{ flex: 1 }} defaultValue={dropDownValue} />
                 </View>
                 {
                     state.data == undefined ?

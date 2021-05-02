@@ -120,8 +120,8 @@ const CardElement = (props) => {
                                     <HeartIconButton />
                                     {
                                         added ?
-                                            <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} /> :
-                                            <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={addToPlanificacion} item={item} />
+                                            <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
+                                            <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
                                     }
                                     <MapIconButton showOnMap={showOnMap} item={item} />
                                 </View>

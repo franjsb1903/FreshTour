@@ -20,18 +20,18 @@ export const getElement = async (name, token) => {
     }
 }
 
-export const getGeoElement = async (id) => {
+export const getGeoElement = async (id, tipo) => {
     try {
-        var data = await Turismo.getGeoItem(id);
+        var data = await Turismo.getGeoItem(id, tipo);
         return data;
     } catch (err) {
         throw new Error(err);
     }
 }
 
-export const getGeoElementJson = async (id) => {
+export const getGeoElementJson = async (id, tipo) => {
     try {
-        var data = await Turismo.getGeoItemJson(id);
+        var data = await Turismo.getGeoItemJson(id, tipo);
         return data;
     } catch (err) {
         throw new Error(err);

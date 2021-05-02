@@ -42,7 +42,7 @@ class XestionDatosPlanificador {
                 tempoRuta: planificacion.tempoRuta
             }
 
-            const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
             return json;
 
         } catch (err) {
@@ -74,7 +74,7 @@ class XestionDatosPlanificador {
                 isShare: isShare,
                 id: id
             }
-            const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -85,7 +85,7 @@ class XestionDatosPlanificador {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.elements + id;
 
         try {
-            const json = fetchJsonGet(url, undefined, signal);
+            const json = await fetchJsonGet(url, undefined, signal);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -104,7 +104,7 @@ class XestionDatosPlanificador {
             const body = {
                 id: id
             }
-            const json = fetchJsonDelete(url, headers, JSON.stringify(body));
+            const json = await fetchJsonDelete(url, headers, JSON.stringify(body));
             return json;
         } catch (err) {
             throw new Error(err);
@@ -125,7 +125,7 @@ class XestionDatosPlanificador {
                 comentario: comentario,
                 id: id
             }
-            const json = fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -136,7 +136,7 @@ class XestionDatosPlanificador {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.sortBy + type;
 
         try {
-            const json = fetchJsonGet(url, token);
+            const json = await fetchJsonGet(url, token);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -147,14 +147,23 @@ class XestionDatosPlanificador {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
 
         try {
-            const json = fetchJsonGet(url, token);
+            const json = await fetchJsonGet(url, token);
             return json;
         } catch (err) {
             throw new Error(err);
         }
     }
+
+    async getByName(token, name) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.byName + name;
+
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch(err) {
+            throw new Error(err);
+        }
+    }
 }
-
-
 
 module.exports = XestionDatosPlanificador;

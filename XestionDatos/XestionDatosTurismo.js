@@ -1,5 +1,5 @@
 import properties from '../properties/properties_expo';
-import { fetchJsonGet, fetchTextGet } from '../Util/FetchUtil'
+import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost } from '../Util/FetchUtil'
 
 
 class XestionDatosTurismo {
@@ -25,8 +25,13 @@ class XestionDatosTurismo {
         }
     }
 
-    async getGeoItem(id) {
-        const url = properties.url.geoserver.url + properties.url.geoserver.item + id;
+    async getGeoItem(id, tipo) {
+        var url;
+        if (tipo == "Lugar turístico") {
+            url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
+        } else if (tipo == "Monumento") {
+            url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
+        }
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -35,8 +40,13 @@ class XestionDatosTurismo {
         }
     }
 
-    async getGeoItemJson(id) {
-        const url = properties.url.geoserver.url + properties.url.geoserver.item + id;
+    async getGeoItemJson(id, tipo) {
+        var url;
+        if (tipo == "Lugar turístico") {
+            url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
+        } else if (tipo == "Monumento") {
+            url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
+        }
         try {
             const json = await fetchJsonGet(url);
             return json;
@@ -102,7 +112,7 @@ class XestionDatosTurismo {
             throw new Error(err);
         }
     }
-    
+
     async getElementFavByName(token, name) {
         const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav + "/" + name;
         try {

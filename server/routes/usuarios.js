@@ -100,12 +100,20 @@ router.delete('/', verify.verifyToken, async (req, res) => {
         const lugares = await client.query(sql.usuarios.delete.comentariosLugares, [userId]);
         await Promise.all(lugares.rows.map(async (item) => {
             const results = await client.query(sql.elementos.updateValoracion.mediaLugares, [item.id_lugar_turistico]);
-            await client.query(sql.elementos.updateValoracion.updateLugares, [results.rows[0].media, item.id]);
+            var media = results.rows[0].media;
+            if(media == null) {
+                media = 0;
+            }
+            await client.query(sql.elementos.updateValoracion.updateLugares, [media, item.id_lugar_turistico]);
         }));
         const monumentos = await client.query(sql.usuarios.delete.comentariosMonumentos, [userId]);
         await Promise.all(monumentos.rows.map(async (item) => {
             const results = await client.query(sql.elementos.updateValoracion.mediaMonumentos, [item.id_monumento]);
-            await client.query(sql.elementos.updateValoracion.updateMonumentos, [results.rows[0].media, item.id]);
+            var media = results.rows[0].media;
+            if(media == null) {
+                media = 0;
+            }
+            await client.query(sql.elementos.updateValoracion.updateMonumentos, [media, item.id_monumento]);
         }));
         await client.query(sql.usuarios.delete.comentariosPlanificacions, [userId]);
         const response = await client.query(sql.usuarios.delete.planificacionsId, [userId]);
