@@ -155,7 +155,7 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
 
         pool.query(sql.planificacions.all, values, (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro obtendo os elementos da planificación", err, res);
                 return;
             }
             res.status(200).json({
@@ -176,7 +176,7 @@ router.post('/share', verify.verifyToken, (req, res) => {
 
         pool.query(sql.planificacions.share, [isShare, id], (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro obtendo compartindo a planificación", err, res);
                 return;
             }
             res.status(200).json({
@@ -198,7 +198,7 @@ router.get('/elements/:id', (req, res) => {
 
         pool.query(sql.planificacions.elementos, [id], (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro obtendo o elemento da planificación", err, res);
                 return;
             }
             res.status(200).json({
@@ -287,7 +287,7 @@ router.post('/edit', verify.verifyToken, (req, res) => {
 
         pool.query(sql.planificacions.edit, [titulo, comentario, id], (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro editando a planificación", err, res);
                 return;
             }
             res.status(200).json({
@@ -340,7 +340,7 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
         pool.query(query, values, (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro ordeando as planificacións almacenadas", err, res);
                 return;
             }
             res.status(200).json({
@@ -393,7 +393,7 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
 
         pool.query(query, values, (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro ordeando as planificacións favoritas almacenadas", err, res);
                 return;
             }
             res.status(200).json({
@@ -423,7 +423,7 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
         pool.query(sql.planificacions.get, values, (err, results) => {
             if (err) {
-                helpers.onError(500, "Erro obtendo as planificacións almacenadas", err, res);
+                helpers.onError(500, "Erro obtendo a planificación almacenada por nome", err, res);
                 return;
             }
             res.status(200).json({
