@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
-const morgan = require('morgan');
+const logger = require('morgan');
+const fs = require('fs');
 
 app.use(cors());
 app.use(express.json());
 
 // registro de conexiones al servidor
-app.use(morgan('dev'));
+app.use(logger('dev'));
+app.use(logger('common', { stream: fs.createWriteStream('./log/access.log', { flags: 'a' }) }));
 app.use(express.urlencoded({ extended: false }));
 // para reconocer json
 app.use(express.json());
