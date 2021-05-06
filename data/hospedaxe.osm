@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-05-06T12:18:58Z"/>
+
+  <node id="290333509" lat="42.8892272" lon="-8.5024324">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="15820"/>
+    <tag k="addr:street" v="Costa de San Marcos"/>
+    <tag k="contact:email" v="amartinezlago@husa.es"/>
+    <tag k="contact:phone" v="+34 981557155;+34 680625735"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Santiago Apóstol"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="100"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="766498389" lat="42.8751700" lon="-8.5450083">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="15"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa do Doutor Teixeiro"/>
+    <tag k="email" v="booking@neststylesantiago.com"/>
+    <tag k="fax" v="+34 981589653"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Nest Style Santiago"/>
+    <tag k="operator" v="private"/>
+    <tag k="phone" v="+34 981 56 34 44"/>
+    <tag k="rooms" v="35"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="website" v="https://www.neststylesantiago.com/"/>
+  </node>
+  <node id="766498721" lat="42.8766479" lon="-8.5370980">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Avenida de Quiroga Palacios"/>
+    <tag k="beds" v="177"/>
+    <tag k="contact:email" v="santiago@alberguesdelcamino.com"/>
+    <tag k="contact:phone" v="+34 881031768"/>
+    <tag k="contact:website" v="http://www.alberguesdelcamino.com/santiago/albergue-seminario-menor"/>
+    <tag k="internet_access" v="yes"/>
+    <tag k="internet_access:fee" v="yes"/>
+    <tag k="name" v="Albergue do Seminario Menor da Asunción"/>
+    <tag k="opening_hours" v="Mar 15-Nov 3 09:30-23:00"/>
+    <tag k="operator" v="Diocese de Santiago de Compostela"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="766499298" lat="42.8796607" lon="-8.5425040">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="30"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa da Fonte Sequelo"/>
+    <tag k="contact:email" v="info@badalada.es"/>
+    <tag k="contact:phone" v="+34 981572618;+34 619052224"/>
+    <tag k="contact:website" v="http://www.badalada.es/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Pensión Badalada"/>
+    <tag k="note" v="Nice and friendly lodging, no breakfast served"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="7"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="766499552" lat="42.8807739" lon="-8.5401886">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa da Virxe da Cerca"/>
+    <tag k="contact:email" v="info@atafonadoperegrino.com"/>
+    <tag k="contact:phone" v="+34 981568923"/>
+    <tag k="contact:website" v="http://www.atafonadoperegrino.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="A Tafona do Peregrino"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="14"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="912946631" lat="42.8790969" lon="-8.5398430">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa das Trompas"/>
+    <tag k="contact:email" v="hotel@miradordebelvis.es"/>
+    <tag k="contact:fax" v="+34 981587166"/>
+    <tag k="contact:phone" v="+34 981554340"/>
+    <tag k="contact:website" v="http://www.miradordebelvis.es/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Miradoiro de Belvís"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="21"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="918163579" lat="42.8796279" lon="-8.5525372">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Calle San Lorenzo"/>
+    <tag k="contact:fax" v="+34 981561550"/>
+    <tag k="contact:phone" v="+34 981580133"/>
+    <tag k="contact:website" v="http://www.hsanlorenzo.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel San Lorenzo"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="54"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1265059872" lat="42.8746227" lon="-8.5469618">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="16"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa da República de El Salvador"/>
+    <tag k="contact:email" v="windsor@hotelwindsor.es"/>
+    <tag k="contact:fax" v="+34 981592823"/>
+    <tag k="contact:phone" v="+34 981592939"/>
+    <tag k="contact:website" v="http://www.hotelwindsor.es/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Windsor"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="38"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1265067452" lat="42.8740320" lon="-8.5449130">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="72"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Hórreo"/>
+    <tag k="contact:email" v="reservas@hotelgelmirez.com"/>
+    <tag k="contact:fax" v="+34 881978010"/>
+    <tag k="contact:phone" v="+34 981561100"/>
+    <tag k="contact:website" v="http://www.hotelgelmirez.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hesperia Gelmírez"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="132"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1350293393" lat="42.8866160" lon="-8.5144707">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="101-103"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa de San Lázaro"/>
+    <tag k="contact:email" v="hotelsanjacobo@hotelsanjacobo.com"/>
+    <tag k="contact:fax" v="+34 981577616"/>
+    <tag k="contact:phone" v="+34 981580361"/>
+    <tag k="contact:website" v="http://www.hotelsanjacobo.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel San Jacobo"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="14"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="1446887421" lat="42.8815400" lon="-8.5399390">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Praza do Matadoiro"/>
+    <tag k="contact:email" v="info@hostalgiadas.com"/>
+    <tag k="contact:fax" v="+34 981587071"/>
+    <tag k="contact:phone" v="+34 981587071"/>
+    <tag k="contact:website" v="http://www.hostalgiadas.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hostal Giadas PR***"/>
+    <tag k="rooms" v="8"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="1469741129" lat="42.8926331" lon="-8.4888025">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="37 B"/>
+    <tag k="addr:postcode" v="15890"/>
+    <tag k="addr:street" v="Avenida San Marcos"/>
+    <tag k="contact:phone" v="+34 981552689"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Akelarre"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="12"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="1511943947" lat="42.8700198" lon="-8.5825272">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="23B"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Paseo da Amaía"/>
+    <tag k="contact:email" v="reservas@aquintadaauga.com"/>
+    <tag k="contact:phone" v="+34 981534636"/>
+    <tag k="contact:website" v="http://www.aquintadaauga.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Spa Relais &amp; Chateaux A Quinta da Auga"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="44"/>
+    <tag k="stars" v="4"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1636723887" lat="42.8756240" lon="-8.5441950">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="40"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rua do Horreo"/>
+    <tag k="contact:email" v="info@hotelhorreo.net"/>
+    <tag k="contact:phone" v="+34 981937761"/>
+    <tag k="contact:website" v="http://hotelhorreo.net/"/>
+    <tag k="description" v="2 stars"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Hórreo"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="12"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="1849942279" lat="42.8814115" lon="-8.5447369">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Praza da Inmaculada"/>
+    <tag k="contact:email" v="reservas@sanmartinpinario.eu"/>
+    <tag k="contact:fax" v="+34 981558552"/>
+    <tag k="contact:phone" v="+34 981560282"/>
+    <tag k="contact:website" v="http://www.sanmartinpinario.eu/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hospedería San Martiño Piñario"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="81"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="2012214250" lat="42.8857719" lon="-8.5150897">
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="2292918821" lat="42.8770326" lon="-8.5445474">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Calle de Entremurallas"/>
+    <tag k="contact:email" v="reservas@anosacasa.com"/>
+    <tag k="contact:fax" v="+34 981576056"/>
+    <tag k="contact:phone" v="+34 981585926"/>
+    <tag k="contact:website" v="http://www.anosacasa.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hostal A Nosa Casa"/>
+    <tag k="opening_hours" v="14:00-23:00"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="9"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="2465490360" lat="42.8871389" lon="-8.5259986">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="15707"/>
+    <tag k="addr:street" v="Rúa do Valiño"/>
+    <tag k="beds" v="40"/>
+    <tag k="contact:email" v="elsantosantiago@gmail.com"/>
+    <tag k="contact:phone" v="+34 657402403"/>
+    <tag k="contact:website" v="http://www.elsantosantiago.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Santo Santiago"/>
+    <tag k="opening_hours" v="9:00-23:30"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2465494569" lat="42.8826151" lon="-8.5420758">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Praciña da Algalia de Arriba"/>
+    <tag k="beds" v="20"/>
+    <tag k="contact:email" v="info@fogarteodomiro.com"/>
+    <tag k="contact:phone" v="+34 981582920;+34 699631592"/>
+    <tag k="contact:website" v="http://www.fogarteodomiro.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue O Fogar de Teodomiro"/>
+    <tag k="opening_hours" v="10:00-23:00"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2465501322" lat="42.8786375" lon="-8.5476242">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="26"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="beds" v="34"/>
+    <tag k="contact:email" v="info@mundoalbergue.es"/>
+    <tag k="contact:phone" v="+34 981588625; +34 674415600"/>
+    <tag k="contact:website" v="http://www.mundoalbergue.es/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Mundoalbergue"/>
+    <tag k="opening_hours" v="10:00-23:00"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2465541934" lat="42.8846101" lon="-8.5404106">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rua de Tras Santa Clara"/>
+    <tag k="beds" v="84"/>
+    <tag k="contact:email" v="info@alberguelasalle.com"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/pages/Hotel-y-Albergue-La-Salle/204371439664334?fref=ts"/>
+    <tag k="contact:phone" v="+34 682158011"/>
+    <tag k="contact:website" v="http://www.alberguelasalle.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Turístico La Salle"/>
+    <tag k="opening_hours" v="Feb 01-Dec 22"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="2553661633" lat="42.8808160" lon="-8.5424163">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa do Preguntoiro"/>
+    <tag k="beds" v="62"/>
+    <tag k="contact:email" v="info@thelaststamp.es"/>
+    <tag k="contact:fax" v="+34 981587443"/>
+    <tag k="contact:phone" v="+34 981563525"/>
+    <tag k="contact:website" v="http://www.thelaststamp.es/en"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue The Last Stamp"/>
+    <tag k="opening_hours" v="Jan 16-Dec 14"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2598587758" lat="42.8796465" lon="-8.5500967">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa do Campo do Cruceiro do Gaio"/>
+    <tag k="beds" v="48"/>
+    <tag k="contact:email" v="info@rootsandboots.es"/>
+    <tag k="contact:phone" v="+34 699631594"/>
+    <tag k="contact:website" v="http://www.rootsandboots.es/en/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Roots &amp; Boots"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2598611555" lat="42.8811992" lon="-8.5435401">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="15"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa da Acibechería"/>
+    <tag k="beds" v="20"/>
+    <tag k="contact:email" v="azabachehostel@yahoo.es"/>
+    <tag k="contact:phone" v="+34 981071254"/>
+    <tag k="contact:website" v="http://www.azabache-santiago.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Azabache"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2598616020" lat="42.8833122" lon="-8.5340601">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="36-38"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa dos Concheiros"/>
+    <tag k="beds" v="24"/>
+    <tag k="contact:email" v="info@laestrelladesantiago.es"/>
+    <tag k="contact:phone" v="+34 881973926; +34 617882529"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue La Estrella de Santiago"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2627367668" lat="42.8866935" lon="-8.5259351">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15707"/>
+    <tag k="addr:street" v="Rúa de Estocolmo"/>
+    <tag k="beds" v="60"/>
+    <tag k="contact:email" v="reservas@acuariosantiago.com"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/albergue.acuario"/>
+    <tag k="contact:phone" v="+34 981575438"/>
+    <tag k="contact:website" v="http://www.acuariosantiago.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Acuario"/>
+    <tag k="opening_hours" v="09:00-24:00"/>
+    <tag k="operator" v="Ara (Asociación Xacobea Acuario)"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="2962642269" lat="42.8729351" lon="-8.5448864">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="106"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Hórreo"/>
+    <tag k="contact:email" v="info@hotelsancarlos.net"/>
+    <tag k="contact:fax" v="+34 981560506"/>
+    <tag k="contact:phone" v="+34 981560505"/>
+    <tag k="contact:website" v="http://www.hotelsancarlos.net/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel San Carlos"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="31"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="3072285576" lat="42.8821560" lon="-8.5344449">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="11"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa dos Concheiros"/>
+    <tag k="beds" v="24"/>
+    <tag k="contact:email" v="reservas@albergueportareal.es"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/albergue.portareal"/>
+    <tag k="contact:phone" v="+34 633610114"/>
+    <tag k="contact:website" v="http://www.albergueportareal.es/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Porta Real"/>
+    <tag k="opening_hours" v="08:30"/>
+    <tag k="operator" v="private"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="3072387524" lat="42.8685726" lon="-8.5456074">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="14"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa de Xoana Nogueira"/>
+    <tag k="beds" v="24"/>
+    <tag k="contact:email" v="info@alberguelaestacion.com"/>
+    <tag k="contact:phone" v="+34 981594624; +34 639228617"/>
+    <tag k="contact:website" v="http://www.alberguelaestacion.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue La Estación"/>
+    <tag k="opening_hours" v="7:00+"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="2"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="3260094761" lat="42.8810088" lon="-8.5334149">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="213"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Avenida de Lugo"/>
+    <tag k="contact:email" v="recepcion@hotelciudaddecompostela.com"/>
+    <tag k="contact:phone" v="+34 981569320"/>
+    <tag k="contact:website" v="http://www.hotelciudaddecompostela.com/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel Ciudad de Compostela"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="30"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="3312401494" lat="42.8871219" lon="-8.5261662">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa do Valiño"/>
+    <tag k="contact:email" v="correo@hotelsanlazaro.es"/>
+    <tag k="contact:phone" v="+34 981584344"/>
+    <tag k="contact:website" v="http://www.hotelsanlazaro.es/"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hotel San Lázaro"/>
+    <tag k="operator" v="private"/>
+    <tag k="rooms" v="31"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="3615100874" lat="42.8819206" lon="-8.5404728">
+    <tag k="name" v="Casas Reais"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="4138058705" lat="42.8806674" lon="-8.5417387">
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:street" v="Praza da Pescadería Vella"/>
+    <tag k="name" v="Hospederia Tarela"/>
+    <tag k="tourism" v="guest_house"/>
+    <tag k="website" v="http://www.atabernadotarela.es"/>
+  </node>
+  <node id="4138769012" lat="42.8828780" lon="-8.5421967">
+    <tag k="addr:housenumber" v="44"/>
+    <tag k="addr:street" v="Rúa da Algalia de Arriba"/>
+    <tag k="name" v="ATALAIA BB"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="4199546389" lat="42.8860562" lon="-8.5295017">
+    <tag k="addr:housenumber" v="65. Bajo"/>
+    <tag k="addr:street" v="Rúa das Fontiñas"/>
+    <tag k="email" v="rstmonterrey@gmail.com"/>
+    <tag k="name" v="albergue monterrey"/>
+    <tag k="phone" v="+34 981587557;+34 655484299"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="website" v="www.alberguemonterrey.es"/>
+  </node>
+  <node id="4211504689" lat="42.8931592" lon="-8.5096827">
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:street" v="Rúa do Picón"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/o.trisquel.albergue"/>
+    <tag k="email" v="informatrisquel@gmail.com"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="opening_hours" v="Mo-Su 11:00-11:00, 23:00-23:00"/>
+    <tag k="phone" v="+34 616 644 740"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="4216442891" lat="42.8838953" lon="-8.5426432">
+    <tag k="name" v="Altair Hotel"/>
+    <tag k="phone" v="+34 981 55 47 12"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="website" v="https://www.altairhotel.net/"/>
+  </node>
+  <node id="4225629894" lat="42.8760677" lon="-8.5441995">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="22"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Hórreo"/>
+    <tag k="contact:email" v="pensionmafer@compostelawelcome.com"/>
+    <tag k="contact:phone" v="+34 981 58 43 22"/>
+    <tag k="contact:website" v="https://www.compostelawelcome.com/mafer/es/"/>
+    <tag k="name" v="Pensión Mafer"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="4225629895" lat="42.8761757" lon="-8.5438801">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="contact:website" v="http://www.fornossantiago.com/"/>
+    <tag k="name" v="Residencia Fornos"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="4225629896" lat="42.8768966" lon="-8.5439520">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa do Hórreo"/>
+    <tag k="contact:phone" v="+34 981 585 700"/>
+    <tag k="contact:website" v="http://www.hotelcompostela.es/en/"/>
+    <tag k="name" v="Hotel Compostela"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="4225629898" lat="42.8770525" lon="-8.5443055">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:street" v="Entremurallas"/>
+    <tag k="contact:phone" v="+34 981 58 01 24"/>
+    <tag k="contact:website" v="http://www.mapoula.com/"/>
+    <tag k="name" v="Hostal Mapoula"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="4225655817" lat="42.8805360" lon="-8.5415116">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="18"/>
+    <tag k="addr:street" v="Rúa de Altamira"/>
+    <tag k="contact:email" v="reservas@pazodealtamira.com"/>
+    <tag k="contact:phone" v="+34 981558542"/>
+    <tag k="contact:website" v="http://www.pazodealtamira.com/"/>
+    <tag k="name" v="Pazo de Altamira"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="4225706401" lat="42.8796080" lon="-8.5449762">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Praza de Fonseca"/>
+    <tag k="contact:email" v="info@libredon.com"/>
+    <tag k="contact:phone" v="+34 981 57 65 20"/>
+    <tag k="contact:website" v="http://www.libredon.com/"/>
+    <tag k="name" v="Libredón"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="4225706411" lat="42.8785248" lon="-8.5475966">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="28"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="contact:email" v="sclemente@pousadasdecompostela.com"/>
+    <tag k="contact:phone" v="+34 981 569 350"/>
+    <tag k="contact:website" v="http://www.pousadasdecompostela.com/reservas/alojamientos/hotel-san-clemente"/>
+    <tag k="name" v="Hotel San Clemente"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="4225978952" lat="42.8791681" lon="-8.5408734">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="27"/>
+    <tag k="addr:street" v="Rúa da Virxe da Cerca"/>
+    <tag k="contact:email" v="vdacerca@pousadasdecompostela.com"/>
+    <tag k="contact:phone" v="+34 981 569 350"/>
+    <tag k="contact:website" v="http://www.pousadasdecompostela.com/reservas/alojamientos/hotel-virxe-da-cerca"/>
+    <tag k="name" v="Hotel Virxe de Cerca"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="4225987392" lat="42.8773539" lon="-8.5427991">
+    <tag k="addr:city" v="Santiago De Compostela"/>
+    <tag k="name" v="Hotel Avenida"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="4226501039" lat="42.8770917" lon="-8.5438255">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa da Fonte de Santo Antonio"/>
+    <tag k="name" v="Residencia Hedrass"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="4386841298" lat="42.8722462" lon="-8.5480275">
+    <tag k="addr:housenumber" v="28"/>
+    <tag k="addr:street" v="Rúa de San Pedro de Mezonzo"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue Compostela"/>
+    <tag k="phone" v="+34628306556"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="4758397821" lat="42.8818788" lon="-8.5486802">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="30"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa das Galeras"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Albergue Blanco"/>
+    <tag k="phone" v="+34 8 8197 6850"/>
+    <tag k="rooms" v="20"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="4758485530" lat="42.8863101" lon="-8.5284245">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="65"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa das Fontiñas"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Albergue Monterrey"/>
+    <tag k="phone" v="+34 8 8112 5093"/>
+    <tag k="rooms" v="36"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="website" v="http://alberguemonterrey.es/"/>
+  </node>
+  <node id="4773459313" lat="42.8871610" lon="-8.5393085">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="45"/>
+    <tag k="addr:street" v="Rúa dos Basquiños"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Albergue Basquinos 45"/>
+    <tag k="phone" v="+34 6 6189 4536"/>
+    <tag k="rooms" v="10"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="5007894467" lat="42.8781583" lon="-8.5425815">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Praza de Mazarelos"/>
+    <tag k="name" v="Pensión Vía-Stella"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5041666126" lat="42.8786860" lon="-8.5450148">
+    <tag k="addr:housenumber" v="38 - 36"/>
+    <tag k="addr:street" v="Rúa da Raíña"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Albergue guest house"/>
+    <tag k="name:en" v="Guesthouse Hostel - run by Maria"/>
+    <tag k="name:es" v="Albergue guest house"/>
+    <tag k="operator" v="Maria's shop, 80 Rua de Villar"/>
+    <tag k="phone" v="+34630058885"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="5223426278" lat="42.8795768" lon="-8.5443579">
+    <tag k="name" v="Hotel Rua Villar"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5223426279" lat="42.8796180" lon="-8.5428330">
+    <tag k="name" v="Hotel Montenegro"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5223426282" lat="42.8795920" lon="-8.5434426">
+    <tag k="name" v="Pension Rua Nova"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="5599933976" lat="42.8816571" lon="-8.5413878">
+    <tag k="name" v="Vía Aetcal"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5600318512" lat="42.8836318" lon="-8.5428541">
+    <tag k="name" v="moure"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5600720659" lat="42.8791213" lon="-8.5443118">
+    <tag k="name" v="Hotel Airas Nunes"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5602325371" lat="42.8756953" lon="-8.5450583">
+    <tag k="name" v="Lux"/>
+    <tag k="stars" v="3"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5602878976" lat="42.8890670" lon="-8.5467830">
+    <tag k="addr:housenumber" v="46"/>
+    <tag k="name" v="Artilleiro"/>
+    <tag k="tourism" v="guest_house"/>
+  </node>
+  <node id="5775911316" lat="42.8841838" lon="-8.5449122">
+    <tag k="name" v="Albergue de Peregrinos Franciscanos del Camino DONATIVO"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="6434225128" lat="42.8851845" lon="-8.5327765">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2c"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rua Fonte dos Concheiros"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Hostel SCQ"/>
+    <tag k="phone" v="+34 622 03 73 00"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="6499965064" lat="42.8836109" lon="-8.5339802">
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Albergue El Viejo Quijote"/>
+    <tag k="phone" v="+34 631 649 910"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="6592082585" lat="42.8848843" lon="-8.5331944">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2A"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rua da Fonte dos Concheiros"/>
+    <tag k="addr:unit" v="Bajos"/>
+    <tag k="description" v="Pilgrims Hostel at Santiago de Compostela"/>
+    <tag k="email" v="albergue@sixtosnocaminho.com"/>
+    <tag k="guest_house" v="Pilgrims_Hostel"/>
+    <tag k="internet_access" v="yes"/>
+    <tag k="internet_access:fee" v="yes"/>
+    <tag k="name" v="SIXTOS Hostel"/>
+    <tag k="operator" v="SIXTOs Hosteleria y Turismo SL"/>
+    <tag k="payment:american_express" v="yes"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="payment:diners_club" v="yes"/>
+    <tag k="payment:discover_card" v="yes"/>
+    <tag k="payment:jcb" v="yes"/>
+    <tag k="payment:mastercard" v="yes"/>
+    <tag k="payment:visa" v="yes"/>
+    <tag k="phone" v="+34881024195"/>
+    <tag k="reservation" v="recommended"/>
+    <tag k="rooms" v="42"/>
+    <tag k="start_date" v="2019-07-11"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="website" v="https://www.alberguesixtos.com"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="6609802063" lat="42.8874038" lon="-8.5389273">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="67"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa dos Basquiños"/>
+    <tag k="name" v="Meiga Backpackers"/>
+    <tag k="phone" v="+34 981 57 08 46"/>
+    <tag k="tourism" v="hostel"/>
+    <tag k="website" v="http://www.meiga-backpackers.es/"/>
+  </node>
+  <node id="6709456958" lat="42.8874563" lon="-8.5289364">
+    <tag k="addr:housenumber" v="29"/>
+    <tag k="addr:street" v="Rúa do Monte dos Postes"/>
+    <tag k="name" v="Hotel Capital de Galicia"/>
+    <tag k="phone" v="+34981561921"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="website" v="http://www.hotelcapitaldegalicia.com/"/>
+  </node>
+  <node id="6800098285" lat="42.8865560" lon="-8.5162251">
+    <tag k="name:en" v="Dream in Santiago"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="7091843518" lat="42.8945255" lon="-8.5336320">
+    <tag k="power_supply" v="no"/>
+    <tag k="sanitary_dump_station" v="yes"/>
+    <tag k="tourism" v="caravan_site"/>
+  </node>
+  <node id="7240635018" lat="42.8797098" lon="-8.5407146">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="27"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa da Virxe da Cerca"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Virxe da Cerca"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="7837751885" lat="42.8945675" lon="-8.5333645">
+    <tag k="capacity" v="60"/>
+    <tag k="fee" v="yes"/>
+    <tag k="internet_access" v="no"/>
+    <tag k="opening_hours" v="8:00 - 20:00"/>
+    <tag k="power_supply" v="no"/>
+    <tag k="sanitary_dump_station" v="yes"/>
+    <tag k="survey:date" v="2020-08-23"/>
+    <tag k="tourism" v="caravan_site"/>
+  </node>
+
+</osm>

@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-05-06T12:08:43Z"/>
+
+  <node id="766297584" lat="42.8785698" lon="-8.5486770">
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="766297586" lat="42.8783170" lon="-8.5483393">
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="766480393" lat="42.8892500" lon="-8.4937967">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="913958016" lat="42.8983017" lon="-8.5647956">
+    <tag k="name" v="Miradoiro do Pedroso"/>
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="913958023" lat="42.8873300" lon="-8.5667902">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="958919830" lat="42.8645532" lon="-8.5431911">
+    <tag k="leisure" v="playground"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1123463957" lat="42.8860273" lon="-8.5366235">
+    <tag k="name" v="Miradoiro do Monte da Almáciga"/>
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="1314336632" lat="42.8627008" lon="-8.5557985">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="1458195965" lat="42.8692868" lon="-8.5557246">
+    <tag k="leisure" v="playground"/>
+  </node>
+  <node id="1584071445" lat="42.8847810" lon="-8.4955308">
+    <tag k="name" v="Miradoiro á Catedral"/>
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="1661165690" lat="42.8973239" lon="-8.5419049">
+    <tag k="name" v="Miradoiro do Monte de Deus"/>
+    <tag k="name:es" v="Mirador del Monte de Dios"/>
+    <tag k="name:gl" v="Miradoiro do Monte de Deus"/>
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="1759876253" lat="42.8983619" lon="-8.5408687">
+    <tag k="name" v="Miradoiro do Monte de Deus"/>
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="2286932718" lat="42.8889474" lon="-8.5711103">
+    <tag k="source" v="GPS"/>
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="2596661779" lat="42.8657271" lon="-8.5632576">
+    <tag k="leisure" v="sports_centre"/>
+    <tag k="name" v="CAMM Fitness &amp; Fight"/>
+  </node>
+  <node id="3736724751" lat="42.8767275" lon="-8.5433858">
+    <tag k="amenity" v="nightclub"/>
+    <tag k="name" v="Sala Capitol"/>
+  </node>
+  <node id="3736724752" lat="42.8766217" lon="-8.5432929">
+    <tag k="amenity" v="cinema"/>
+    <tag k="email" v="info@numax.org"/>
+    <tag k="name" v="Numax"/>
+    <tag k="phone" v="+34 981560250"/>
+    <tag k="website" v="https://numax.org/"/>
+  </node>
+  <node id="3917644955" lat="42.8784238" lon="-8.5438043">
+    <tag k="amenity" v="theatre"/>
+    <tag k="name" v="Salón Teatro"/>
+  </node>
+  <node id="3950304239" lat="42.8855909" lon="-8.5368222">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="3950304240" lat="42.8856176" lon="-8.5368203">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="4220195426" lat="42.8882752" lon="-8.5236183">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="4235382947" lat="42.8860597" lon="-8.5501187">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="4333713810" lat="42.8721683" lon="-8.5272734">
+    <tag k="leisure" v="playground"/>
+    <tag k="name" v="Parque da Balea"/>
+  </node>
+  <node id="4335283989" lat="42.8820325" lon="-8.5237500">
+    <tag k="tourism" v="picnic_site"/>
+  </node>
+  <node id="4361258667" lat="42.8610450" lon="-8.5395497">
+    <tag k="leisure" v="playground"/>
+  </node>
+  <node id="4365449502" lat="42.8697727" lon="-8.5292365">
+    <tag k="leisure" v="garden"/>
+    <tag k="name" v="Xardín Literario"/>
+  </node>
+  <node id="4365449521" lat="42.8741937" lon="-8.5275977">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="4396064915" lat="42.8729712" lon="-8.5479107">
+    <tag k="amenity" v="nightclub"/>
+    <tag k="name" v="Gabanna"/>
+  </node>
+  <node id="4489360707" lat="42.8736482" lon="-8.5440947">
+    <tag k="amenity" v="cinema"/>
+    <tag k="email" v="multicinescompostela@gmail.com"/>
+    <tag k="name" v="Multicines Compostela"/>
+    <tag k="phone" v="+34 881018467"/>
+    <tag k="website" v="http://multicinescompostela.es/"/>
+  </node>
+  <node id="4696009061" lat="42.8783587" lon="-8.5377450">
+    <tag k="name" v="Miradoiro de Belvís"/>
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="4702371512" lat="42.8701358" lon="-8.5297240">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="4705687385" lat="42.8949840" lon="-8.5607407">
+    <tag k="tourism" v="picnic_site"/>
+  </node>
+  <node id="4705694206" lat="42.8889047" lon="-8.5666487">
+    <tag k="tourism" v="picnic_site"/>
+  </node>
+  <node id="4774721108" lat="42.8759942" lon="-8.5547896">
+    <tag k="amenity" v="theatre"/>
+    <tag k="name" v="Sala Roberto Vida Bolaño"/>
+  </node>
+  <node id="4828478931" lat="42.8816521" lon="-8.5243144">
+    <tag k="name" v="Miradoiro das Fontiñas"/>
+    <tag k="old_name" v="Alto da Canteira"/>
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="4828479341" lat="42.8832274" lon="-8.5233770">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="4902869223" lat="42.8720835" lon="-8.5499884">
+    <tag k="amenity" v="nightclub"/>
+    <tag k="name" v="Moon"/>
+  </node>
+  <node id="4962250830" lat="42.8831630" lon="-8.5281387">
+    <tag k="leisure" v="amusement_arcade"/>
+    <tag k="name" v="Ermasa"/>
+    <tag k="name:es" v="Ermasa"/>
+  </node>
+  <node id="4962250836" lat="42.8824929" lon="-8.5269848">
+    <tag k="leisure" v="amusement_arcade"/>
+    <tag k="name" v="Maex 24"/>
+    <tag k="name:es" v="Maex 24"/>
+  </node>
+  <node id="5104943581" lat="42.8841958" lon="-8.5303032">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5104943582" lat="42.8841731" lon="-8.5301928">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5104943583" lat="42.8841828" lon="-8.5303783">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5104943584" lat="42.8841550" lon="-8.5303248">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125158997" lat="42.8734161" lon="-8.5433071">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125158998" lat="42.8734176" lon="-8.5432528">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125158999" lat="42.8734166" lon="-8.5431958">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159000" lat="42.8734176" lon="-8.5431314">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159001" lat="42.8734127" lon="-8.5430677">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159002" lat="42.8733916" lon="-8.5430080">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159003" lat="42.8733704" lon="-8.5429591">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159004" lat="42.8733557" lon="-8.5429048">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159011" lat="42.8724299" lon="-8.5427962">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159012" lat="42.8724240" lon="-8.5428525">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159013" lat="42.8724112" lon="-8.5429128">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159014" lat="42.8723984" lon="-8.5429745">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159015" lat="42.8723768" lon="-8.5430355">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159016" lat="42.8723502" lon="-8.5430932">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159017" lat="42.8723404" lon="-8.5431596">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159018" lat="42.8723242" lon="-8.5432159">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5125159019" lat="42.8723129" lon="-8.5432796">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="5463925639" lat="42.8778530" lon="-8.5478204">
+    <tag k="tourism" v="viewpoint"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="6015969029" lat="42.8863389" lon="-8.5407119">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="21"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Santa Clara"/>
+    <tag k="amenity" v="cinema"/>
+    <tag k="description" v="Cineclube pertencente á Federación de Cineclubes de Galicia «Feciga» www.cineclubes.gal"/>
+    <tag k="email" v="cineclubedecompostela@gmail.com"/>
+    <tag k="name" v="Cineclube Compostela"/>
+    <tag k="note" v="Local social: A Gentalha do Pichel rúa Santa Clara 21 - 15704 Santiago de Compostela (A Coruña)"/>
+    <tag k="opening_hours" v="Mércores 21:30 h. (UTC+2)"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="payment:coins" v="yes"/>
+    <tag k="website" v="http://cineclubes.gal/Cineclubes/A-Corunha/Compostela.html"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="6365684431" lat="42.8705037" lon="-8.5538302">
+    <tag k="dance:teaching" v="yes"/>
+    <tag k="leisure" v="dance"/>
+    <tag k="name" v="Sondanza"/>
+  </node>
+  <node id="6416387712" lat="42.8706155" lon="-8.5268229">
+    <tag k="leisure" v="garden"/>
+    <tag k="name" v="Xardín do Teatro"/>
+  </node>
+  <node id="6416387727" lat="42.8705250" lon="-8.5272365">
+    <tag k="leisure" v="pitch"/>
+    <tag k="sport" v="skateboard"/>
+  </node>
+  <node id="6542332540" lat="42.8794195" lon="-8.5279491">
+    <tag k="tourism" v="picnic_site"/>
+  </node>
+  <node id="6547708472" lat="42.8653460" lon="-8.5555860">
+    <tag k="leisure" v="dance"/>
+    <tag k="name" v="Balancé"/>
+  </node>
+  <node id="6763614744" lat="42.8689460" lon="-8.5561677">
+    <tag k="leisure" v="picnic_table"/>
+  </node>
+  <node id="6766990064" lat="42.8715432" lon="-8.5524881">
+    <tag k="dance:teaching" v="yes"/>
+    <tag k="leisure" v="dance"/>
+    <tag k="name" v="Emocionia"/>
+  </node>
+  <node id="6794805860" lat="42.8750706" lon="-8.5363123">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="8176939473" lat="42.8912285" lon="-8.5596371">
+    <tag k="tourism" v="viewpoint"/>
+  </node>
+  <node id="8262993452" lat="42.8704110" lon="-8.5198572">
+    <tag k="tourism" v="picnic_site"/>
+  </node>
+
+</osm>

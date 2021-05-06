@@ -1,0 +1,2612 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-05-06T12:16:58Z"/>
+
+  <node id="468385331" lat="42.8870426" lon="-8.4981483">
+    <tag k="amenity" v="pub"/>
+  </node>
+  <node id="468385761" lat="42.8875835" lon="-8.4984487">
+    <tag k="amenity" v="restaurant"/>
+  </node>
+  <node id="495953872" lat="42.8902092" lon="-8.4924309">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café Bar La Chisca"/>
+    <tag k="shop" v="convenience"/>
+  </node>
+  <node id="764235683" lat="42.8743320" lon="-8.5490064">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Milay"/>
+  </node>
+  <node id="764235684" lat="42.8742184" lon="-8.5490762">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="DJ"/>
+  </node>
+  <node id="764235709" lat="42.8753407" lon="-8.5494715">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Asador Castellano"/>
+  </node>
+  <node id="764905826" lat="42.8714648" lon="-8.5498680">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Landeira"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="764915117" lat="42.8798299" lon="-8.5428903">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A Curtidoría"/>
+    <tag k="opening_hours" v="Mo-Fr 11:30-17:00,19:45-24:00; Sa 12:00-17:00,20:30-24:00; Su 12:00-17:00"/>
+    <tag k="website" v="https://www.acurtidoria.com/"/>
+  </node>
+  <node id="764935479" lat="42.8780935" lon="-8.5461055">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Garoa"/>
+  </node>
+  <node id="764942058" lat="42.8714911" lon="-8.5484036">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="chinese"/>
+    <tag k="name" v="Palacio Oriental"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="766297320" lat="42.8749344" lon="-8.5501404">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Central Park"/>
+  </node>
+  <node id="766297325" lat="42.8745069" lon="-8.5506535">
+    <tag k="amenity" v="bar"/>
+    <tag k="cuisine" v="burger"/>
+    <tag k="name" v="The Burger Lobby"/>
+  </node>
+  <node id="766472780" lat="42.8782133" lon="-8.5578611">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Pazo de San Lorenzo"/>
+  </node>
+  <node id="766480257" lat="42.8871810" lon="-8.4982256">
+    <tag k="amenity" v="fast_food"/>
+  </node>
+  <node id="766499622" lat="42.8816771" lon="-8.5394185">
+    <tag k="addr:housenumber" v="16"/>
+    <tag k="addr:street" v="Rúa de San Pedro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="diet:vegan" v="no"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="Casa de Xantar O Dezaseis"/>
+    <tag k="note" v="very nice cuisine, very fair price"/>
+  </node>
+  <node id="772403742" lat="42.8810351" lon="-8.5461290">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante dos Reis Católicos"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="828077587" lat="42.8837809" lon="-8.5419788">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="La Bodeguilla de San Roque"/>
+  </node>
+  <node id="844538552" lat="42.8709816" lon="-8.5575848">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="name" v="Bocalino"/>
+  </node>
+  <node id="853675872" lat="42.8895590" lon="-8.4942658">
+    <tag k="amenity" v="pub"/>
+  </node>
+  <node id="857481223" lat="42.8921804" lon="-8.4901211">
+    <tag k="addr:street" v="Avenida de San Marcos"/>
+    <tag k="amenity" v="restaurant"/>
+  </node>
+  <node id="1021091615" lat="42.9048196" lon="-8.5270066">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Bar Miro"/>
+  </node>
+  <node id="1021091892" lat="42.9042430" lon="-8.5272976">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Bar Adega Bello"/>
+  </node>
+  <node id="1157377400" lat="42.8685913" lon="-8.5627072">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante Ferro"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1157377531" lat="42.8700654" lon="-8.5635809">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Restaurante Mera"/>
+  </node>
+  <node id="1158342003" lat="42.8701544" lon="-8.5632896">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Buxos"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1227982024" lat="42.8744044" lon="-8.5445072">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="49"/>
+    <tag k="addr:street" v="Rúa do Hórreo"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="coffee_shop,regional,pizza,burguer..."/>
+    <tag k="name" v="Senda 49"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="1227990514" lat="42.8719276" lon="-8.5445284">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Ponte Seca"/>
+  </node>
+  <node id="1227994988" lat="42.8715150" lon="-8.5446621">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Cantón"/>
+  </node>
+  <node id="1228005539" lat="42.8708680" lon="-8.5445040">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Medas"/>
+  </node>
+  <node id="1246881580" lat="42.8735564" lon="-8.5525628">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Capri"/>
+  </node>
+  <node id="1265045304" lat="42.8743283" lon="-8.5502915">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Montoto"/>
+  </node>
+  <node id="1265054522" lat="42.8745884" lon="-8.5483488">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="La Cava de St. James"/>
+  </node>
+  <node id="1265062726" lat="42.8744600" lon="-8.5459110">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Lido"/>
+  </node>
+  <node id="1274374508" lat="42.8742291" lon="-8.5515384">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Raíces Galegas"/>
+  </node>
+  <node id="1274377441" lat="42.8744344" lon="-8.5511368">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="L'Incontro"/>
+  </node>
+  <node id="1274378085" lat="42.8743523" lon="-8.5512780">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Tío Gilito"/>
+  </node>
+  <node id="1274379447" lat="42.8743155" lon="-8.5509413">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Góndola I"/>
+  </node>
+  <node id="1274380676" lat="42.8745351" lon="-8.5509548">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="kebab"/>
+    <tag k="name" v="Newroz Döner Kebap"/>
+  </node>
+  <node id="1350293394" lat="42.8866416" lon="-8.5143714">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="La Finca"/>
+  </node>
+  <node id="1393613380" lat="42.8759559" lon="-8.5395200">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar Olvido"/>
+  </node>
+  <node id="1439171242" lat="42.8813905" lon="-8.5295649">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Bodega Directa.com"/>
+  </node>
+  <node id="1440124862" lat="42.8803898" lon="-8.5497187">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="A Tertulia"/>
+  </node>
+  <node id="1446848745" lat="42.8732826" lon="-8.5529660">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="El Campus"/>
+  </node>
+  <node id="1446849680" lat="42.8733286" lon="-8.5529179">
+    <tag k="addr:country" v="ES"/>
+    <tag k="name" v="Mario"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="1463032217" lat="42.8933030" lon="-8.5255163">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Restaurante O Faladoiro"/>
+  </node>
+  <node id="1469741123" lat="42.8921043" lon="-8.4881339">
+    <tag k="addr:street" v="Avenida San Marcos"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Raxería San Marcos"/>
+  </node>
+  <node id="1471385234" lat="42.8696917" lon="-8.5589072">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Restaurante O Xantar"/>
+  </node>
+  <node id="1483624844" lat="42.8706400" lon="-8.5449370">
+    <tag k="name" v="Don Lambón"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="1498839061" lat="42.8736130" lon="-8.5515010">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="name" v="O Bocadiño"/>
+  </node>
+  <node id="1498851961" lat="42.8732053" lon="-8.5464507">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Rosaleda"/>
+  </node>
+  <node id="1588444612" lat="42.8748759" lon="-8.5504690">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="El 10"/>
+  </node>
+  <node id="1588444717" lat="42.8749615" lon="-8.5503475">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Boca a boca"/>
+  </node>
+  <node id="1588445369" lat="42.8750231" lon="-8.5502541">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O' Xeitoso"/>
+  </node>
+  <node id="1604233605" lat="42.8930225" lon="-8.5430673">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Bar Nariño"/>
+  </node>
+  <node id="1627066458" lat="42.8740417" lon="-8.5523709">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:floor" v="Bajo"/>
+    <tag k="addr:housenumber" v="76"/>
+    <tag k="addr:street" v="Avenida de Rosalía de Castro"/>
+    <tag k="name" v="San Luís"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="1627068583" lat="42.8741059" lon="-8.5520568">
+    <tag k="addr:street" v="Rúa de Rosalia de Castro"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="description" v="Restaurante de comida turca: Kebaps"/>
+    <tag k="name" v="Alibaba"/>
+  </node>
+  <node id="1627072419" lat="42.8741600" lon="-8.5518900">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Royca"/>
+  </node>
+  <node id="1630255130" lat="42.8726924" lon="-8.5538033">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Masterpool"/>
+  </node>
+  <node id="1630265022" lat="42.8725405" lon="-8.5544648">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="126"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Avenida de Rosalía de Castro"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Fresh Pizza"/>
+    <tag k="website" v="http://www.freshpizzasantiago.es/"/>
+  </node>
+  <node id="1636719423" lat="42.8759080" lon="-8.5440810">
+    <tag k="addr:country" v="ES"/>
+    <tag k="name" v="O Hórreo"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="1636721205" lat="42.8755355" lon="-8.5439247">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Alabama"/>
+  </node>
+  <node id="1645682953" lat="42.8735104" lon="-8.5503149">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Estudio 34"/>
+  </node>
+  <node id="1645685067" lat="42.8736796" lon="-8.5504433">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa Frei Rosendo Salvado"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="italian"/>
+    <tag k="name" v="La Tagliatella"/>
+    <tag k="phone" v="+34 881 939822"/>
+    <tag k="url" v="http://www.latagliatella.es/restaurantes/latagliatella-santiagode-compostela-frayrosendosalvado/"/>
+  </node>
+  <node id="1645686377" lat="42.8734391" lon="-8.5506486">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa Frei Rosendo Salvado"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Triskel"/>
+    <tag k="old_name" v="Gambrinus Compostela"/>
+  </node>
+  <node id="1645704176" lat="42.8712721" lon="-8.5485117">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Demarela"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="1656108245" lat="42.8706200" lon="-8.5465430">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Lúa"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1696898442" lat="42.8644820" lon="-8.5555203">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Casa Pajueleira"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1698673675" lat="42.8778354" lon="-8.5446078">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="diet:vegan" v="yes"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="A Tulla"/>
+  </node>
+  <node id="1765306675" lat="42.8738697" lon="-8.5492609">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Góndola 2"/>
+  </node>
+  <node id="1765435028" lat="42.8822569" lon="-8.5429017">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Restaurante Broa"/>
+  </node>
+  <node id="1769911227" lat="42.8750290" lon="-8.5477038">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Liberty"/>
+  </node>
+  <node id="1769915270" lat="42.8750213" lon="-8.5474761">
+    <tag k="addr:country" v="ES"/>
+    <tag k="name" v="Herrma"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="1775997272" lat="42.8716212" lon="-8.5577028">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Praza de Pascual Veiga"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="name" v="Carpanta"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1779502843" lat="42.8806517" lon="-8.5422521">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="17"/>
+    <tag k="addr:street" v="Rúa do Preguntoiro"/>
+    <tag k="name" v="rainbow"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="1779503689" lat="42.8805502" lon="-8.5423495">
+    <tag k="addr:country" v="ES"/>
+    <tag k="name" v="A tafona do Preguntoiro"/>
+    <tag k="shop" v="bakery"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1779504621" lat="42.8805600" lon="-8.5418490">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Cabalo branco"/>
+  </node>
+  <node id="1779862821" lat="42.8826560" lon="-8.5421790">
+    <tag k="addr:street" v="Praciña da Algalia de Arriba"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Garigolo"/>
+  </node>
+  <node id="1789641097" lat="42.8708320" lon="-8.5494214">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Zocas"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="1849974010" lat="42.8811126" lon="-8.5428219">
+    <tag k="addr:street" v="Azabachería"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="coffee_shop"/>
+    <tag k="name" v="A Gramola"/>
+  </node>
+  <node id="1849977946" lat="42.8819190" lon="-8.5436618">
+    <tag k="addr:street" v="A Troia"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bodega da Troia"/>
+  </node>
+  <node id="1849978239" lat="42.8816197" lon="-8.5432913">
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa da Troia"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="tapas"/>
+    <tag k="name" v="Bierzo Enxebre"/>
+    <tag k="opening_hours" v="Mo-Su 13:00-16:00, 20:00-23:30"/>
+    <tag k="phone" v="+34 981 58 19 09"/>
+    <tag k="website" v="http://www.bierzoenxebre.es/"/>
+  </node>
+  <node id="1849980594" lat="42.8832244" lon="-8.5433659">
+    <tag k="addr:housenumber" v="17"/>
+    <tag k="addr:street" v="Rúa da Porta da Pena"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Costa Vella"/>
+  </node>
+  <node id="1888593150" lat="42.8706799" lon="-8.5635630">
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Rua Sempre en Galiza"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="crepería"/>
+    <tag k="name" v="Fraîche"/>
+    <tag k="opening_hours" v="09:00-22:30"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1888626406" lat="42.8702615" lon="-8.5628973">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="O recuncho do Clinico"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1940182864" lat="42.8819678" lon="-8.5418222">
+    <tag k="addr:street" v="Praza de Salvador Parga"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/medusa.compostela?fref=ts"/>
+    <tag k="name" v="Medusa"/>
+  </node>
+  <node id="2201784617" lat="42.8738252" lon="-8.5516598">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Pizza Móvil"/>
+    <tag k="brand:wikidata" v="Q12397697"/>
+    <tag k="brand:wikipedia" v="gl:Pizza Móvil"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Pizza Móvil"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="2201789186" lat="42.8737328" lon="-8.5515711">
+    <tag k="addr:country" v="ES"/>
+    <tag k="name" v="La Estrella"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="2201797676" lat="42.8705146" lon="-8.5491997">
+    <tag k="addr:country" v="ES"/>
+    <tag k="name" v="La Esperanza"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="2201801634" lat="42.8702363" lon="-8.5472796">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="El Colmadón"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="2279371062" lat="42.8802043" lon="-8.5425515">
+    <tag k="addr:housenumber" v="22"/>
+    <tag k="addr:street" v="Rúa de San Paio de Antealtares"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="A Borriquita de Belém"/>
+    <tag k="website" v="http://borriquitadebelem.blogspot.com.es/"/>
+  </node>
+  <node id="2289679875" lat="42.8924580" lon="-8.5814926">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O Chuletón"/>
+  </node>
+  <node id="2289680119" lat="42.8893374" lon="-8.5813853">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="A Chancela"/>
+  </node>
+  <node id="2296471466" lat="42.8695539" lon="-8.5740137">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A Nave De Vidán"/>
+  </node>
+  <node id="2413749287" lat="42.8866164" lon="-8.5525746">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Os Manolos"/>
+  </node>
+  <node id="2421843484" lat="42.8868168" lon="-8.5344316">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Milenio"/>
+  </node>
+  <node id="2429952648" lat="42.8927104" lon="-8.5084716">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Casa Mallou"/>
+  </node>
+  <node id="2489137964" lat="42.8833039" lon="-8.5427110">
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:street" v="Rúa do Hospitaliño"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar La Pastilla Roja"/>
+    <tag k="payment:bitcoin" v="yes"/>
+  </node>
+  <node id="2543286486" lat="42.8727882" lon="-8.5555779">
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="A Parada"/>
+  </node>
+  <node id="2605456218" lat="42.8868102" lon="-8.5383706">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="A Barraca"/>
+  </node>
+  <node id="2605456226" lat="42.8870107" lon="-8.5380010">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Mesón O Ribeiro"/>
+  </node>
+  <node id="2657494074" lat="42.8798977" lon="-8.5429899">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="6"/>
+    <tag k="addr:street" v="Rúa da Conga"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="Salchicería"/>
+    <tag k="name" v="Kartoffel"/>
+    <tag k="phone" v="+34 654855906"/>
+  </node>
+  <node id="2681956033" lat="42.8775237" lon="-8.5544992">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="2681956145" lat="42.8769568" lon="-8.5549406">
+    <tag k="amenity" v="restaurant"/>
+  </node>
+  <node id="2883890703" lat="42.8791977" lon="-8.5470897">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="6"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 981 56 54 26"/>
+    <tag k="contact:website" v="http://restaurantesanclemente.com/"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="San Clemente"/>
+    <tag k="old_name" v="Cortegada"/>
+    <tag k="phone" v="+34 981565030"/>
+  </node>
+  <node id="2883900903" lat="42.8890875" lon="-8.5470716">
+    <tag k="addr:housenumber" v="57"/>
+    <tag k="addr:street" v="Rúa de Vista Alegre"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="facebook" v="https://www.facebook.com/pages/Mes%C3%B3n-do-Pulpo/118322754901538"/>
+    <tag k="name" v="Mesón Do Pulpo"/>
+    <tag k="phone" v="+34 981586416"/>
+  </node>
+  <node id="2883903001" lat="42.8891703" lon="-8.5154500">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="De Lazaro"/>
+    <tag k="phone" v="+34 981560612"/>
+  </node>
+  <node id="2895022695" lat="42.8817359" lon="-8.5395026">
+    <tag k="name" v="Panadería Rúa de San Pedro"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="2895022698" lat="42.8818065" lon="-8.5393436">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Rodeiro"/>
+  </node>
+  <node id="2924055891" lat="42.8585219" lon="-8.5086940">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="O furancho do abrente"/>
+    <tag k="smoking" v="no"/>
+  </node>
+  <node id="3005416687" lat="42.8743956" lon="-8.5441719">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Rúa de Santiago de Guayaquil"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Senda Sur"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="3026986625" lat="42.8797727" lon="-8.5407479">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Momo"/>
+  </node>
+  <node id="3026986626" lat="42.8804531" lon="-8.5426215">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="La Carrilana"/>
+  </node>
+  <node id="3026986627" lat="42.8806447" lon="-8.5425538">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Metate"/>
+  </node>
+  <node id="3063163623" lat="42.8837095" lon="-8.5339830">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Gaia"/>
+    <tag k="name:es" v="Gaia"/>
+  </node>
+  <node id="3080594132" lat="42.8694881" lon="-8.5591903">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café Bar O Pedrusco"/>
+  </node>
+  <node id="3384456236" lat="42.8831761" lon="-8.5427606">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa do Hospitaliño"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="capacity" v="60"/>
+    <tag k="cuisine" v="pulpo, escabeches, tradicional"/>
+    <tag k="email" v="deulpo@gmx.es"/>
+    <tag k="name" v="Pulpería DEULPO"/>
+    <tag k="opening_hours" v="11:30-16:30+,19:30-24:00"/>
+    <tag k="phone" v="+34 81 583650"/>
+    <tag k="smoking" v="outside"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="3406266091" lat="42.9125772" lon="-8.5235927">
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Vía de Pasteur"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Herrma Pasteleiros"/>
+  </node>
+  <node id="3448467805" lat="42.8808951" lon="-8.5416758">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Avante"/>
+  </node>
+  <node id="3450554592" lat="42.8772409" lon="-8.5589615">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante Monte da Condesa"/>
+  </node>
+  <node id="3450554793" lat="42.8741959" lon="-8.5556889">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cafetaría do COIE"/>
+  </node>
+  <node id="3450554794" lat="42.8740436" lon="-8.5582122">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="delivery" v="no"/>
+    <tag k="name" v="Comedor Universitario de Bioloxía e Matemáticas"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="3584459398" lat="42.8767405" lon="-8.5454924">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Burger King"/>
+    <tag k="brand:wikidata" v="Q177054"/>
+    <tag k="brand:wikipedia" v="en:Burger King"/>
+    <tag k="cuisine" v="burger"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Burger King"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="3617286059" lat="42.8675685" lon="-8.5451612">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O Tiraboleiro"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="3617286086" lat="42.8679612" lon="-8.5461003">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Estocolmo"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="3624480649" lat="42.8683067" lon="-8.5468381">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Arenal"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="3630821449" lat="42.8684089" lon="-8.5470687">
+    <tag k="name" v="Ducias"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="3731443601" lat="42.8665333" lon="-8.5558912">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="54"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Avenida de Ferrol"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="capacity" v="50"/>
+    <tag k="cuisine" v="Gallega,_Vasca"/>
+    <tag k="name" v="La Barrigola"/>
+    <tag k="takeaway" v="no"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="3735291511" lat="42.8730334" lon="-8.5602313">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Cafetería comedor universitario Solpor"/>
+    <tag k="opening_hours" v="08:00-22:30"/>
+  </node>
+  <node id="3735307876" lat="42.8831884" lon="-8.5275979">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O rincón de Pepe"/>
+  </node>
+  <node id="3735307877" lat="42.8832874" lon="-8.5271071">
+    <tag k="name" v="Confitería Herma"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="3735307879" lat="42.8829156" lon="-8.5282432">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="El Punto"/>
+  </node>
+  <node id="3789362201" lat="42.8923316" lon="-8.4937235">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="O Negreiro"/>
+  </node>
+  <node id="3793130341" lat="42.8711305" lon="-8.5528419">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Avenida de Ferrol"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Artesana Gastrobar"/>
+    <tag k="phone" v="+34 981 53 04 52"/>
+    <tag k="smoking" v="outside"/>
+    <tag k="website" v="http://www.artesanagastrobar.es/"/>
+  </node>
+  <node id="3824693107" lat="42.8870157" lon="-8.4933696">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="smoking" v="no"/>
+  </node>
+  <node id="3881199559" lat="42.8729379" lon="-8.5480458">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="26"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa da República Arxentina"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="Galega"/>
+    <tag k="name" v="Latino"/>
+    <tag k="opening_hours" v="10:00-02:00"/>
+    <tag k="phone" v="+34 981 59 10 63"/>
+  </node>
+  <node id="3881199560" lat="42.8727818" lon="-8.5479772">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="de Julio"/>
+  </node>
+  <node id="3918329486" lat="42.8930251" lon="-8.5468053">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Cervecería San Patricio"/>
+  </node>
+  <node id="3936842449" lat="42.8686022" lon="-8.5591954">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Cervecería Samarkanda"/>
+  </node>
+  <node id="3936857826" lat="42.8689888" lon="-8.5592805">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Avenida da Liberdade"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Galipizza"/>
+    <tag k="website" v="http://galipizza.com/"/>
+  </node>
+  <node id="3941512903" lat="42.8651021" lon="-8.5599344">
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:street" v="Rúa das Arribadas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="deCarmen"/>
+    <tag k="opening_hours" v="12:00-01:00"/>
+    <tag k="phone" v="+34 981943858"/>
+    <tag k="website" v="http://restaurantedecarmen.es"/>
+  </node>
+  <node id="3941545377" lat="42.8806695" lon="-8.5469538">
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:street" v="Huertas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Casa Marcelo"/>
+    <tag k="phone" v="+34 981558580"/>
+    <tag k="website" v="http://casamarcelo.net"/>
+  </node>
+  <node id="3941545378" lat="42.8807746" lon="-8.5472433">
+    <tag k="addr:housenumber" v="16"/>
+    <tag k="addr:street" v="Rúa das Hortas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A Horta d'Obradoiro"/>
+    <tag k="opening_hours" v="Tu-Sa 12:00-16:30,20:00"/>
+    <tag k="phone" v="+34 881031375"/>
+  </node>
+  <node id="3949641389" lat="42.8864215" lon="-8.5339114">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="3962059701" lat="42.8780249" lon="-8.5450175">
+    <tag k="addr:street" v="Rúa do Vilar"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="A Capela"/>
+  </node>
+  <node id="3964922675" lat="42.8782405" lon="-8.5449187">
+    <tag k="addr:housenumber" v="52"/>
+    <tag k="addr:street" v="Rúa do Vilar"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="L'Incontro"/>
+    <tag k="opening_hours" v="Mo-Su 10:00-01:00"/>
+  </node>
+  <node id="4009168517" lat="42.8789246" lon="-8.5450805">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="4020384347" lat="42.8787117" lon="-8.5476178">
+    <tag k="name" v="Panadería Mimos"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4041728557" lat="42.8723531" lon="-8.5520603">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Domino's"/>
+    <tag k="brand:wikidata" v="Q839466"/>
+    <tag k="brand:wikipedia" v="en:Domino's Pizza"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Domino's"/>
+    <tag k="short_name" v="Domino's"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="4138058704" lat="42.8806763" lon="-8.5417669">
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:street" v="Praza da Pescadería Vella"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="A Taberna do Tarala"/>
+    <tag k="website" v="http://www.atabernadotarela.es"/>
+  </node>
+  <node id="4182139333" lat="42.8735449" lon="-8.5463292">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="35"/>
+    <tag k="addr:street" v="Rúa do Xeneral Pardiñas"/>
+    <tag k="name" v="O Hórreo 2"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4187017857" lat="42.8723806" lon="-8.5516328">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="28"/>
+    <tag k="addr:street" v="Rúa de Frei Rosendo Salvado"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Arroutada"/>
+  </node>
+  <node id="4194355897" lat="42.8735500" lon="-8.5529975">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:floor" v="Bajo"/>
+    <tag k="addr:housenumber" v="100"/>
+    <tag k="addr:street" v="Avenida de Rosalía de Castro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="chinese"/>
+    <tag k="name" v="Imperial"/>
+    <tag k="phone" v="+34 981597626"/>
+  </node>
+  <node id="4194405197" lat="42.8738933" lon="-8.5522561">
+    <tag k="addr:street" v="Praza de Vigo"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Rosalía de Castro"/>
+  </node>
+  <node id="4196833089" lat="42.8727524" lon="-8.5512924">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:floor" v="bajo"/>
+    <tag k="addr:housenumber" v="24"/>
+    <tag k="addr:street" v="Rúa de Frei Rosendo Salvado"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O Delira"/>
+  </node>
+  <node id="4197272113" lat="42.8722799" lon="-8.5517559">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="30"/>
+    <tag k="addr:street" v="Rúa de Frei Rosendo Salvado"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="description" v="Desayunos - Bocadillos - Hamburguesas - etc."/>
+    <tag k="name" v="Bodega"/>
+  </node>
+  <node id="4201597389" lat="42.9026227" lon="-8.5279003">
+    <tag k="amenity" v="bar"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Pensión José Rey"/>
+  </node>
+  <node id="4211932789" lat="42.8780068" lon="-8.5472983">
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="A de María"/>
+  </node>
+  <node id="4216544310" lat="42.8730719" lon="-8.5519367">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:floor" v="bajo"/>
+    <tag k="addr:street" v="Avenida de Vilagarcía"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cal&amp;Ma"/>
+  </node>
+  <node id="4220202892" lat="42.8782182" lon="-8.5458828">
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Avenida de Rodrigo de Padrón"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="local"/>
+    <tag k="name" v="Restaurante Airiños Aires"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="takeaway" v="no"/>
+  </node>
+  <node id="4223891560" lat="42.8728300" lon="-8.5536448">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Avenida de Rosalía de Castro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="italian"/>
+    <tag k="name" v="Da Leonardo"/>
+    <tag k="opening_hours" v="Mo 18:00-24:00; Tu-Th 11:00-16:00,18:00-24:00; Fr-Sa 12:00-24:00; Su 00:00-01:00,12:00-17:00"/>
+  </node>
+  <node id="4224663834" lat="42.8724088" lon="-8.5570287">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Pan Garcos"/>
+    <tag k="opening_hours" v="Mo-Fr 07:30-19:00, Sa 09:00-15:00"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="4225655815" lat="42.8793693" lon="-8.5418968">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Praza de San Fiz de Solovio"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="contact:facebook" v="https://es-es.facebook.com/clublaradio"/>
+    <tag k="contact:phone" v="+34 981 58 52 96"/>
+    <tag k="name" v="La Radio"/>
+  </node>
+  <node id="4225655816" lat="42.8804078" lon="-8.5415038">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="8"/>
+    <tag k="addr:street" v="Rúa das Ameas"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="contact:facebook" v="https://es-es.facebook.com/chocolatesantiago/"/>
+    <tag k="contact:phone" v="+34 670 74 12 00"/>
+    <tag k="name" v="Chocolate"/>
+  </node>
+  <node id="4225655819" lat="42.8797485" lon="-8.5446812">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa da Raíña"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="O Barazal"/>
+  </node>
+  <node id="4225706402" lat="42.8793116" lon="-8.5449794">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar Fonseca"/>
+  </node>
+  <node id="4225706403" lat="42.8792512" lon="-8.5450203">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar Barbantes"/>
+  </node>
+  <node id="4225706404" lat="42.8787800" lon="-8.5451270">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:facebook" v="https://es-la.facebook.com/Paris-Dakar-Santiago-de-Compostela-68219710465/"/>
+    <tag k="hotel" v="yes"/>
+    <tag k="name" v="Dakar"/>
+    <tag k="phone" v="+34 981 57 81 92"/>
+  </node>
+  <node id="4225706405" lat="42.8782486" lon="-8.5452601">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="29"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 981 577 999"/>
+    <tag k="contact:website" v="http://restaurantebarrola.com/"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="A Barrola"/>
+  </node>
+  <node id="4225706406" lat="42.8779995" lon="-8.5454237">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="36-38"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 981 583 112"/>
+    <tag k="contact:website" v="http://restaurantecasaelisa.com/"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Casa Elisa"/>
+  </node>
+  <node id="4225706407" lat="42.8776853" lon="-8.5455809">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="El Puerto"/>
+  </node>
+  <node id="4225706408" lat="42.8775542" lon="-8.5456686">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="54"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 981557081"/>
+    <tag k="contact:website" v="http://www.restaurantepasaje.com/"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="El Pasaje"/>
+  </node>
+  <node id="4225706409" lat="42.8771906" lon="-8.5459833">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="15"/>
+    <tag k="addr:street" v="Avenida de Figueroa"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="contact:phone" v="+34 981 586 007"/>
+    <tag k="contact:website" v="http://www.newrozdonerkebap.com/"/>
+    <tag k="cuisine" v="kebab"/>
+    <tag k="name" v="Newroz"/>
+  </node>
+  <node id="4225706410" lat="42.8783206" lon="-8.5476727">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="32"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:facebook" v="https://es-es.facebook.com/As-Marias-191435174337142/"/>
+    <tag k="contact:phone" v="+34 881 01 77 97"/>
+    <tag k="name" v="As Marías"/>
+  </node>
+  <node id="4225978942" lat="42.8815954" lon="-8.5349998">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa da Cruz de San Pedro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 636 86 11 30"/>
+    <tag k="contact:website" v="http://casatato.es/"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="A Tasquiña de San Pedro"/>
+  </node>
+  <node id="4225978944" lat="42.8866682" lon="-8.5401422">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa dos Basquiños"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cafe Bar Leis"/>
+  </node>
+  <node id="4225978946" lat="42.8834628" lon="-8.5421104">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa de San Roque"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="contact:facebook" v="https://es-es.facebook.com/BelkeCafe"/>
+    <tag k="contact:phone" v="+34 981 56 11 26"/>
+    <tag k="name" v="Cafe Belke"/>
+  </node>
+  <node id="4225978949" lat="42.8823598" lon="-8.5396731">
+    <tag k="addr:city" v="Santiago De Compostela"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:street" v="Costa de San Domingos"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 981 57 39 58"/>
+    <tag k="contact:website" v="http://markesaizakaya.com/"/>
+    <tag k="cuisine" v="japanese"/>
+    <tag k="name" v="Markesa"/>
+  </node>
+  <node id="4225978950" lat="42.8815659" lon="-8.5391154">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa de San Pedro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="San Clodio"/>
+  </node>
+  <node id="4225987393" lat="42.8776883" lon="-8.5443206">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="54"/>
+    <tag k="addr:street" v="Rúa Nova"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="contact:facebook" v="https://es-es.facebook.com/BarBendana"/>
+    <tag k="contact:phone" v="+34 981 55 89 25"/>
+    <tag k="name" v="Cafe Bendaña"/>
+  </node>
+  <node id="4225987394" lat="42.8773718" lon="-8.5442502">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa das Orfas"/>
+    <tag k="name" v="Las Colonias"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4225987395" lat="42.8771864" lon="-8.5441458">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="25"/>
+    <tag k="addr:street" v="Rúa das Orfas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:facebook" v="https://es-es.facebook.com/Antollos/"/>
+    <tag k="contact:phone" v="+34 981 57 76 72"/>
+    <tag k="name" v="Antollos"/>
+  </node>
+  <node id="4225987396" lat="42.8759649" lon="-8.5438251">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="26"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa dos Pitelos"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:phone" v="+34 981 57 46 79"/>
+    <tag k="contact:website" v="http://www.malakbistro.com/"/>
+    <tag k="cuisine" v="arab;mediterranean;international"/>
+    <tag k="diet:vegan" v="yes"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="Malak Bistro"/>
+  </node>
+  <node id="4226501042" lat="42.8769180" lon="-8.5454966">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="24"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa da Senra"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="contact:phone" v="+34 981 58 59 67"/>
+    <tag k="contact:website" v="http://www.iacobuscafe.com/"/>
+    <tag k="name" v="Cafe Iacobus"/>
+  </node>
+  <node id="4234838381" lat="42.8726914" lon="-8.5520827">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="16"/>
+    <tag k="addr:street" v="Avenida de Vilagarcía"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="delivery" v="yes"/>
+    <tag k="name" v="Antica Pizza"/>
+    <tag k="opening_hours" v="Mo-Fr 12:00-16:00,19:00-23:30, Sa-Su 12:00-16:00,19:00-24:00"/>
+    <tag k="phone" v="+34 881 162206"/>
+  </node>
+  <node id="4234840005" lat="42.8731712" lon="-8.5514336">
+    <tag k="name" v="La Gominola"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="4235383849" lat="42.8928864" lon="-8.5508812">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="4236712758" lat="42.8733312" lon="-8.5523599">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:floor" v="bajo"/>
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Avenida de Vilagarcía"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="brand" v="Cambalache"/>
+    <tag k="cuisine" v="italian"/>
+    <tag k="facebook" v="https://www.facebook.com/CambalacheRestaurantes"/>
+    <tag k="instagram" v="https://www.instagram.com/restcambalache/"/>
+    <tag k="name" v="Cambalache"/>
+    <tag k="phone" v="+34 981 553755"/>
+    <tag k="twitter" v="https://twitter.com/cambalacherest"/>
+    <tag k="website" v="http://www.pizzeriascambalache.es/"/>
+  </node>
+  <node id="4244909230" lat="42.8829519" lon="-8.5427560">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café Bar Nemenzo"/>
+  </node>
+  <node id="4303482608" lat="42.8862329" lon="-8.5334976">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Caraveliños"/>
+  </node>
+  <node id="4390122627" lat="42.8754639" lon="-8.5391501">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="O Sendeiro"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="takeaway" v="no"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="4396064921" lat="42.8729894" lon="-8.5472233">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Farggi"/>
+  </node>
+  <node id="4396064923" lat="42.8730290" lon="-8.5470925">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="El Bocalino"/>
+  </node>
+  <node id="4413128684" lat="42.8847107" lon="-8.5266731">
+    <tag k="name" v="Pan da Moa"/>
+    <tag k="shop" v="bakery"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="4422138690" lat="42.8777341" lon="-8.5441184">
+    <tag k="addr:housenumber" v="46"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa Nova"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="Galician"/>
+    <tag k="diet:vegan" v="no"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="email" v="elgv45@yahoo.es"/>
+    <tag k="name" v="La Tita"/>
+    <tag k="opening_hours" v="Mo-Sa 08:30-00:00"/>
+    <tag k="phone" v="+34981583981"/>
+    <tag k="website" v="http://www.latitacompostela.com"/>
+  </node>
+  <node id="4430466693" lat="42.8751418" lon="-8.5497764">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish;seafood"/>
+    <tag k="name" v="Terra Nosa"/>
+  </node>
+  <node id="4430662891" lat="42.8825300" lon="-8.5422938">
+    <tag k="addr:housenumber" v="45"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa da Algalia de Arriba"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish;seafood"/>
+    <tag k="name" v="Mama Peixe-Taberna Marineira"/>
+  </node>
+  <node id="4430683492" lat="42.8780740" lon="-8.5473039">
+    <tag k="addr:housenumber" v="11"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="breakfast;cake;coffee_shop"/>
+    <tag k="name" v="Lusco &amp; Fusco Bakery Cafe"/>
+    <tag k="phone" v="+34717706878"/>
+  </node>
+  <node id="4432608191" lat="42.8805073" lon="-8.5414736">
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa das Ameas"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="cuisine" v="breakfast;cake"/>
+    <tag k="email" v="reservas@pazodealtamira.com"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Café de Altamira"/>
+    <tag k="phone" v="+34981558592"/>
+    <tag k="website" v="https://www.pazodealtamira.com/"/>
+  </node>
+  <node id="4538690220" lat="42.8599970" lon="-8.5284877">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar Troza"/>
+  </node>
+  <node id="4545116252" lat="42.8720090" lon="-8.5478706">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa de San Pedro de Mezonzo"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="japanese"/>
+    <tag k="name" v="Sakura Sushi-Bar"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="4545116253" lat="42.8723088" lon="-8.5480665">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="barbecue"/>
+    <tag k="name" v="Madeira e Mazá"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="4545116255" lat="42.8741162" lon="-8.5490226">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Tía Vicenta"/>
+  </node>
+  <node id="4545116259" lat="42.8738511" lon="-8.5488429">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Smart Bar"/>
+  </node>
+  <node id="4545116261" lat="42.8736825" lon="-8.5487330">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Cavita"/>
+  </node>
+  <node id="4545116264" lat="42.8735120" lon="-8.5486169">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Pizza Móvil"/>
+    <tag k="brand:wikidata" v="Q12397697"/>
+    <tag k="brand:wikipedia" v="gl:Pizza Móvil"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Pizza Móvil"/>
+    <tag k="phone" v="+34 981596300"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="4545116265" lat="42.8734385" lon="-8.5485720">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Churrería Galicia &amp; Nino's Pizza"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="4680928092" lat="42.8778754" lon="-8.5454731">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Mesón O 42"/>
+    <tag k="name:es" v="Mesón O 42"/>
+  </node>
+  <node id="4690433615" lat="42.8815647" lon="-8.5318056">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="50"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa da Raxeira"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Paluso"/>
+    <tag k="phone" v="+34 981560545"/>
+  </node>
+  <node id="4690720701" lat="42.8701298" lon="-8.5826114">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="23B"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Paseo da Amaía"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Filigrana - A quinta da Auga"/>
+    <tag k="phone" v="+34 98 153 46 36"/>
+  </node>
+  <node id="4696017355" lat="42.8816511" lon="-8.5405485">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Ruela da Oliveira"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/tabernacoutomixto/"/>
+    <tag k="name" v="Taberna da República do Couto Mixto"/>
+    <tag k="note" v="Taberna portuguesa de ambiente cálido e relaxado, con comida moi rica e habituais actividades culturais."/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="phone" v="+34 981 55 70 98"/>
+    <tag k="smoking" v="no"/>
+  </node>
+  <node id="4742092434" lat="42.8863723" lon="-8.5183522">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa de San Lázaro"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="internet_access" v="yes"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="In Antrum"/>
+    <tag k="nohousenumber" v="yes"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="4742092435" lat="42.8865197" lon="-8.5185856">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="54"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa de San Lázaro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="A Casa da Viña"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="smoking" v="no"/>
+    <tag k="takeaway" v="no"/>
+  </node>
+  <node id="4769513278" lat="42.8653925" lon="-8.5665314">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Alabarda"/>
+  </node>
+  <node id="4769513289" lat="42.8688591" lon="-8.5660737">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante Solpor"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="4788841321" lat="42.8779044" lon="-8.5459087">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="El Gato Negro"/>
+    <tag k="name:es" v="El Gato Negro"/>
+  </node>
+  <node id="4789010161" lat="42.8673594" lon="-8.5540320">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="57"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Rúa de García Prieto"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="description" v="Bar con buena iluminación y con terraza exterior"/>
+    <tag k="name" v="Bar Noia"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="smoking" v="outside"/>
+  </node>
+  <node id="4789063572" lat="42.8674859" lon="-8.5546067">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Rúa de Xose Pasín"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Os Mallos"/>
+  </node>
+  <node id="4828336222" lat="42.8865588" lon="-8.5160272">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Doña Ana"/>
+    <tag k="name:es" v="Doña Ana"/>
+  </node>
+  <node id="4842546221" lat="42.8799247" lon="-8.5415405">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Abastos 2.0"/>
+    <tag k="name:es" v="Abastos 2.0"/>
+  </node>
+  <node id="4876439392" lat="42.8708191" lon="-8.5522961">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="34"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Avenida de Vilagarcía"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café Bar Orpheus"/>
+    <tag k="opening_hours" v="Domingo cerrado"/>
+  </node>
+  <node id="4895218154" lat="42.8736864" lon="-8.5462958">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Coffee &amp; Coffee"/>
+  </node>
+  <node id="4902869221" lat="42.8721044" lon="-8.5498421">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Sport"/>
+  </node>
+  <node id="4902869222" lat="42.8721035" lon="-8.5499342">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Rock café"/>
+  </node>
+  <node id="4902869227" lat="42.8720407" lon="-8.5501117">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="La Mecca"/>
+  </node>
+  <node id="4904649785" lat="42.8827496" lon="-8.5422997">
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4904899915" lat="42.8717468" lon="-8.5476744">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Yamaki"/>
+  </node>
+  <node id="4904899916" lat="42.8718303" lon="-8.5477401">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café Bar Carballal"/>
+  </node>
+  <node id="4904899919" lat="42.8720642" lon="-8.5479078">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O Carallo 28"/>
+  </node>
+  <node id="4910182328" lat="42.8801596" lon="-8.5438406">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cre Cottê"/>
+    <tag k="name:es" v="Cre Cottê"/>
+  </node>
+  <node id="4910186131" lat="42.8801386" lon="-8.5436172">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="La Quintana"/>
+    <tag k="name:es" v="La Quintana"/>
+  </node>
+  <node id="4910232727" lat="42.8790780" lon="-8.5434148">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="13"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa Nova"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/retablo.santiago"/>
+    <tag k="name" v="Retablo Café-Concerto"/>
+    <tag k="phone" v="+34 629 88 32 45"/>
+  </node>
+  <node id="4946581257" lat="42.8764324" lon="-8.5470524">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:street" v="Rua da Carreira do Conde"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Adega Abrigadoiro"/>
+  </node>
+  <node id="4946640403" lat="42.8814647" lon="-8.5408330">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:street" v="Ruela de Sae se Podes"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A Gamela"/>
+  </node>
+  <node id="4946676500" lat="42.8734339" lon="-8.5448569">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="96"/>
+    <tag k="addr:street" v="Rúa do Hórreo"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="O Recucho d'Fonso"/>
+  </node>
+  <node id="4946684528" lat="42.8866433" lon="-8.5170820">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="73"/>
+    <tag k="addr:street" v="Rua de San Lázaro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Meson de Lazaro"/>
+  </node>
+  <node id="4946705764" lat="42.8824802" lon="-8.5340639">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:street" v="Rua de Triacastela"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Triacastela"/>
+  </node>
+  <node id="4946729911" lat="42.8784930" lon="-8.5449522">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="25"/>
+    <tag k="addr:street" v="Rúa da Raíña"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Bar Ourense"/>
+  </node>
+  <node id="4947498024" lat="42.8830453" lon="-8.5343741">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O'Tranquilo"/>
+    <tag k="name:es" v="O'Tranquilo"/>
+  </node>
+  <node id="4947498025" lat="42.8813438" lon="-8.5372815">
+    <tag k="amenity" v="ice_cream"/>
+    <tag k="name" v="Xearte Brigitte"/>
+    <tag k="name:es" v="Brigitte"/>
+  </node>
+  <node id="4947498029" lat="42.8813848" lon="-8.5376877">
+    <tag k="name" v="Neia"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4947498127" lat="42.8844462" lon="-8.5328407">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="octopus"/>
+    <tag k="description" v="Pulpería Os Concheiros"/>
+    <tag k="name" v="Os Concheiros"/>
+  </node>
+  <node id="4947498131" lat="42.8838948" lon="-8.5339647">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Tabacos"/>
+    <tag k="name:es" v="Tabacos"/>
+  </node>
+  <node id="4947498133" lat="42.8818071" lon="-8.5353560">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Churrería San Pedro"/>
+    <tag k="name:es" v="Churrería San Pedro"/>
+  </node>
+  <node id="4947498134" lat="42.8816835" lon="-8.5355328">
+    <tag k="name" v="Gomistar"/>
+    <tag k="name:es" v="Gomistar"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="4947498324" lat="42.8834892" lon="-8.5342765">
+    <tag k="name" v="San José"/>
+    <tag k="name:es" v="San José"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4947498424" lat="42.8814866" lon="-8.5388761">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="diet:vegan" v="no"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="A Moa"/>
+    <tag k="name:es" v="Amoa"/>
+  </node>
+  <node id="4947501721" lat="42.8812179" lon="-8.5430990">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Dama Juana"/>
+    <tag k="name:es" v="Damaiana"/>
+    <tag k="phone" v="+34 981 55 64 15"/>
+  </node>
+  <node id="4947523322" lat="42.8810335" lon="-8.5459468">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Coxebre"/>
+    <tag k="name:es" v="Coxebre"/>
+  </node>
+  <node id="4947523323" lat="42.8815232" lon="-8.5465323">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Tarará"/>
+    <tag k="name:es" v="Tarará"/>
+  </node>
+  <node id="4947667825" lat="42.8816325" lon="-8.5392097">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="18"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa de San Pedro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional;rústica"/>
+    <tag k="email" v="info@casaldocabildo.com"/>
+    <tag k="name" v="Casal do Cabildo"/>
+    <tag k="name:es" v="Casal do Cabildo"/>
+    <tag k="opening_hours" v="Tu-Th 09:00-15:45, 19:30-23:00; Fr 09:00-15:45, 19:30-23:45; Sa 10:00-15:45, 20:00-23:45; Su 11:00-15:45"/>
+    <tag k="phone" v="+34 981 58 30 57;+34 698 45 98 35"/>
+    <tag k="smoking" v="no"/>
+    <tag k="takeaway" v="no"/>
+    <tag k="website" v="https://www.casaldocabildo.com"/>
+  </node>
+  <node id="4947668223" lat="42.8815208" lon="-8.5389535">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="O Afiador"/>
+    <tag k="name:es" v="O Afiador"/>
+  </node>
+  <node id="4947668225" lat="42.8816690" lon="-8.5356075">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="diet:vegan" v="no"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="A Maceta"/>
+    <tag k="name:es" v="Amaceta"/>
+  </node>
+  <node id="4947668423" lat="42.8817144" lon="-8.5391897">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Mercromina"/>
+    <tag k="name:es" v="Mercromina"/>
+  </node>
+  <node id="4947668424" lat="42.8813613" lon="-8.5371957">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="kebab"/>
+    <tag k="name" v="Erkan"/>
+    <tag k="name:es" v="Erkan"/>
+  </node>
+  <node id="4948392892" lat="42.8816581" lon="-8.5357309">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Prospero's"/>
+    <tag k="name:es" v="Prospero's"/>
+  </node>
+  <node id="4948422524" lat="42.8816487" lon="-8.5388835">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="O Trasmallo"/>
+    <tag k="name:es" v="O Trasmallo"/>
+  </node>
+  <node id="4948422525" lat="42.8818610" lon="-8.5394721">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Plaza"/>
+    <tag k="name:es" v="Plaza"/>
+  </node>
+  <node id="4948424222" lat="42.8807796" lon="-8.5423434">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Milonga's"/>
+    <tag k="name:es" v="Milonga's"/>
+  </node>
+  <node id="4948826423" lat="42.8790579" lon="-8.5444377">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Centro"/>
+    <tag k="name:es" v="Centro"/>
+  </node>
+  <node id="4948841021" lat="42.8787052" lon="-8.5444985">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Paradiso"/>
+    <tag k="name:es" v="Paradiso"/>
+  </node>
+  <node id="4949923677" lat="42.8813368" lon="-8.5373843">
+    <tag k="name" v="Moure"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4953452621" lat="42.8777487" lon="-8.5455471">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Con Culler"/>
+    <tag k="name:es" v="Con Culler"/>
+  </node>
+  <node id="4962244833" lat="42.8822765" lon="-8.5284753">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Telepizza"/>
+    <tag k="brand:wikidata" v="Q2699863"/>
+    <tag k="brand:wikipedia" v="en:Telepizza"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Telepizza"/>
+    <tag k="name:es" v="Pizza Móvil"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="4962250724" lat="42.8829665" lon="-8.5263710">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Gasthof Santiago"/>
+    <tag k="name:es" v="Gasthof Santiago"/>
+  </node>
+  <node id="4962250726" lat="42.8830360" lon="-8.5282082">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Kassem"/>
+    <tag k="name:es" v="Kassem"/>
+  </node>
+  <node id="4962250823" lat="42.8834752" lon="-8.5283624">
+    <tag k="name" v="Candy"/>
+    <tag k="name:es" v="Candy"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="4962250834" lat="42.8828814" lon="-8.5268063">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Morua Bacallao"/>
+    <tag k="name:es" v="Morua Bacallao"/>
+  </node>
+  <node id="4962250835" lat="42.8826004" lon="-8.5269327">
+    <tag k="name" v="Pan Da Aboa"/>
+    <tag k="name:es" v="Pan Da Aboa"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="4962256421" lat="42.8825467" lon="-8.5269557">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Pick &amp; Pollo"/>
+    <tag k="name:es" v="Pick &amp; Pollo"/>
+  </node>
+  <node id="5038957422" lat="42.8783506" lon="-8.5438981">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="diet:vegan" v="no"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="Moha Rúa Nova"/>
+    <tag k="name:es" v="Moha Rúa Nova"/>
+  </node>
+  <node id="5039725421" lat="42.8792655" lon="-8.5427338">
+    <tag k="amenity" v="restaurant"/>
+  </node>
+  <node id="5051229122" lat="42.8712858" lon="-8.5566330">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café-Bar Lumar"/>
+    <tag k="name:es" v="Café-Bar Lumar"/>
+  </node>
+  <node id="5051229123" lat="42.8709840" lon="-8.5498047">
+    <tag k="addr:housenumber" v="32"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa de Santiago de Chile"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="burger"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="La Burguería"/>
+    <tag k="opening_hours" v="Mo-Su 13:00-00:00"/>
+    <tag k="phone" v="+34 881 974 598"/>
+    <tag k="website" v="http://LaBurgueria.com"/>
+  </node>
+  <node id="5056455024" lat="42.8726232" lon="-8.5542589">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante San Martín (y Hostal)"/>
+    <tag k="name:es" v="Restaurante San Martín (y Hostal)"/>
+  </node>
+  <node id="5121767621" lat="42.8777109" lon="-8.5455790">
+    <tag k="amenity" v="ice_cream"/>
+    <tag k="name" v="Limoncelli"/>
+  </node>
+  <node id="5207214692" lat="42.8795129" lon="-8.5445631">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Montes Taberna"/>
+  </node>
+  <node id="5222688263" lat="42.8778964" lon="-8.5445641">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Ruela de Entrerrúas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/Restaurante-Entre-R%C3%BAas-590356214392109/"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Entre Rúas"/>
+    <tag k="opening_hours" v="Mo-Sa 09:30-00:00"/>
+    <tag k="phone" v="+34981586108"/>
+  </node>
+  <node id="5223426284" lat="42.8789591" lon="-8.5434231">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Rúa Bella"/>
+  </node>
+  <node id="5223426285" lat="42.8786854" lon="-8.5435130">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante Don Gaiferos"/>
+  </node>
+  <node id="5224608959" lat="42.8799895" lon="-8.5425380">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Modus Vivendi"/>
+  </node>
+  <node id="5224917991" lat="42.8770654" lon="-8.5457582">
+    <tag k="name" v="Pan de Aboa"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5224929476" lat="42.8767347" lon="-8.5452372">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Telepizza"/>
+    <tag k="brand:wikidata" v="Q2699863"/>
+    <tag k="brand:wikipedia" v="en:Telepizza"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="Telepizza"/>
+    <tag k="opening_hours" v="Mo-Th 13:00-16:00, 19:00-00:00; Fr 13:00-16:00, 19:00-01:00; Sa 13:00-01:00; Su,PH 13:00-00:00"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="5224930174" lat="42.8767491" lon="-8.5455544">
+    <tag k="alt_name" v="Kentucky Fried Chicken"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="KFC"/>
+    <tag k="brand:wikidata" v="Q524757"/>
+    <tag k="brand:wikipedia" v="en:KFC"/>
+    <tag k="cuisine" v="chicken"/>
+    <tag k="name" v="KFC"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="5224932911" lat="42.8769205" lon="-8.5447902">
+    <tag k="name" v="Miguez"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5224933358" lat="42.8755719" lon="-8.5447434">
+    <tag k="name" v="Mollete"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5224933363" lat="42.8783595" lon="-8.5429552">
+    <tag k="name" v="Empanaderia"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5224934726" lat="42.8834111" lon="-8.5421460">
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="name" v="Pan de Aboa"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5237777438" lat="42.8824679" lon="-8.5408388">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Fraggle Rock Café-Bar"/>
+  </node>
+  <node id="5247030327" lat="42.8833125" lon="-8.5455742">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante Conventual"/>
+  </node>
+  <node id="5256719814" lat="42.8790672" lon="-8.5448407">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="O Celme do Caracol"/>
+  </node>
+  <node id="5333692000" lat="42.8748348" lon="-8.5618065">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="5340408600" lat="42.9089366" lon="-8.5130650">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante D'Santiago"/>
+  </node>
+  <node id="5463744522" lat="42.8810282" lon="-8.5464461">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Café de parador de Santiago"/>
+  </node>
+  <node id="5464281192" lat="42.8749030" lon="-8.5474767">
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:street" v="Rúa de Alfredo Brañas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Sie7e"/>
+  </node>
+  <node id="5464288161" lat="42.8770263" lon="-8.5454992">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Calpe"/>
+  </node>
+  <node id="5477458423" lat="42.8671023" lon="-8.5538559">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="News"/>
+  </node>
+  <node id="5477516889" lat="42.8670590" lon="-8.5545143">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="sauna"/>
+  </node>
+  <node id="5487235107" lat="42.8752568" lon="-8.5497731">
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Rúa Nova de Abaixo"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="description" v="Bar Restaurante. Especialistas en Hamburguesas Caseras y en Cachopos."/>
+    <tag k="name" v="J de Joker"/>
+  </node>
+  <node id="5488533288" lat="42.8681334" lon="-8.5553477">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Rúa de Ricardo Bescansa"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="brewery" v="yes;Mahou"/>
+    <tag k="microbrewery" v="yes"/>
+    <tag k="name" v="Cervecería Marló"/>
+    <tag k="outdoor_seating" v="yes"/>
+  </node>
+  <node id="5489291078" lat="42.8710985" lon="-8.5522073">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="30"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Avenida de Vilagarcía"/>
+    <tag k="name" v="Panadería M. Moure"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5536296526" lat="42.8760805" lon="-8.5443509">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="La Pepita"/>
+  </node>
+  <node id="5570988666" lat="42.8706103" lon="-8.5477031">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="indian"/>
+    <tag k="name" v="Punjabi Food"/>
+  </node>
+  <node id="5599009479" lat="42.8870930" lon="-8.5450895">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O Cesto"/>
+  </node>
+  <node id="5599014278" lat="42.8859719" lon="-8.5446967">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Nariño"/>
+  </node>
+  <node id="5599014279" lat="42.8858467" lon="-8.5446528">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Norfolk"/>
+    <tag k="opening_hours" v="Mo-Su 20:00-04:00"/>
+  </node>
+  <node id="5599138280" lat="42.8785918" lon="-8.5445150">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="The Bistro"/>
+  </node>
+  <node id="5599140172" lat="42.8784249" lon="-8.5446225">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Carballeira"/>
+  </node>
+  <node id="5599169763" lat="42.8773812" lon="-8.5450705">
+    <tag k="name" v="Chocolat Factory"/>
+    <tag k="shop" v="chocolate"/>
+  </node>
+  <node id="5599176014" lat="42.8774394" lon="-8.5453714">
+    <tag k="amenity" v="ice_cream"/>
+    <tag k="name" v="Puerta Real"/>
+  </node>
+  <node id="5599176015" lat="42.8773282" lon="-8.5456343">
+    <tag k="addr:housenumber" v="13"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa dos Bautizados"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Codex"/>
+    <tag k="opening_hours" v="Mo-Su 11:00-00:00"/>
+    <tag k="phone" v="+34 881 25 30 09"/>
+  </node>
+  <node id="5599933977" lat="42.8816409" lon="-8.5414460">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Taperia A avoa"/>
+  </node>
+  <node id="5599939946" lat="42.8819066" lon="-8.5408062">
+    <tag k="amenity" v="bar"/>
+    <tag k="diet:vegan" v="no"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="La Flor"/>
+  </node>
+  <node id="5599939947" lat="42.8818931" lon="-8.5409726">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Orixe"/>
+    <tag k="opening_hours" v="Su-Mo, We-Th 12:00-16:00; Fr-Sa 12:00-01:00"/>
+    <tag k="phone" v="+34 981115092"/>
+  </node>
+  <node id="5599948021" lat="42.8817526" lon="-8.5400214">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="kebab"/>
+    <tag k="name" v="Newroz"/>
+  </node>
+  <node id="5600220709" lat="42.8775214" lon="-8.5455650">
+    <tag k="amenity" v="ice_cream"/>
+    <tag k="name" v="Bico de xeado"/>
+  </node>
+  <node id="5600255221" lat="42.8812700" lon="-8.5430117">
+    <tag k="amenity" v="ice_cream"/>
+    <tag k="name" v="Xea2"/>
+  </node>
+  <node id="5600720732" lat="42.8781684" lon="-8.5452724">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="tapas"/>
+    <tag k="name" v="El Patio"/>
+  </node>
+  <node id="5600720734" lat="42.8780950" lon="-8.5454158">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar O Barrll"/>
+  </node>
+  <node id="5600720735" lat="42.8781830" lon="-8.5453817">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="abellá"/>
+  </node>
+  <node id="5602243615" lat="42.8692451" lon="-8.5486340">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Roma"/>
+  </node>
+  <node id="5602279200" lat="42.8712465" lon="-8.5478327">
+    <tag k="name" v="Carmela"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5602311030" lat="42.8743685" lon="-8.5456220">
+    <tag k="name" v="la bulanxerí"/>
+    <tag k="opening_hours" v="Mo-Fr 09:00-15:30,17:00-21:00, Sa,Su,PH 09:00-15:00"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5602765430" lat="42.8920031" lon="-8.5449124">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Big Bar Theory"/>
+  </node>
+  <node id="5602866656" lat="42.8904491" lon="-8.5470141">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="O‘Buxo"/>
+  </node>
+  <node id="5602866657" lat="42.8903667" lon="-8.5469930">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Tarelo"/>
+  </node>
+  <node id="5602868795" lat="42.8901163" lon="-8.5468766">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="O Rincón"/>
+  </node>
+  <node id="5602868796" lat="42.8900566" lon="-8.5469379">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="aloumiño"/>
+  </node>
+  <node id="5602868797" lat="42.8900037" lon="-8.5468825">
+    <tag k="name" v="Vista Alegre"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="5602882259" lat="42.8880572" lon="-8.5462934">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="A Costa da Fonte"/>
+  </node>
+  <node id="5648134324" lat="42.8792732" lon="-8.5424238">
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="5649111122" lat="42.8787955" lon="-8.5428015">
+    <tag k="addr:housenumber" v="42a"/>
+    <tag k="addr:street" v="Rúa da Caldeirería"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Serendipia"/>
+  </node>
+  <node id="5649120221" lat="42.8792463" lon="-8.5425595">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="O piorno, cafetaria meson &amp; taperia"/>
+  </node>
+  <node id="5649137334" lat="42.8809482" lon="-8.5423597">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Smooy, frozen yoghurt"/>
+  </node>
+  <node id="5649164721" lat="42.8792244" lon="-8.5424545">
+    <tag k="name" v="Tentacion, pastileria &amp; panaderia"/>
+    <tag k="shop" v="confectionery"/>
+  </node>
+  <node id="5649795223" lat="42.8830053" lon="-8.5489248">
+    <tag k="amenity" v="bar"/>
+  </node>
+  <node id="5649795224" lat="42.8829731" lon="-8.5487727">
+    <tag k="amenity" v="bar"/>
+  </node>
+  <node id="5649800822" lat="42.8831596" lon="-8.5486900">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bellavista"/>
+  </node>
+  <node id="5649800823" lat="42.8825423" lon="-8.5457018">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cafetaría da Faculdade de Medicina"/>
+    <tag k="name:en" v="Cafe of the faculty of Medicines"/>
+  </node>
+  <node id="5650075021" lat="42.8824760" lon="-8.5438084">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Café Camaled"/>
+  </node>
+  <node id="5650937622" lat="42.8742479" lon="-8.5432998">
+    <tag k="amenity" v="bar"/>
+  </node>
+  <node id="5665560023" lat="42.8728067" lon="-8.5554330">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="description" v="Restaurante de Comida Coreana"/>
+    <tag k="name" v="Numaru"/>
+    <tag k="name:en" v="Numaru"/>
+    <tag k="name:ko" v="누마루"/>
+  </node>
+  <node id="5719116721" lat="42.8776831" lon="-8.5453928">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Meson El Bombero"/>
+  </node>
+  <node id="5719125721" lat="42.8811956" lon="-8.5429640">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Damajuana"/>
+  </node>
+  <node id="5775635874" lat="42.8781617" lon="-8.5458981">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Marte"/>
+    <tag k="outdoor_seating" v="yes"/>
+  </node>
+  <node id="5784770002" lat="42.8835783" lon="-8.5487935">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Outra vaca no millo"/>
+  </node>
+  <node id="5784774406" lat="42.8837282" lon="-8.5485221">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Santa Isabel"/>
+  </node>
+  <node id="5784777341" lat="42.8840541" lon="-8.5486322">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Azalea"/>
+  </node>
+  <node id="5784796180" lat="42.8819041" lon="-8.5487687">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="30"/>
+    <tag k="addr:street" v="Rúa das Galeras"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="description" v="Cervecería Café - bar"/>
+    <tag k="name" v="Tordoia"/>
+    <tag k="phone" v="+34 981 56 17 78"/>
+  </node>
+  <node id="5869690831" lat="42.8754439" lon="-8.5435840">
+    <tag k="amenity" v="food_court"/>
+    <tag k="name" v="La Galiciana"/>
+  </node>
+  <node id="5910473284" lat="42.8823219" lon="-8.5418957">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:country" v="ES"/>
+    <tag k="addr:housenumber" v="27"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa da Algalia de Abaixo"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="O Xa Chegou"/>
+  </node>
+  <node id="5964683361" lat="42.8740697" lon="-8.5514201">
+    <tag k="addr:street" v="Rúa Nova de Abaixo"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="description" v="Cafés, Batidos, Zumos, Chocolates, Infusiones"/>
+    <tag k="name" v="Cangaceiro"/>
+  </node>
+  <node id="5999125154" lat="42.8773288" lon="-8.5455878">
+    <tag k="amenity" v="cafe"/>
+    <tag k="contact:facebook" v="www.facebook.com/cafebarparisdc"/>
+    <tag k="name" v="Paris"/>
+    <tag k="phone" v="+34 981 57 60 73"/>
+  </node>
+  <node id="6126075470" lat="42.8753685" lon="-8.5485525">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:street" v="Rúa de Montero Ríos"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="coffee_shop"/>
+    <tag k="internet_access" v="yes"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Jocar"/>
+    <tag k="outdoor_seating" v="no"/>
+  </node>
+  <node id="6126075471" lat="42.8758132" lon="-8.5501090">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Avenida da Coruña"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="coffee_shop"/>
+    <tag k="name" v="Café Bar Lago"/>
+  </node>
+  <node id="6194757585" lat="42.8787597" lon="-8.5448294">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/tabernaogatonegro"/>
+    <tag k="name" v="El Gato Negro"/>
+    <tag k="phone" v="+34 981 58 31 05"/>
+  </node>
+  <node id="6230820685" lat="42.8797753" lon="-8.5445762">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Ristorante García"/>
+  </node>
+  <node id="6257659990" lat="42.8825640" lon="-8.5351680">
+    <tag k="addr:city" v="Santiago De Compostela"/>
+    <tag k="addr:housenumber" v="22"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rua da Angustia"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Cervexeria Merlego"/>
+    <tag k="phone" v="+34 981572975"/>
+    <tag k="source" v="local knowledge"/>
+  </node>
+  <node id="6268928710" lat="42.8658387" lon="-8.5838235">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Taberna Y un jamón"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="toilets" v="yes"/>
+  </node>
+  <node id="6324365362" lat="42.8604887" lon="-8.5407912">
+    <tag k="addr:city" v="Santiago De Compostela"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa do Castiñeiriño"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Restaurante Paz Nogueira"/>
+  </node>
+  <node id="6324365363" lat="42.8636049" lon="-8.5408606">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa da Estrada"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Cafe Bar La Estrada"/>
+    <tag k="phone" v="+34 981 59 86 85"/>
+  </node>
+  <node id="6329784843" lat="42.8595826" lon="-8.5376249">
+    <tag k="addr:street" v="Rúa de Alfredo Vicenti"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Café Bar Tacón"/>
+  </node>
+  <node id="6332064499" lat="42.8598571" lon="-8.5361588">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Varela"/>
+  </node>
+  <node id="6356207451" lat="42.8698078" lon="-8.5535565">
+    <tag k="addr:housenumber" v="21"/>
+    <tag k="addr:street" v="Rúa do Doutor Maceira"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="description" v="Pizza en tu casa.Pedidos a domicilio:Just eatDeliveroo"/>
+    <tag k="name" v="Amici miei"/>
+    <tag k="phone" v="+34 881125505"/>
+  </node>
+  <node id="6368073415" lat="42.8750158" lon="-8.5500114">
+    <tag k="addr:street" v="Rúa Nova de Abaixo"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Castelao"/>
+  </node>
+  <node id="6369693987" lat="42.8816466" lon="-8.5390362">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cadrado Doce coffee shop"/>
+  </node>
+  <node id="6413914892" lat="42.8680916" lon="-8.5450118">
+    <tag k="addr:street" v="Rúa do Ulla"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="delivery" v="yes"/>
+    <tag k="name" v="Madina kebab"/>
+  </node>
+  <node id="6472302085" lat="42.8778138" lon="-8.5441095">
+    <tag k="addr:housenumber" v="46"/>
+    <tag k="addr:street" v="Rúa Nova"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Tia Tita"/>
+  </node>
+  <node id="6476672486" lat="42.8783395" lon="-8.5415400">
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:street" v="Rúa da Ensinanza"/>
+    <tag k="name:en" v="Alice in Wonder Pie"/>
+    <tag k="opening_hours" v="Mo-Fr 10:00-15:00, 17:00-20:30; Sa 10:00-14:00"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="6476672487" lat="42.8739370" lon="-8.5473488">
+    <tag k="addr:housenumber" v="19"/>
+    <tag k="addr:street" v="Rúa de Alfredo Brañas"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name:en" v="EME MUSIC CLUB"/>
+  </node>
+  <node id="6476672586" lat="42.8831338" lon="-8.5427310">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="diet:vegan" v="only"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="Entre Pedras"/>
+    <tag k="name:en" v="Entre Pedras"/>
+    <tag k="opening_hours" v="We-Fr 17:30-00:00; Sa-Su 13:00-16:00, 19:30-23:55"/>
+  </node>
+  <node id="6476672587" lat="42.8817818" lon="-8.5356303">
+    <tag k="addr:housenumber" v="113"/>
+    <tag k="addr:street" v="Rúa de San Pedro"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="tapas"/>
+    <tag k="diet:vegan" v="yes"/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="TS - A Casa"/>
+    <tag k="name:en" v="TS - A Casa"/>
+    <tag k="opening_hours" v="Th-Sa 13:00-02:00; Tu-We 13:00-00:30"/>
+  </node>
+  <node id="6508962051" lat="42.8791917" lon="-8.5425661">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="O Besbello"/>
+  </node>
+  <node id="6514149089" lat="42.8819446" lon="-8.5433680">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="15704"/>
+    <tag k="addr:street" v="Rúa da Fonte de San Miguel"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Os Sobriños do Pai"/>
+    <tag k="phone" v="+34 981583566"/>
+  </node>
+  <node id="6545399780" lat="42.8628115" lon="-8.5417963">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Churreria Don Fernando"/>
+  </node>
+  <node id="6545457645" lat="42.8684353" lon="-8.5471418">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Maracay"/>
+  </node>
+  <node id="6545459212" lat="42.8679869" lon="-8.5461544">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="name" v="Hamburgueseria Ruta 66"/>
+  </node>
+  <node id="6580505053" lat="42.8826160" lon="-8.5410693">
+    <tag k="addr:street" v="Rúa das Rodas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A corredoira"/>
+  </node>
+  <node id="6653179958" lat="42.8810256" lon="-8.5411857">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Lucille"/>
+  </node>
+  <node id="6656657565" lat="42.8803270" lon="-8.5425093">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Kapital"/>
+  </node>
+  <node id="6656660721" lat="42.8804041" lon="-8.5425215">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Século IX"/>
+  </node>
+  <node id="6656662057" lat="42.8805330" lon="-8.5426587">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Choiva"/>
+  </node>
+  <node id="6657385218" lat="42.8792930" lon="-8.5466436">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa de San Clemente"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="bar" v="yes"/>
+    <tag k="brewery" v="various"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Taverna Galega, Fogar do Santiso"/>
+    <tag k="opening_hours" v="Mo-Su 12:00-1:00"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="phone" v="+34604068815"/>
+    <tag k="website" v="https://www.fogardosantiso.es/taverna-galega-fogar-do-santiso/"/>
+  </node>
+  <node id="6657385219" lat="42.8779449" lon="-8.5454558">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="36-38"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa do Franco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="description" v="comida local, con opciones vegetarianas, ecológicas, de varietales locales y de producción artesana."/>
+    <tag k="diet:vegetarian" v="yes"/>
+    <tag k="name" v="Fogar de Galicia, Fogar do Santiso"/>
+    <tag k="opening_hours" v="Mo-Su 12:00-1:00"/>
+    <tag k="phone" v="+34981 58 31 12"/>
+    <tag k="website" v="https://www.fogardosantiso.es/fogar-do-santiso-franco/"/>
+  </node>
+  <node id="6657409984" lat="42.8778040" lon="-8.5461952">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Avenida de Figueroa"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="La Jefatura"/>
+    <tag k="opening_hours" v="Tu-Fr 8:00-16:00,19:00-00:00; Sa 12:00-16:00,19:00-00:00; Su 12:00-16:00"/>
+    <tag k="phone" v="+34981 57 38 34"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="6674995425" lat="42.8706780" lon="-8.5625918">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Cafeteria Santos"/>
+  </node>
+  <node id="6675008816" lat="42.8703880" lon="-8.5626026">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A taberna do Finikito"/>
+  </node>
+  <node id="6675089135" lat="42.8707147" lon="-8.5625068">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Santos Restaurante"/>
+  </node>
+  <node id="6697332786" lat="42.8822824" lon="-8.5343346">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Rey"/>
+  </node>
+  <node id="6698871785" lat="42.8814679" lon="-8.5436925">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="La Campana"/>
+    <tag k="phone" v="+34 981 58 48 50"/>
+  </node>
+  <node id="6699414285" lat="42.8890561" lon="-8.5262443">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="brand" v="Burger King"/>
+    <tag k="brand:wikidata" v="Q177054"/>
+    <tag k="brand:wikipedia" v="en:Burger King"/>
+    <tag k="cuisine" v="burger"/>
+    <tag k="name" v="Burger King"/>
+    <tag k="takeaway" v="yes"/>
+  </node>
+  <node id="6707499788" lat="42.8774868" lon="-8.5445304">
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Cantón do Toural"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Galeon Toural"/>
+    <tag k="name:es" v="Galeón Toural"/>
+    <tag k="phone" v="+34 981 58 61 40"/>
+    <tag k="website" v="http://www.galeontoural.com"/>
+  </node>
+  <node id="6707704985" lat="42.8774401" lon="-8.5448734">
+    <tag k="amenity" v="ice_cream"/>
+    <tag k="name" v="Sotto 0"/>
+  </node>
+  <node id="6709448335" lat="42.8869925" lon="-8.5299658">
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:street" v="Rúa de Mónaco"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Sete Culleres"/>
+    <tag k="phone" v="+34 981 94 32 10"/>
+    <tag k="website" v="https://www.seteculleres.com/"/>
+  </node>
+  <node id="6712179588" lat="42.8780112" lon="-8.5453265">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="ACDC"/>
+  </node>
+  <node id="6712188485" lat="42.8781982" lon="-8.5452689">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="O Boteco"/>
+  </node>
+  <node id="6723020497" lat="42.8784081" lon="-8.5432010">
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:street" v="Rúa de Tras Salomé"/>
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="A Reixa Bar Musical"/>
+    <tag k="opening_hours" v="Mo-We, Su 20:00-04:00; Th-Sa 20:00-04:30"/>
+  </node>
+  <node id="6723676769" lat="42.8709822" lon="-8.5548684">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Bar Pato Rojo"/>
+  </node>
+  <node id="6744304817" lat="42.8650256" lon="-8.5595787">
+    <tag k="name" v="Panadería Paulino"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="6749829881" lat="42.8900543" lon="-8.5325451">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="D'Tapas"/>
+  </node>
+  <node id="6771174017" lat="42.8797808" lon="-8.5419357">
+    <tag k="addr:street" v="Preguntoiro/Altamira"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="description" v="Cocina Atlántica"/>
+    <tag k="name" v="Benboa"/>
+  </node>
+  <node id="6772155927" lat="42.8857470" lon="-8.5339867">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Oroña"/>
+  </node>
+  <node id="6772169563" lat="42.8858695" lon="-8.5337203">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="description" v="Pulpería y Churrasquería"/>
+    <tag k="name" v="Mesón O'Travieso"/>
+  </node>
+  <node id="6772175771" lat="42.8853048" lon="-8.5339947">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Home Santo"/>
+  </node>
+  <node id="6772185270" lat="42.8822166" lon="-8.5352234">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="2 Eles"/>
+  </node>
+  <node id="6801917687" lat="42.8741880" lon="-8.5519521">
+    <tag k="addr:housenumber" v="65 bajo n.°2"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Avenida de Rosalía de Castro"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="email" v="cafelatexo@gmail.com"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Café Latexo"/>
+  </node>
+  <node id="6815595285" lat="42.8810616" lon="-8.5430175">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="O Paraiso Perdido"/>
+  </node>
+  <node id="6868072840" lat="42.8680334" lon="-8.5481277">
+    <tag k="amenity" v="cafe"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Gastrotaberna Esmorga"/>
+    <tag k="outdoor_seating" v="yes"/>
+  </node>
+  <node id="6888497675" lat="42.8811212" lon="-8.5380882">
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:street" v="Rudela das Fontiñas"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Pampín Bar"/>
+    <tag k="opening_hours" v="Mo, We-Su 13:30-15:30; Mo, We-Sa 20:30-23:00"/>
+    <tag k="website" v="pampinbar.com"/>
+  </node>
+  <node id="6943732214" lat="42.8734387" lon="-8.5472923">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Galeón"/>
+    <tag k="opening_hours" v="Mo-Su 12:00-01:30"/>
+  </node>
+  <node id="7011149585" lat="42.8716130" lon="-8.5502519">
+    <tag k="addr:housenumber" v="22"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa de Santiago de Chile"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Mac Burger"/>
+  </node>
+  <node id="7034715285" lat="42.8796671" lon="-8.5491498">
+    <tag k="addr:housenumber" v="17"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa do Pombal"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="tapas"/>
+    <tag k="name" v="A t"/>
+    <tag k="name:es" v="A táboa de picar"/>
+    <tag k="opening_hours" v="Tu-Su 11:00-17:30, 19:30-00:15"/>
+    <tag k="phone" v="+34 981 58 33 64"/>
+  </node>
+  <node id="7194098485" lat="42.8771791" lon="-8.5431755">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Dolce café"/>
+  </node>
+  <node id="7200995486" lat="42.8811665" lon="-8.5491664">
+    <tag k="addr:housenumber" v="20"/>
+    <tag k="addr:postcode" v="15705"/>
+    <tag k="addr:street" v="Rúa das Galeras"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="spanish"/>
+    <tag k="name" v="Don Quijote"/>
+    <tag k="opening_hours" v="Mo-Su 10:00-18:00, 20:00-00:00"/>
+    <tag k="phone" v="+34 981 58 68 59"/>
+    <tag k="website" v="http://www.quijoterestaurante.com"/>
+  </node>
+  <node id="7203008885" lat="42.8781768" lon="-8.5433684">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15703"/>
+    <tag k="addr:street" v="Rúa das Orfas"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/mambaraloungebar/"/>
+    <tag k="name" v="Mambara"/>
+    <tag k="opening_hours" v="Mo-Th 08:00-23:30; Fr 08:00-00:00; Sa 09:00-00:00; Su 10:00-23:30"/>
+    <tag k="phone" v="+34 981560608"/>
+  </node>
+  <node id="7231369953" lat="42.8728973" lon="-8.5506275">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="email" v="info@casaregi.com"/>
+    <tag k="name" v="Casa Regi"/>
+    <tag k="phone" v="+34 616 508377"/>
+    <tag k="website" v="https://casaregi.com/"/>
+  </node>
+  <node id="7231369955" lat="42.8721187" lon="-8.5506836">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="16"/>
+    <tag k="addr:postcode" v="15701"/>
+    <tag k="addr:street" v="Rúa de Santiago de Chile"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="name" v="TomaYá"/>
+    <tag k="opening_hours" v="Mo-Fr 12:30-16:00,19:00-24:00; Sa 12:30-16:00,22:00-24:00; Su,PH off"/>
+  </node>
+  <node id="7231369957" lat="42.8724861" lon="-8.5509308">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="A taberna do Ensanche"/>
+  </node>
+  <node id="7231369959" lat="42.8722099" lon="-8.5507397">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="16"/>
+    <tag k="addr:street" v="Rúa de Santiago de Chile"/>
+    <tag k="contact:instagram" v="https://www.instagram.com/labulanxeri/"/>
+    <tag k="email" v="info@labulanxeri.es"/>
+    <tag k="name" v="La Bulanxerí"/>
+    <tag k="opening_hours" v="Mo-Fr 08:30-15:30,16:30-21:00; Sa,Su,PH 09:00-15:00"/>
+    <tag k="phone" v="+34 881 978887"/>
+    <tag k="shop" v="bakery"/>
+    <tag k="website" v="http://labulanxeri.es/"/>
+  </node>
+  <node id="7231369960" lat="42.8726694" lon="-8.5508001">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:floor" v="0"/>
+    <tag k="addr:housenumber" v="13"/>
+    <tag k="addr:street" v="Rúa de Santiago de Chile"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/alicecompostela/"/>
+    <tag k="cuisine" v="pizza"/>
+    <tag k="level" v="0"/>
+    <tag k="name" v="Alice Pizza"/>
+    <tag k="opening_hours" v="Mo-Su 13:00-23:45"/>
+    <tag k="phone" v="+34 981 930470"/>
+  </node>
+  <node id="7231369966" lat="42.8723255" lon="-8.5508565">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="O Edén"/>
+  </node>
+  <node id="7275540575" lat="42.8793985" lon="-8.5412223">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Embora"/>
+  </node>
+  <node id="7526030653" lat="42.8803731" lon="-8.5413059">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="contact:facebook" v="https://www.facebook.com/Pulperia-Abastos-469888470026869/"/>
+    <tag k="cuisine" v="fish"/>
+    <tag k="name" v="Pulperia Abastos"/>
+    <tag k="phone" v="+34 604 02 68 40"/>
+  </node>
+  <node id="7537855686" lat="42.8732047" lon="-8.5374075">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="74"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa de Sar"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Chantadina"/>
+  </node>
+  <node id="7549480912" lat="42.8711434" lon="-8.5347612">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="32"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa da Ponte de Sar"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="A Taberna de Fran"/>
+  </node>
+  <node id="7549977877" lat="42.8709399" lon="-8.5345620">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="38"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa da Ponte de Sar"/>
+    <tag k="name" v="Panadería Moure"/>
+    <tag k="shop" v="bakery"/>
+  </node>
+  <node id="7550002093" lat="42.8720170" lon="-8.5335930">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Travesa da Ponte de Sar"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="O Rincón do Gaiás"/>
+  </node>
+  <node id="7550002127" lat="42.8737239" lon="-8.5377680">
+    <tag k="addr:city" v="Santiago de Compostela"/>
+    <tag k="addr:housenumber" v="40"/>
+    <tag k="addr:postcode" v="15702"/>
+    <tag k="addr:street" v="Rúa de Sar"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="A casa da pedra"/>
+  </node>
+  <node id="7682803863" lat="42.8669885" lon="-8.5440187">
+    <tag k="amenity" v="bar"/>
+  </node>
+  <node id="7682843164" lat="42.8668691" lon="-8.5442586">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Bar Baema"/>
+  </node>
+  <node id="7699101585" lat="42.8753015" lon="-8.5494973">
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="15706"/>
+    <tag k="addr:street" v="Rúa Nova de Abaixo"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Asador Gonzaba"/>
+  </node>
+  <node id="7752527685" lat="42.8815652" lon="-8.5400622">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Benedita Elisa"/>
+  </node>
+  <node id="7761610844" lat="42.8721907" lon="-8.5489211">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Galopin"/>
+  </node>
+  <node id="7797527725" lat="42.8720463" lon="-8.5491116">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="Entrepipos"/>
+  </node>
+  <node id="7857720273" lat="42.8774662" lon="-8.5457552">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="100 montaditos"/>
+  </node>
+  <node id="7857756895" lat="42.8746307" lon="-8.5490800">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Goiko Grill"/>
+  </node>
+  <node id="7857795964" lat="42.8736127" lon="-8.5438063">
+    <tag k="amenity" v="bar"/>
+    <tag k="name" v="D'Lucia"/>
+  </node>
+  <node id="8045233080" lat="42.8802912" lon="-8.5413578">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Frebas"/>
+  </node>
+  <node id="8045233081" lat="42.8802136" lon="-8.5413846">
+    <tag k="amenity" v="pub"/>
+    <tag k="name" v="Amoado"/>
+  </node>
+  <node id="8045233082" lat="42.8801359" lon="-8.5414249">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="A Ostrería"/>
+  </node>
+  <node id="8516056508" lat="42.8598491" lon="-8.5712808">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Restaurante El Puente"/>
+  </node>
+  <node id="8570776589" lat="42.8790830" lon="-8.5471177">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Cotolay"/>
+  </node>
+  <node id="8570791154" lat="42.8792269" lon="-8.5468332">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="description" v="Fogar do Santiso: Taverna Galega"/>
+    <tag k="name" v="Taverna Galega"/>
+  </node>
+
+</osm>
