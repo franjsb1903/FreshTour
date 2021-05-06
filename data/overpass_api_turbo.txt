@@ -4,7 +4,7 @@ Para obter os datos dende OpenStreetMap, temos que empregar a ferramenta osm2pgs
 ------------- LUGARES HOSPEDAXE -------------
 
 /***** CONSULTA osm2pgsql *****/
-.\osm2pgsql.exe -d osm --output-pgsql-schema=lugares_hospedaxe -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W ..\hospedaxe.osm
+.\osm2pgsql.exe -d fresh_tour --output-pgsql-schema=osm_lugares_hospedaxe -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W -E 4326 ..\hospedaxe.osm
 
 /***** CONSULTA OVERPASS TURBO *****/
 /*
@@ -42,7 +42,7 @@ out skel qt;
 
 /***** CONSULTA osm2pgsql *****/
 
-.\osm2pgsql.exe -d osm --output-pgsql-schema=lugares_hostalaria -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W ..\hostalaria.osm
+.\osm2pgsql.exe -d fresh_tour --output-pgsql-schema=osm_lugares_hostalaria -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W -E 4326 ..\hostalaria.osm
 
 /***** CONSULTA OVERPASS TURBO *****/
 
@@ -83,7 +83,7 @@ out skel qt;
 ------------- ACTIVIDADES OCIO -------------
 
 /***** CONSULTA osm2pgsql *****/
-.\osm2pgsql.exe -d osm --output-pgsql-schema=actividades_ocio -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W ..\actividades_ocio.osm
+.\osm2pgsql.exe -d fresh_tour --output-pgsql-schema=osm_actividades_ocio -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W -E 4326 ..\actividades_ocio.osm
 
 /***** CONSULTA OVERPASS TURBO *****/
 /*
@@ -144,7 +144,7 @@ out skel qt;
 ------------- OUTRAS ACTIVIDADES -------------
 
 /***** CONSULTA osm2pgsql *****/
-.\osm2pgsql.exe -d osm --output-pgsql-schema=outras_actividades -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W ..\outras_actividades.osm
+.\osm2pgsql.exe -d fresh_tour --output-pgsql-schema=osm_outras_actividades -U postgres -P 5432 -S default.style -C 512 --hstore -H localhost -W -E 4326 ..\outras_actividades.osm
 
 /***** CONSULTA OVERPASS TURBO *****/
 /*

@@ -396,6 +396,18 @@ CREATE TABLE IF NOT EXISTS fresh_tour.tempo_outras_actividades (
     CONSTRAINT pk_tempo_outras_actividades PRIMARY KEY (id),
     CONSTRAINT fk_outra FOREIGN KEY (id_outra_actividade) REFERENCES fresh_tour.outras_actividades(id)
 );
+ALTER TABLE fresh_tour.lugares_hospedaxe ADD sub_tag varchar NOT NULL;
+ALTER TABLE fresh_tour.lugares_hospedaxe ALTER COLUMN main_tag SET NOT NULL;
+ALTER TABLE fresh_tour.lugares_hospedaxe ALTER COLUMN geom SET NOT NULL;
+ALTER TABLE fresh_tour.lugares_hostalaria ALTER COLUMN main_tag SET NOT NULL;
+ALTER TABLE fresh_tour.lugares_hostalaria ALTER COLUMN geom SET NOT NULL;
+ALTER TABLE fresh_tour.lugares_hostalaria ADD sub_tag varchar NOT NULL;
+ALTER TABLE fresh_tour.actividades_ocio ADD sub_tag varchar NOT NULL;
+ALTER TABLE fresh_tour.actividades_ocio ALTER COLUMN main_tag SET NOT NULL;
+ALTER TABLE fresh_tour.actividades_ocio ALTER COLUMN geom SET NOT NULL;
+ALTER TABLE fresh_tour.outras_actividades ADD sub_tag varchar NOT NULL;
+ALTER TABLE fresh_tour.outras_actividades ALTER COLUMN main_tag SET NOT NULL;
+ALTER TABLE fresh_tour.outras_actividades ALTER COLUMN geom SET NOT NULL;
 --- AUXILIAR TABLES
 --- SCHEMA
 CREATE SCHEMA fresh_tour_aux AUTHORIZATION postgres;
@@ -449,3 +461,11 @@ CREATE TABLE fresh_tour_aux.monumentos_aux (
     extra_url varchar NULL,
     localizacion_zoom varchar(32767) NULL
 );
+
+--- OSM
+CREATE EXTENSION hstore;
+--- SCHEMA CREATIONS
+CREATE SCHEMA IF NOT EXISTS osm_lugares_hospedaxe AUTHORIZATION postgres;
+CREATE SCHEMA IF NOT EXISTS osm_lugares_hostaleria AUTHORIZATION postgres;
+CREATE SCHEMA IF NOT EXISTS osm_actividades_ocio AUTHORIZATION postgres;
+CREATE SCHEMA IF NOT EXISTS osm_outras_actividades AUTHORIZATION postgres;
