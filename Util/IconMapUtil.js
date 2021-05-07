@@ -10,5 +10,15 @@ export const getIconContent = (number) => {
             return "D";
         case 5:
             return "E";
+        case 6:
+            return "F";
+        case 7:
+            return "G";
+        case 8:
+            return "H";
+        case 9:
+            return "I";
+        case 10:
+            return "j";
     }
 }

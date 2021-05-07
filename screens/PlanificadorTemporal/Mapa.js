@@ -7,13 +7,14 @@ import { stylesMapa as styles } from '../../styles/styles'
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
 import AppContext from '../../context/PlanificadorAppContext';
-import { PointsInterestIconButton } from '../../components/CustomIcons';
+import { PointsInterestIconButton, BedIconButton } from '../../components/CustomIcons';
 
 import { getIconContent } from '../../Util/IconMapUtil'
 
 import LeafletMap from '../../components/LeafletMap';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList';
+import ModalUrl from '../../components/ModalUrl'
 
 const Map = (props) => {
 
@@ -33,6 +34,12 @@ const Map = (props) => {
   const [selected, setSelected] = useState({
     selected: ''
   });
+
+  const [modal, setModal] = useState(false);
+
+  const showModal = () => {
+    setModal(!modal);
+  }
 
   let injectedData = `addLayer(${selected.selected})`;
 
@@ -172,8 +179,10 @@ const Map = (props) => {
     <>
       <View style={styles.header}>
         <View style={styles.headerBottom}>
-          <View style={{ flex: 1 }}>
-            <Text></Text>
+        <View style={styles.icon}>
+            <BedIconButton _onPress={() => {
+              props.navigation.navigate('HospedaxeList');
+            }} />
           </View>
           <View style={styles.title}>
             <Text style={styles.titleText}>FreshTour</Text>
@@ -200,7 +209,7 @@ const Map = (props) => {
           :
           <Text style={{ display: "none" }}></Text>
       }
-
+      <ModalUrl modal={modal} showModal={showModal} />
       <LeafletMap />
     </>
   );

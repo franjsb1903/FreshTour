@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 
@@ -8,6 +8,7 @@ import { stylesApp as styles } from './styles/styles';
 import FlashMessage from 'react-native-flash-message'
 
 import MainStack from './components/MainStack';
+
 
 
 export default function App() {

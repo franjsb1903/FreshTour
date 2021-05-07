@@ -97,6 +97,14 @@ const EditIcon = () => (
     <Icon name="create-outline" size={30} color="#000" />
 );
 
+const BedIcon = () => (
+    <Icon name="bed" size={30} color={properties.style.color.iconColor} />
+);
+
+const ClockIcon = () => (
+    <Icon name="time" size={30} color={properties.style.color.iconColor} />
+);
+
 export const MarkerIcon = () => (
     <MaterialIcons name="place" size={30} />
 );
@@ -427,6 +435,34 @@ export const EditIconButton = (props) => {
                 onPress ? onPress() : {}
             }}
             style={styles}
+        />
+    );
+}
+
+export const BedIconButton = (props) => {
+
+    const _onPress = props._onPress;
+
+    return (
+        <IconButton
+            icon={BedIcon}
+            onPress={() => {
+                _onPress();
+            }}
+        />
+    );
+}
+
+export const ClockIconButton = (props) => {
+
+    const _onPress = props._onPress;
+
+    return (
+        <IconButton
+            icon={ClockIcon}
+            onPress={() => {
+                _onPress();
+            }}
         />
     );
 }

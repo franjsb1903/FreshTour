@@ -17,6 +17,7 @@ import RutasRecomendadasList from '../screens/PlanificadorTemporal/Rutas/RutasRe
 import EditarUsuario from '../screens/Usuarios/Editar/Editar';
 import InfoCommon from '../screens/Info/Screens/Common';
 import CovidScreen from '../screens/Info/Screens/CovidScreen';
+import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
 
 import { stylesApp as styles } from '../styles/styles';
 
@@ -191,6 +192,16 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "COVID",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="HospedaxeList"
+                component={HospedaxeList}
+                options={{
+                    headerShown: true,
+                    title: "Hospedaxe",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}

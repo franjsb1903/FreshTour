@@ -1,11 +1,18 @@
 import properties from '../properties/properties_expo';
 import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class XestionDatosPlanificador {
 
     async getSearchData(search) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.nominatim_json + search;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.nominatim_json + search;
+        else {
+            url = url + properties.url.planificador.nominatim_json + search;
+        }
         try {
             const json = await fetchJsonGet(url);
             return json;
@@ -15,7 +22,14 @@ class XestionDatosPlanificador {
     }
 
     async getSearchItem(selected) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.nominatim_geojson + selected;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.nominatim_geojson + selected;
+        else {
+            url = url + properties.url.planificador.nominatim_geojson + selected;
+        }
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -25,7 +39,14 @@ class XestionDatosPlanificador {
     }
 
     async savePlanificacion(token, planificacion, elementos) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.new;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.new;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.new;
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -51,8 +72,14 @@ class XestionDatosPlanificador {
     }
 
     async getPlanificacions(signal, token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main;
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main;
+        else {
+            url = url + properties.url.planificador.main;
+        }
         try {
             const json = await fetchJsonGet(url, token, signal);
             return json;
@@ -62,8 +89,14 @@ class XestionDatosPlanificador {
     }
 
     async sharePlanificacion(token, isShare, id) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.share;
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.share;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.share;
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -82,8 +115,14 @@ class XestionDatosPlanificador {
     }
 
     async getElements(id, signal) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.elements + id;
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.elements + id;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.elements + id;
+        }
         try {
             const json = await fetchJsonGet(url, undefined, signal);
             return json;
@@ -93,8 +132,14 @@ class XestionDatosPlanificador {
     }
 
     async deletePlanificacion(id, token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.delete;
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.delete;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.delete;
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -112,8 +157,14 @@ class XestionDatosPlanificador {
     }
 
     async editPlanificacion(token, titulo, comentario, id) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.edit;
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.edit;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.edit;
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -133,8 +184,14 @@ class XestionDatosPlanificador {
     }
 
     async sortBy(token, type) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.sortBy + type;
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.sortBy + type;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.sortBy + type;
+        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -144,7 +201,14 @@ class XestionDatosPlanificador {
     }
 
     async favSortBy(token, type) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -155,12 +219,19 @@ class XestionDatosPlanificador {
     }
 
     async getByName(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.byName + name;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.byName + name;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.byName + name;
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
             return json;
-        } catch(err) {
+        } catch (err) {
             throw new Error(err);
         }
     }

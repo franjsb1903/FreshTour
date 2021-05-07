@@ -1,10 +1,17 @@
 import properties from '../properties/properties_expo';
 import { fecthJsonAuthPost, fecthJsonAuthGet, fetchJsonDelete } from '../Util/FetchUtil'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 class XestionDatosUsuarios {
 
     async registerUser(user) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.register;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.register;
+        else {
+            url = url + properties.url.usuarios.auth + properties.url.usuarios.register;
+        }
 
         try {
             const body = {
@@ -26,7 +33,14 @@ class XestionDatosUsuarios {
     }
 
     async loginUser(user) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.login;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.login;
+        else {
+            url = url + properties.url.usuarios.auth + properties.url.usuarios.login;
+        }
 
         try {
             const body = {
@@ -45,7 +59,13 @@ class XestionDatosUsuarios {
     }
 
     async getUserByToken(token, signal) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.me;
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.me;
+        else {
+            url = url + properties.url.usuarios.auth + properties.url.usuarios.me;
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -60,7 +80,14 @@ class XestionDatosUsuarios {
     }
 
     async editUser(token, user) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.edit;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.edit;
+        else {
+            url = url + properties.url.usuarios.main + properties.url.usuarios.edit;
+        }
 
         try {
             const body = {
@@ -83,7 +110,14 @@ class XestionDatosUsuarios {
     }
 
     async deleteUser(token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.delete;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.delete;
+        else {
+            url = url + properties.url.usuarios.main + properties.url.usuarios.delete;
+        }
 
         try {
             const headers = {

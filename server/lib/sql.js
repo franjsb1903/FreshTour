@@ -120,4 +120,7 @@ sql.opinions.edit.lugares = "UPDATE fresh_tour.comentarios_valoracions_lugares_t
 sql.opinions.edit.monumentos = "UPDATE fresh_tour.comentarios_valoracions_monumentos SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
 sql.opinions.edit.planificacions = "UPDATE fresh_tour.comentarios_valoracions_planificacions SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
 
+sql.hospedaxe = {};
+sql.hospedaxe.all = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion FROM fresh_tour.lugares_hospedaxe lh ORDER BY valoracion DESC";
+
 module.exports = sql;

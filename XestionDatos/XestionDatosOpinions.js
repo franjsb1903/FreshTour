@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import properties from '../properties/properties_expo';
 import { fetchJsonGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
 
@@ -7,8 +8,14 @@ const { fetchJsonGet, fetchTextGet } = require('../Util/FetchUtil');*/
 class XestionDatosOpinions {
 
     async getOpinions(type, id, signal) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.opinions + type + "/" + id
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.opinions + type + "/" + id
+        else {
+            url = url + properties.url.opinions.main + properties.url.opinions.opinions + type + "/" + id
+        }
         try {
             const json = await fetchJsonGet(url, undefined, signal);
             return json;
@@ -18,8 +25,13 @@ class XestionDatosOpinions {
     }
 
     async newOpinion(token, type, id_elemento, comentario) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.newOpinion
+        var url = await AsyncStorage.getItem('url');
 
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.newOpinion
+        else {
+            url = url + properties.url.opinions.main + properties.url.opinions.newOpinion
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -41,8 +53,14 @@ class XestionDatosOpinions {
     }
 
     async deleteOpinion(token, id_elemento, type, id) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.delete
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.delete
+        else {
+            url = url + properties.url.opinions.main + properties.url.opinions.delete
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -63,8 +81,14 @@ class XestionDatosOpinions {
     }
 
     async editOpinion(token, type, id_elemento, comentario, id) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.edit
 
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.opinions.main + properties.url.opinions.edit
+        else {
+            url = url + properties.url.opinions.main + properties.url.opinions.edit;
+        }
         try {
             const headers = {
                 'Accept': 'application/json',
