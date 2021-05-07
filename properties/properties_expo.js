@@ -27,7 +27,8 @@ const properties = {
         geoserver: {
             url: "http://192.168.1.72:8080/geoserver",
             lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",                    // /geoserver/:id
-            monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+"
+            monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+",
+            hospedaxe: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=id+=+"
         },
         opinions: {
             main: "/opinions",
@@ -48,7 +49,8 @@ const properties = {
         },
         hospedaxe: {
             main: '/hospedaxe',
-            all: '/'
+            all: '/',
+            filter: '/filter/'          // /filter/:type
         }
     },
     style: {

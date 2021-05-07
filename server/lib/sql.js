@@ -71,7 +71,7 @@ sql.elementos.byName = "SELECT *, 'Lugar turístico' as tipo, CASE WHEN EXISTS (
 sql.elementos.favs = {};
 sql.elementos.favs.sortBy = {};
 sql.elementos.favs.sortBy.titulo = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1) ORDER BY titulo ASC";
-sql.elementos.favs.sortBy.valoracion = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1) ORDER BY titulo DESC";
+sql.elementos.favs.sortBy.valoracion = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1) ORDER BY valoracion DESC";
 sql.elementos.favs.new = {};
 sql.elementos.favs.new.lugares = "INSERT INTO fresh_tour.lugares_turisticos_favoritos (id_usuario, id_lugar_turistico) values ($1, $2)";
 sql.elementos.favs.new.monumentos = "INSERT INTO fresh_tour.monumentos_favoritos (id_usuario, id_monumento) values ($1, $2)";
@@ -121,6 +121,29 @@ sql.opinions.edit.monumentos = "UPDATE fresh_tour.comentarios_valoracions_monume
 sql.opinions.edit.planificacions = "UPDATE fresh_tour.comentarios_valoracions_planificacions SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
 
 sql.hospedaxe = {};
-sql.hospedaxe.all = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion FROM fresh_tour.lugares_hospedaxe lh ORDER BY valoracion DESC";
+sql.hospedaxe.all = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh ORDER BY valoracion DESC";
+sql.hospedaxe.hoteis = {};
+sql.hospedaxe.hoteis.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'hotel' ORDER BY titulo ASC";
+sql.hospedaxe.hoteis.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'hotel' ORDER BY valoracion DESC";
+sql.hospedaxe.hostais = {};
+sql.hospedaxe.hostais.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'hostel' ORDER BY titulo ASC";
+sql.hospedaxe.hostais.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'hostel' ORDER BY valoracion DESC";
+sql.hospedaxe.aloxamento = {};
+sql.hospedaxe.aloxamento.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'guest_house' ORDER BY titulo ASC";
+sql.hospedaxe.aloxamento.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'guest_house' ORDER BY valoracion DESC";
+sql.hospedaxe.caravanas = {};
+sql.hospedaxe.caravanas.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'caravan_site' ORDER BY titulo ASC";
+sql.hospedaxe.caravanas.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'caravan_site' ORDER BY valoracion DESC";
+sql.hospedaxe.vivendas = {};
+sql.hospedaxe.vivendas.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'apartment' ORDER BY titulo ASC";
+sql.hospedaxe.vivendas.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'apartment' ORDER BY valoracion DESC";
+sql.hospedaxe.camping = {};
+sql.hospedaxe.camping.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'camp_pitch' or lh.sub_tag LIKE 'camp_site' ORDER BY titulo ASC";
+sql.hospedaxe.camping.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'camp_pitch' or lh.sub_tag LIKE 'camp_site' ORDER BY valoracion DESC";
+sql.hospedaxe.moteis = {};
+sql.hospedaxe.moteis.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'motel' ORDER BY titulo ASC";
+sql.hospedaxe.moteis.valoracon = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh WHERE lh.sub_tag LIKE 'motel' ORDER BY valoracion DESC";
+sql.hospedaxe.titulo = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh ORDER BY titulo ASC";
+sql.hospedaxe.valoracion = "SELECT id, titulo, sub_tag, (SELECT avg(valoracion) FROM fresh_tour.comentarios_valoracions_lugares_hospedaxe cmvlh where cmvlh.id_lugar_hospedaxe = lh.id) as valoracion, 'Hospedaxe' as tipo FROM fresh_tour.lugares_hospedaxe lh ORDER BY valoracion DESC";
 
 module.exports = sql;

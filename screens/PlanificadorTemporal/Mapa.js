@@ -32,7 +32,8 @@ const Map = (props) => {
   });
 
   const [selected, setSelected] = useState({
-    selected: ''
+    selected: '',
+    type: ''
   });
 
   const [modal, setModal] = useState(false);
@@ -40,8 +41,7 @@ const Map = (props) => {
   const showModal = () => {
     setModal(!modal);
   }
-
-  let injectedData = `addLayer(${selected.selected})`;
+  let injectedData = `addLayer(${selected.selected}, "${selected.type}")`;
 
   useEffect(() => {
     let mounted = true;
@@ -63,7 +63,7 @@ const Map = (props) => {
     }
 
     return () => mounted = false;
-  }, [selected.selected]);
+  }, [selected]);
 
   useEffect(() => {
     let mounted = true;
@@ -169,9 +169,10 @@ const Map = (props) => {
     })
   }
 
-  const updateSelected = (selected) => {
+  const updateSelected = (selected, type) => {
     setSelected({
-      selected: selected
+      selected: selected,
+      type: type
     });
   }
 
@@ -179,9 +180,11 @@ const Map = (props) => {
     <>
       <View style={styles.header}>
         <View style={styles.headerBottom}>
-        <View style={styles.icon}>
+          <View style={styles.icon}>
             <BedIconButton _onPress={() => {
-              props.navigation.navigate('HospedaxeList');
+              props.navigation.navigate('HospedaxeList', {
+                updateItem: updateSelected
+              });
             }} />
           </View>
           <View style={styles.title}>

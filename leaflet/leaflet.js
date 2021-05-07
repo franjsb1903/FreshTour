@@ -36,6 +36,11 @@ const leaflet = `
     <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/dist/css/leaflet.extra-markers.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/src/assets/js/leaflet.extra-markers.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+
     <style> 
     body {
         padding: 0;
@@ -161,17 +166,51 @@ const leaflet = `
 
     var geojson = undefined;
 
-    function addLayer(data) {
+    function setIcon(layer, tipo) {
+        switch(tipo) {
+            case "Hotel":
+                layer.setIcon(hotelMarker);
+                break;
+            case "Hostal":
+                layer.setIcon(hostalMarker);
+                break;
+            case "Aloxamento":
+                layer.setIcon(aloxamentoMarker);
+                break;
+            case "Motel":
+                layer.setIcon(motelMarker);
+                break;
+            case "Camping":
+                layer.setIcon(campingMarker);
+                break;
+            case "Estacionamento de caravanas":
+                layer.setIcon(caravanMarker);
+                break;
+            case "Vivenda":
+                layer.setIcon(vivendaMarker);
+                break;
+            default:
+                break;
+            
+        }
+    }
+
+    function addLayer(data, tipo) {
         if(geojson != undefined) {
             myMap.removeLayer(geojson);
             geojson = undefined;
         }
         geojson = L.geoJson(data, {
             onEachFeature: function(feature, layer) {
-                if(feature.properties.display_name === undefined) {
+                if(feature.properties.display_name === undefined && feature.properties.titulo!==null) {
                     layer.bindPopup('<p>'+feature.properties.titulo+'</p>');
-                } else {
+                } else if(feature.properties.display_name !== undefined) {
                     layer.bindPopup('<p>'+feature.properties.display_name+'</p>');
+                } else {
+                    layer.bindPopup('<p>'+tipo+'</p>');
+                }
+                if(tipo) {
+                    setIcon(layer, tipo);
                 }
                 myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 13);
                 layer.on('click', function(e) {
@@ -241,7 +280,9 @@ const leaflet = `
     myMap.pm.Toolbar.createCustomControl(centerControl);
 
     function addMarker(lat, lang) {
-        L.marker([lat, lang]).addTo(myMap);
+        L.marker([lat, lang], {
+            icon: userMarker
+        }).addTo(myMap);
         myMap.setView([lat, lang], 13);
     }
 
@@ -267,6 +308,102 @@ const leaflet = `
         }
         arrayMarkers=[];
     }
+
+    let userMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'red',
+        prefix: 'fa',
+        icon: 'fa-user',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let hotelMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'blue',
+        prefix: 'fa',
+        icon: 'fa-hotel',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let hostalMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'blue-dark',
+        prefix: 'fa',
+        icon: 'fa-hotel',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let aloxamentoMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'green',
+        prefix: 'fa',
+        icon: 'fa-house-user',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let vivendaMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'green-dark',
+        prefix: 'fa',
+        icon: 'fa-house-user',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let motelMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'blue-ligth',
+        prefix: 'fa',
+        icon: 'fa-hotel',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let campingMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'orange',
+        prefix: 'fa',
+        icon: 'fa-campground',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
+
+    let caravanMarker = L.ExtraMarkers.icon({
+        shape: 'circle',
+        markerColor: 'orange-dark',
+        prefix: 'fa',
+        icon: 'fa-caravan',
+        iconColor: '#fff',
+        iconRotate: 0,
+        extraClasses: '',
+        number: '',
+        svg: false
+    });
 
 </script>
 
