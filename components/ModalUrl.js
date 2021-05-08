@@ -24,16 +24,14 @@ const ModalUrl = (props) => {
         const getUrl = async () => {
             if (mounted) {
                 const urlAsync = await AsyncStorage.getItem('url');
-                if (urlAsync) {
-                    setText({
-                        ...text, url: urlAsync
-                    });
-                }
                 const geoserverAsync = await AsyncStorage.getItem('geoserver');
-                if (geoserverAsync) {
+                console.log(urlAsync);
+                console.log(geoserverAsync);
+                if (urlAsync && geoserverAsync) {
                     setText({
-                        ...text, geoserver: geoserverAsync
-                    });
+                        url: urlAsync,
+                        geoserver: geoserverAsync
+                    })
                 }
             }
         }

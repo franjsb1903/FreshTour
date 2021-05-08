@@ -236,7 +236,7 @@ const RutasRecomendadasList = (props) => {
                 style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
                 <View style={{ flex: 0 }}>
                     <CustomSearchBar
-                        placeholder="Nome"
+                        placeholder="Nome ou Elemento turístico"
                         doSearch={doSearch}
                         updateItems={() => { }}
                         onChange={true}

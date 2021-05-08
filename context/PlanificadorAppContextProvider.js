@@ -63,11 +63,11 @@ const AppContextProvider = (props) => {
                     }
                 }
             } catch (err) {
+                console.error(err);
                 showMessage({
                     message: 'Erro na obtención da ruta',
                     type: "danger"
                 });
-                console.error(err);
             }
         }
 
