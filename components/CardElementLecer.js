@@ -10,9 +10,9 @@ import ModalInicioSesion from './ModalInicioSesion';
 
 import AppContext from '../context/PlanificadorAppContext';
 
-const CardElementOpinion = (props) => {
+const CardElementLecer = (props) => {
 
-
+    const [added, setAdded] = useState(false);
     const [fav, setFav] = useState(false);
     const [modal, setModal] = useState(false);
 
@@ -23,10 +23,14 @@ const CardElementOpinion = (props) => {
 
     const context = useContext(AppContext);
 
+    const isAdded = context.existItem;
+
     useEffect(() => {
         let mounted = true;
 
+        const value = isAdded(element.id);
         if (mounted) {
+            setAdded(value);
             setFav(element.favorito);
         }
 
@@ -39,6 +43,10 @@ const CardElementOpinion = (props) => {
 
     const changeModal = () => {
         setModal(!modal);
+    }
+
+    const changeAdd = () => {
+        setAdded(true);
     }
 
     return (
@@ -63,8 +71,13 @@ const CardElementOpinion = (props) => {
                                 await onPressFav(changeFav, element, changeModal, context, addFav);
                             }} />
                     }
-                    <MapIconButton onMapClick={() => {
-                        showOnMap(element.id, element.tipo, element.sub_tag);
+                    {
+                        added ?
+                            <CalendarIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
+                            <CalendarOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} />
+                    }
+                    <MapIconButton onMapClick={async () => {
+                        await showOnMap(element.id, element.tipo, element.sub_tag);
                     }} />
                 </View>
             </View>
@@ -77,4 +90,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CardElementOpinion;
+export default CardElementLecer;

@@ -25,8 +25,6 @@ const ModalUrl = (props) => {
             if (mounted) {
                 const urlAsync = await AsyncStorage.getItem('url');
                 const geoserverAsync = await AsyncStorage.getItem('geoserver');
-                console.log(urlAsync);
-                console.log(geoserverAsync);
                 if (urlAsync && geoserverAsync) {
                     setText({
                         url: urlAsync,

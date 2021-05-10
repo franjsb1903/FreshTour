@@ -72,6 +72,8 @@ class XestionDatosTurismo {
                 url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
             } else if (tipo == "Monumento") {
                 url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
+            } else if (tipo == "Hospedaxe") {
+                url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
             }
         }
         else {
@@ -79,7 +81,7 @@ class XestionDatosTurismo {
                 url = url + properties.url.geoserver.lugares + id;
             } else if (tipo == "Monumento") {
                 url = url + properties.url.geoserver.monumentos + id;
-            }
+            } 
         }
         try {
             const json = await fetchJsonGet(url);
