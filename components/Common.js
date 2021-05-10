@@ -14,13 +14,13 @@ export const clearButton = (func) => (
         <></>
 )
 
-export const onPressFav = async (changeFav, item, changeModal, context) => {
+export const onPressFav = async (changeFav, item, changeModal, context, model) => {
     try {
         const token = await getToken('id_token');
         if (!token) {
             changeModal();
         } else {
-            await context.addElementoFav(token, changeFav, item);
+            await context.addElementoFav(token, changeFav, item, model);
         }
     } catch (err) {
         console.error(err);
@@ -31,10 +31,10 @@ export const onPressFav = async (changeFav, item, changeModal, context) => {
     }
 }
 
-export const onQuitFav = async (changeFav, item, context) => {
+export const onQuitFav = async (changeFav, item, context, model) => {
     try {
         const token = await getToken('id_token');
-        await context.deleteElementoFav(token, changeFav, item);
+        await context.deleteElementoFav(token, changeFav, item, model);
     } catch (err) {
         console.error(err);
         showMessage({

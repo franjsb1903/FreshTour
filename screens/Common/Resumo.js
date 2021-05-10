@@ -96,7 +96,7 @@ const Resumo = (props) => {
                     isRuta ?
                         <></>
                         : <MapIconButton
-                            showOnMap={isRuta ? showOnMap : undefined}
+                            showOnMap={showOnMap}
                             item={element}
                             style={styles.rightIcons} />
                 }

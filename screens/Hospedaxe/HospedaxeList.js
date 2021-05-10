@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
-import { Divider } from 'react-native-elements';
 import ProgressBar from '../../components/ProgressBar';
 import CardElement from '../../components/CardElementLecer';
 import CustomSearchBar from '../../components/CustomSearchBar';
@@ -10,7 +9,7 @@ import DropDown from '../../components/CustomDropDown';
 
 import AppContext from '../../context/PlanificadorAppContext';
 
-import { getAll, getGeoElement, filterSort } from '../../model/Hospedaxe/Hospedaxe'
+import { getAll, getGeoElement, filterSort, addFav, quitFav, getByName, getFavByName, favFilterSort } from '../../model/Hospedaxe/Hospedaxe'
 import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
 
 import { stylesTurismoList as styles } from '../../styles/styles'
@@ -26,10 +25,13 @@ const Hospedaxe = (props) => {
 
     const [refreshing, setRefreshing] = useState(false);
 
-    const context = useContext(AppContext)
+    const context = useContext(AppContext);
+
+    const data = props.route.params.data;
 
     const onGetData = async (mounted, signal) => {
-        var data = await getAll(signal);
+        const token = await getToken('id_token');
+        var data = await getAll(signal, token);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
                 setState({
@@ -54,6 +56,22 @@ const Hospedaxe = (props) => {
         }
     }
 
+    React.useLayoutEffect(() => {
+        let mounted = true;
+        if (mounted) {
+            data ?
+                props.navigation.setOptions({
+                    title: "Lugares de hospedaxe favoritos"
+                })
+                :
+                props.navigation.setOptions({
+                    title: "Lugares de hospedaxe"
+                })
+        }
+
+        return () => mounted = false;
+    }, []);
+
     useEffect(() => {
         let mounted = true;
 
@@ -76,9 +94,15 @@ const Hospedaxe = (props) => {
             }
         }
 
-        if (mounted)
-            reload();
-
+        if (!data) {
+            if (mounted)
+                reload();
+        } else {
+            setState({
+                loading: false,
+                data: data
+            });
+        }
 
         return () => {
             mounted = false;
@@ -122,25 +146,60 @@ const Hospedaxe = (props) => {
         }
     }
 
+    const doSearch = async (name) => {
+        try {
+            var element;
+            const token = await getToken('id_token');
+            if (!data) {
+                element = await getByName(token, name);
+            } else {
+                element = await getFavByName(token, name);
+            }
+            setDropDownValue('all_valoracion');
+            if (element.status != 200) {
+                await shouldDeleteToken(element.message, 'id_token');
+            }
+            if (element != undefined) {
+                setState({
+                    data: element,
+                    loading: false
+                });
+            } else {
+                showMessage({
+                    message: 'Erro de conexión',
+                    type: "danger"
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            showMessage({
+                message: 'Erro de conexión',
+                type: "danger"
+            });
+        }
+    }
+
     const ListData = (props) => {
 
         const data = props.data;
         const navigate = props.navigate;
 
         return (
-
             data == undefined ?
                 <NoData /> :
                 data.map(element => {
                     return (
                         <TouchableOpacity
                             key={element.id}
-                            onPress={() => { }}>
-                            <CardElement element={element} showOnMap={showOnMap} />
+                            onPress={() => {
+                                navigate('HospedaxeItem', {
+                                    hospedaxe: element
+                                })
+                            }}>
+                            <CardElement element={element} showOnMap={showOnMap} addFav={addFav} quitFav={quitFav} />
                         </TouchableOpacity>
                     )
                 })
-
         )
     }
 
@@ -170,7 +229,13 @@ const Hospedaxe = (props) => {
                 data: []
             });
 
-            var elements = await filterSort(item.value);
+            const token = await getToken('id_token');
+            var elements;
+            if (!data) {
+                elements = await filterSort(item.value, token);
+            } else {
+                elements = await favFilterSort(item.value, token);
+            }
 
             if (elements.status != 200 || elements.auth == false) {
                 setState({
@@ -209,13 +274,13 @@ const Hospedaxe = (props) => {
             </View>
             :
             <ScrollView refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                !data ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> : <></>
             }
                 style={styles.scroll}>
                 <View style={{ flex: 0 }}>
                     <CustomSearchBar
                         placeholder="Nome"
-                        doSearch={() => { }}
+                        doSearch={doSearch}
                         updateItems={() => { }}
                         onChange={true}
                     />
@@ -234,7 +299,12 @@ const Hospedaxe = (props) => {
                                     <NoData /> :
                                     <ListData data={state.data.hospedaxe} navigate={props.navigation.navigate} />
                             :
-                            <NoData />
+                            state.data.length == 0 ?
+                                <NoData />
+                                :
+                                <View style={{ marginBottom: 15 }}>
+                                    <ListData data={data} navigate={props.navigation.navigate} />
+                                </View>
                 }
             </ScrollView>
     )

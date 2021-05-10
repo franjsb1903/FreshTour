@@ -53,6 +53,7 @@ const NovoComentario = (props) => {
     const titulo = props.route.params.titulo;
     const isPlanificacion = props.route.params.isPlanificacion;
     const onRefreshOpinions = props.route.params.onRefreshOpinions;
+    const isHospedaxe = props.route.params.isHospedaxe;
 
     React.useLayoutEffect(() => {
         let mounted = true;
@@ -157,6 +158,8 @@ const NovoComentario = (props) => {
             } else {
                 if (isPlanificacion) {
                     props.navigation.navigate("RutasRecomendadasItem");
+                } else if(isHospedaxe) {
+                    props.navigation.navigate("HospedaxeItem");
                 } else {
                     props.navigation.navigate("TurismoItem");
                 }

@@ -50,7 +50,8 @@ const properties = {
         hospedaxe: {
             main: '/hospedaxe',
             all: '/',
-            filter: '/filter/'          // /filter/:type
+            filter: '/filter/',          // /filter/:type
+            fav: '/fav'
         }
     },
     style: {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native'
+import { View } from 'react-native';
+import Opinions from '../Common/Opinions';
+
+import { getOpinions as getOpinionsModel } from '../../model/Opinions/Opinions';
+import { stylesTurismoList as styles } from '../../styles/styles';
+import ProgressBar from '../../components/ProgressBar';
 import { showMessage } from "react-native-flash-message";
-import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 
-import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
-import ProgressBar from '../../../components/ProgressBar';
-import { stylesTurismoList as styles } from '../../../styles/styles';
-
-const TurismoItem = ({ route, navigation }) => {
+const HospedaxeItem = (props) => {
 
     const [opinions, setOpinions] = useState({
         count: 0,
@@ -15,17 +15,14 @@ const TurismoItem = ({ route, navigation }) => {
         opinions: [],
         status: 0
     });
-
     const [loading, setLoading] = useState(true);
 
-    const element = route.params.element;
-    const showOnMap = route.params.showOnMap;
-    const onRefresh = route.params.onRefresh;
-    const isRuta = route.params.isRuta;
+    const hospedaxe = props.route.params.hospedaxe;
 
     const onGetData = async (mounted, signal) => {
         try {
-            const data = await getOpinionsModel(element.tipo, element.id, signal);
+            const data = await getOpinionsModel(hospedaxe.tipo, hospedaxe.id, signal);
+
             if (data.status != 200) {
                 showMessage({
                     message: 'Erro na obtención das opinións do elemento',
@@ -86,11 +83,11 @@ const TurismoItem = ({ route, navigation }) => {
 
     React.useLayoutEffect(() => {
         let mounted = true;
-
-        if (mounted)
-            navigation.setOptions({
-                title: `${element.titulo}`
+        if (mounted) {
+            props.navigation.setOptions({
+                title: "Opinións de " + hospedaxe.titulo
             });
+        }
 
         return () => mounted = false;
     }, []);
@@ -104,15 +101,9 @@ const TurismoItem = ({ route, navigation }) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <TopTabNavigator
-                element={element}
-                showOnMap={showOnMap}
-                opinions={opinions}
-                onRefreshOpinions={onRefreshOpinions}
-                onRefresh={onRefresh}
-                isRuta={isRuta}
-            />
+            <Opinions opinions={opinions} element={hospedaxe} onRefreshOpinions={onRefreshOpinions} titulo={hospedaxe.titulo} isHospedaxe={true} />
     )
+
 }
 
-export default TurismoItem;
+export default HospedaxeItem;

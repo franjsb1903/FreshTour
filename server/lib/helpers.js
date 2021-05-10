@@ -30,8 +30,8 @@ helpers.onError = (code, message, err, res) => {
     });
 }
 
-helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav) => {
-    return res.status(200).send({ auth: true, token: token, user: user, planificacionsFav: planificacionsFav, planificacions: planificacions, opinions: opinions, elementosFav: elementosFav });
+helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav, hospedaxeFav) => {
+    return res.status(200).send({ auth: true, token: token, user: user, planificacionsFav: planificacionsFav, planificacions: planificacions, opinions: opinions, elementosFav: elementosFav, hospedaxesFav: hospedaxeFav });
 }
 
 helpers.onExecuteQuery = (query, id_usuario, id_elemento, res, pool) => {

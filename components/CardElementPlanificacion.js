@@ -86,7 +86,7 @@ const CardElementPlanificacion = (props) => {
             <Card.Divider />
             <View style={styles.rowContainer}>
                 {
-                    isLast ?
+                    isLast || numberElements == 1 ?
                         <></>
                         : <View style={styles.chevron}>
                             <ChevronDownIconButton onPressIcon={context.changeOrderDown} id={item.features[0].properties.id} />

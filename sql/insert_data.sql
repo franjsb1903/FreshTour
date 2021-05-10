@@ -253,14 +253,16 @@ insert into fresh_tour.lugares_hostalaria (
         data_modificacion,
         main_tag,
         geom,
-        sub_tag
+        sub_tag,
+        valoracion
     )
 select name as titulo,
     current_timestamp,
     current_timestamp,
     'amenity' as main_tag,
     way as geom,
-    amenity as sub_tag
+    amenity as sub_tag,
+    0 as valoracion
 from osm_lugares_hostalaria.planet_osm_point pop
 where amenity is not null;
 insert into fresh_tour.lugares_hostalaria (
@@ -269,14 +271,16 @@ insert into fresh_tour.lugares_hostalaria (
         data_modificacion,
         main_tag,
         geom,
-        sub_tag
+        sub_tag,
+        valoracion
     )
 select name as titulo,
     current_timestamp,
     current_timestamp,
     'shop' as main_tag,
     way as geom,
-    shop as sub_tag
+    shop as sub_tag,
+    0 as valoracion
 from osm_lugares_hostalaria.planet_osm_point pop
 where shop is not null;
 insert into fresh_tour.actividades_ocio (
@@ -285,14 +289,16 @@ insert into fresh_tour.actividades_ocio (
         data_modificacion,
         main_tag,
         geom,
-        sub_tag
+        sub_tag,
+        valoracion
     )
 select name as titulo,
     current_timestamp,
     current_timestamp,
     'leisure' as main_tag,
     way as geom,
-    leisure as sub_tag
+    leisure as sub_tag,
+    0 as valoracion
 from osm_actividades_ocio.planet_osm_point pop
 where leisure is not null;
 insert into fresh_tour.actividades_ocio (
@@ -301,14 +307,16 @@ insert into fresh_tour.actividades_ocio (
         data_modificacion,
         main_tag,
         geom,
-        sub_tag
+        sub_tag,
+        valoracion
     )
 select name as titulo,
     current_timestamp,
     current_timestamp,
     'amenity' as main_tag,
     way as geom,
-    amenity as sub_tag
+    amenity as sub_tag,
+    0 as valoracion
 from osm_actividades_ocio.planet_osm_point pop
 where amenity is not null;
 insert into fresh_tour.actividades_ocio (

@@ -298,12 +298,18 @@ const AppContextProvider = (props) => {
         planificacions: [],
         planificacionsFav: [],
         opinions: [],
-        elementosFav: []
+        elementosFav: [],
+        hospedaxesFav: []
     });
 
-    const addElementoFav = async (token, changeFavView, item) => {
+    const addElementoFav = async (token, changeFavView, item, model) => {
         try {
-            const response = await addElementoFavModel(token, item.id, item.tipo);
+            let response;
+            if (!model) {
+                response = await addElementoFavModel(token, item.id, item.tipo);
+            } else {
+                response = await model(token, item.id);
+            }
             if (response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
@@ -324,9 +330,14 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const deleteElementoFav = async (token, changeFavView, item) => {
+    const deleteElementoFav = async (token, changeFavView, item, model) => {
         try {
-            const response = await deleteElementoFavModel(token, item.id, item.tipo);
+            let response;
+            if (!model) {
+                response = await addElementoFavModel(token, item.id, item.tipo);
+            } else {
+                response = await model(token, item.id);
+            }
             if (response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
@@ -355,7 +366,8 @@ const AppContextProvider = (props) => {
                 planificacions: data.planificacions,
                 planificacionsFav: data.planificacionsFav,
                 opinions: data.opinions,
-                elementosFav: data.elementosFav
+                elementosFav: data.elementosFav,
+                hospedaxesFav: data.hospedaxesFav
             })
         }
     }
@@ -367,7 +379,8 @@ const AppContextProvider = (props) => {
             planificacions: [],
             planificacionsFav: [],
             opinions: [],
-            elementosFav: []
+            elementosFav: [],
+            hospedaxesFav: []
         })
     }
 

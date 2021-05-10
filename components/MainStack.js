@@ -20,6 +20,7 @@ import CovidScreen from '../screens/Info/Screens/CovidScreen';
 import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
 
 import { stylesApp as styles } from '../styles/styles';
+import HospedaxeItem from '../screens/Hospedaxe/HospedaxeItem';
 
 const Stack = createStackNavigator();
 
@@ -199,12 +200,32 @@ const MainStack = () => {
             <Stack.Screen
                 name="HospedaxeList"
                 component={HospedaxeList}
-                options={{
+                options={({ route }) => ({
                     headerShown: true,
-                    title: "Hospedaxe",
+                    title: route.params.title,
                     headerStyle: styles.headerStyle,
-                    headerTintColor: "#fff"
-                }}
+                    headerTintColor: "#fff",
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
+            />
+            <Stack.Screen
+                name="HospedaxeItem"
+                component={HospedaxeItem}
+                options={({ route }) => ({
+                    headerShown: true,
+                    title: route.params.title,
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff",
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
             />
         </Stack.Navigator>
     )

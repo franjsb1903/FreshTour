@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import Stars from '../../components/CustomStarsDisplay';
 import { CommentIcon } from '../../components/CustomIcons';
 import CardElementOpinion from '../../components/CardElementOpinion';
-import { noElementsStyle as noElementsStyles } from '../../styles/styles';
 
 const Opinions = (props) => {
 
@@ -17,6 +16,7 @@ const Opinions = (props) => {
     const onRefreshOpinions = props.onRefreshOpinions;
     const titulo = props.titulo;
     const isPlanificacion = props.isPlanificacion;
+    const isHospedaxe = props.isHospedaxe;
 
     const navigation = useNavigation();
 
@@ -36,7 +36,8 @@ const Opinions = (props) => {
                 element: element,
                 titulo: titulo,
                 isPlanificacion: isPlanificacion,
-                onRefreshOpinions: onRefreshOpinions
+                onRefreshOpinions: onRefreshOpinions,
+                isHospedaxe: isHospedaxe
             })}>
             <CommentIcon />
             <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>

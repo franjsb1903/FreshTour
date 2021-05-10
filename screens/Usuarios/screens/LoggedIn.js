@@ -15,6 +15,7 @@ const LoggedIn = (props) => {
     const [opinions, setOpinions] = useState([]);
     const [planificacions, setPlanificacions] = useState([]);
     const [planificacionsFav, setPlanificacionsFav] = useState([]);
+    const [hospedaxesFav, setHospedaxesFav] = useState([]);
 
     const context = useContext(AppContext);
     const user = context.user;
@@ -62,6 +63,17 @@ const LoggedIn = (props) => {
 
     }, [context.user.planificacionsFav])
 
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted) {
+            setHospedaxesFav(context.user.hospedaxesFav);
+        }
+
+        return () => mounted = false;
+
+    }, [context.user.hospedaxesFav])
+
     const navigation = useNavigation();
 
     const MenuUser = [
@@ -101,6 +113,15 @@ const LoggedIn = (props) => {
         },
         {
             id: 5,
+            label: "Lugares de hospedaxe favoritos",
+            data: hospedaxesFav,
+            onPress: () => navigation.navigate('HospedaxeList', {
+                data: hospedaxesFav,
+                updateItem: context.updateGeoMap
+            })
+        },
+        {
+            id: 6,
             label: "Pechar sesión",
             onPress: () => {
                 logout();

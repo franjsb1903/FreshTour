@@ -7,6 +7,7 @@ var config = require('../../config/config');
 const helpers = require('../../lib/helpers');
 const sql = require('../../lib/sql');
 const pool = require('../../../database/database');
+const tag_traductor = require('../../lib/tag_traductor');
 
 var verify = require('../../lib/VerifyToken');
 
@@ -102,6 +103,7 @@ router.post('/login', (req, res) => {
     const plan_fav = sql.usuarios.get.plansFav;
     const opinions = sql.usuarios.get.opinions;
     const plansUsuario = sql.usuarios.get.plans;
+    const hospedaxe_fav = sql.usuarios.get.hospedaxeFav;
 
     pool.query(query, [usuario], (err, results) => {
         if (err) {
@@ -164,7 +166,21 @@ router.post('/login', (req, res) => {
                             plansArray = plans.rows;
                         }
 
-                        helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray);
+                        pool.query(hospedaxe_fav, [user.id], (err, hospedaxes) => {
+                            var hospedaxesArray;
+
+                            if (err) {
+                                helpers.onErrorAuth(500, "Erro obtendo os plans do usuario", err, res);
+                                hospedaxesArray = [];
+                            } else {
+                                hospedaxesArray = hospedaxes.rows;
+                                hospedaxesArray.map(element => {
+                                    element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
+                                });
+                            }
+
+                            helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray);
+                        })
                     })
                 });
             });
@@ -183,7 +199,8 @@ router.get('/me', verify.verifyToken, (req, res) => {
     const plan_fav = sql.usuarios.get.plansFav;
     const opinions = sql.usuarios.get.opinions;
     const plansUsuario = sql.usuarios.get.plans;
-    
+    const hospedaxe_fav = sql.usuarios.get.hospedaxeFav;
+
     pool.query(query, [userId], (err, results) => {
         if (err) {
             console.error(err);
@@ -241,7 +258,21 @@ router.get('/me', verify.verifyToken, (req, res) => {
                             plansArray = plans.rows;
                         }
 
-                        helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray);
+                        pool.query(hospedaxe_fav, [user.id], (err, hospedaxes) => {
+                            var hospedaxesArray;
+
+                            if (err) {
+                                helpers.onErrorAuth(500, "Erro obtendo os plans do usuario", err, res);
+                                hospedaxesArray = [];
+                            } else {
+                                hospedaxesArray = hospedaxes.rows;
+                                hospedaxesArray.map(element => {
+                                    element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
+                                });
+                            }
+
+                            helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray);
+                        })
                     })
                 });
             });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
 import { Divider } from 'react-native-elements';
@@ -9,8 +9,6 @@ import CardElement from '../../components/CardElementTurismo';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import NoData from '../../components/NoData';
 import DropDown from '../../components/CustomDropDown';
-
-import AppContext from '../../context/PlanificadorAppContext';
 
 import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
 
@@ -43,8 +41,6 @@ const Turism = (props) => {
 
         return () => mounted = false;
     }, []);
-
-    const context = useContext(AppContext)
 
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
@@ -100,7 +96,7 @@ const Turism = (props) => {
                 reload();
         } else {
             setState({
-                data: context.user.elementosFav,
+                data: data,
                 loading: false
             });
         }
@@ -134,6 +130,7 @@ const Turism = (props) => {
             } else {
                 element = await getElementFavByName(token, name);
             }
+            setDropDownValue('valoracion');
             if (element.status != 200) {
                 await shouldDeleteToken(element.message, 'id_token');
             }
@@ -218,7 +215,7 @@ const Turism = (props) => {
             });
             const token = await getToken('id_token');
             var elements
-            if(!data) {
+            if (!data) {
                 elements = await sortBy(item.value, token);
             } else {
                 elements = await favsSortBy(item.value, token);
@@ -259,11 +256,10 @@ const Turism = (props) => {
                 <ProgressBar />
             </View>
             :
-            <ScrollView refreshControl={
+            <ScrollView style={styles.scroll} refreshControl={
                 !data ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> :
                     <></>
-            }
-                style={styles.scroll}>
+            }>
                 <View style={{ flex: 0 }}>
                     <CustomSearchBar
                         placeholder="Nome"
@@ -289,7 +285,9 @@ const Turism = (props) => {
                             :
                             state.data.length == 0 ?
                                 <NoData /> :
-                                <ListData data={data} navigate={props.navigation.navigate} />
+                                <View style={{ marginBottom: 15 }}>
+                                    <ListData data={data} navigate={props.navigation.navigate} />
+                                </View>
                 }
             </ScrollView>
     )

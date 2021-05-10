@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_lugares_hostalaria
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
+    valoracion FLOAT NOT NULL,
     comentario VARCHAR NOT NULL,
     id_lugar_hostalaria INT NOT NULL,
     CONSTRAINT pk_com_val_hostalaria PRIMARY KEY (id),
@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_lugares_hospedaxe 
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
+    valoracion FLOAT NOT NULL,
     comentario VARCHAR NOT NULL,
     id_lugar_hospedaxe INT NOT NULL,
     CONSTRAINT pk_com_val_hospedaxe PRIMARY KEY (id),
@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_actividades_ocio (
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
+    valoracion FLOAT NOT NULL,
     comentario VARCHAR NOT NULL,
     id_actividade_ocio INT NOT NULL,
     CONSTRAINT pk_com_val_ocio PRIMARY KEY (id),
@@ -321,7 +321,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_outras_actividades
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
+    valoracion FLOAT NOT NULL,
     comentario VARCHAR NOT NULL,
     id_outra_actividade INT NOT NULL,
     CONSTRAINT pk_com_val_outra PRIMARY KEY (id),
@@ -408,6 +408,11 @@ ALTER TABLE fresh_tour.actividades_ocio ALTER COLUMN geom SET NOT NULL;
 ALTER TABLE fresh_tour.outras_actividades ADD sub_tag varchar NOT NULL;
 ALTER TABLE fresh_tour.outras_actividades ALTER COLUMN main_tag SET NOT NULL;
 ALTER TABLE fresh_tour.outras_actividades ALTER COLUMN geom SET NOT NULL;
+ALTER TABLE fresh_tour.lugares_hospedaxe ADD valoracion float8 NULL;
+ALTER TABLE fresh_tour.lugares_hostalaria ADD valoracion float8 NULL;
+ALTER TABLE fresh_tour.actividades_ocio ADD valoracion float8 NULL;
+ALTER TABLE fresh_tour.outras_actividades ADD valoracion float8 NULL;
+
 --- AUXILIAR TABLES
 --- SCHEMA
 CREATE SCHEMA fresh_tour_aux AUTHORIZATION postgres;
