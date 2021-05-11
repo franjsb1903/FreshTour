@@ -16,6 +16,7 @@ const LoggedIn = (props) => {
     const [planificacions, setPlanificacions] = useState([]);
     const [planificacionsFav, setPlanificacionsFav] = useState([]);
     const [hospedaxesFav, setHospedaxesFav] = useState([]);
+    const [hostalariaFav, setHostalariaFav] = useState([]);
 
     const context = useContext(AppContext);
     const user = context.user;
@@ -74,6 +75,17 @@ const LoggedIn = (props) => {
 
     }, [context.user.hospedaxesFav])
 
+    useEffect(() => {
+        let mounted = true;
+
+        if (mounted) {
+            setHostalariaFav(context.user.hostalariaFav);
+        }
+
+        return () => mounted = false;
+
+    }, [context.user.hostalariaFav])
+
     const navigation = useNavigation();
 
     const MenuUser = [
@@ -122,6 +134,15 @@ const LoggedIn = (props) => {
         },
         {
             id: 6,
+            label: "Lugares de hostalaría favoritos",
+            data: hostalariaFav,
+            onPress: () => navigation.navigate('HostalariaList', {
+                data: hostalariaFav,
+                updateItem: context.updateGeoMap
+            })
+        },
+        {
+            id: 7,
             label: "Pechar sesión",
             onPress: () => {
                 logout();

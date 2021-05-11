@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
 import { getGeoElementJson } from '../model/Turismo/Turismo';
+import { getGeoElementJson as getGeoElementJsonHospedaxe } from '../model/Hospedaxe/Hospedaxe'
+import { getGeoElementJsonHostalaria } from '../model/Lecer/Lecer'
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Turismo/Turismo';
 import { showMessage } from "react-native-flash-message";
@@ -130,8 +132,7 @@ const AppContextProvider = (props) => {
                 items: [...turismoItems.items, item]
             });
             const tempo = tempoVisita;
-            if(item.features[0].properties.tipo != "Hospedaxe") {
-                console.log(item.features[0].properties.tempo_visita_rapida);
+            if (item.features[0].properties.tipo != "Hospedaxe" || item.features[0].properties.tipo != "Hostalaría") {
                 initTempoVisita(tempo + item.features[0].properties.tempo_visita_rapida);
             }
             setPlanificacion(undefined);
@@ -152,7 +153,7 @@ const AppContextProvider = (props) => {
     }
 
     const actualizaTempoVisita = (novoTempo, antigoTempo) => {
-        console.log(novoTempo, antigoTempo, tempoVisita);
+        console.log(tempoVisita, antigoTempo, novoTempo, tempoVisita - antigoTempo + novoTempo);
         setTempoVisita(tempoVisita - antigoTempo + novoTempo);
     }
 
@@ -227,7 +228,14 @@ const AppContextProvider = (props) => {
                     message: 'Cargando...',
                     type: "info"
                 });
-                const data = await getGeoElementJson(id, tipo);
+                let data;
+                if (tipo == "Hospedaxe") {
+                    data = await getGeoElementJsonHospedaxe(id);
+                } else if(tipo == "Hostalaría") {
+                    data = await getGeoElementJsonHostalaria(id);
+                } else {
+                    data = await getGeoElementJson(id, tipo);
+                }
                 if (data == undefined || data.features[0] == undefined) {
                     showMessage({
                         message: 'Elemento non engadido',
@@ -240,11 +248,13 @@ const AppContextProvider = (props) => {
                     message: 'Elemento engadido á planificación',
                     type: "success"
                 });
+                return true;
             } else {
                 showMessage({
                     message: 'Elemento xa engadido á planificación',
                     type: "warning"
                 });
+                return false;
             }
         } catch (err) {
             console.error(err);
@@ -252,6 +262,7 @@ const AppContextProvider = (props) => {
                 message: 'Erro de conexión',
                 type: "danger"
             });
+            return false;
         }
     }
 
@@ -264,10 +275,16 @@ const AppContextProvider = (props) => {
                 const data = await getGeoElementJson(element.id, element.tipo);
                 data.features[0].properties["tipo_visita"] = element.tipo_visita;
                 newElements.push(data);
-                if (element.tipo_visita != null) {
-                    tempo_visita += element.tipo_visita;
+                if (data.features[0].properties.tipo != "Hospedaxe" || data.features[0].properties.tipo != "Hostalaría") {
+                    if (element.tipo_visita != null) {
+                        tempo_visita += element.tipo_visita;
+                    } else {
+                        tempo_visita += data.features[0].properties.tempo_visita_rapida;
+                    }
                 } else {
-                    tempo_visita += data.features[0].properties.tempo_visita_rapida;
+                    if (element.tipo_visita != null) {
+                        tempo_visita += element.tipo_visita;
+                    }
                 }
             });
             setTimeout(() => {
@@ -287,11 +304,12 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const changeTipoVisita = (id, tipoVisita) => {
+    const changeTipoVisita = (titulo, tipoVisita) => {
         console.log(tipoVisita);
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
-            if (`${e.features[0].properties.id}` == id) {
+            if (`${e.features[0].properties.titulo}` == titulo) {
+                console.log(e.features[0].properties.titulo, tipoVisita);
                 e.features[0].properties["tipo_visita"] = tipoVisita;
                 break;
             }
@@ -309,7 +327,8 @@ const AppContextProvider = (props) => {
         planificacionsFav: [],
         opinions: [],
         elementosFav: [],
-        hospedaxesFav: []
+        hospedaxesFav: [],
+        hostalariaFav:[]
     });
 
     const addElementoFav = async (token, changeFavView, item, model) => {
@@ -344,7 +363,7 @@ const AppContextProvider = (props) => {
         try {
             let response;
             if (!model) {
-                response = await addElementoFavModel(token, item.id, item.tipo);
+                response = await deleteElementoFavModel(token, item.id, item.tipo);
             } else {
                 response = await model(token, item.id);
             }
@@ -377,7 +396,8 @@ const AppContextProvider = (props) => {
                 planificacionsFav: data.planificacionsFav,
                 opinions: data.opinions,
                 elementosFav: data.elementosFav,
-                hospedaxesFav: data.hospedaxesFav
+                hospedaxesFav: data.hospedaxesFav,
+                hostalariaFav: data.hostalariaFav
             })
         }
     }
@@ -390,7 +410,8 @@ const AppContextProvider = (props) => {
             planificacionsFav: [],
             opinions: [],
             elementosFav: [],
-            hospedaxesFav: []
+            hospedaxesFav: [],
+            hostalariaFav: []
         })
     }
 

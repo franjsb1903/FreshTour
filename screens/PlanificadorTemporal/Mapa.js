@@ -7,7 +7,7 @@ import { stylesMapa as styles } from '../../styles/styles'
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
 import AppContext from '../../context/PlanificadorAppContext';
-import { PointsInterestIconButton, BedIconButton } from '../../components/CustomIcons';
+import { PointsInterestIconButton, BedIconButton, ClockIconButton } from '../../components/CustomIcons';
 
 import { getIconContent } from '../../Util/IconMapUtil'
 
@@ -181,6 +181,11 @@ const Map = (props) => {
       <View style={styles.header}>
         <View style={styles.headerBottom}>
           <View style={styles.icon}>
+            <ClockIconButton _onPress={() => {
+              props.navigation.navigate('LecerList', {
+                updateItem: updateSelected
+              });
+            }} />
             <BedIconButton _onPress={() => {
               props.navigation.navigate('HospedaxeList', {
                 updateItem: updateSelected

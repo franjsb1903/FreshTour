@@ -28,7 +28,8 @@ const properties = {
             url: "http://192.168.1.72:8080/geoserver",
             lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",                    // /geoserver/:id
             monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+",
-            hospedaxe: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=id+=+"
+            hospedaxe: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=id+=+",
+            hostalaria: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hostalaria&outputFormat=json&CQL_FILTER=id+=+"
         },
         opinions: {
             main: "/opinions",
@@ -52,6 +53,16 @@ const properties = {
             all: '/',
             filter: '/filter/',          // /filter/:type
             fav: '/fav'
+        },
+        lecer: {
+            main: "/lecer",
+            hostalaria: {
+                main: '/hostalaria',
+                all: '/',
+                byName: '/',
+                fav: '/fav',
+                filter: '/filter/'
+            }
         }
     },
     style: {

@@ -20,6 +20,7 @@ const CardElementLecer = (props) => {
     const showOnMap = props.showOnMap;
     const addFav = props.addFav;
     const quitFav = props.quitFav;
+    const isRuta = props.isRuta;
 
     const context = useContext(AppContext);
 
@@ -60,26 +61,31 @@ const CardElementLecer = (props) => {
                 <View style={{ flex: 1.3 }}>
                     <Text style={styles.textBold}>Tipo: {element.sub_tag} </Text>
                 </View>
-                <View style={stylesCard.iconRow}>
-                    {
-                        fav ?
-                            <HeartIconButton onQuitFav={async () => {
-                                await onQuitFav(changeFav, element, context, quitFav);
+                {
+                    isRuta ?
+                        <></>
+                        :
+                        <View style={stylesCard.iconRow}>
+                            {
+                                fav ?
+                                    <HeartIconButton onQuitFav={async () => {
+                                        await onQuitFav(changeFav, element, context, quitFav);
+                                    }} />
+                                    :
+                                    <HeartOutlineIconButton onPressFav={async () => {
+                                        await onPressFav(changeFav, element, changeModal, context, addFav);
+                                    }} />
+                            }
+                            {
+                                added ?
+                                    <CalendarIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
+                                    <CalendarOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} />
+                            }
+                            <MapIconButton onMapClick={async () => {
+                                await showOnMap(element.id, element.tipo, element.sub_tag);
                             }} />
-                            :
-                            <HeartOutlineIconButton onPressFav={async () => {
-                                await onPressFav(changeFav, element, changeModal, context, addFav);
-                            }} />
-                    }
-                    {
-                        added ?
-                            <CalendarIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                            <CalendarOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} />
-                    }
-                    <MapIconButton onMapClick={async () => {
-                        await showOnMap(element.id, element.tipo, element.sub_tag);
-                    }} />
-                </View>
+                        </View>
+                }
             </View>
             <ModalInicioSesion modal={modal} showModal={changeModal} />
         </Card>

@@ -3,6 +3,7 @@ import { TouchableOpacity, ScrollView } from 'react-native'
 
 import NoData from '../../../../components/NoData';
 import CardElement from '../../../../components/CardElementTurismo';
+import CardElementLecer from '../../../../components/CardElementLecer';
 import { useNavigation } from '@react-navigation/native';
 import { stylesScroll as styles } from '../../../../styles/styles'
 
@@ -26,7 +27,13 @@ const ElementosVisitar = (props) => {
                             element: element,
                             isRuta: true
                         })}>
-                        <CardElement item={element} isRuta={true} />
+                            {
+                                element.tipo != "Hospedaxe" && element.tipo != "Hostalaría" ?
+                                <CardElement item={element} isRuta={true} />
+                                :
+                                <CardElementLecer element={element} isRuta={true} />
+                            }
+                        
                     </TouchableOpacity>
                 )
             })

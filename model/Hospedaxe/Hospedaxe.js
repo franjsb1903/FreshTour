@@ -29,9 +29,18 @@ export const getFavByName = async (token, name) => {
     }
 }
 
-export const getGeoElement = async (id, tipo) => {
+export const getGeoElement = async (id) => {
     try {
-        const json = await Hospedaxe.getGeoElement(id, tipo);
+        const data = await Hospedaxe.getGeoElement(id);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoElementJson = async (id) => {
+    try {
+        var json = await Hospedaxe.getGeoItemJson(id);
         return json;
     } catch (err) {
         throw new Error(err);

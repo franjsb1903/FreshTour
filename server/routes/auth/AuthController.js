@@ -104,6 +104,7 @@ router.post('/login', (req, res) => {
     const opinions = sql.usuarios.get.opinions;
     const plansUsuario = sql.usuarios.get.plans;
     const hospedaxe_fav = sql.usuarios.get.hospedaxeFav;
+    const hostalaria_fav = sql.usuarios.get.hostalariaFav;
 
     pool.query(query, [usuario], (err, results) => {
         if (err) {
@@ -170,7 +171,7 @@ router.post('/login', (req, res) => {
                             var hospedaxesArray;
 
                             if (err) {
-                                helpers.onErrorAuth(500, "Erro obtendo os plans do usuario", err, res);
+                                helpers.onErrorAuth(500, "Erro obtendo as hospedaxes favoritas do usuario", err, res);
                                 hospedaxesArray = [];
                             } else {
                                 hospedaxesArray = hospedaxes.rows;
@@ -179,7 +180,22 @@ router.post('/login', (req, res) => {
                                 });
                             }
 
-                            helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray);
+                            pool.query(hostalaria_fav, [user.id], (err, hostalaria) => {
+                                var hostalariaArray;
+
+                                if (err) {
+                                    helpers.onErrorAuth(500, "Erro obtendo a hostalaría favorita do usuario", err, res);
+                                    hostalariaArray = [];
+                                } else {
+                                    hostalariaArray = hostalaria.rows;
+                                    hostalariaArray.map(element => {
+                                        element.sub_tag = tag_traductor.hostalaria(element.sub_tag);
+                                    });
+                                }
+
+                                helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray);
+                            })
+
                         })
                     })
                 });
@@ -200,6 +216,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
     const opinions = sql.usuarios.get.opinions;
     const plansUsuario = sql.usuarios.get.plans;
     const hospedaxe_fav = sql.usuarios.get.hospedaxeFav;
+    const hostalaria_fav = sql.usuarios.get.hostalariaFav;
 
     pool.query(query, [userId], (err, results) => {
         if (err) {
@@ -262,7 +279,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
                             var hospedaxesArray;
 
                             if (err) {
-                                helpers.onErrorAuth(500, "Erro obtendo os plans do usuario", err, res);
+                                helpers.onErrorAuth(500, "Erro obtendo as hospedaxe favoritas do usuario", err, res);
                                 hospedaxesArray = [];
                             } else {
                                 hospedaxesArray = hospedaxes.rows;
@@ -271,7 +288,21 @@ router.get('/me', verify.verifyToken, (req, res) => {
                                 });
                             }
 
-                            helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray);
+                            pool.query(hostalaria_fav, [user.id], (err, hostalaria) => {
+                                var hostalariaArray;
+
+                                if (err) {
+                                    helpers.onErrorAuth(500, "Erro obtendo a hostalaría favorita do usuario", err, res);
+                                    hostalariaArray = [];
+                                } else {
+                                    hostalariaArray = hostalaria.rows;
+                                    hostalariaArray.map(element => {
+                                        element.sub_tag = tag_traductor.hostalaria(element.sub_tag);
+                                    });
+                                }
+
+                                helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray);
+                            })
                         })
                     })
                 });

@@ -21,6 +21,9 @@ import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
 
 import { stylesApp as styles } from '../styles/styles';
 import HospedaxeItem from '../screens/Hospedaxe/HospedaxeItem';
+import LecerList from '../screens/Lecer/LecerList';
+import HostalariaList from '../screens/Lecer/Hostalaria/HostalariaList';
+import HostalariaItem from '../screens/Lecer/Hostalaria/HostalariaItem';
 
 const Stack = createStackNavigator();
 
@@ -215,6 +218,46 @@ const MainStack = () => {
             <Stack.Screen
                 name="HospedaxeItem"
                 component={HospedaxeItem}
+                options={({ route }) => ({
+                    headerShown: true,
+                    title: route.params.title,
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff",
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
+            />
+            <Stack.Screen
+                name="LecerList"
+                component={LecerList}
+                options={{
+                    headerShown: true,
+                    title: "Actividades de lecer",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="HostalariaList"
+                component={HostalariaList}
+                options={({ route }) => ({
+                    headerShown: true,
+                    title: route.params.title,
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff",
+                    headerTitle: ({ children: title }) => {
+                        return (
+                            <Text style={styles.headerTitle} numberOfLines={2}>{title}</Text>
+                        )
+                    }
+                })}
+            />
+            <Stack.Screen
+                name="HostalariaItem"
+                component={HostalariaItem}
                 options={({ route }) => ({
                     headerShown: true,
                     title: route.params.title,

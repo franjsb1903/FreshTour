@@ -36,16 +36,24 @@ class XestionDatosHospedaxe {
         }
     }
 
-    async getGeoElement(id, tipo) {
+    async getGeoElement(id) {
 
-        var url;
-
-        if (tipo == "Hospedaxe") {
-            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
 
         try {
             const json = await fetchTextGet(url);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getGeoItemJson(id) {
+
+        const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
+
+        try {
+            const json = await fetchJsonGet(url);
             return json;
         } catch (err) {
             throw new Error(err);

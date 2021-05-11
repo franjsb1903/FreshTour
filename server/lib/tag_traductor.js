@@ -24,4 +24,30 @@ tag_traductor.hospedaxe = (tag) => {
     }
 }
 
+tag_traductor.hostalaria = (tag) => {
+
+    switch (tag) {
+        case "bar":
+            return "Bar";
+        case "restaurant":
+            return "Restaurante";
+        case "cafe":
+            return "Café";
+        case "pub":
+            return "Pub";
+        case "food_court":
+            return "Zona de comidas";
+        case "ice_cream":
+            return "Xeadería";
+        case "confectionery":
+            return "Pastelería";
+        case "bakery":
+            return "Panadería";
+        case "chocolate":
+            return "Chocolatería";
+        default:
+            return "Estancia";
+    }
+}
+
 module.exports = tag_traductor;

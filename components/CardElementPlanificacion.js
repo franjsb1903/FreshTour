@@ -17,7 +17,17 @@ const CardElementPlanificacion = (props) => {
     const isLast = props.isLast;
     const numberElements = props.numberElements;
 
-    const [tipoVisita, setTipoVisita] = useState(item.features[0].properties.tipo == "Hospedaxe" ? 0 : item.features[0].properties.tipo_visita ? item.features[0].properties.tipo_visita : item.features[0].properties.tempo_visita_rapida);
+    const [tipoVisita, setTipoVisita] = useState(
+        item.features[0].properties.tipo == "Hospedaxe" || item.features[0].properties.tipo != "Hostalaría" ?
+            item.features[0].properties.tipo_visita ?
+                item.features[0].properties.tipo_visita
+                :
+                0
+            :
+            item.features[0].properties.tipo_visita ?
+                item.features[0].properties.tipo_visita
+                : item.features[0].properties.tempo_visita_rapida);
+                
     const [modal, setModal] = useState(false);
 
     const context = useContext(AppContext);
@@ -35,11 +45,10 @@ const CardElementPlanificacion = (props) => {
     }
 
     const onSetTempo = (tempo) => {
-        console.log(tipoVisita);
-        console.log(tempo);
-        context.actualizaTempoVisita(tempo, tipoVisita);
-        setTipoVisita(tempo);
-        context.changeTipoVisita(item.features[0].properties.id, tempo);
+        const tempoFloat = parseFloat(tempo);
+        context.actualizaTempoVisita(tempoFloat, tipoVisita);
+        setTipoVisita(tempoFloat);
+        context.changeTipoVisita(item.features[0].properties.titulo, tempoFloat);
     }
 
     return (
@@ -65,7 +74,7 @@ const CardElementPlanificacion = (props) => {
                     <Text style={styles.title} numberOfLines={2}>{item.features[0].properties.titulo}</Text>
                 </View>
                 {
-                    item.features[0].properties.tipo != "Hospedaxe" ?
+                    item.features[0].properties.tipo != "Hospedaxe" || item.features[0].properties.tipo != "Hostalaría" ?
                         <DropDownPicker
                             items={[
                                 { label: 'Visita rápida', value: item.features[0].properties.tempo_visita_rapida },

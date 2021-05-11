@@ -122,33 +122,33 @@ export const AvatarIcon = (props) => {
     const style = props.style;
     const size = props.size;
 
-    return(
+    return (
         <Icon name="person-circle-outline" size={size ? size : 80} style={style} />
-    )   
+    )
 }
 
 export const SmallAvatarIcon = (props) => {
 
     const style = props.style;
-    return(
+    return (
         <Icon name="person-circle-outline" size={30} style={style} />
-    )   
+    )
 }
 
 export const CommentIcon = (props) => {
 
     const style = props.style;
-    return(
+    return (
         <Icon name="chatbubble" size={30} style={style} />
-    )   
+    )
 }
 
 export const ChevronRightIcon = (props) => {
 
     const style = props.style;
-    return(
+    return (
         <Icon name="chevron-forward" size={30} style={style} />
-    )   
+    )
 }
 
 export const HeartIconButton = (props) => {
@@ -189,12 +189,20 @@ export const CalendarIconButton = (props) => {
     const changeAdd = props.changeAdd;
     const added = props.added;
 
+    let result;
     return (
         <IconButton
             icon={CalendarIcon}
             onPress={async () => {
-                addToPlanificacion ? await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd) : {}
-                changeAdd ? changeAdd() : console.log("Not function")
+                addToPlanificacion ?
+                    result = await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd)
+                    :
+                    {}
+                result ?
+                    changeAdd ?
+                        changeAdd() :
+                        console.log("Not function") :
+                    {}
             }}
             style={style} />
     )
@@ -208,13 +216,20 @@ export const CalendarOutlineIconButton = (props) => {
     const changeAdd = props.changeAdd;
     const added = props.added;
     const _onPress = props._onPress;
-
+    let result;
     return (
         <IconButton
             icon={CalendarOutlineIcon}
             onPress={async () => {
-                addToPlanificacion ? await addToPlanificacion(`${item.id}`, added, item.tipo) : _onPress();
-                changeAdd ? changeAdd() : console.log("Not function")
+                addToPlanificacion ?
+                    result = await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd)
+                    :
+                    _onPress()
+                result ?
+                    changeAdd ?
+                        changeAdd() :
+                        console.log("Not function") :
+                    {}
             }}
             style={style} />
     )

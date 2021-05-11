@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
-import ProgressBar from '../../components/ProgressBar';
-import CardElement from '../../components/CardElementLecer';
-import CustomSearchBar from '../../components/CustomSearchBar';
-import NoData from '../../components/NoData';
-import DropDown from '../../components/CustomDropDown';
+import ProgressBar from '../../../components/ProgressBar';
+import CardElement from '../../../components/CardElementLecer';
+import CustomSearchBar from '../../../components/CustomSearchBar';
+import NoData from '../../../components/NoData';
+import DropDown from '../../../components/CustomDropDown';
 
-import { getAll, getGeoElement, filterSort, addFav, quitFav, getByName, getFavByName, favFilterSort } from '../../model/Hospedaxe/Hospedaxe'
-import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
+import { getAllHostalaria, getGeoElementHostalaria, filterSortHostalaria, addFavHostalaria, quitFavHostalaria, getByNameHostalaria, getFavByNameHostalaria, favFilterSortHostalaria } from '../../../model/Lecer/Lecer'
+import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
-import { stylesTurismoList as styles } from '../../styles/styles'
+import { stylesTurismoList as styles } from '../../../styles/styles'
 
-const Hospedaxe = (props) => {
+const HostalariaList = (props) => {
 
     const [state, setState] = useState({
         loading: true,
@@ -27,7 +27,7 @@ const Hospedaxe = (props) => {
 
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
-        var data = await getAll(signal, token);
+        var data = await getAllHostalaria(signal, token);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
                 setState({
@@ -57,11 +57,11 @@ const Hospedaxe = (props) => {
         if (mounted) {
             data ?
                 props.navigation.setOptions({
-                    title: "Lugares de hospedaxe favoritos"
+                    title: "Lugares de hostalería favoritos"
                 })
                 :
                 props.navigation.setOptions({
-                    title: "Lugares de hospedaxe"
+                    title: "Hostalería"
                 })
         }
 
@@ -122,7 +122,7 @@ const Hospedaxe = (props) => {
 
     const showOnMap = async (id, tipo, subtipo) => {
         try {
-            const text = await getGeoElement(id, tipo);
+            const text = await getGeoElementHostalaria(id, tipo);
             if (text == undefined) {
                 showMessage({
                     message: 'Erro xeolocalizando elemento, probe de novo',
@@ -147,9 +147,9 @@ const Hospedaxe = (props) => {
             var element;
             const token = await getToken('id_token');
             if (!data) {
-                element = await getByName(token, name);
+                element = await getByNameHostalaria(token, name);
             } else {
-                element = await getFavByName(token, name);
+                element = await getFavByNameHostalaria(token, name);
             }
             setDropDownValue('all_valoracion');
             if (element.status != 200) {
@@ -188,11 +188,11 @@ const Hospedaxe = (props) => {
                         <TouchableOpacity
                             key={element.id}
                             onPress={() => {
-                                navigate('HospedaxeItem', {
-                                    hospedaxe: element
+                                navigate('HostalariaItem', {
+                                    hostalaria: element
                                 })
                             }}>
-                            <CardElement element={element} showOnMap={showOnMap} addFav={addFav} quitFav={quitFav} />
+                            <CardElement element={element} showOnMap={showOnMap} addFav={addFavHostalaria} quitFav={quitFavHostalaria} />
                         </TouchableOpacity>
                     )
                 })
@@ -202,20 +202,26 @@ const Hospedaxe = (props) => {
     const itemsDropDown = [
         { label: 'Ordear por valoración', value: 'all_valoracion' },
         { label: 'Ordear por título', value: 'all_titulo' },
-        { label: 'Hoteis por valoración', value: 'hoteis_valoracion' },
-        { label: 'Hoteis por título', value: 'hoteis_titulo' },
-        { label: 'Hostais por valoración', value: 'hostais_valoracion' },
-        { label: 'Hostais por título', value: 'hostais_titulo' },
-        { label: 'Aloxamentos por valoración', value: 'aloxamento_valoracion' },
-        { label: 'Aloxamentos por título', value: 'aloxamento_titulo' },
-        { label: 'Caravanas por valoración', value: 'caravanas_valoracion' },
-        { label: 'Caravanas por título', value: 'caravanas_titulo' },
-        { label: 'Vivendas por valoración', value: 'vivendas_valoracion' },
-        { label: 'Vivendas por título', value: 'vivendas_titulo' },
-        { label: 'Camping por valoración', value: 'camping_valoracion' },
-        { label: 'Camping por título', value: 'camping_titulo' },
-        { label: 'Moteis por valoración', value: 'moteis_valoracion' },
-        { label: 'Moteis por título', value: 'moteis_titulo' }
+        { label: 'Bares por valoración', value: 'bares_titulo' },
+        { label: 'Bares por título', value: 'bares_valoracion' },
+        { label: 'Restaurantes por valoración', value: 'restaurantes_titulo' },
+        { label: 'Restaurantes por título', value: 'restaurantes_valoracion' },
+        { label: 'Cafés por valoración', value: 'cafes_titulo' },
+        { label: 'Cafés por título', value: 'cafes_valoracion' },
+        { label: 'Pubs por valoración', value: 'pubs_titulo' },
+        { label: 'Pubs por título', value: 'pubs_valoracion' },
+        { label: 'Zonas de comida por valoración', value: 'zonas_comida_titulo' },
+        { label: 'Zonas de comida por título', value: 'zonas_comida_valoracion' },
+        { label: 'Comida rápida por valoración', value: 'comida_rapida_titulo' },
+        { label: 'Comida rápida por título', value: 'comida_rapida_valoracion' },
+        { label: 'Xeaderías por valoración', value: 'xeaderias_titulo' },
+        { label: 'Xeaderías por título', value: 'xeaderias_valoracion' },
+        { label: 'Pastelerías por título', value: 'pastelerias_titulo' },
+        { label: 'Pastelerías por título', value: 'pastelerias_valoracion' },
+        { label: 'Panaderías por título', value: 'panaderias_titulo' },
+        { label: 'Panaderías por título', value: 'panaderias_valoracion' },
+        { label: 'Chocolaterías por título', value: 'chocolaterias_titulo' },
+        { label: 'Panaderías por título', value: 'chocolaterias_valoracion' }
     ];
 
     const onChangeDropDown = async (item) => {
@@ -228,9 +234,9 @@ const Hospedaxe = (props) => {
             const token = await getToken('id_token');
             var elements;
             if (!data) {
-                elements = await filterSort(item.value, token);
+                elements = await filterSortHostalaria(item.value, token);
             } else {
-                elements = await favFilterSort(item.value, token);
+                elements = await favFilterSortHostalaria(item.value, token);
             }
 
             if (elements.status != 200 || elements.auth == false) {
@@ -288,12 +294,12 @@ const Hospedaxe = (props) => {
                     state.data == undefined ?
                         <NoData />
                         :
-                        state.data.hospedaxe != undefined ?
+                        state.data.hostalaria != undefined ?
                             state.data.status != 200 ?
                                 <NoData /> :
-                                state.data.hospedaxe.length == 0 ?
+                                state.data.hostalaria.length == 0 ?
                                     <NoData /> :
-                                    <ListData data={state.data.hospedaxe} navigate={props.navigation.navigate} />
+                                    <ListData data={state.data.hostalaria} navigate={props.navigation.navigate} />
                             :
                             state.data.length == 0 ?
                                 <NoData />
@@ -322,4 +328,4 @@ const dropDownStyles = StyleSheet.create({
     }
 });
 
-export default Hospedaxe;
+export default HostalariaList;

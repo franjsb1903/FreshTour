@@ -17,12 +17,15 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         var lugares = sql.planificacions.newLugares;
         var monumentos = sql.planificacions.newMonumentos;
         var hospedaxes = sql.planificacions.newHospedaxe;
+        var hostalaria = sql.planificacions.newHostalaria;
         var valuesLugares = [];
         var valuesMonumentos = [];
         var valuesHospedaxe = [];
+        var valuesHostalaria = [];
         var valuesLugaresWithArrays = [];
         var valuesMonumentosWithArrays = [];
         var valuesHospedaxeWithArrays = [];
+        var valuesHostalariaWithArrays = [];
 
         await client.query('BEGIN');
         const resultsOne = await client.query(sql.planificacions.new, [userId, titulo, comentario, isShared, distancia, tempoVisita, tempoRuta]);
@@ -38,6 +41,9 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             } else if (elemento.features[0].properties.tipo == "Hospedaxe") {
                 valuesHospedaxe.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHospedaxeWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
+            } else if (elemento.features[0].properties.tipo == "Hostalaría") {
+                valuesHostalaria.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
+                valuesHostalariaWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
             }
             i++;
             console.log("venga");
@@ -78,17 +84,29 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 indexHos += 4;
             }));
         }
+        var indexHosta = 0;
+        if (valuesHostalaria.length > 0) {
+            await Promise.all(valuesHostalariaWithArrays.map(e => {
+                if ((indexHosta / 4) < (valuesHostalariaWithArrays.length) - 1) {
+                    hostalaria = hostalaria + "($" + (indexHosta + 1) + ", $" + (indexHosta + 2) + ", $" + (indexHosta + 3) + ", $" + (indexHosta + 4) + "), ";
+                } else {
+                    hostalaria = hostalaria + "($" + (indexHosta + 1) + ", $" + (indexHosta + 2) + ", $" + (indexHosta + 3) + ", $" + (indexHosta + 4) + ")";
+                    return;
+                }
+                indexHosta += 4;
+            }));
+        }
         if (valuesLugares.length > 0) {
-            console.log(lugares);
             await client.query(lugares, valuesLugares);
         }
         if (valuesMonumentos.length > 0) {
-            console.log(monumentos);
             await client.query(monumentos, valuesMonumentos);
         }
         if (valuesHospedaxe.length > 0) {
-            console.log(hospedaxes);
             await client.query(hospedaxes, valuesHospedaxe);
+        }
+        if (valuesHostalaria.length > 0) {
+            await client.query(hostalaria, valuesHostalaria);
         }
         await client.query('COMMIT');
         return res.status(200).send({
@@ -161,15 +179,37 @@ router.get('/elements/:id', (req, res) => {
 
         const { id } = req.params;
 
-        pool.query(sql.planificacions.elementos, [id], (err, results) => {
+        pool.query(sql.planificacions.elementos, [id], (err, turismo) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo o elemento da planificación", err, res);
                 return;
             }
-            res.status(200).json({
-                status: 200,
-                elementos: results.rows
-            });
+            pool.query(sql.planificacions.lecer, [id], (err, lecer) => {
+                if (err) {
+                    helpers.onError(500, "Erro obtendo o elemento da planificación", err, res);
+                    return;
+                }
+                var elements = [], indexTurismo = 0, indexLecer = 0;
+
+                while (indexTurismo < turismo.rowCount && indexLecer < lecer.rowCount) {
+                    if ((turismo.rows[indexTurismo].posicion_visita - lecer.rows[indexLecer].posicion_visita) < 0) {
+                        elements.push(turismo.rows[indexTurismo++]);
+                    } else {
+                        elements.push(lecer.rows[indexLecer++]);
+                    }
+                }
+
+                if (indexLecer < lecer.rowCount) {
+                    elements = elements.concat(lecer.rows.slice(indexLecer));
+                } else {
+                    elements = elements.concat(turismo.rows.slice(indexTurismo));
+                }
+
+                res.status(200).json({
+                    status: 200,
+                    elementos: elements
+                });
+            })
         });
 
     } catch (err) {
@@ -217,23 +257,27 @@ router.delete('/', verify.verifyToken, (req, res) => {
                                 client.query(sql.planificacions.delete.hospedaxes, [id], (err, results) => {
                                     if (shouldAbort(err)) return;
 
-                                    client.query(sql.planificacions.delete.planificacion, [id], (err, results) => {
+                                    client.query(sql.planificacions.delete.hostalaria, [id], (err, results) => {
                                         if (shouldAbort(err)) return;
 
-                                        client.query('COMMIT', error => {
-                                            if (error) {
-                                                helpers.onError(500, "Erro interno no servidor", error, res);
-                                                return;
-                                            }
-                                            try {
-                                                done();
-                                                return res.status(200).send({
-                                                    status: 200
-                                                });
-                                            } catch (err) {
-                                                helpers.onError(500, "Erro interno no servidor", err, res);
-                                                return;
-                                            }
+                                        client.query(sql.planificacions.delete.planificacion, [id], (err, results) => {
+                                            if (shouldAbort(err)) return;
+
+                                            client.query('COMMIT', error => {
+                                                if (error) {
+                                                    helpers.onError(500, "Erro interno no servidor", error, res);
+                                                    return;
+                                                }
+                                                try {
+                                                    done();
+                                                    return res.status(200).send({
+                                                        status: 200
+                                                    });
+                                                } catch (err) {
+                                                    helpers.onError(500, "Erro interno no servidor", err, res);
+                                                    return;
+                                                }
+                                            });
                                         });
                                     });
                                 });

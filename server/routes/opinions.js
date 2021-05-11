@@ -18,6 +18,8 @@ router.get('/:type/:id', async (req, res) => {
             onSearch(sql.opinions.get.planificacions.get, sql.opinions.get.planificacions.count_valoracion, id, res);
         } else if (type === "Hospedaxe") {
             onSearch(sql.opinions.get.hospedaxe.get, sql.opinions.get.hospedaxe.count_valoracion, id, res);
+        } else if (type === "Hostalaria") {
+            onSearch(sql.opinions.get.hostalaria.get, sql.opinions.get.hostalaria.count_valoracion, id, res);
         }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
@@ -36,6 +38,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         const existMonumentos = sql.opinions.exists.monumentos;
         const existPlanificacions = sql.opinions.exists.planificacions;
         const existHospedaxes = sql.opinions.exists.hospedaxes;
+        const existHostalaria = sql.opinions.exists.hostalaria;
 
         const queryLugares = sql.opinions.new.lugares.insert;
         const mediaLugares = sql.opinions.new.lugares.media;
@@ -52,6 +55,10 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         const queryHospedaxes = sql.opinions.new.hospedaxes.insert;
         const mediaHospedaxes = sql.opinions.new.hospedaxes.media;
         const updateValoracionHospedaxes = sql.opinions.new.hospedaxes.updateVal;
+
+        const queryHostalaria = sql.opinions.new.hostalaria.insert;
+        const mediaHostalaria = sql.opinions.new.hostalaria.media;
+        const updateValoracionHostalaria = sql.opinions.new.hostalaria.updateVal;
 
         if (type == "Lugar turístico") {
             const exists = await onExists(existLugares, id_elemento, userId, res);
@@ -85,6 +92,14 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 helpers.onError(401, "Xa realizou un comentario sobre este elemento", undefined, res);
                 return;
             }
+        } else if (type == "Hostalaría") {
+            const exists = await onExists(existHostalaria, id_elemento, userId, res);
+            if (!exists) {
+                onTransaction(queryHostalaria, [userId, titulo, valoracion, comentario, id_elemento], mediaHostalaria, updateValoracionHostalaria, type, res, userId);
+            } else {
+                helpers.onError(401, "Xa realizou un comentario sobre este elemento", undefined, res);
+                return;
+            }
         }
 
     } catch (err) {
@@ -102,6 +117,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const monumento = sql.opinions.delete.monumentos;
         const planificacion = sql.opinions.delete.planificacions;
         const hospedaxes = sql.opinions.delete.hospedaxes;
+        const hostalaria = sql.opinions.delete.hostalaria;
 
         const mediaLugares = sql.opinions.new.lugares.media;
         const updateValoracionLugares = sql.opinions.new.lugares.updateVal;
@@ -115,6 +131,9 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const mediaHospedaxes = sql.opinions.new.hospedaxes.media;
         const updateValoracionHospedaxes = sql.opinions.new.hospedaxes.updateVal;
 
+        const mediaHostalaria = sql.opinions.new.hostalaria.media;
+        const updateValoracionHostalaria = sql.opinions.new.hostalaria.updateVal;
+
         if (type === "Lugar turístico") {
             onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);
         } else if (type === "Monumento") {
@@ -123,6 +142,8 @@ router.delete('/', verify.verifyToken, (req, res) => {
             onTransactionUpdate(planificacion, [id], mediaPlanificacions, updateValoracionPlanificacions, id_elemento, res);
         } else if (type === "Hospedaxe") {
             onTransactionUpdate(hospedaxes, [id], mediaHospedaxes, updateValoracionHospedaxes, id_elemento, res);
+        } else if (type === "Hostalaría") {
+            onTransactionUpdate(hostalaria, [id], mediaHostalaria, updateValoracionHostalaria, id_elemento, res);
         }
 
     } catch (err) {
@@ -151,6 +172,10 @@ router.post('/edit', verify.verifyToken, (req, res) => {
         const mediaHospedaxes = sql.opinions.new.hospedaxes.media;
         const updateValoracionHospedaxes = sql.opinions.new.hospedaxes.updateVal;
 
+        const queryHostalaria = sql.opinions.new.hostalaria.edit;
+        const mediaHostalaria = sql.opinions.new.hostalaria.media;
+        const updateValoracionHostalaria = sql.opinions.new.hostalaria.updateVal;
+
         if (type === "Lugar turístico") {
             onTransactionUpdate(queryLugares, [valoracion, titulo, comentario, id], mediaLugares, updateValoracionLugares, id_elemento, res);
         } else if (type === "Monumento") {
@@ -159,6 +184,8 @@ router.post('/edit', verify.verifyToken, (req, res) => {
             onTransactionUpdate(queryPlanificacions, [valoracion, titulo, comentario, id], mediaPlanificacions, updateValoracionPlanificacions, id_elemento, res);
         } else if (type === "Hospedaxe") {
             onTransactionUpdate(queryHospedaxes, [valoracion, titulo, comentario, id], mediaHospedaxes, updateValoracionHospedaxes, id_elemento, res);
+        } else if (type === "Hostalaria") {
+            onTransactionUpdate(queryHostalaria, [valoracion, titulo, comentario, id], mediaHostalaria, updateValoracionHostalaria, id_elemento, res);
         }
 
     } catch (err) {
@@ -200,6 +227,8 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                     id_elemento = comment.id_planificacion;
                 } else if(type == "Hospedaxe") {
                     id_elemento = comment.id_lugar_hospedaxe;
+                } else if(type == "Hostalaria") {
+                    id_elemento = comment.id_lugar_hostalaria;
                 }
                 client.query(second, [id_elemento], (err, results) => {
                     if (shouldAbort(err)) return;
