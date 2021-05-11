@@ -13,7 +13,7 @@ export const getAllHostalaria = async (signal, token) => {
     }
 }
 
-export const getByNameHostalaria = (token, name) => {
+export const getByNameHostalaria = async (token, name) => {
     try {
         const json = await Lecer.getByNameHostalaria(token, name);
         return json;
@@ -22,7 +22,7 @@ export const getByNameHostalaria = (token, name) => {
     }
 }
 
-export const getFavByNameHostalaria = (token, name) => {
+export const getFavByNameHostalaria = async (token, name) => {
     try {
         const json = await Lecer.getFavByNameHostalaria(token, name);
         return json;
@@ -31,7 +31,7 @@ export const getFavByNameHostalaria = (token, name) => {
     }
 }
 
-export const getGeoElementHostalaria = (id) => {
+export const getGeoElementHostalaria = async (id) => {
     try {
         const data = await Lecer.getGeoElementHostalaria(id);
         return data;
@@ -40,7 +40,7 @@ export const getGeoElementHostalaria = (id) => {
     }
 }
 
-export const getGeoElementJsonHostalaria = (id) => {
+export const getGeoElementJsonHostalaria = async (id) => {
     try {
         const json = await Lecer.getGeoElementJsonHostalaria(id);
         return json;
@@ -49,7 +49,7 @@ export const getGeoElementJsonHostalaria = (id) => {
     }
 }
 
-export const filterSortHostalaria = (typeSort, token) => {
+export const filterSortHostalaria = async (typeSort, token) => {
     try {
         const json = await Lecer.filterSortHostalaria(typeSort, token);
         return json;
@@ -58,7 +58,7 @@ export const filterSortHostalaria = (typeSort, token) => {
     }
 }
 
-export const favFilterSortHostalaria = (typeSort, token) => {
+export const favFilterSortHostalaria = async (typeSort, token) => {
     try {
         const json = await Lecer.favFilterSortHostalaria(typeSort, token);
         return json;
@@ -67,7 +67,7 @@ export const favFilterSortHostalaria = (typeSort, token) => {
     }
 }
 
-export const addFavHostalaria = (token, id_lugar_hostalaria) => {
+export const addFavHostalaria = async (token, id_lugar_hostalaria) => {
     try {
         const json = await Lecer.addFavHostalaria(token, id_lugar_hostalaria);
         return json;
@@ -76,7 +76,7 @@ export const addFavHostalaria = (token, id_lugar_hostalaria) => {
     }
 }
 
-export const quitFavHostalaria = (token, id_lugar_hostalaria) => {
+export const quitFavHostalaria = async (token, id_lugar_hostalaria) => {
     try {
         const json = await Lecer.quitFavHostalaria(token, id_lugar_hostalaria);
         return json;

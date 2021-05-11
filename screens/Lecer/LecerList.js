@@ -31,26 +31,22 @@ const LecerList = (props) => {
             id: 3,
             label: "Outras actividades",
             data: [],
-            onPress: () => navigation.navigate('InfoCommon')
+            onPress: () => console.log("Ocio")
         }
     ];
 
     return (
-        loading ?
-            <View style={progress.container}>
-                <ProgressBar />
-            </View> :
-            <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
-                {
-                    cardsData.map(data => {
-                        return (
-                            <TouchableOpacity key={data.id} onPress={() => data.onPress()}>
-                                <CardElement data={data} />
-                            </TouchableOpacity>
-                        )
-                    })
-                }
-            </ScrollView>
+        <ScrollView style={stylesScroll.scroll} contentContainerStyle={[stylesScroll.containerScroll, { flexGrow: 1, justifyContent: "center" }]}>
+            {
+                cardsData.map(data => {
+                    return (
+                        <TouchableOpacity key={data.id} onPress={() => data.onPress()} style={{ margin: 20 }}>
+                            <CardElement data={data} />
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </ScrollView>
     )
 }
 

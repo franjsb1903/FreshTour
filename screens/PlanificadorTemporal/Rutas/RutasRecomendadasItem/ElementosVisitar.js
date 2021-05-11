@@ -25,7 +25,8 @@ const ElementosVisitar = (props) => {
                         key={element.id}
                         onPress={() => navigation.navigate('TurismoItem', {
                             element: element,
-                            isRuta: true
+                            isRuta: true,
+                            isElementoRuta: true
                         })}>
                             {
                                 element.tipo != "Hospedaxe" && element.tipo != "Hostalaría" ?

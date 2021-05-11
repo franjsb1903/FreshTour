@@ -18,11 +18,11 @@ const CardElementPlanificacion = (props) => {
     const numberElements = props.numberElements;
 
     const [tipoVisita, setTipoVisita] = useState(
-        item.features[0].properties.tipo == "Hospedaxe" || item.features[0].properties.tipo != "Hostalaría" ?
+        item.features[0].properties.tipo == "Hospedaxe" || item.features[0].properties.tipo == "Hostalaría" ?
             item.features[0].properties.tipo_visita ?
                 item.features[0].properties.tipo_visita
                 :
-                0
+                parseFloat(0)
             :
             item.features[0].properties.tipo_visita ?
                 item.features[0].properties.tipo_visita
@@ -48,7 +48,7 @@ const CardElementPlanificacion = (props) => {
         const tempoFloat = parseFloat(tempo);
         context.actualizaTempoVisita(tempoFloat, tipoVisita);
         setTipoVisita(tempoFloat);
-        context.changeTipoVisita(item.features[0].properties.titulo, tempoFloat);
+        context.changeTipoVisita(item.features[0].properties.id, tempoFloat,item.features[0].properties.tipo);
     }
 
     return (
@@ -59,7 +59,9 @@ const CardElementPlanificacion = (props) => {
                         <></>
                         :
                         <View style={styles.chevron}>
-                            <ChevronUpIconButton onPressIcon={context.changeOrderUp} id={item.features[0].properties.id} />
+                            <ChevronUpIconButton onPressIcon={() => {
+                                context.changeOrderUp(item.features[0].properties.id, item.features[0].properties.tipo)
+                            }} />
                         </View>
                 }
                 <View style={styles.closeContainer}>
@@ -71,10 +73,10 @@ const CardElementPlanificacion = (props) => {
             <Card.Divider />
             <View style={styles.rowContainer}>
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title} numberOfLines={2}>{item.features[0].properties.titulo}</Text>
+                    <Text style={styles.title} numberOfLines={2}>{item.features[0].properties.titulo ? item.features[0].properties.titulo : item.features[0].properties.sub_tag}</Text>
                 </View>
                 {
-                    item.features[0].properties.tipo != "Hospedaxe" || item.features[0].properties.tipo != "Hostalaría" ?
+                    item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría" ?
                         <DropDownPicker
                             items={[
                                 { label: 'Visita rápida', value: item.features[0].properties.tempo_visita_rapida },
@@ -89,7 +91,7 @@ const CardElementPlanificacion = (props) => {
                             onChangeItem={e => {
                                 context.actualizaTempoVisita(e.value, tipoVisita);
                                 setTipoVisita(e.value);
-                                context.changeTipoVisita(item.features[0].properties.id, e.value);
+                                context.changeTipoVisita(item.features[0].properties.id, e.value, item.features[0].properties.tipo);
                             }}
                             scrollViewProps={{ heigth: 90 }}
                             dropDownStyle={dropdown.scroll}
@@ -121,7 +123,9 @@ const CardElementPlanificacion = (props) => {
                     isLast || numberElements == 1 ?
                         <></>
                         : <View style={styles.chevron}>
-                            <ChevronDownIconButton onPressIcon={context.changeOrderDown} id={item.features[0].properties.id} />
+                            <ChevronDownIconButton onPressIcon={() => {
+                                context.changeOrderUp(item.features[0].properties.id, item.features[0].properties.tipo)
+                            }} />
                         </View>
                 }
                 <View style={styles.iconsContainer}>

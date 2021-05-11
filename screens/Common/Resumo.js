@@ -24,6 +24,7 @@ const Resumo = (props) => {
     const isRuta = props.isRuta;
     const onRefresh = props.onRefresh;
     const showOnPlanificacion = props.showOnPlanificacion;
+    const isElementoRuta = props.isElementoRuta;
 
     const showModal = () => {
         setModal(!modal);
@@ -102,7 +103,7 @@ const Resumo = (props) => {
                 }
             </View>
             <View style={styles.resumoContainer}>
-                <Text style={styles.resumo}>{isRuta ? element.comentario : element.resumo}</Text>
+                <Text style={styles.resumo}>{isElementoRuta ? element.resumo : isRuta ? element.comentario : element.resumo}</Text>
             </View>
             <ModalInicioSesion modal={modal} showModal={showModal} />
         </ScrollView>

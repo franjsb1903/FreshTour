@@ -54,6 +54,7 @@ class XestionDatosHostalaria {
 
         try {
             const json = await fetchJsonGet(url);
+            json.features[0].properties.sub_tag = this.traductor(json.features[0].properties.sub_tag);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -98,7 +99,7 @@ class XestionDatosHostalaria {
             }
             const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
             return json;
-        } catch(err) {
+        } catch (err) {
             throw new Error(err);
         }
     }
@@ -117,8 +118,33 @@ class XestionDatosHostalaria {
             }
             const json = await fetchJsonDelete(url, headers, JSON.stringify(body));
             return json;
-        } catch(err) {
+        } catch (err) {
             throw new Error(err);
+        }
+    }
+
+    traductor(tag) {
+        switch (tag) {
+            case "bar":
+                return "Bar";
+            case "restaurant":
+                return "Restaurante";
+            case "cafe":
+                return "Café";
+            case "pub":
+                return "Pub";
+            case "food_court":
+                return "Zona de comidas";
+            case "ice_cream":
+                return "Xeadería";
+            case "confectionery":
+                return "Pastelería";
+            case "bakery":
+                return "Panadería";
+            case "chocolate":
+                return "Chocolatería";
+            default:
+                return "Estancia";
         }
     }
 }

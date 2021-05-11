@@ -301,7 +301,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
                                     });
                                 }
 
-                                helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray);
+                                helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray);
                             })
                         })
                     })

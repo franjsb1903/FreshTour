@@ -23,6 +23,7 @@ const TopTabNavigator = (props) => {
     const onRefreshOpinions = props.onRefreshOpinions;
     const onRefresh = props.onRefresh;
     const isRuta = props.isRuta;
+    const isElementoRuta = props.isElementoRuta;
 
     const uriImage = getImageUri(element.imaxe);
 
@@ -44,7 +45,7 @@ const TopTabNavigator = (props) => {
                 }}>
                 <Tab.Screen
                     name="Resumo"
-                    children={() => <Resumo element={element} showOnMap={showOnMap} opinions={opinions} onRefresh={onRefresh} isRuta={isRuta} />}
+                    children={() => <Resumo isElementoRuta={isElementoRuta} element={element} showOnMap={showOnMap} opinions={opinions} onRefresh={onRefresh} isRuta={isRuta} />}
                     options={{
                         tabBarLabel: 'Resumo'
                     }} />

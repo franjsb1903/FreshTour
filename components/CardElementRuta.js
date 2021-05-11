@@ -226,6 +226,8 @@ const CardElementRuta = (props) => {
                                 <HeartIcons />
                     }
                 </View>
+                <Card.Divider />
+                <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 5 }}>{planificacion.usuario}</Text>
             </Card >
             <ModalInicioSesion modal={modal} showModal={changeModal} />
             <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"A planificación borrarase para sempre, está seguro?"} />

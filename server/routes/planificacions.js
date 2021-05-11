@@ -42,6 +42,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 valuesHospedaxe.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHospedaxeWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
             } else if (elemento.features[0].properties.tipo == "Hostalaría") {
+                console.log(elemento.features[0].properties);
                 valuesHostalaria.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHostalariaWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
             }

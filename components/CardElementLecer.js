@@ -29,7 +29,7 @@ const CardElementLecer = (props) => {
     useEffect(() => {
         let mounted = true;
 
-        const value = isAdded(element.id);
+        const value = isAdded(element.titulo);
         if (mounted) {
             setAdded(value);
             setFav(element.favorito);
@@ -78,8 +78,8 @@ const CardElementLecer = (props) => {
                             }
                             {
                                 added ?
-                                    <CalendarIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                                    <CalendarOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} />
+                                    <CalendarIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} /> :
+                                    <CalendarOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} />
                             }
                             <MapIconButton onMapClick={async () => {
                                 await showOnMap(element.id, element.tipo, element.sub_tag);

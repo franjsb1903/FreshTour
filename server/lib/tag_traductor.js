@@ -37,6 +37,8 @@ tag_traductor.hostalaria = (tag) => {
             return "Pub";
         case "food_court":
             return "Zona de comidas";
+        case "fast_food":
+            return "Comida rápida";
         case "ice_cream":
             return "Xeadería";
         case "confectionery":

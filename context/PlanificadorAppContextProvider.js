@@ -24,7 +24,7 @@ const AppContextProvider = (props) => {
     const [walking, setWalking] = useState(true);
     const [geoMap, setGeoMap] = useState('');
 
-    const [tempoVisita, setTempoVisita] = useState(0);
+    const [tempoVisita, setTempoVisita] = useState(parseFloat(0));
 
     useEffect(() => {
         let mounted = true;
@@ -125,25 +125,25 @@ const AppContextProvider = (props) => {
 
     const addItem = (item) => {
 
-        var exist = existItem(`${item.features[0].properties.id}`);
+        var exist = existItem(`${item.features[0].properties.id}`, item.features[0].properties.tipo);
 
         if (!exist) {
             setTurismoItems({
                 items: [...turismoItems.items, item]
             });
             const tempo = tempoVisita;
-            if (item.features[0].properties.tipo != "Hospedaxe" || item.features[0].properties.tipo != "Hostalaría") {
+            if (item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría") {
                 initTempoVisita(tempo + item.features[0].properties.tempo_visita_rapida);
             }
             setPlanificacion(undefined);
         }
     };
 
-    const existItem = (id) => {
+    const existItem = (id, tipo) => {
         var exist = false;
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
-            if (`${e.features[0].properties.id}` == id) {
+            if (`${e.features[0].properties.id}` == id && e.features[0].properties.tipo == tipo) {
                 exist = true;
                 break;
             }
@@ -153,7 +153,6 @@ const AppContextProvider = (props) => {
     }
 
     const actualizaTempoVisita = (novoTempo, antigoTempo) => {
-        console.log(tempoVisita, antigoTempo, novoTempo, tempoVisita - antigoTempo + novoTempo);
         setTempoVisita(tempoVisita - antigoTempo + novoTempo);
     }
 
@@ -181,12 +180,12 @@ const AppContextProvider = (props) => {
         setPlanificacion(planificacion);
     }
 
-    const changeOrderUp = (id) => {
+    const changeOrderUp = (id, tipo) => {
         var index;
         var aux = [];
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
-            if (`${e.features[0].properties.id}` == id) {
+            if (`${e.features[0].properties.id}` == id && e.features[0].properties.tipo == tipo) {
                 index = i;
             }
             aux.push(e);
@@ -201,12 +200,12 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
-    const changeOrderDown = (id) => {
+    const changeOrderDown = (id, tipo) => {
         var index;
         var aux = [];
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
-            if (`${e.features[0].properties.id}` == id) {
+            if (`${e.features[0].properties.id}` == id && e.features[0].properties.tipo == tipo) {
                 index = i;
             }
             aux.push(e);
@@ -229,6 +228,7 @@ const AppContextProvider = (props) => {
                     type: "info"
                 });
                 let data;
+                console.log(tipo);
                 if (tipo == "Hospedaxe") {
                     data = await getGeoElementJsonHospedaxe(id);
                 } else if(tipo == "Hostalaría") {
@@ -236,6 +236,7 @@ const AppContextProvider = (props) => {
                 } else {
                     data = await getGeoElementJson(id, tipo);
                 }
+               
                 if (data == undefined || data.features[0] == undefined) {
                     showMessage({
                         message: 'Elemento non engadido',
@@ -271,17 +272,26 @@ const AppContextProvider = (props) => {
             const newElements = [];
             setTempoVisita(0);
             var tempo_visita = 0;
+            console.log(elements);
             elements.map(async (element) => {
-                const data = await getGeoElementJson(element.id, element.tipo);
+                let data;
+                if (element.tipo == "Hospedaxe") {
+                    data = await getGeoElementJsonHospedaxe(element.id);
+                } else if(element.tipo == "Hostalaría") {
+                    data = await getGeoElementJsonHostalaria(element.id);
+                } else {
+                    data = await getGeoElementJson(element.id, element.tipo);
+                }
                 data.features[0].properties["tipo_visita"] = element.tipo_visita;
                 newElements.push(data);
-                if (data.features[0].properties.tipo != "Hospedaxe" || data.features[0].properties.tipo != "Hostalaría") {
+                if (data.features[0].properties.tipo != "Hospedaxe" && data.features[0].properties.tipo != "Hostalaría") {
                     if (element.tipo_visita != null) {
                         tempo_visita += element.tipo_visita;
                     } else {
                         tempo_visita += data.features[0].properties.tempo_visita_rapida;
                     }
                 } else {
+                    console.log(element.tipo_visita);
                     if (element.tipo_visita != null) {
                         tempo_visita += element.tipo_visita;
                     }
@@ -291,7 +301,7 @@ const AppContextProvider = (props) => {
                 setTurismoItems({
                     items: newElements
                 });
-                initTempoVisita(tempo_visita);
+                initTempoVisita(parseFloat(tempo_visita));
                 setPlanificacion(planificacion);
                 navigation.navigate('Map');
             }, 1000);
@@ -304,13 +314,14 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const changeTipoVisita = (titulo, tipoVisita) => {
-        console.log(tipoVisita);
+    const changeTipoVisita = (id, tipoVisita, tipo) => {
+        console.log(id, tipo);
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
-            if (`${e.features[0].properties.titulo}` == titulo) {
+            if (`${e.features[0].properties.id}` == id && e.features[0].properties.tipo == tipo) {
                 console.log(e.features[0].properties.titulo, tipoVisita);
                 e.features[0].properties["tipo_visita"] = tipoVisita;
+                console.log(tipoVisita);
                 break;
             }
         }

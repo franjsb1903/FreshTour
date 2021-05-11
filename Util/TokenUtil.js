@@ -12,6 +12,7 @@ export const getToken = async (id) => {
 }
 
 export const shouldDeleteToken = async (message, id) => {
+    console.log(message);
     try {
         if (message == "jwt expired") {
             await SecureStore.deleteItemAsync(id);

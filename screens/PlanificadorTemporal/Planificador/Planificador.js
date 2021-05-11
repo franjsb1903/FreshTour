@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from "react-native-flash-message";
 
 import AppContext from '../../../context/PlanificadorAppContext';
 import NoElementsPlanificadorView from '../../../components/NoElementsPlanificadorView'
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
-import { SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton, SharedIconButton } from '../../../components/CustomIcons';
+import { BinIcon, SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton, SharedIconButton } from '../../../components/CustomIcons';
 import { onShare } from '../../../components/Common'
+import { customTouchableOpacity as button } from '../../../styles/styles'
 
 import properties from '../../../properties/properties_expo'
 
@@ -61,7 +62,7 @@ const Planificador = (props) => {
                     tempoVisita: context.tempoVisita,
                     titulo: "Gardar planificación"
                 })
-                : 
+                :
                 showMessage({
                     message: 'Engada máis elementos á planificación',
                     type: "warning"
@@ -105,7 +106,9 @@ const Planificador = (props) => {
                         <PointsInterestIconButton navigate={navigation.navigate} updateSelected={global.setSelected} />
                     </View>
                 </View>
-                <Button title="Limpar planificación" color={properties.style.color.button} onPress={() => onClear()} />
+                <TouchableOpacity style={[button.buttonContainerSquare, { alignItems: "center" }]} onPress={() => onClear()}>
+                    <BinIcon />
+                </TouchableOpacity >
                 <TopTabNavigator />
             </>
             :

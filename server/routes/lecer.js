@@ -126,7 +126,7 @@ router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, re
         const userId = req.userId;
         const { type } = req.params;
 
-        const query = getQuery(type);
+        const query = getQueryHospedaxe(type);
 
         var values = [];
         if (userId === undefined) {
@@ -183,7 +183,7 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
         const userId = req.userId;
         const { type } = req.params;
 
-        const query = getFavQuery(type);
+        const query = getFavQueryHospedaxe(type);
 
         var values = [];
         if (userId === undefined) {
@@ -211,7 +211,7 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
 
 });
 
-const getFavQuery = (type) => {
+const getFavQueryHospedaxe = (type) => {
     switch (type) {
         case "bares_titulo":
             return sql.lecer.hostalaria.fav.bares.titulo;
@@ -262,7 +262,7 @@ const getFavQuery = (type) => {
     }
 }
 
-const getQuery = (type) => {
+const getQueryHospedaxe = (type) => {
     switch (type) {
         case "bares_titulo":
             return sql.lecer.hostalaria.bares.titulo;

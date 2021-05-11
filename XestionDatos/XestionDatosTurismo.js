@@ -81,6 +81,7 @@ class XestionDatosTurismo {
                 url = url + properties.url.geoserver.monumentos + id;
             } 
         }
+        console.log(url);
         try {
             const json = await fetchJsonGet(url);
             return json;

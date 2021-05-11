@@ -127,7 +127,7 @@ export const stylesMapa = StyleSheet.create({
     }
     ,
     icon: {
-        flex: 1,
+        flex: 2,
         justifyContent: 'center',
         alignItems: 'center'
     }
@@ -519,6 +519,12 @@ export const customTouchableOpacity = {
         paddingVertical: 10,
         paddingHorizontal: 12,
         flex: 0
+    },
+    buttonContainerSquare: {
+        elevation: 0,
+        backgroundColor: properties.style.color.button,
+        paddingVertical: 10,
+        paddingHorizontal: 12
     }
 }
 

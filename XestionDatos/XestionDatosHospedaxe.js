@@ -41,8 +41,8 @@ class XestionDatosHospedaxe {
         const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
 
         try {
-            const json = await fetchTextGet(url);
-            return json;
+            const text = await fetchTextGet(url);
+            return text;
         } catch (err) {
             throw new Error(err);
         }
@@ -54,6 +54,7 @@ class XestionDatosHospedaxe {
 
         try {
             const json = await fetchJsonGet(url);
+            json.features[0].properties.sub_tag = this.traductor(json.features[0].properties.sub_tag);
             return json;
         } catch (err) {
             throw new Error(err);
@@ -119,6 +120,29 @@ class XestionDatosHospedaxe {
             return json;
         } catch(err) {
             throw new Error(err);
+        }
+    }
+
+    traductor(tag) {
+        switch (tag) {
+            case "hotel":
+                return "Hotel";
+            case "hostel":
+                return "Hostal";
+            case "guest_house":
+                return "Aloxamento";
+            case "caravan_site":
+                return "Estacionamento de caravanas";
+            case "apartment":
+                return "Vivenda";
+            case "camp_pitch":
+                return "Camping";
+            case "camp_site":
+                return "Camping";
+            case "motel":
+                return "Motel";
+            default:
+                return "Estancia";
         }
     }
 }

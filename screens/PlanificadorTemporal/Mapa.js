@@ -91,7 +91,13 @@ const Map = (props) => {
             i++;
             const content = getIconContent(i);
             const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
-            const name = `${e.features[0].properties.titulo}`;
+            let name;
+            console.log(e.features[0].properties.sub_tag, e.features[0].properties.titulo);
+            if (e.features[0].properties.titulo === null) {
+              name = e.features[0].properties.sub_tag;
+            } else {
+              name = e.features[0].properties.titulo;
+            }
             global.map.injectJavaScript(`addMarkerNo(${coord[0]}, ${coord[1]}, "${name}", "${content}")`);
           });
 
@@ -180,7 +186,7 @@ const Map = (props) => {
     <>
       <View style={styles.header}>
         <View style={styles.headerBottom}>
-          <View style={styles.icon}>
+          <View style={[styles.icon, { flexDirection: "row" }]}>
             <ClockIconButton _onPress={() => {
               props.navigation.navigate('LecerList', {
                 updateItem: updateSelected

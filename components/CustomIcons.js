@@ -105,6 +105,10 @@ const ClockIcon = () => (
     <Icon name="time" size={30} color={properties.style.color.iconColor} />
 );
 
+export const BinIcon = () => (
+    <Icon name="trash-bin" size={30} color={properties.style.color.iconColor} />
+)
+
 export const MarkerIcon = () => (
     <MaterialIcons name="place" size={30} />
 );
@@ -379,12 +383,11 @@ export const ChevronUpIconButton = (props) => {
 
     const style = props.style;
     const changeOrderUp = props.onPressIcon;
-    const id = props.id;
 
     return (
         <IconButton
             icon={ChevronUpIcon}
-            onPress={() => changeOrderUp(id)}
+            onPress={() => changeOrderUp()}
             style={style}
         />
     )
@@ -394,12 +397,11 @@ export const ChevronDownIconButton = (props) => {
 
     const style = props.style;
     const changeOrderDown = props.onPressIcon;
-    const id = props.id;
 
     return (
         <IconButton
             icon={ChevronDownIcon}
-            onPress={() => changeOrderDown(id)}
+            onPress={() => changeOrderDown()}
             style={style}
         />
     )
