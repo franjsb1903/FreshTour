@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getGeoElementJson as getGeoElementJsonHospedaxe } from '../model/Hospedaxe/Hospedaxe'
-import { getGeoElementJsonHostalaria, getGeoElementJsonOcio, getGeoJsonElementOcio } from '../model/Lecer/Lecer'
+import { getGeoElementJsonHostalaria, getGeoElementJsonOcio, getGeoElementJsonOutras } from '../model/Lecer/Lecer'
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Turismo/Turismo';
 import { showMessage } from "react-native-flash-message";
@@ -132,7 +132,7 @@ const AppContextProvider = (props) => {
                 items: [...turismoItems.items, item]
             });
             const tempo = tempoVisita;
-            if (item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría" && item.features[0].properties.tipo != "Ocio") {
+            if (item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría" && item.features[0].properties.tipo != "Ocio" && item.features[0].properties.tipo != "Outra") {
                 initTempoVisita(tempo + item.features[0].properties.tempo_visita_rapida);
             }
             setPlanificacion(undefined);
@@ -228,13 +228,14 @@ const AppContextProvider = (props) => {
                     type: "info"
                 });
                 let data;
-                console.log(tipo);
                 if (tipo == "Hospedaxe") {
                     data = await getGeoElementJsonHospedaxe(id);
                 } else if (tipo == "Hostalaría") {
                     data = await getGeoElementJsonHostalaria(id);
                 } else if (tipo == "Ocio") {
                     data = await getGeoElementJsonOcio(id);
+                } else if (tipo == "Outra") {
+                    data = await getGeoElementJsonOutras(id);
                 } else {
                     data = await getGeoElementJson(id, tipo);
                 }
@@ -269,46 +270,57 @@ const AppContextProvider = (props) => {
         }
     }
 
+    const getDataJson = async (id, tipo) => {
+        let data;
+        switch (tipo) {
+            case "Hospedaxe":
+                data = await getGeoElementJsonHospedaxe(id);
+                break;
+            case "Hostalaría":
+                data = await getGeoElementJsonHostalaria(id);
+                break;
+            case "Ocio":
+                data = await getGeoElementJsonOcio(id);
+                break;
+            case "Outra":
+                data = await getGeoElementJsonOutras(id);
+                break;
+            default:
+                data = await getGeoElementJson(id, tipo);
+                break;
+        }
+
+        return data;
+    }
+
     const addElementsToPlanificacion = async (elements, planificacion, navigation) => {
         try {
             const newElements = [];
             setTempoVisita(0);
             var tempo_visita = 0;
             console.log(elements);
-            elements.map(async (element) => {
-                let data;
-                if (element.tipo == "Hospedaxe") {
-                    data = await getGeoElementJsonHospedaxe(element.id);
-                } else if (element.tipo == "Hostalaría") {
-                    data = await getGeoElementJsonHostalaria(element.id);
-                } else if (element.tipo == "Ocio") {
-                    data = await getGeoElementJsonOcio(element.id);
-                } else {
-                    data = await getGeoElementJson(element.id, element.tipo);
-                }
+            await Promise.all(elements.map(async (element) => {
+                const data = await getDataJson(element.id, element.tipo);
                 data.features[0].properties["tipo_visita"] = element.tipo_visita;
-                newElements.push(data);
-                if (data.features[0].properties.tipo != "Hospedaxe" && data.features[0].properties.tipo != "Hostalaría" && data.features[0].properties.tipo != "Ocio") {
+                newElements[element.posicion_visita] = data;
+                if (data.features[0].properties.tipo != "Hospedaxe" && data.features[0].properties.tipo != "Hostalaría" && data.features[0].properties.tipo != "Ocio" && data.features[0].properties.tipo != "Outra") {
                     if (element.tipo_visita != null) {
                         tempo_visita += element.tipo_visita;
                     } else {
                         tempo_visita += data.features[0].properties.tempo_visita_rapida;
                     }
                 } else {
-                    console.log(element.tipo_visita);
                     if (element.tipo_visita != null) {
                         tempo_visita += element.tipo_visita;
                     }
                 }
+            }));
+            setTurismoItems({
+                items: newElements
             });
-            setTimeout(() => {
-                setTurismoItems({
-                    items: newElements
-                });
-                initTempoVisita(parseFloat(tempo_visita));
-                setPlanificacion(planificacion);
-                navigation.navigate('Map');
-            }, 1000);
+            initTempoVisita(parseFloat(tempo_visita));
+            setPlanificacion(planificacion);
+            navigation.navigate('Map');
         } catch (err) {
             console.error(err);
             showMessage({
@@ -319,13 +331,10 @@ const AppContextProvider = (props) => {
     }
 
     const changeTipoVisita = (id, tipoVisita, tipo) => {
-        console.log(id, tipo);
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
             if (`${e.features[0].properties.id}` == id && e.features[0].properties.tipo == tipo) {
-                console.log(e.features[0].properties.titulo, tipoVisita);
                 e.features[0].properties["tipo_visita"] = tipoVisita;
-                console.log(tipoVisita);
                 break;
             }
         }
@@ -344,7 +353,8 @@ const AppContextProvider = (props) => {
         elementosFav: [],
         hospedaxesFav: [],
         hostalariaFav: [],
-        ocioFav: []
+        ocioFav: [],
+        outrasFav: []
     });
 
     const addElementoFav = async (token, changeFavView, item, model) => {
@@ -414,7 +424,8 @@ const AppContextProvider = (props) => {
                 elementosFav: data.elementosFav,
                 hospedaxesFav: data.hospedaxesFav,
                 hostalariaFav: data.hostalariaFav,
-                ocioFav: data.ocioFav
+                ocioFav: data.ocioFav,
+                outrasFav: data.outrasFav
             })
         }
     }
@@ -429,7 +440,8 @@ const AppContextProvider = (props) => {
             elementosFav: [],
             hospedaxesFav: [],
             hostalariaFav: [],
-            ocioFav: []
+            ocioFav: [],
+            outrasFav: []
         })
     }
 

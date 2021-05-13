@@ -30,7 +30,7 @@ helpers.onError = (code, message, err, res) => {
     });
 }
 
-helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav, hospedaxeFav, hostalariaFav, ocioFav) => {
+helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav, hospedaxeFav, hostalariaFav, ocioFav, outrasArray) => {
     return res.status(200).send({
         auth: true,
         token: token,
@@ -41,7 +41,8 @@ helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, op
         elementosFav: elementosFav,
         hospedaxesFav: hospedaxeFav,
         hostalariaFav: hostalariaFav,
-        ocioFav: ocioFav
+        ocioFav: ocioFav,
+        outrasFav: outrasArray
     });
 }
 

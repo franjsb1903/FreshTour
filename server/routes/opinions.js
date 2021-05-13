@@ -22,6 +22,8 @@ router.get('/:type/:id', async (req, res) => {
             onSearch(sql.opinions.get.hostalaria.get, sql.opinions.get.hostalaria.count_valoracion, id, res);
         } else if (type === "Ocio") {
             onSearch(sql.opinions.get.ocio.get, sql.opinions.get.ocio.count_valoracion, id, res);
+        } else if (type === "Outra") {
+            onSearch(sql.opinions.get.outras.get, sql.opinions.get.outras.count_valoracion, id, res);
         } else {
             helpers.onError(500, "Erro interno do servidor", err, res);
             return;
@@ -45,6 +47,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         const existHospedaxes = sql.opinions.exists.hospedaxes;
         const existHostalaria = sql.opinions.exists.hostalaria;
         const existOcio = sql.opinions.exists.ocio;
+        const existOutras = sql.opinions.exists.outras;
 
         const queryLugares = sql.opinions.new.lugares.insert;
         const mediaLugares = sql.opinions.new.lugares.media;
@@ -69,6 +72,10 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         const queryOcio = sql.opinions.new.ocio.insert;
         const mediaOcio = sql.opinions.new.ocio.media;
         const updateValoracionOcio = sql.opinions.new.ocio.updateVal;
+
+        const queryOutras = sql.opinions.new.outras.insert;
+        const mediaOutras = sql.opinions.new.outras.media;
+        const updateValoracionOutras = sql.opinions.new.outras.updateVal;
 
         if (type == "Lugar turístico") {
             const exists = await onExists(existLugares, id_elemento, userId, res);
@@ -118,6 +125,17 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 helpers.onError(401, "Xa realizou un comentario sobre este elemento", undefined, res);
                 return;
             }
+        } else if (type == "Outra") {
+            const exists = await onExists(existOutras, id_elemento, userId, res);
+            if (!exists) {
+                onTransaction(queryOutras, [userId, titulo, valoracion, comentario, id_elemento], mediaOutras, updateValoracionOutras, type, res, userId);
+            } else {
+                helpers.onError(401, "Xa realizou un comentario sobre este elemento", undefined, res);
+                return;
+            }
+        } else {
+            helpers.onError(500, "Erro interno do servidor", err, res);
+            return;
         }
 
     } catch (err) {
@@ -137,6 +155,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const hospedaxes = sql.opinions.delete.hospedaxes;
         const hostalaria = sql.opinions.delete.hostalaria;
         const ocio = sql.opinions.delete.ocio;
+        const outras = sql.opinions.delete.outras;
 
         const mediaLugares = sql.opinions.new.lugares.media;
         const updateValoracionLugares = sql.opinions.new.lugares.updateVal;
@@ -156,6 +175,9 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const mediaOcio = sql.opinions.new.ocio.media;
         const updateValoracionOcio = sql.opinions.new.ocio.updateVal;
 
+        const mediaOutras = sql.opinions.new.outras.media;
+        const updateValoracionOutras = sql.opinions.new.outras.updateVal;
+
         if (type === "Lugar turístico") {
             onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);
         } else if (type === "Monumento") {
@@ -168,6 +190,11 @@ router.delete('/', verify.verifyToken, (req, res) => {
             onTransactionUpdate(hostalaria, [id], mediaHostalaria, updateValoracionHostalaria, id_elemento, res);
         } else if (type === "Ocio") {
             onTransactionUpdate(ocio, [id], mediaOcio, updateValoracionOcio, id_elemento, res);
+        } else if (type === "Outra") {
+            onTransactionUpdate(outras, [id], mediaOutras, updateValoracionOutras, id_elemento, res);
+        } else {
+            helpers.onError(500, "Erro interno do servidor", err, res);
+            return;
         }
 
     } catch (err) {
@@ -204,6 +231,10 @@ router.post('/edit', verify.verifyToken, (req, res) => {
         const mediaOcio = sql.opinions.new.ocio.media;
         const updateValoracionOcio = sql.opinions.new.ocio.updateVal;
 
+        const queryOutras = sql.opinions.new.outras.edit;
+        const mediaOutras = sql.opinions.new.outras.media;
+        const updateValoracionOutras = sql.opinions.new.outras.updateVal;
+
         if (type === "Lugar turístico") {
             onTransactionUpdate(queryLugares, [valoracion, titulo, comentario, id], mediaLugares, updateValoracionLugares, id_elemento, res);
         } else if (type === "Monumento") {
@@ -214,8 +245,13 @@ router.post('/edit', verify.verifyToken, (req, res) => {
             onTransactionUpdate(queryHospedaxes, [valoracion, titulo, comentario, id], mediaHospedaxes, updateValoracionHospedaxes, id_elemento, res);
         } else if (type === "Hostalaria") {
             onTransactionUpdate(queryHostalaria, [valoracion, titulo, comentario, id], mediaHostalaria, updateValoracionHostalaria, id_elemento, res);
-        }else if (type === "Ocio") {
+        } else if (type === "Ocio") {
             onTransactionUpdate(queryOcio, [valoracion, titulo, comentario, id], mediaOcio, updateValoracionOcio, id_elemento, res);
+        } else if (type === "Outra") {
+            onTransactionUpdate(queryOutras, [valoracion, titulo, comentario, id], mediaOutras, updateValoracionOutras, id_elemento, res);
+        } else {
+            helpers.onError(500, "Erro interno do servidor", err, res);
+            return;
         }
 
     } catch (err) {
@@ -261,6 +297,10 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                     id_elemento = comment.id_lugar_hostalaria;
                 } else if (type == "Ocio") {
                     id_elemento = comment.id_actividade_ocio;
+                } else if (type == "Outra") {
+                    id_elemento = comment.id_outra_actividade;
+                } else {
+                    id_elemento = null;
                 }
                 client.query(second, [id_elemento], (err, results) => {
                     if (shouldAbort(err)) return;

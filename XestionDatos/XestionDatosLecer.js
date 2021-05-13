@@ -243,6 +243,126 @@ class XestionDatosHostalaria {
         }
     }
 
+    async getAllOutras(signal, token) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
+
+        try {
+            const json = fetchJsonGet(url, token, signal);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getByNameOutras(token, name) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
+
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getFavByNameOutras(token, name) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
+
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getGeoElementOutras(id) {
+
+        const url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
+
+        try {
+            const text = await fetchTextGet(url);
+            return text;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getGeoElementJsonOutras(id) {
+
+        const url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
+
+        try {
+            const json = await fetchJsonGet(url);
+            json.features[0].properties.sub_tag = this.traductorOutras(json.features[0].properties.sub_tag);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async filterSortOutras(typeSort, token) {
+
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
+
+        try {
+            const json = fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async favFilterSortOutras(typeSort, token) {
+
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
+
+        try {
+            const json = fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async addFavOutras(token, id_outra_actividade) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_outra_actividade: id_outra_actividade
+            }
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async quitFavOutras(token, id_outra_actividade) {
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_outra_actividade: id_outra_actividade
+            }
+            const json = await fetchJsonDelete(url, headers, JSON.stringify(body));
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
     traductorHostalaria(tag) {
         switch (tag) {
             case "bar":
@@ -310,6 +430,60 @@ class XestionDatosHostalaria {
                 return "Mirador";
             default:
                 return "Ocio";
+        }
+    }
+
+    traductorOutras(tag) {
+
+        switch (tag) {
+            case "bank":
+                return "Banco";
+            case "pharmacy":
+                return "Farmacia";
+            case "post_office":
+                return "Oficina de Correos";
+            case "taxi":
+                return "Taxi";
+            case "police":
+                return "Policía";
+            case "bicycle_parking":
+                return "Parking de bicicletas";
+            case "atm":
+                return "Caixeiro";
+            case "toilets":
+                return "Baños públicos";
+            case "supermarket":
+                return "Supermercado";
+            case "convenience":
+                return "Pequeno supermercado";
+            case "seafood":
+                return "Pescadería";
+            case "butcher":
+                return "Carnicería";
+            case "clothes":
+                return "Tenda de roupa";
+            case "gift":
+                return "Tenda de regalos";
+            case "shoes":
+                return "Tenda de zapatos";
+            case "beverages":
+                return "Tenda de bebidas";
+            case "department_store":
+                return "Grandes almacenes";
+            case "bag":
+                return "Tenda de bolsas";
+            case "perfumery":
+                return "Perfumería";
+            case "information":
+                return "Punto de información";
+            case "hospital":
+                return "Hospital";
+            case "clinic":
+                return "Clínica";
+            case "photo":
+                return "Tenda de fotos";
+            default:
+                return "Outra actividade";
         }
     }
 }

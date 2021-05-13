@@ -98,4 +98,58 @@ tag_traductor.ocio = (tag) => {
     }
 }
 
+tag_traductor.outras = (tag) => {
+
+    switch (tag) {
+        case "bank":
+            return "Banco";
+        case "pharmacy":
+            return "Farmacia";
+        case "post_office":
+            return "Oficina de Correos";
+        case "taxi":
+            return "Taxi";
+        case "police":
+            return "Policía";
+        case "bicycle_parking":
+            return "Parking de bicicletas";
+        case "atm":
+            return "Caixeiro";
+        case "toilets":
+            return "Baños públicos";
+        case "supermarket":
+            return "Supermercado";
+        case "convenience":
+            return "Pequeno supermercado";
+        case "seafood":
+            return "Pescadería";
+        case "butcher":
+            return "Carnicería";
+        case "clothes":
+            return "Tenda de roupa";
+        case "gift":
+            return "Tenda de regalos";
+        case "shoes":
+            return "Tenda de zapatos";
+        case "beverages":
+            return "Tenda de bebidas";
+        case "department_store":
+            return "Grandes almacenes";
+        case "bag":
+            return "Tenda de bolsas";
+        case "perfumery":
+            return "Perfumería";
+        case "information":
+            return "Punto de información";
+        case "hospital":
+            return "Hospital";
+        case "clinic":
+            return "Clínica";
+        case "photo":
+            return "Tenda de fotos";
+        default:
+            return "Outra actividade";
+    }
+}
+
 module.exports = tag_traductor;

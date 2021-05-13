@@ -18,7 +18,7 @@ const CardElementPlanificacion = (props) => {
     const numberElements = props.numberElements;
 
     const [tipoVisita, setTipoVisita] = useState(
-        item.features[0].properties.tipo == "Hospedaxe" || item.features[0].properties.tipo == "Hostalaría" || item.features[0].properties.tipo == "Ocio" ?
+        item.features[0].properties.tipo == "Hospedaxe" || item.features[0].properties.tipo == "Hostalaría" || item.features[0].properties.tipo == "Ocio" || item.features[0].properties.tipo == "Outra" ?
             item.features[0].properties.tipo_visita ?
                 item.features[0].properties.tipo_visita
                 :
@@ -77,7 +77,7 @@ const CardElementPlanificacion = (props) => {
                 </View>
                 {
                     item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría"
-                    && item.features[0].properties.tipo != "Ocio" ?
+                    && item.features[0].properties.tipo != "Ocio" && item.features[0].properties.tipo != "Outra" ?
                         <DropDownPicker
                             items={[
                                 { label: 'Visita rápida', value: item.features[0].properties.tempo_visita_rapida },

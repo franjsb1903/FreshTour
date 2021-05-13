@@ -92,7 +92,6 @@ const Map = (props) => {
             const content = getIconContent(i);
             const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
             let name;
-            console.log(e.features[0].properties.sub_tag, e.features[0].properties.titulo);
             if (e.features[0].properties.titulo === null) {
               name = e.features[0].properties.sub_tag;
             } else {

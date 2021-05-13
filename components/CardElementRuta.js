@@ -58,7 +58,7 @@ const CardElementRuta = (props) => {
         if (mounted) {
             setShared(planificacion.esta_compartida);
             setFav(planificacion.favorito);
-            getElements();
+            //getElements();
         }
 
         return () => {
@@ -144,14 +144,12 @@ const CardElementRuta = (props) => {
                     <HeartIconButton onQuitFav={() => {
                         onQuitFav(changeFav, planificacion, context);
                     }} />
-                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                 </>
                 :
                 <>
                     <HeartOutlineIconButton onPressFav={() => {
                         onPressFav(changeFav, planificacion, changeModal, context);
                     }} />
-                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                 </>
         )
     }
@@ -206,7 +204,6 @@ const CardElementRuta = (props) => {
                                         onShare(changeShare, shared, planificacion);
                                     }} />
                                     <EditIconButton onPress={onEdit} />
-                                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                                 </>
                                 :
                                 <>
@@ -214,14 +211,13 @@ const CardElementRuta = (props) => {
                                         onShare(changeShare, shared, planificacion);
                                     }} />
                                     <EditIconButton onPress={onEdit} />
-                                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
                                 </>
                             :
                             planificacion.id_actual_usuario ?
                                 planificacion.id_actual_usuario != planificacion.id_usuario ?
                                     <HeartIcons />
                                     :
-                                    <CalendarOutlineIconButton _onPress={showOnPlanificacion} />
+                                    <></>
                                 :
                                 <HeartIcons />
                     }

@@ -157,30 +157,22 @@ The original search was:
   node["amenity"="bank"]({{bbox}});
   // query part for: “amenity=pharmacy”
   node["amenity"="pharmacy"]({{bbox}});
-  // query part for: “amenity=drinking_water”
-  node["amenity"="drinking_water"]({{bbox}});
   // query part for: “amenity=post_office”
   node["amenity"="post_office"]({{bbox}});
   // query part for: “amenity=taxi”
   node["amenity"="taxi"]({{bbox}});
-  // query part for: “amenity=hospital”
-  node["amenity"="hospital"]({{bbox}});
   // query part for: “amenity=police”
   node["amenity"="police"]({{bbox}});
   // query part for: “amenity=bicycle_parking”
   node["amenity"="bicycle_parking"]({{bbox}});
   // query part for: “amenity=atm”
   node["amenity"="atm"]({{bbox}});
-  // query part for: “amenity=fountain”
-  node["amenity"="fountain"]({{bbox}});
   // query part for: “amenity=toilets”
   node["amenity"="toilets"]({{bbox}});
   // query part for: “shop=supermarket”
   node["shop"="supermarket"]({{bbox}});
   // query part for: “shop=convenience”
   node["shop"="convenience"]({{bbox}});
-  // query part for: “shop=greengrocer”
-  node["shop"="greengrocer"]({{bbox}});
   // query part for: “shop=seafood”
   node["shop"="seafood"]({{bbox}});
   // query part for: “shop=butcher”
@@ -193,34 +185,14 @@ The original search was:
   node["shop"="shoes"]({{bbox}});
   // query part for: “shop=beverages”
   node["shop"="beverages"]({{bbox}});
-  // query part for: “shop=jewelry”
-  node["shop"="jewelry"]({{bbox}});
   // query part for: “shop=department_store”
   node["shop"="department_store"]({{bbox}});
-  // query part for: “shop=tea”
-  node["shop"="tea"]({{bbox}});
   // query part for: “shop=bag”
   node["shop"="bag"]({{bbox}});
-  // query part for: “shop=hairdresser”
-  node["shop"="hairdresser"]({{bbox}});
-  // query part for: “shop=books”
-  node["shop"="books"]({{bbox}});
-  // query part for: “shop=cosmetics”
-  node["shop"="cosmetics"]({{bbox}});
-  // query part for: “shop=herbalist”
-  node["shop"="herbalist"]({{bbox}});
   // query part for: “shop=perfumery”
   node["shop"="perfumery"]({{bbox}});
-  // query part for: “shop=tattoo”
-  node["shop"="tattoo"]({{bbox}});
   // query part for: “tourism=information”
   node["tourism"="information"]({{bbox}});
-  // query part for: “public_transport=platform”
-  node["public_transport"="platform"]({{bbox}});
-  // query part for: “public_transport=stop_position”
-  node["public_transport"="stop_position"]({{bbox}});
-  // query part for: “public_transport=station”
-  node["public_transport"="station"]({{bbox}});
   // query part for: “healthcare=hospital”
   node["healthcare"="hospital"]({{bbox}});
   // query part for: “healthcare=clinic”
@@ -232,3 +204,11 @@ The original search was:
 out body;
 >;
 out skel qt;
+
+
+  // query part for: “public_transport=platform”
+  node["public_transport"="platform"]({{bbox}});
+  // query part for: “public_transport=stop_position”
+  node["public_transport"="stop_position"]({{bbox}});
+  // query part for: “public_transport=station”
+  node["public_transport"="station"]({{bbox}});

@@ -167,3 +167,86 @@ export const quitFavOcio = async (token, id_actividade_ocio) => {
         throw new Error(err);
     }
 }
+
+// Outras
+
+export const getAllOutras = async (signal, token) => {
+    try {
+        const json = await Lecer.getAllOutras(signal, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getByNameOutras = async (token, name) => {
+    try {
+        const json = await Lecer.getByNameOutras(token, name);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getFavByNameOutras = async (token, name) => {
+    try {
+        const json = await Lecer.getFavByNameOutras(token, name);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoElementOutras = async (id) => {
+    try {
+        const data = await Lecer.getGeoElementOutras(id);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoElementJsonOutras = async (id) => {
+    try {
+        const json = await Lecer.getGeoElementJsonOutras(id);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const filterSortOutras = async (typeSort, token) => {
+    try {
+        const json = await Lecer.filterSortOutras(typeSort, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const favFilterSortOutras = async (typeSort, token) => {
+    try {
+        const json = await Lecer.favFilterSortOutras(typeSort, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const addFavOutras = async (token, id_outra_actividade) => {
+    try {
+        const json = await Lecer.addFavOutras(token, id_outra_actividade);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const quitFavOutras = async (token, id_outra_actividade) => {
+    try {
+        const json = await Lecer.quitFavOutras(token, id_outra_actividade);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
