@@ -54,7 +54,7 @@ const NovoComentario = (props) => {
     const isPlanificacion = props.route.params.isPlanificacion;
     const onRefreshOpinions = props.route.params.onRefreshOpinions;
     const isHospedaxe = props.route.params.isHospedaxe;
-    const isHostalaria = props.route.params.isHostalaria;
+    const isLecer = props.route.params.isLecer;
 
     React.useLayoutEffect(() => {
         let mounted = true;
@@ -161,8 +161,8 @@ const NovoComentario = (props) => {
                     props.navigation.navigate("RutasRecomendadasItem");
                 } else if (isHospedaxe) {
                     props.navigation.navigate("HospedaxeItem");
-                } else if (isHostalaria) {
-                    props.navigation.navigate("HostalariaItem");
+                } else if (isLecer) {
+                    props.navigation.navigate("CommonLecerItem");
                 } else {
                     props.navigation.navigate("TurismoItem");
                 }

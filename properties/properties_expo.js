@@ -29,7 +29,8 @@ const properties = {
             lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",                    // /geoserver/:id
             monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+",
             hospedaxe: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=id+=+",
-            hostalaria: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hostalaria&outputFormat=json&CQL_FILTER=id+=+"
+            hostalaria: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hostalaria&outputFormat=json&CQL_FILTER=id+=+",
+            ocio: "/wfs/kml?request=GetFeature&typeName=cite:actividades_ocio&outputFormat=json&CQL_FILTER=id+=+"
         },
         opinions: {
             main: "/opinions",
@@ -58,6 +59,13 @@ const properties = {
             main: "/lecer",
             hostalaria: {
                 main: '/hostalaria',
+                all: '/',
+                byName: '/',
+                fav: '/fav',
+                filter: '/filter/'
+            },
+            ocio: {
+                main: '/ocio',
                 all: '/',
                 byName: '/',
                 fav: '/fav',

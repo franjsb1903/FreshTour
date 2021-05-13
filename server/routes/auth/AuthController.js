@@ -105,6 +105,7 @@ router.post('/login', (req, res) => {
     const plansUsuario = sql.usuarios.get.plans;
     const hospedaxe_fav = sql.usuarios.get.hospedaxeFav;
     const hostalaria_fav = sql.usuarios.get.hostalariaFav;
+    const ocio_fav = sql.usuarios.get.ocioFav;
 
     pool.query(query, [usuario], (err, results) => {
         if (err) {
@@ -193,7 +194,22 @@ router.post('/login', (req, res) => {
                                     });
                                 }
 
-                                helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray);
+                                pool.query(ocio_fav, [user.id], (err, ocio) => {
+                                    var ocioArray;
+    
+                                    if (err) {
+                                        helpers.onErrorAuth(500, "Erro obtendo as actividades de ocio favoritas do usuario", err, res);
+                                        ocioArray = [];
+                                    } else {
+                                        ocioArray = ocio.rows;
+                                        ocioArray.map(element => {
+                                            element.sub_tag = tag_traductor.ocio(element.sub_tag);
+                                        });
+                                    }
+    
+                                    helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray, ocioArray);
+                                })
+
                             })
 
                         })
@@ -217,6 +233,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
     const plansUsuario = sql.usuarios.get.plans;
     const hospedaxe_fav = sql.usuarios.get.hospedaxeFav;
     const hostalaria_fav = sql.usuarios.get.hostalariaFav;
+    const ocio_fav = sql.usuarios.get.ocioFav;
 
     pool.query(query, [userId], (err, results) => {
         if (err) {
@@ -301,7 +318,22 @@ router.get('/me', verify.verifyToken, (req, res) => {
                                     });
                                 }
 
-                                helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray);
+                                pool.query(ocio_fav, [user.id], (err, ocio) => {
+                                    var ocioArray;
+    
+                                    if (err) {
+                                        helpers.onErrorAuth(500, "Erro obtendo as actividades de ocio favoritas do usuario", err, res);
+                                        ocioArray = [];
+                                    } else {
+                                        ocioArray = ocio.rows;
+                                        ocioArray.map(element => {
+                                            element.sub_tag = tag_traductor.ocio(element.sub_tag);
+                                        });
+                                    }
+    
+                                    helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray, ocioArray);
+                                })
+
                             })
                         })
                     })

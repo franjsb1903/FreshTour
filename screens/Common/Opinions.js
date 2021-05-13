@@ -17,7 +17,7 @@ const Opinions = (props) => {
     const titulo = props.titulo;
     const isPlanificacion = props.isPlanificacion;
     const isHospedaxe = props.isHospedaxe;
-    const isHostalaria = props.isHostalaria;
+    const isLecer = props.isLecer;
 
     const navigation = useNavigation();
 
@@ -39,7 +39,7 @@ const Opinions = (props) => {
                 isPlanificacion: isPlanificacion,
                 onRefreshOpinions: onRefreshOpinions,
                 isHospedaxe: isHospedaxe,
-                isHostalaria: isHostalaria
+                isLecer: isLecer
             })}>
             <CommentIcon />
             <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>Realizar un comentario</Text>

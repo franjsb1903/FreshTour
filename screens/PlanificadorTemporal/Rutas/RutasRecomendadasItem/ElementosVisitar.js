@@ -29,7 +29,7 @@ const ElementosVisitar = (props) => {
                             isElementoRuta: true
                         })}>
                             {
-                                element.tipo != "Hospedaxe" && element.tipo != "Hostalaría" ?
+                                element.tipo != "Hospedaxe" && element.tipo != "Hostalaría" && element.tipo != "Ocio" ?
                                 <CardElement item={element} isRuta={true} />
                                 :
                                 <CardElementLecer element={element} isRuta={true} />

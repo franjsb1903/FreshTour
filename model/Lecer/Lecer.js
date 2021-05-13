@@ -84,3 +84,86 @@ export const quitFavHostalaria = async (token, id_lugar_hostalaria) => {
         throw new Error(err);
     }
 }
+
+// Ocio
+
+export const getAllOcio = async (signal, token) => {
+    try {
+        const json = await Lecer.getAllOcio(signal, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getByNameOcio = async (token, name) => {
+    try {
+        const json = await Lecer.getByNameOcio(token, name);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getFavByNameOcio = async (token, name) => {
+    try {
+        const json = await Lecer.getFavByNameOcio(token, name);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoElementOcio = async (id) => {
+    try {
+        const data = await Lecer.getGeoElementOcio(id);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoElementJsonOcio = async (id) => {
+    try {
+        const json = await Lecer.getGeoElementJsonOcio(id);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const filterSortOcio = async (typeSort, token) => {
+    try {
+        const json = await Lecer.filterSortOcio(typeSort, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const favFilterSortOcio = async (typeSort, token) => {
+    try {
+        const json = await Lecer.favFilterSortOcio(typeSort, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const addFavOcio = async (token, id_actividade_ocio) => {
+    try {
+        const json = await Lecer.addFavOcio(token, id_actividade_ocio);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const quitFavOcio = async (token, id_actividade_ocio) => {
+    try {
+        const json = await Lecer.quitFavOcio(token, id_actividade_ocio);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}

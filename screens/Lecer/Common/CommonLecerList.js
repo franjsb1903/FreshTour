@@ -7,12 +7,11 @@ import CustomSearchBar from '../../../components/CustomSearchBar';
 import NoData from '../../../components/NoData';
 import DropDown from '../../../components/CustomDropDown';
 
-import { getAllHostalaria, getGeoElementHostalaria, filterSortHostalaria, addFavHostalaria, quitFavHostalaria, getByNameHostalaria, getFavByNameHostalaria, favFilterSortHostalaria } from '../../../model/Lecer/Lecer'
 import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
 import { stylesTurismoList as styles } from '../../../styles/styles'
 
-const HostalariaList = (props) => {
+const CommonLecerList = (props) => {
 
     const [state, setState] = useState({
         loading: true,
@@ -24,10 +23,12 @@ const HostalariaList = (props) => {
     const [refreshing, setRefreshing] = useState(false);
 
     const data = props.route.params.data;
+    const model = props.route.params.model;
+    const titulo = props.route.params.titulo;
 
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
-        var data = await getAllHostalaria(signal, token);
+        var data = await model.getAll(signal, token);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
                 setState({
@@ -55,14 +56,9 @@ const HostalariaList = (props) => {
     React.useLayoutEffect(() => {
         let mounted = true;
         if (mounted) {
-            data ?
-                props.navigation.setOptions({
-                    title: "Lugares de hostalería favoritos"
-                })
-                :
-                props.navigation.setOptions({
-                    title: "Hostalería"
-                })
+            props.navigation.setOptions({
+                title: titulo
+            })
         }
 
         return () => mounted = false;
@@ -111,6 +107,7 @@ const HostalariaList = (props) => {
         try {
             await onGetData(true);
             setRefreshing(false);
+            setDropDownValue("all_valoracion");
         } catch (err) {
             console.error(err);
             showMessage({
@@ -122,7 +119,7 @@ const HostalariaList = (props) => {
 
     const showOnMap = async (id, tipo, subtipo) => {
         try {
-            const text = await getGeoElementHostalaria(id, tipo);
+            const text = await model.getGeoElement(id, tipo);
             if (text == undefined) {
                 showMessage({
                     message: 'Erro xeolocalizando elemento, probe de novo',
@@ -147,9 +144,9 @@ const HostalariaList = (props) => {
             var element;
             const token = await getToken('id_token');
             if (!data) {
-                element = await getByNameHostalaria(token, name);
+                element = await model.getByName(token, name);
             } else {
-                element = await getFavByNameHostalaria(token, name);
+                element = await model.getFavByName(token, name);
             }
             setDropDownValue('all_valoracion');
             if (element.status != 200) {
@@ -188,41 +185,18 @@ const HostalariaList = (props) => {
                         <TouchableOpacity
                             key={element.id}
                             onPress={() => {
-                                navigate('HostalariaItem', {
-                                    hostalaria: element
+                                navigate('CommonLecerItem', {
+                                    lecer: element
                                 })
                             }}>
-                            <CardElement element={element} showOnMap={showOnMap} addFav={addFavHostalaria} quitFav={quitFavHostalaria} />
+                            <CardElement element={element} showOnMap={showOnMap} addFav={model.addFav} quitFav={model.quitFav} />
                         </TouchableOpacity>
                     )
                 })
         )
     }
 
-    const itemsDropDown = [
-        { label: 'Ordear por valoración', value: 'all_valoracion' },
-        { label: 'Ordear por título', value: 'all_titulo' },
-        { label: 'Bares por valoración', value: 'bares_titulo' },
-        { label: 'Bares por título', value: 'bares_valoracion' },
-        { label: 'Restaurantes por valoración', value: 'restaurantes_titulo' },
-        { label: 'Restaurantes por título', value: 'restaurantes_valoracion' },
-        { label: 'Cafés por valoración', value: 'cafes_titulo' },
-        { label: 'Cafés por título', value: 'cafes_valoracion' },
-        { label: 'Pubs por valoración', value: 'pubs_titulo' },
-        { label: 'Pubs por título', value: 'pubs_valoracion' },
-        { label: 'Zonas de comida por valoración', value: 'zonas_comida_titulo' },
-        { label: 'Zonas de comida por título', value: 'zonas_comida_valoracion' },
-        { label: 'Comida rápida por valoración', value: 'comida_rapida_titulo' },
-        { label: 'Comida rápida por título', value: 'comida_rapida_valoracion' },
-        { label: 'Xeaderías por valoración', value: 'xeaderias_titulo' },
-        { label: 'Xeaderías por título', value: 'xeaderias_valoracion' },
-        { label: 'Pastelerías por título', value: 'pastelerias_titulo' },
-        { label: 'Pastelerías por título', value: 'pastelerias_valoracion' },
-        { label: 'Panaderías por título', value: 'panaderias_titulo' },
-        { label: 'Panaderías por título', value: 'panaderias_valoracion' },
-        { label: 'Chocolaterías por título', value: 'chocolaterias_titulo' },
-        { label: 'Panaderías por título', value: 'chocolaterias_valoracion' }
-    ];
+    const itemsDropDown = props.route.params.itemsDropDown;
 
     const onChangeDropDown = async (item) => {
         try {
@@ -234,9 +208,9 @@ const HostalariaList = (props) => {
             const token = await getToken('id_token');
             var elements;
             if (!data) {
-                elements = await filterSortHostalaria(item.value, token);
+                elements = await model.filterSort(item.value, token);
             } else {
-                elements = await favFilterSortHostalaria(item.value, token);
+                elements = await model.favFilterSort(item.value, token);
             }
 
             if (elements.status != 200 || elements.auth == false) {
@@ -294,12 +268,12 @@ const HostalariaList = (props) => {
                     state.data == undefined ?
                         <NoData />
                         :
-                        state.data.hostalaria != undefined ?
+                        state.data.lecer != undefined ?
                             state.data.status != 200 ?
                                 <NoData /> :
-                                state.data.hostalaria.length == 0 ?
+                                state.data.lecer.length == 0 ?
                                     <NoData /> :
-                                    <ListData data={state.data.hostalaria} navigate={props.navigation.navigate} />
+                                    <ListData data={state.data.lecer} navigate={props.navigation.navigate} />
                             :
                             state.data.length == 0 ?
                                 <NoData />
@@ -328,4 +302,4 @@ const dropDownStyles = StyleSheet.create({
     }
 });
 
-export default HostalariaList;
+export default CommonLecerList;

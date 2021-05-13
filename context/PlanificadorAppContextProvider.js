@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AppContext from './PlanificadorAppContext';
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getGeoElementJson as getGeoElementJsonHospedaxe } from '../model/Hospedaxe/Hospedaxe'
-import { getGeoElementJsonHostalaria } from '../model/Lecer/Lecer'
+import { getGeoElementJsonHostalaria, getGeoElementJsonOcio, getGeoJsonElementOcio } from '../model/Lecer/Lecer'
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Turismo/Turismo';
 import { showMessage } from "react-native-flash-message";
@@ -132,7 +132,7 @@ const AppContextProvider = (props) => {
                 items: [...turismoItems.items, item]
             });
             const tempo = tempoVisita;
-            if (item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría") {
+            if (item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría" && item.features[0].properties.tipo != "Ocio") {
                 initTempoVisita(tempo + item.features[0].properties.tempo_visita_rapida);
             }
             setPlanificacion(undefined);
@@ -231,12 +231,14 @@ const AppContextProvider = (props) => {
                 console.log(tipo);
                 if (tipo == "Hospedaxe") {
                     data = await getGeoElementJsonHospedaxe(id);
-                } else if(tipo == "Hostalaría") {
+                } else if (tipo == "Hostalaría") {
                     data = await getGeoElementJsonHostalaria(id);
+                } else if (tipo == "Ocio") {
+                    data = await getGeoElementJsonOcio(id);
                 } else {
                     data = await getGeoElementJson(id, tipo);
                 }
-               
+
                 if (data == undefined || data.features[0] == undefined) {
                     showMessage({
                         message: 'Elemento non engadido',
@@ -277,14 +279,16 @@ const AppContextProvider = (props) => {
                 let data;
                 if (element.tipo == "Hospedaxe") {
                     data = await getGeoElementJsonHospedaxe(element.id);
-                } else if(element.tipo == "Hostalaría") {
+                } else if (element.tipo == "Hostalaría") {
                     data = await getGeoElementJsonHostalaria(element.id);
+                } else if (element.tipo == "Ocio") {
+                    data = await getGeoElementJsonOcio(element.id);
                 } else {
                     data = await getGeoElementJson(element.id, element.tipo);
                 }
                 data.features[0].properties["tipo_visita"] = element.tipo_visita;
                 newElements.push(data);
-                if (data.features[0].properties.tipo != "Hospedaxe" && data.features[0].properties.tipo != "Hostalaría") {
+                if (data.features[0].properties.tipo != "Hospedaxe" && data.features[0].properties.tipo != "Hostalaría" && data.features[0].properties.tipo != "Ocio") {
                     if (element.tipo_visita != null) {
                         tempo_visita += element.tipo_visita;
                     } else {
@@ -339,7 +343,8 @@ const AppContextProvider = (props) => {
         opinions: [],
         elementosFav: [],
         hospedaxesFav: [],
-        hostalariaFav:[]
+        hostalariaFav: [],
+        ocioFav: []
     });
 
     const addElementoFav = async (token, changeFavView, item, model) => {
@@ -408,7 +413,8 @@ const AppContextProvider = (props) => {
                 opinions: data.opinions,
                 elementosFav: data.elementosFav,
                 hospedaxesFav: data.hospedaxesFav,
-                hostalariaFav: data.hostalariaFav
+                hostalariaFav: data.hostalariaFav,
+                ocioFav: data.ocioFav
             })
         }
     }
@@ -422,7 +428,8 @@ const AppContextProvider = (props) => {
             opinions: [],
             elementosFav: [],
             hospedaxesFav: [],
-            hostalariaFav: []
+            hostalariaFav: [],
+            ocioFav: []
         })
     }
 

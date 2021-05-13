@@ -126,8 +126,6 @@ The original search was:
   node["amenity"="cinema"]({{bbox}});
   // query part for: “amenity=theatre”
   node["amenity"="theatre"]({{bbox}});
-  // query part for: “amenity=theatre”
-  node["amenity"="theatre"]({{bbox}});
   // query part for: “amenity=nightclub”
   node["amenity"="nightclub"]({{bbox}});
   // query part for: “tourism=picnic_site”

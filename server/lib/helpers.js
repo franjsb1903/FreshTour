@@ -21,7 +21,7 @@ helpers.onErrorAuth = (code, message, err, res) => {
 }
 
 helpers.onError = (code, message, err, res) => {
-    if(err) {
+    if (err) {
         console.error(err.message);
     }
     return res.status(code).json({
@@ -30,8 +30,19 @@ helpers.onError = (code, message, err, res) => {
     });
 }
 
-helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav, hospedaxeFav, hostalariaFav) => {
-    return res.status(200).send({ auth: true, token: token, user: user, planificacionsFav: planificacionsFav, planificacions: planificacions, opinions: opinions, elementosFav: elementosFav, hospedaxesFav: hospedaxeFav, hostalariaFav: hostalariaFav });
+helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav, hospedaxeFav, hostalariaFav, ocioFav) => {
+    return res.status(200).send({
+        auth: true,
+        token: token,
+        user: user,
+        planificacionsFav: planificacionsFav,
+        planificacions: planificacions,
+        opinions: opinions,
+        elementosFav: elementosFav,
+        hospedaxesFav: hospedaxeFav,
+        hostalariaFav: hostalariaFav,
+        ocioFav: ocioFav
+    });
 }
 
 helpers.onExecuteQuery = (query, id_usuario, id_elemento, res, pool) => {

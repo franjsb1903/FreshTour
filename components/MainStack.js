@@ -22,8 +22,8 @@ import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
 import { stylesApp as styles } from '../styles/styles';
 import HospedaxeItem from '../screens/Hospedaxe/HospedaxeItem';
 import LecerList from '../screens/Lecer/LecerList';
-import HostalariaList from '../screens/Lecer/Hostalaria/HostalariaList';
-import HostalariaItem from '../screens/Lecer/Hostalaria/HostalariaItem';
+import CommonLecerList from '../screens/Lecer/Common/CommonLecerList';
+import CommonLecerItem from '../screens/Lecer/Common/CommonLecerItem';
 
 const Stack = createStackNavigator();
 
@@ -241,8 +241,8 @@ const MainStack = () => {
                 }}
             />
             <Stack.Screen
-                name="HostalariaList"
-                component={HostalariaList}
+                name="CommonLecerList"
+                component={CommonLecerList}
                 options={({ route }) => ({
                     headerShown: true,
                     title: route.params.title,
@@ -256,8 +256,8 @@ const MainStack = () => {
                 })}
             />
             <Stack.Screen
-                name="HostalariaItem"
-                component={HostalariaItem}
+                name="CommonLecerItem"
+                component={CommonLecerItem}
                 options={({ route }) => ({
                     headerShown: true,
                     title: route.params.title,

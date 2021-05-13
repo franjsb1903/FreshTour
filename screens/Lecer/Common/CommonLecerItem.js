@@ -7,7 +7,7 @@ import { stylesTurismoList as styles } from '../../../styles/styles';
 import ProgressBar from '../../../components/ProgressBar';
 import { showMessage } from "react-native-flash-message";
 
-const HostalariaItem = (props) => {
+const CommonLecerItem = (props) => {
 
     const [opinions, setOpinions] = useState({
         count: 0,
@@ -17,11 +17,12 @@ const HostalariaItem = (props) => {
     });
     const [loading, setLoading] = useState(true);
 
-    const hostalaria = props.route.params.hostalaria;
+    const lecer = props.route.params.lecer;
 
     const onGetData = async (mounted, signal) => {
         try {
-            const data = await getOpinionsModel(hostalaria.tipo, hostalaria.id, signal);
+            
+            const data = await getOpinionsModel(lecer.tipo, lecer.id, signal);
 
             if (data.status != 200) {
                 showMessage({
@@ -85,7 +86,7 @@ const HostalariaItem = (props) => {
         let mounted = true;
         if (mounted) {
             props.navigation.setOptions({
-                title: "Opinións de " + hostalaria.titulo
+                title: "Opinións de " + lecer.titulo
             });
         }
 
@@ -101,9 +102,9 @@ const HostalariaItem = (props) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <Opinions opinions={opinions} element={hostalaria} onRefreshOpinions={onRefreshOpinions} titulo={hostalaria.titulo} isHostalaria={true} />
+            <Opinions opinions={opinions} element={lecer} onRefreshOpinions={onRefreshOpinions} titulo={lecer.titulo != null ? lecer.titulo : lecer.sub_tag} isLecer={true} />
     )
 
 }
 
-export default HostalariaItem;
+export default CommonLecerItem;

@@ -5,6 +5,7 @@ const pool = require('../../database/database');
 const verify = require('../lib/VerifyToken');
 const helpers = require('../lib/helpers');
 const sql = require('../lib/sql');
+const tag_traductor = require('../lib/tag_traductor');
 
 router.post('/new', verify.verifyToken, async (req, res) => {
     const client = await pool.connect();
@@ -18,20 +19,23 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         var monumentos = sql.planificacions.newMonumentos;
         var hospedaxes = sql.planificacions.newHospedaxe;
         var hostalaria = sql.planificacions.newHostalaria;
+        var ocio = sql.planificacions.newOcio;
         var valuesLugares = [];
         var valuesMonumentos = [];
         var valuesHospedaxe = [];
         var valuesHostalaria = [];
+        var valuesOcio = [];
         var valuesLugaresWithArrays = [];
         var valuesMonumentosWithArrays = [];
         var valuesHospedaxeWithArrays = [];
         var valuesHostalariaWithArrays = [];
+        var valuesOcioWithArrays = [];
 
         await client.query('BEGIN');
         const resultsOne = await client.query(sql.planificacions.new, [userId, titulo, comentario, isShared, distancia, tempoVisita, tempoRuta]);
         var i = 0;
         console.log(elementos.length);
-        await Promise.all(elementos.map((elemento) => {
+        await Promise.all(elementos.map(async (elemento) => {
             if (elemento.features[0].properties.tipo == "Lugar turístico") {
                 valuesLugares.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesLugaresWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
@@ -41,10 +45,15 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             } else if (elemento.features[0].properties.tipo == "Hospedaxe") {
                 valuesHospedaxe.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHospedaxeWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
+                await client.query(sql.planificacions.newTempoHospedaxe, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
             } else if (elemento.features[0].properties.tipo == "Hostalaría") {
-                console.log(elemento.features[0].properties);
                 valuesHostalaria.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHostalariaWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
+                await client.query(sql.planificacions.newTempoHostalaria, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
+            } else if (elemento.features[0].properties.tipo == "Ocio") {
+                valuesOcio.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
+                valuesOcioWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita]);
+                await client.query(sql.planificacions.newTempoOcio, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
             }
             i++;
             console.log("venga");
@@ -97,6 +106,18 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 indexHosta += 4;
             }));
         }
+        var indexOcio = 0;
+        if (valuesOcio.length > 0) {
+            await Promise.all(valuesOcioWithArrays.map(e => {
+                if ((indexHosta / 4) < (valuesOcioWithArrays.length) - 1) {
+                    ocio = ocio + "($" + (indexOcio + 1) + ", $" + (indexOcio + 2) + ", $" + (indexOcio + 3) + ", $" + (indexOcio + 4) + "), ";
+                } else {
+                    ocio = ocio + "($" + (indexOcio + 1) + ", $" + (indexOcio + 2) + ", $" + (indexOcio + 3) + ", $" + (indexOcio + 4) + ")";
+                    return;
+                }
+                indexOcio += 4;
+            }));
+        }
         if (valuesLugares.length > 0) {
             await client.query(lugares, valuesLugares);
         }
@@ -108,6 +129,9 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         }
         if (valuesHostalaria.length > 0) {
             await client.query(hostalaria, valuesHostalaria);
+        }
+        if (valuesOcio.length > 0) {
+            await client.query(ocio, valuesOcio);
         }
         await client.query('COMMIT');
         return res.status(200).send({
@@ -192,6 +216,16 @@ router.get('/elements/:id', (req, res) => {
                 }
                 var elements = [], indexTurismo = 0, indexLecer = 0;
 
+                lecer.rows.map(lecerItem => {
+                    if(lecerItem.tipo == "Ocio") {
+                        lecerItem.sub_tag = tag_traductor.ocio(lecerItem.sub_tag);
+                    } else if(lecerItem.tipo == "Hostalaría") {
+                        lecerItem.sub_tag = tag_traductor.hostalaria(lecerItem.sub_tag);
+                    } else if(lecerItem.tipo == "Hospedaxe") {
+                        lecerItem.sub_tag = tag_traductor.hospedaxe(lecerItem.sub_tag);
+                    }
+                })
+
                 while (indexTurismo < turismo.rowCount && indexLecer < lecer.rowCount) {
                     if ((turismo.rows[indexTurismo].posicion_visita - lecer.rows[indexLecer].posicion_visita) < 0) {
                         elements.push(turismo.rows[indexTurismo++]);
@@ -261,25 +295,29 @@ router.delete('/', verify.verifyToken, (req, res) => {
                                     client.query(sql.planificacions.delete.hostalaria, [id], (err, results) => {
                                         if (shouldAbort(err)) return;
 
-                                        client.query(sql.planificacions.delete.planificacion, [id], (err, results) => {
+                                        client.query(sql.planificacions.delete.ocio, [id], (err, results) => {
                                             if (shouldAbort(err)) return;
 
-                                            client.query('COMMIT', error => {
-                                                if (error) {
-                                                    helpers.onError(500, "Erro interno no servidor", error, res);
-                                                    return;
-                                                }
-                                                try {
-                                                    done();
-                                                    return res.status(200).send({
-                                                        status: 200
-                                                    });
-                                                } catch (err) {
-                                                    helpers.onError(500, "Erro interno no servidor", err, res);
-                                                    return;
-                                                }
+                                            client.query(sql.planificacions.delete.planificacion, [id], (err, results) => {
+                                                if (shouldAbort(err)) return;
+
+                                                client.query('COMMIT', error => {
+                                                    if (error) {
+                                                        helpers.onError(500, "Erro interno no servidor", error, res);
+                                                        return;
+                                                    }
+                                                    try {
+                                                        done();
+                                                        return res.status(200).send({
+                                                            status: 200
+                                                        });
+                                                    } catch (err) {
+                                                        helpers.onError(500, "Erro interno no servidor", err, res);
+                                                        return;
+                                                    }
+                                                });
                                             });
-                                        });
+                                        })
                                     });
                                 });
                             });
