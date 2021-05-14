@@ -1,22 +1,6 @@
-const { Image, Platform } = require('react-native');
-
-const center = require('../images/map/center.png');
-const locate = require('../images/map/compass.png');
-const a_letter = require('../images/map/icons/letter_a.png');
-const b_letter = require('../images/map/icons/letter_b.png');
-const c_letter = require('../images/map/icons/letter_c.png');
-var locateUri, centerUri, aLetterUri, bLetterUri, cLetterUri;
-
-if (Platform.OS != "web") {
-    locateUri = Image.resolveAssetSource(locate).uri;
-    centerUri = Image.resolveAssetSource(center).uri;
-    aLetterUri = Image.resolveAssetSource(a_letter).uri;
-    bLetterUri = Image.resolveAssetSource(b_letter).uri;
-    cLetterUri = Image.resolveAssetSource(c_letter).uri;
-} else {
-    locateUri = locate.uri;
-    centerUri = center.uri;
-}
+import { getImageUri } from '../Util/ImageUtil';
+const center = getImageUri("center_map");
+const locate = getImageUri("locate_map");
 
 
 const leaflet = `
@@ -51,10 +35,10 @@ const leaflet = `
         width: 100%;
     }
     .leaflet-locate {
-        background-image: url(${locateUri});
+        background-image: url(${locate});
     }
     .leaflet-center {
-        background-image: url(${centerUri});
+        background-image: url(${center});
     }
     html, body {
         margin: 0;

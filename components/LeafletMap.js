@@ -54,7 +54,7 @@ const LeafletMap = (props) => {
         javaScriptEnabledAndroid={true}
         injectedJavaScript={injectedData}
         onMessage={async e => {
-          //await getLocation();
+          await getLocation();
         }}
         androidHardwareAccelerationDisabled
       />

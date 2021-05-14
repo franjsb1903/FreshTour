@@ -105,6 +105,10 @@ const ClockIcon = () => (
     <Icon name="time" size={30} color={properties.style.color.iconColor} />
 );
 
+const PlusIcon = () => (
+    <MaterialIcons name="add-circle" size={30} />
+);
+
 export const BinIcon = () => (
     <Icon name="trash-bin" size={30} color={properties.style.color.iconColor} />
 )
@@ -480,6 +484,22 @@ export const ClockIconButton = (props) => {
             onPress={() => {
                 _onPress();
             }}
+        />
+    );
+}
+
+export const PlusIconButton = (props) => {
+
+    const _onPress = props._onPress;
+    const styles = props.styles;
+
+    return (
+        <IconButton
+            icon={PlusIcon}
+            onPress={() => {
+                _onPress();
+            }}
+            style={styles}
         />
     );
 }

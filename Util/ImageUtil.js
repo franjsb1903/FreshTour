@@ -80,6 +80,20 @@ const getImageUri = (name) => {
                 return undefined;
             }
             break;
+        case "center_map":
+            try {
+                localUri = Image.resolveAssetSource(require('../images/map/center.png')).uri;
+            } catch (err) {
+                return undefined
+            }
+            break;
+        case "localte_map":
+            try {
+                localUri = Image.resolveAssetSource(require('../images/map/compass.png')).uri;
+            } catch (err) {
+                return undefined
+            }
+            break;
         default:
             return undefined;
     }

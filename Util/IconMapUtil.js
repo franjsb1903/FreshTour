@@ -19,6 +19,6 @@ export const getIconContent = (number) => {
         case 9:
             return "I";
         case 10:
-            return "j";
+            return "J";
     }
 }

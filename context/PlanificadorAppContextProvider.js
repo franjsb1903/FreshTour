@@ -295,10 +295,13 @@ const AppContextProvider = (props) => {
 
     const addElementsToPlanificacion = async (elements, planificacion, navigation) => {
         try {
+            showMessage({
+                message: 'Cargando...',
+                type: "info"
+            });
             const newElements = [];
             setTempoVisita(0);
             var tempo_visita = 0;
-            console.log(elements);
             await Promise.all(elements.map(async (element) => {
                 const data = await getDataJson(element.id, element.tipo);
                 data.features[0].properties["tipo_visita"] = element.tipo_visita;
@@ -376,6 +379,10 @@ const AppContextProvider = (props) => {
             }
             item.favorito = true;
             changeFavView();
+            showMessage({
+                message: 'Pode ver os seus elementos favoritos no seu perfil',
+                type: "info"
+            });
         } catch (err) {
             console.error(err);
             showMessage({
@@ -404,6 +411,10 @@ const AppContextProvider = (props) => {
             }
             item.favorito = false;
             changeFavView();
+            showMessage({
+                message: 'Pode ver os seus elementos favoritos no seu perfil',
+                type: "info"
+            });
         } catch (err) {
             console.error(err);
             showMessage({

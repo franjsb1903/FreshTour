@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Text, View, Modal, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Modal from 'react-native-modal';
 
 import { modal as modalStyle } from '../styles/styles';
 
@@ -14,12 +15,12 @@ const ModalInicioSesion = (props) => {
 
         <View style={modalStyle.centeredView}>
             <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modal}
-                onRequestClose={() => {
-                    showModal(!modal);
-                }}
+                animationIn="slideInLeft"
+                animationOut="slideOutRight"
+                isVisible={modal}
+                backdropTransitionOutTiming={0}
+                hideModalContentWhileAnimating={true}
+                backdropOpacity={0.7}
             >
                 <View style={modalStyle.centeredView}>
                     <View style={modalStyle.modalView}>

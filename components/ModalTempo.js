@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Text, View, Modal, TouchableOpacity, TextInput } from 'react-native';
-
+import { Text, View, TouchableOpacity, TextInput } from 'react-native';
+import Modal from 'react-native-modal';
 import { modal as modalStyle, fromScreen as form } from '../styles/styles';
 
 const ModalTempo = (props) => {
@@ -19,12 +19,12 @@ const ModalTempo = (props) => {
 
         <View style={modalStyle.centeredView}>
             <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modal}
-                onRequestClose={() => {
-                    showModal(!modal);
-                }}
+                animationIn="slideInLeft"
+                animationOut="slideOutRight"
+                isVisible={modal}
+                backdropTransitionOutTiming={0}
+                hideModalContentWhileAnimating={true}
+                backdropOpacity={0.7}
             >
                 <View style={modalStyle.centeredView}>
                     <View style={[modalStyle.modalView, { flexDirection: "column" }]}>

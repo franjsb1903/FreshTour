@@ -8,7 +8,8 @@ import NoElementsPlanificadorView from '../../../components/NoElementsPlanificad
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
 import { BinIcon, SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton, SharedIconButton } from '../../../components/CustomIcons';
 import { onShare } from '../../../components/Common'
-import { customTouchableOpacity as button } from '../../../styles/styles'
+import { customTouchableOpacity as button } from '../../../styles/styles';
+import ModalConfirmacion from '../../../components/ModalConfirmacion';
 
 import properties from '../../../properties/properties_expo'
 
@@ -19,6 +20,7 @@ const Planificador = (props) => {
     const [isSaved, setIsSaved] = useState(false);
     const [shared, setShared] = useState(false);
     const [planificacion, setPlanificacion] = useState(undefined);
+    const [modal, setModal] = useState(false);
 
     const context = useContext(AppContext);
 
@@ -34,6 +36,10 @@ const Planificador = (props) => {
 
         return () => mounted = false;
     }, [context.planificacion]);
+
+    const showModal = () => {
+        setModal(!modal);
+    }
 
     const onMapClick = () => {
         navigation.navigate('Map');
@@ -72,6 +78,7 @@ const Planificador = (props) => {
 
     return (
 
+
         context.turismoItems != undefined && context.turismoItems.length > 0 ?
             <>
                 <View style={stylesRow.container}>
@@ -106,8 +113,9 @@ const Planificador = (props) => {
                         <PointsInterestIconButton navigate={navigation.navigate} updateSelected={global.setSelected} />
                     </View>
                 </View>
-                <TouchableOpacity style={[button.buttonContainerSquare, { alignItems: "center" }]} onPress={() => onClear()}>
+                <TouchableOpacity style={[button.buttonContainerSquare, { alignItems: "center" }]} onPress={() => showModal()}>
                     <BinIcon />
+                    <ModalConfirmacion text={"Está a punto de borrar a planificación e non a poderá recuperar, está seguro?"} showModal={showModal} modal={modal} confirm={() => onClear()} />
                 </TouchableOpacity >
                 <TopTabNavigator />
             </>

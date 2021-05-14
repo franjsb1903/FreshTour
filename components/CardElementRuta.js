@@ -141,14 +141,14 @@ const CardElementRuta = (props) => {
         return (
             fav ?
                 <>
-                    <HeartIconButton onQuitFav={() => {
-                        onQuitFav(changeFav, planificacion, context);
+                    <HeartIconButton onQuitFav={async () => {
+                        await onQuitFav(changeFav, planificacion, context);
                     }} />
                 </>
                 :
                 <>
-                    <HeartOutlineIconButton onPressFav={() => {
-                        onPressFav(changeFav, planificacion, changeModal, context);
+                    <HeartOutlineIconButton onPressFav={async () => {
+                        await onPressFav(changeFav, planificacion, changeModal, context);
                     }} />
                 </>
         )

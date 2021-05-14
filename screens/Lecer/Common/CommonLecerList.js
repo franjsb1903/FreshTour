@@ -6,6 +6,10 @@ import CardElement from '../../../components/CardElementLecer';
 import CustomSearchBar from '../../../components/CustomSearchBar';
 import NoData from '../../../components/NoData';
 import DropDown from '../../../components/CustomDropDown';
+import { PlusIconButton } from '../../../components/CustomIcons';
+import ModalConfirmacion from '../../../components/ModalConfirmacion';
+import * as Linking from 'expo-linking';
+import properties from '../../../properties/properties_expo'
 
 import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
@@ -18,6 +22,8 @@ const CommonLecerList = (props) => {
         data: []
     });
 
+    const [modal, setModal] = useState(false);
+
     const [dropDownValue, setDropDownValue] = useState("all_valoracion");
 
     const [refreshing, setRefreshing] = useState(false);
@@ -25,6 +31,10 @@ const CommonLecerList = (props) => {
     const data = props.route.params.data;
     const model = props.route.params.model;
     const titulo = props.route.params.titulo;
+
+    const showModal = () => {
+        setModal(!modal);
+    }
 
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
@@ -242,6 +252,14 @@ const CommonLecerList = (props) => {
         }
     }
 
+    const onPressPlus = () => {
+        showModal();
+    }
+
+    const onConfirmAdd = () => {
+        Linking.openURL(properties.openstreetmap.edit);
+    }
+
     return (
 
         state.loading ?
@@ -249,40 +267,44 @@ const CommonLecerList = (props) => {
                 <ProgressBar />
             </View>
             :
-            <ScrollView refreshControl={
-                !data ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> : <></>
-            }
-                style={styles.scroll}>
-                <View style={{ flex: 0 }}>
-                    <CustomSearchBar
-                        placeholder="Nome"
-                        doSearch={doSearch}
-                        updateItems={() => { }}
-                        onChange={true}
-                    />
-                </View>
-                <View style={{ padding: 20 }}>
-                    <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={dropDownStyles} container={{ flex: 1 }} defaultValue={dropDownValue} />
-                </View>
-                {
-                    state.data == undefined ?
-                        <NoData />
-                        :
-                        state.data.lecer != undefined ?
-                            state.data.status != 200 ?
-                                <NoData /> :
-                                state.data.lecer.length == 0 ?
-                                    <NoData /> :
-                                    <ListData data={state.data.lecer} navigate={props.navigation.navigate} />
-                            :
-                            state.data.length == 0 ?
-                                <NoData />
-                                :
-                                <View style={{ marginBottom: 15 }}>
-                                    <ListData data={data} navigate={props.navigation.navigate} />
-                                </View>
+            <>
+                <ScrollView refreshControl={
+                    !data ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> : <></>
                 }
-            </ScrollView>
+                    style={styles.scroll}>
+                    <View style={{ flex: 0 }}>
+                        <CustomSearchBar
+                            placeholder="Nome"
+                            doSearch={doSearch}
+                            updateItems={() => { }}
+                            onChange={true}
+                        />
+                    </View>
+                    <View style={{ padding: 20, flexDirection: "row" }}>
+                        <PlusIconButton style={{ flex: 1 }} _onPress={onPressPlus} />
+                        <DropDown items={itemsDropDown} onChange={onChangeDropDown} style={[dropDownStyles, { flex: 1 }]} container={{ flex: 1 }} defaultValue={dropDownValue} />
+                    </View>
+                    {
+                        state.data == undefined ?
+                            <NoData />
+                            :
+                            state.data.lecer != undefined ?
+                                state.data.status != 200 ?
+                                    <NoData /> :
+                                    state.data.lecer.length == 0 ?
+                                        <NoData /> :
+                                        <ListData data={state.data.lecer} navigate={props.navigation.navigate} />
+                                :
+                                state.data.length == 0 ?
+                                    <NoData />
+                                    :
+                                    <View style={{ marginBottom: 15 }}>
+                                        <ListData data={data} navigate={props.navigation.navigate} />
+                                    </View>
+                    }
+                </ScrollView>
+                <ModalConfirmacion showModal={showModal} modal={modal} confirm={onConfirmAdd} text={"Para engadir un novo elemento, será redirixido á páxina de OpenStreetMap. Siga as instrucións da páxina para facelo."} />
+            </>
     )
 }
 
