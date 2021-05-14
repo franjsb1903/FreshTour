@@ -108,7 +108,9 @@ const properties = {
     },
     info: {
         covid_api: "https://api.covid19tracking.narrativa.com/api/",
-        covid_region: "/country/spain/region/galicia/sub_region/area_sanitaria_santiago"
+        covid_region: "/country/spain/region/galicia/sub_region/area_sanitaria_santiago",
+        meteosix_api: "https://servizos.meteogalicia.gal/apiv4/getNumericForecastInfo?coords=-8.54464946603654,42.88108184633102&API_KEY=",
+        meteosix_api_key: "FT7xoM4YvH5U9GqWFbHwHV4TE7G2Ao7MoB3PWQXEFoTz1Marts4w10p0mOmpVxka"
     },
     dropdown: {
         items:{

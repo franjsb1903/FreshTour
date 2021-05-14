@@ -341,6 +341,7 @@ const AppContextProvider = (props) => {
                 break;
             }
         }
+        setPlanificacion(undefined);
     }
 
     const updateGeoMap = (text) => {

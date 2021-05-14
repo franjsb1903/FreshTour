@@ -19,3 +19,13 @@ export const getCovidData = async (signal) => {
         throw new Error(err);
     }
 }
+
+export const getTempoData = async (signal) => {
+    const url = properties.info.meteosix_api + properties.info.meteosix_api_key
+    try {
+        const json = await fetchJsonGet(url, undefined, signal);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}

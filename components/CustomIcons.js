@@ -159,6 +159,15 @@ export const ChevronRightIcon = (props) => {
     )
 }
 
+export const UmbrellaIcon = (props) => {
+
+    const style = props.style;
+    const size = props.size;
+    return (
+        <Icon name="umbrella" size={size} style={style} />
+    )
+}
+
 export const HeartIconButton = (props) => {
 
     const style = props.style;

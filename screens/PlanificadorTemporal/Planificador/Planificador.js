@@ -11,8 +11,6 @@ import { onShare } from '../../../components/Common'
 import { customTouchableOpacity as button } from '../../../styles/styles';
 import ModalConfirmacion from '../../../components/ModalConfirmacion';
 
-import properties from '../../../properties/properties_expo'
-
 import { stylesPlanificadorScreens as styles, flexRowContainer as stylesRow } from '../../../styles/styles';
 
 const Planificador = (props) => {
@@ -20,6 +18,7 @@ const Planificador = (props) => {
     const [isSaved, setIsSaved] = useState(false);
     const [shared, setShared] = useState(false);
     const [planificacion, setPlanificacion] = useState(undefined);
+    const [confirmacionShare, setConfirmacionShare] = useState(false);
     const [modal, setModal] = useState(false);
 
     const context = useContext(AppContext);
@@ -59,6 +58,10 @@ const Planificador = (props) => {
         setShared(!shared);
     }
 
+    const showConfirmacionShare = () => {
+        setConfirmacionShare(!confirmacionShare);
+    }
+
     const SaveIcon = () => (
         <SaveIconButton _onPress={() => {
             context.turismoItems.length > 1 ?
@@ -91,11 +94,11 @@ const Planificador = (props) => {
                                         {
                                             shared ?
                                                 <SharedIconButton _onPress={() => {
-                                                    onShare(changeShare, shared, planificacion);
+                                                    showConfirmacionShare();
                                                 }} />
                                                 :
                                                 <ShareIconButton _onPress={() => {
-                                                    onShare(changeShare, shared, planificacion);
+                                                    showConfirmacionShare();
                                                 }} />
                                         }
                                     </> :
@@ -103,6 +106,9 @@ const Planificador = (props) => {
                                 :
                                 <SaveIcon />
                         }
+                        <ModalConfirmacion modal={confirmacionShare} showModal={showConfirmacionShare} confirm={() => {
+                            onShare(changeShare, shared, planificacion);
+                        }} text={"Ao compartir unha planificación, todos os usuarios poderán vela. Está seguro?"} />
                     </View>
                     <View style={styles.centerIconsContainer}>
                         <WalkIconButton walking={context.walking} changeProfile={context.changeProfile} />

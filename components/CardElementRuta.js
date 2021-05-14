@@ -23,6 +23,7 @@ const CardElementRuta = (props) => {
     const [fav, setFav] = useState(false);
     const [modal, setModal] = useState(false);
     const [confirmacion, setConfirmacion] = useState(false);
+    const [confirmacionShare, setConfirmacionShare] = useState(false);
     const [elements, setElements] = useState([]);
 
     const planificacion = props.planificacion;
@@ -73,6 +74,10 @@ const CardElementRuta = (props) => {
 
     const showConfirmacion = () => {
         setConfirmacion(!confirmacion);
+    }
+
+    const showConfirmacionShare = () => {
+        setConfirmacionShare(!confirmacionShare);
     }
 
     const changeModal = () => {
@@ -201,14 +206,14 @@ const CardElementRuta = (props) => {
                             shared ?
                                 <>
                                     <SharedIconButtonBlack _onPress={() => {
-                                        onShare(changeShare, shared, planificacion);
+                                        showConfirmacionShare();
                                     }} />
                                     <EditIconButton onPress={onEdit} />
                                 </>
                                 :
                                 <>
                                     <ShareIconButtonBlack _onPress={() => {
-                                        onShare(changeShare, shared, planificacion);
+                                        showConfirmacionShare();
                                     }} />
                                     <EditIconButton onPress={onEdit} />
                                 </>
@@ -227,6 +232,9 @@ const CardElementRuta = (props) => {
             </Card >
             <ModalInicioSesion modal={modal} showModal={changeModal} />
             <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"A planificación borrarase para sempre, está seguro?"} />
+            <ModalConfirmacion modal={confirmacionShare} showModal={showConfirmacionShare} confirm={() => {
+                onShare(changeShare, shared, planificacion);
+            }} text={"Ao compartir unha planificación, todos os usuarios poderán vela. Está seguro?"} />
         </>
     )
 }

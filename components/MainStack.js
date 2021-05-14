@@ -24,6 +24,7 @@ import HospedaxeItem from '../screens/Hospedaxe/HospedaxeItem';
 import LecerList from '../screens/Lecer/LecerList';
 import CommonLecerList from '../screens/Lecer/Common/CommonLecerList';
 import CommonLecerItem from '../screens/Lecer/Common/CommonLecerItem';
+import TempoScreen from '../screens/Info/Screens/TempoScreen';
 
 const Stack = createStackNavigator();
 
@@ -196,6 +197,16 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "COVID",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="TempoScreen"
+                component={TempoScreen}
+                options={{
+                    headerShown: true,
+                    title: "O TEMPO",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}

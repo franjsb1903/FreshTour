@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, TouchableOpacity, View, StyleSheet, Text } from 'react-native';
+import { ScrollView, TouchableOpacity, View, StyleSheet, Text, Image } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 import { stylesScroll } from '../../styles/styles';
 import CardElement from '../../components/CardElementInfo'
 import ProgressBar from '../../components/ProgressBar';
 
-import { getCovidData } from '../../model/Info/Info'
+import { getCovidData, getTempoData } from '../../model/Info/Info'
 import { stylesTurismoList as progress } from '../../styles/styles'
 
 const Info = () => {
 
     const [data, setData] = useState({
-        covid: {}
+        covid: {},
+        tempo: {}
     })
     const [loading, setLoading] = useState(false);
 
@@ -35,10 +36,12 @@ const Info = () => {
                 if (mounted) {
                     setLoading(true);
                 }
-                const data = await getCovidData(signal);
+                const covidData = await getCovidData(signal);
+                const tempoData = await getTempoData(signal);
                 if (mounted) {
                     setData({
-                        covid: data
+                        covid: covidData,
+                        tempo: tempoData
                     });
                 }
                 if (mounted) {
@@ -94,6 +97,21 @@ const Info = () => {
         )
     };
 
+    const DataTempoCard = () => {
+        var icon = undefined;
+        var temperature = undefined;
+        if (data.tempo.features != undefined) {
+            icon = data.tempo.features[0].properties.days[0].variables[0].values[0].iconURL;
+            temperature = data.tempo.features[0].properties.days[0].variables[1].values[0].value;
+        }
+        return (
+            <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+                <Image style={{ width: 50, height: 50 }} source={{ uri: icon }} />
+                <Text style={{ fontSize: 18, marginLeft: 10, fontWeight: "bold" }}>{temperature} ºC</Text>
+            </View>
+        )
+    }
+
     const cardsData = [
         {
             id: 1,
@@ -107,8 +125,11 @@ const Info = () => {
         {
             id: 2,
             label: "O TEMPO",
-            data: [],
-            onPress: () => console.log("O TEMPO")
+            data: data.tempo,
+            CardData: DataTempoCard,
+            onPress: () => navigation.navigate("TempoScreen", {
+                data: data.tempo
+            })
         },
         {
             id: 3,
