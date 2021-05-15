@@ -48,9 +48,14 @@ class XestionDatosHospedaxe {
         }
     }
 
-    async getGeoByTag(tag) {
+    async getGeoByTag(tag, secondTag) {
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bytag + "'" + tag + "'";
+        let url;
+        if(secondTag) {
+            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bymultipletag + "('" + tag + "','" + secondTag + "')";
+        } else {
+            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bytag + "'" + tag + "'";
+        }
 
         try {
             const text = await fetchTextGet(url);

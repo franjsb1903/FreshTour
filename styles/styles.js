@@ -525,6 +525,19 @@ export const customTouchableOpacity = {
         backgroundColor: properties.style.color.button,
         paddingVertical: 10,
         paddingHorizontal: 12
+    },
+    buttonContainerActionSheet: {
+        elevation: 5,
+        backgroundColor: properties.style.color.button,
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 12
+    },
+    buttonTextActionSheet: {
+        fontSize: 15,
+        color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center"
     }
 }
 

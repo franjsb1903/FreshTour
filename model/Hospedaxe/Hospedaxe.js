@@ -38,9 +38,9 @@ export const getGeoElement = async (id) => {
     }
 }
 
-export const getGeoByTag = async (tag) => {
+export const getGeoByTag = async (tag, secondTag) => {
     try {
-        const data = await Hospedaxe.getGeoByTag(tag);
+        const data = await Hospedaxe.getGeoByTag(tag, secondTag);
         return data;
     } catch (err) {
         throw new Error(err);

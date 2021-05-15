@@ -1,11 +1,11 @@
 export const checkUsername = (username) => {
-    const usernameRegex = new RegExp(/^[a-zA-Z0-9_]+$/);
+    const usernameRegex = new RegExp(/^[a-zA-Z0-9_ñÑÀ-ÿ]+$/);
     const valid = username.length <= 50 && usernameRegex.test(username);
     return valid;
 }
 
 export const checkName = (name) => {
-    const nameRegex = new RegExp(/^[a-z ,.'-]+$/i);
+    const nameRegex = new RegExp(/^[a-z ,.'-ñÑÀ-ÿ]+$/i);
     return nameRegex.test(name);
 }
 

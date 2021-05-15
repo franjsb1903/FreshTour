@@ -4,3 +4,4 @@
 <a target="_blank" href="undefined/icons/set/circled-a--v2">Circled A icon</a> icon by <a target="_blank" href="">Icons8</a>
 <a target="_blank" href="undefined/icons/set/circled-c">Circled C icon</a> icon by <a target="_blank" href="">Icons8</a>
 <div>Iconos diseñados por <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es</a></div>
+<div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

@@ -40,6 +40,15 @@ export const getGeoElementHostalaria = async (id) => {
     }
 }
 
+export const getGeoByTagHostalaria = async (tag) => {
+    try {
+        const data = await Lecer.getGeoByTagHostalaria(tag);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getGeoElementJsonHostalaria = async (id) => {
     try {
         const json = await Lecer.getGeoElementJsonHostalaria(id);
@@ -123,6 +132,24 @@ export const getGeoElementOcio = async (id) => {
     }
 }
 
+export const getGeoByTagOcio = async (tag) => {
+    try {
+        const data = await Lecer.getGeoByTagOcio(tag);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoByMultipleTagOcio = async (tag, secondTag) => {
+    try {
+        const data = await Lecer.getGeoByMultipleTagOcio(tag, secondTag);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getGeoElementJsonOcio = async (id) => {
     try {
         const json = await Lecer.getGeoElementJsonOcio(id);
@@ -200,6 +227,15 @@ export const getFavByNameOutras = async (token, name) => {
 export const getGeoElementOutras = async (id) => {
     try {
         const data = await Lecer.getGeoElementOutras(id);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getGeoByTagOutras = async (tag) => {
+    try {
+        const data = await Lecer.getGeoByTagOutras(tag);
         return data;
     } catch (err) {
         throw new Error(err);

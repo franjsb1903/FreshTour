@@ -1,8 +1,8 @@
 import { getImageUri } from '../Util/ImageUtil';
 const center = getImageUri("center_map");
 const locate = getImageUri("locate_map");
-
-const hotel = "hotel";
+const menu = getImageUri("menu_map");
+const clear = getImageUri("clear_map");
 
 const leaflet = `
 
@@ -38,43 +38,6 @@ const leaflet = `
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <style>
-    .leaflet-control-slidemenu{
-        cursor: pointer;
-    }
-    
-    .leaflet-menu{
-        position: absolute;
-        background-color: rgba(255, 255, 255, 255);
-        overflow: auto;
-        cursor: default;
-        z-index: 9999;
-    }
-    
-    .leaflet-menu::-webkit-scrollbar{
-        width: 7px;
-        height: 7px;
-        background: #f2f2f2;
-    }
-    
-    .leaflet-menu::-webkit-scrollbar-thumb{
-        border-radius: 2px;
-        background: #777;   
-    }
-    
-    .leaflet-menu-close-button{
-        background-color: transparent;
-        border: none;
-        font-size: 14pt;
-        color: #777;
-        cursor: pointer;
-    }
-    
-    .leaflet-menu-close-button:hover{
-        color: #4285F4;
-    }
-    </style>
-
-    <style>
         body {
             padding: 0;
             margin: 0;
@@ -93,6 +56,14 @@ const leaflet = `
 
         .leaflet-center {
             background-image: url(${center});
+        }
+
+        .leaflet-menu {
+            background-image: url(${menu});
+        }
+
+        .leaflet-clear {
+            background-image: url(${clear});
         }
 
         html,
@@ -169,192 +140,6 @@ const leaflet = `
             padding: 10px;
           }
     </style>
-
-    <script>
-
-    L.Control.SlideMenu = L.Control.extend({
-        options: {
-            position: 'topleft',
-            menuposition: 'topleft', // topleft,topright,bottomleft,bottomright
-            width: '300px',
-            height: '100%',
-            direction: 'horizontal', // vertical or horizontal
-            changeperc: '10',
-            delay: '10',
-            icon: 'fas fa-bars',
-            hidden: false
-        },
-    
-        initialize: function(innerHTML, options){
-            L.Util.setOptions(this, options);
-            this._innerHTML = innerHTML;
-            this._isLeftPosition = this.options.menuposition == 'topleft' ||
-                this.options.menuposition == 'bottomleft' ? true : false;
-            this._isTopPosition = this.options.menuposition == 'topleft' ||
-                this.options.menuposition == 'topright' ? true : false;
-            this._isHorizontal = this.options.direction == 'horizontal' ? true : false;
-        },
-    
-        onAdd: function(map){
-            this._container = L.DomUtil.create('div', 'leaflet-control-slidemenu leaflet-bar leaflet-control');
-            var link = L.DomUtil.create('a', 'leaflet-bar-part leaflet-bar-part-single', this._container);
-            link.title = 'Menu';
-            L.DomUtil.create('span', this.options.icon, link);
-    
-            this._menu = L.DomUtil.create('div', 'leaflet-menu', map._container);
-    
-            this._menu.style.width = this.options.width;
-            this._menu.style.height = this.options.height;
-    
-            if(this._isHorizontal){
-                var frominit = -(parseInt(this.options.width, 10));
-                if(this._isLeftPosition){
-                    this._menu.style.left = '-' + this.options.width;
-                }
-                else{
-                    this._menu.style.right = '-' + this.options.width;
-                }
-    
-                if(this._isTopPosition){
-                    this._menu.style.top = '0px';
-                }
-                else{
-                    this._menu.style.bottom = '0px';
-                }
-            }
-            else{
-                var frominit = -(parseInt(this.options.height, 10));
-                if(this._isLeftPosition){
-                    this._menu.style.left = '0px';
-                }
-                else{
-                    this._menu.style.right = '0px';
-                }
-    
-                if(this._isTopPosition){
-                    this._menu.style.top = '-' + this.options.height;
-                }
-                else{
-                    this._menu.style.bottom = '-' + this.options.height;
-                }
-            }
-    
-            var closeButton = L.DomUtil.create('button', 'leaflet-menu-close-button', this._menu);
-    
-            if(this._isHorizontal){
-                if(this._isLeftPosition){
-                    closeButton.style.float = 'right';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-left');
-                }
-                else{
-                    closeButton.style.float = 'left';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-right');
-                }
-            }
-            else{
-                if(this._isTopPosition){
-                    closeButton.style.float = 'right';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-up');
-                }
-                else{
-                    closeButton.style.float = 'right';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-down');
-                }
-            }
-    
-            this._contents = L.DomUtil.create('div', 'leaflet-menu-contents', this._menu);
-            this._contents.innerHTML = this._innerHTML;
-            this._contents.style.clear = 'both';
-    
-            if(this._isHorizontal){
-                var ispx = this.options.width.slice(-1) == 'x' ? true : false;
-                var unit = parseInt(this.options.width, 10) * parseInt(this.options.changeperc, 10) / 100;
-            }
-            else{
-                var ispx = this.options.height.slice(-1) == 'x' ? true : false;
-                var unit = parseInt(this.options.height, 10) * parseInt(this.options.changeperc, 10) / 100;
-            }
-    
-            L.DomEvent.disableClickPropagation(this._menu);
-            L.DomEvent
-                .on(link, 'click', L.DomEvent.stopPropagation)
-                .on(link, 'click', function(){
-                    // Open
-                    this._animate(this._menu, frominit, 0, true, ispx, unit);
-                }, this)
-                .on(closeButton, 'click', L.DomEvent.stopPropagation)
-                .on(closeButton, 'click', function(){
-                    // Close
-                    this._animate(this._menu, 0, frominit, false, ispx, unit);
-                }, this);
-            L.DomEvent.on(this._menu, 'mouseover', function(){
-                map.scrollWheelZoom.disable();
-            });
-            L.DomEvent.on(this._menu, 'mouseout', function(){
-                map.scrollWheelZoom.enable();
-            });
-    
-            if(this.options.hidden){
-                this.hide();
-            }
-    
-            return this._container;
-        },
-    
-        onRemove: function(map){
-            //Remove sliding menu from DOM
-            map._container.removeChild(this._menu);
-            delete this._menu;
-        },
-    
-        setContents: function(innerHTML){
-            this._innerHTML = innerHTML;
-            this._contents.innerHTML = this._innerHTML;
-        },
-    
-        _animate: function(menu, from, to, isOpen, ispx, unit){
-            if(this._isHorizontal){
-                if(this._isLeftPosition){
-                    menu.style.left = from + (ispx ? 'px' : '%');
-                }
-                else{
-                    menu.style.right = from + (ispx ? 'px' : '%');
-                }
-            }
-            else{
-                if(this._isTopPosition){
-                    menu.style.top = from + (ispx ? 'px' : '%');
-                }
-                else{
-                    menu.style.bottom = from + (ispx ? 'px' : '%');
-                }
-            }
-    
-            if(from != to){
-                setTimeout(function(slideMenu){
-                    var value = isOpen ? from + unit : from - unit;
-                    slideMenu._animate(slideMenu._menu, value, to, isOpen, ispx, unit);
-                }, parseInt(this.options.delay), this);
-            }
-            else{
-                return;
-            }
-        },
-    
-        hide: function () {
-            this._container.style.display = 'none';
-        },
-    
-        show: function () {
-            this._container.style.display = 'inherit';
-        }
-    });
-    
-    L.control.slideMenu = function(innerHTML, options) {
-        return new L.Control.SlideMenu(innerHTML, options);
-    };
-
-    </script>
 </head>
 
 <body>
@@ -399,66 +184,7 @@ const leaflet = `
 
         L.control.layers(baseMaps, {}).addTo(myMap);
 
-        function showMonumentos() {
-            window.ReactNativeWebView.postMessage("show_monumentos");
-        }
-
-        function showLugares() {
-            window.ReactNativeWebView.postMessage("show_lugares");
-        }
-
-        function showHoteis() {
-            window.ReactNativeWebView.postMessage("show_hoteis");
-        }
- 
-        let contentMenu = '<div style="text-align: center;">';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onclick="showMonumentos()">Monumentos</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onclick="showLugares()">Lugares turísticos</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Hoteis</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Hostais</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Aloxamentos</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Caravanas</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Vivendas</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Camping</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis()">Moteis</button> </div>';
-        contentMenu += '</div>';
-
-        var slideMenu = L.control.slideMenu(contentMenu, {
-            width: '50%',
-            position: 'topright',
-            delay: '20'
-        }).addTo(myMap);
-
         var geojson = undefined;
-
-        function setIcon(layer, tipo) {
-            switch (tipo) {
-                case "Hotel":
-                    layer.setIcon(hotelMarker);
-                    break;
-                case "Hostal":
-                    layer.setIcon(hostalMarker);
-                    break;
-                case "Aloxamento":
-                    layer.setIcon(aloxamentoMarker);
-                    break;
-                case "Motel":
-                    layer.setIcon(motelMarker);
-                    break;
-                case "Camping":
-                    layer.setIcon(campingMarker);
-                    break;
-                case "Estacionamento de caravanas":
-                    layer.setIcon(caravanMarker);
-                    break;
-                case "Vivenda":
-                    layer.setIcon(vivendaMarker);
-                    break;
-                default:
-                    break;
-
-            }
-        }
 
         function addLayer(data, tipo) {
             if (geojson != undefined) {
@@ -472,13 +198,11 @@ const leaflet = `
                     } else if (feature.properties.display_name !== undefined) {
                         layer.bindPopup('<p>' + feature.properties.display_name + '</p>');
                     } else {
-                        layer.bindPopup('<p>' + feature.properties.tipo + '</p>');
+                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p>');
                     }
-                    if (tipo) {
-                        setIcon(layer, tipo);
-                    }
+                    setIcon(layer, traductor(feature.properties.sub_tag));
                     layer.on('click', function (e) {
-                        myMap.setView(e.latlng, 13);
+                        myMap.setView(e.latlng);
                     });
                 }
             }).addTo(myMap);
@@ -542,6 +266,35 @@ const leaflet = `
         }
 
         myMap.pm.Toolbar.createCustomControl(centerControl);
+
+        var menuControl = {
+            name: "Menu",
+            block: "custom",
+            title: "Menú",
+            onClick: function () {
+                window.ReactNativeWebView.postMessage("menu");
+            },
+            toggle: false,
+            className: "leaflet-menu"
+        }
+
+        myMap.pm.Toolbar.createCustomControl(menuControl);
+
+        var clearControl = {
+            name: "Clear",
+            block: "custom",
+            title: "Limpar",
+            onClick: function () {
+                if (geojson != undefined) {
+                    myMap.removeLayer(geojson);
+                    geojson = undefined;
+                }
+            },
+            toggle: false,
+            className: "leaflet-clear"
+        }
+
+        myMap.pm.Toolbar.createCustomControl(clearControl);
 
         function addMarker(lat, lang) {
             L.marker([lat, lang], {
@@ -668,6 +421,291 @@ const leaflet = `
             number: '',
             svg: false
         });
+
+        let barMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red-dark',
+            prefix: 'fa',
+            icon: 'fa-glass-cheers',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let restauranteMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-utensils',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let cafeMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-coffee',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let pubMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red-light',
+            prefix: 'fa',
+            icon: 'fa-glass-martini-alt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let zonaComidasMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow-dark',
+            prefix: 'fa',
+            icon: 'fa-utensils',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let comidaRapidaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-hamburger',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let xeaderiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'rose-dark',
+            prefix: 'fa',
+            icon: 'fa-ice-cream',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let panaderiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange-light',
+            prefix: 'fa',
+            icon: 'fa-bread-slice',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let panaderiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-bread-slice',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let chocolateMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'brown',
+            prefix: 'fa',
+            icon: 'fa-mug-hot',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        function setIcon(layer, tipo) {
+            switch (tipo) {
+                case "Hotel":
+                    layer.setIcon(hotelMarker);
+                    break;
+                case "Hostal":
+                    layer.setIcon(hostalMarker);
+                    break;
+                case "Aloxamento":
+                    layer.setIcon(aloxamentoMarker);
+                    break;
+                case "Motel":
+                    layer.setIcon(motelMarker);
+                    break;
+                case "Camping":
+                    layer.setIcon(campingMarker);
+                    break;
+                case "Estacionamento de caravanas":
+                    layer.setIcon(caravanMarker);
+                    break;
+                case "Vivenda":
+                    layer.setIcon(vivendaMarker);
+                    break;
+                case "Bar":
+                    layer.setIcon(barMarker);
+                    break;
+                case "Restaurante":
+                    layer.setIcon(restauranteMarker);
+                    break;
+                case "Café":
+                    layer.setIcon(cafeMarker);
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        const traductor = (tag) => {
+            switch (tag) {
+                case "hotel":
+                    return "Hotel";
+                case "hostel":
+                    return "Hostal";
+                case "guest_house":
+                    return "Aloxamento";
+                case "caravan_site":
+                    return "Estacionamento de caravanas";
+                case "apartment":
+                    return "Vivenda";
+                case "camp_pitch":
+                    return "Camping";
+                case "camp_site":
+                    return "Camping";
+                case "motel":
+                    return "Motel";
+                case "bar":
+                    return "Bar";
+                case "restaurant":
+                    return "Restaurante";
+                case "cafe":
+                    return "Café";
+                case "pub":
+                    return "Pub";
+                case "food_court":
+                    return "Zona de comidas";
+                case "fast_food":
+                    return "Comida rápida";
+                case "ice_cream":
+                    return "Xeadería";
+                case "confectionery":
+                    return "Pastelería";
+                case "bakery":
+                    return "Panadería";
+                case "chocolate":
+                    return "Chocolatería";
+                case "picnic_table":
+                    return "Picnic";
+                case "picnic_site":
+                    return "Picnic";
+                case "amusement_arcade":
+                    return "Sala de xogos";
+                case "bowling_alley":
+                    return "Bolera";
+                case "escape_game":
+                    return "Escape room";
+                case "garden":
+                    return "Xardín";
+                case "park":
+                    return "Parque";
+                case "playground":
+                    return "Parque infantil";
+                case "stadium":
+                    return "Estadio";
+                case "trampoline_park":
+                    return "Parque de camas elásticas";
+                case "pitch":
+                    return "Zona de deportes ao aire libre";
+                case "sports_centre":
+                    return "Centro deportivo";
+                case "outdoor_seating":
+                    return "Terraza";
+                case "dance":
+                    return "Baile";
+                case "sports_hall":
+                    return "Pabellón deportivo";
+                case "cinema":
+                    return "Cine";
+                case "theatre":
+                    return "Teatro";
+                case "nightclub":
+                    return "Club nocturno";
+                case "viewpoint":
+                    return "Mirador";
+                case "bank":
+                    return "Banco";
+                case "pharmacy":
+                    return "Farmacia";
+                case "post_office":
+                    return "Oficina de Correos";
+                case "taxi":
+                    return "Taxi";
+                case "police":
+                    return "Policía";
+                case "bicycle_parking":
+                    return "Parking de bicicletas";
+                case "atm":
+                    return "Caixeiro";
+                case "toilets":
+                    return "Baños públicos";
+                case "supermarket":
+                    return "Supermercado";
+                case "convenience":
+                    return "Pequeno supermercado";
+                case "seafood":
+                    return "Pescadería";
+                case "butcher":
+                    return "Carnicería";
+                case "clothes":
+                    return "Tenda de roupa";
+                case "gift":
+                    return "Tenda de regalos";
+                case "shoes":
+                    return "Tenda de zapatos";
+                case "beverages":
+                    return "Tenda de bebidas";
+                case "department_store":
+                    return "Grandes almacenes";
+                case "bag":
+                    return "Tenda de bolsas";
+                case "perfumery":
+                    return "Perfumería";
+                case "information":
+                    return "Punto de información";
+                case "hospital":
+                    return "Hospital";
+                case "clinic":
+                    return "Clínica";
+                case "photo":
+                    return "Tenda de fotos";
+                default:
+                    return "Elemento";
+            }
+        }
 
     </script>
 

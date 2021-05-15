@@ -35,9 +35,11 @@ const properties = {
             ocio: "/wfs/kml?request=GetFeature&typeName=cite:actividades_ocio&outputFormat=json&CQL_FILTER=id+=+",
             outras: "/wfs/kml?request=GetFeature&typeName=cite:outras_actividades&outputFormat=json&CQL_FILTER=id+=+",
             hospedaxe_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+",
-            hostalaria_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+",
-            ocio_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+",
-            outras_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+"
+            hostalaria_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hostalaria&outputFormat=json&CQL_FILTER=sub_tag+=+",
+            hospedaxe_bymultipletag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+IN+",
+            ocio_bytag: "/wfs/kml?request=GetFeature&typeName=cite:actividades_ocio&outputFormat=json&CQL_FILTER=sub_tag+=+",
+            ocio_bymultipletag: "/wfs/kml?request=GetFeature&typeName=cite:actividades_ocio&outputFormat=json&CQL_FILTER=sub_tag+IN+",
+            outras_bytag: "/wfs/kml?request=GetFeature&typeName=cite:outras_actividades&outputFormat=json&CQL_FILTER=sub_tag+=+"
         },
         opinions: {
             main: "/opinions",

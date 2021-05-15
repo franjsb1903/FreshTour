@@ -1,14 +1,14 @@
 import React from 'react';
-import { Platform } from 'react-native'
+import { Platform, View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { WebView as WebViewWeb } from 'react-native-web-webview';
 import { showMessage } from "react-native-flash-message";
-
-import { getGeoAll as getGeoAllTurismo } from '../model/Turismo/Turismo';
-import { getGeoByTag, getGeoByTag as getGeoByTagHospedaxe } from '../model/Hospedaxe/Hospedaxe';
+import ActionSheet from "react-native-actions-sheet";
 
 import leaflet_map from '../leaflet/leaflet.js';
-import * as Location from 'expo-location'
+import * as Location from 'expo-location';
+
+import ActionSheetContent from './ActionSheetContent';
 
 const LeafletMap = (props) => {
 
@@ -34,26 +34,12 @@ const LeafletMap = (props) => {
   }
 
   const doActionMessage = async (action) => {
-    var data;
-    let injectedData;
     switch (action) {
       case "location":
         await getLocation();
         break;
-      case "show_monumentos":
-        data = await getGeoAllTurismo("Monumento");
-        injectedData = `addLayer(${data})`;
-        global.map.injectJavaScript(injectedData);
-        break;
-      case "show_lugares":
-        data = await getGeoAllTurismo("Lugar turístico");
-        injectedData = `addLayer(${data})`;
-        global.map.injectJavaScript(injectedData);
-        break;
-      case "show_hoteis":
-        data = await getGeoByTag("hotel");
-        injectedData = `addLayer(${data})`;
-        global.map.injectJavaScript(injectedData);
+      case "menu":
+        global.action.show();
         break;
     }
   }
@@ -62,19 +48,29 @@ const LeafletMap = (props) => {
 
   return (
     Platform.OS != "web" ?
-      <WebView
-        ref={r => (global.map = r)}
-        originWhitelist={["*"]}
-        source={{ html: leaflet_map }}
-        style={{ flex: 1 }}
-        javaScriptEnabledAndroid={true}
-        injectedJavaScript={injectedData}
-        onMessage={async e => {
-          const message = e.nativeEvent.data;
-          await doActionMessage(message);
-        }}
-        androidHardwareAccelerationDisabled
-      /> :
+      <>
+        <WebView
+          ref={r => (global.map = r)}
+          originWhitelist={["*"]}
+          source={{ html: leaflet_map }}
+          style={{ flex: 1 }}
+          javaScriptEnabledAndroid={true}
+          injectedJavaScript={injectedData}
+          onMessage={async e => {
+            const message = e.nativeEvent.data;
+            await doActionMessage(message);
+          }}
+          androidHardwareAccelerationDisabled
+        />
+        <ActionSheet ref={r => (global.action = r)}
+          gestureEnabled={true}
+          initialOffsetFromBottom={1}
+          extraScroll={0}
+          bounceOnOpen={true}
+          statusBarTranslucent={false} >
+          <ActionSheetContent actionRef={global.action} mapRef={global.map} />
+        </ActionSheet>
+      </> :
       <WebViewWeb
         ref={r => (global.map = r)}
         originWhitelist={["*"]}

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import * as SecureStore from 'expo-secure-store';
 
 export const getToken = async (id) => {
