@@ -20,7 +20,7 @@ export const onPressFav = async (changeFav, item, changeModal, context, model) =
         if (!token) {
             changeModal();
         } else {
-            await context.addElementoFav(token, changeFav, item, model);
+            await context.addElementoFav(token, changeFav, item, model, changeModal);
         }
     } catch (err) {
         console.error(err);

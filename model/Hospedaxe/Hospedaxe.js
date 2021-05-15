@@ -38,6 +38,15 @@ export const getGeoElement = async (id) => {
     }
 }
 
+export const getGeoByTag = async (tag) => {
+    try {
+        const data = await Hospedaxe.getGeoByTag(tag);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getGeoElementJson = async (id) => {
     try {
         var json = await Hospedaxe.getGeoItemJson(id);

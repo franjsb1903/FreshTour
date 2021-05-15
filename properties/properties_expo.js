@@ -28,10 +28,16 @@ const properties = {
             url: "http://192.168.1.72:8080/geoserver",
             lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",                    // /geoserver/:id
             monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+",
+            lugares_all: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json",                    // /geoserver/:id
+            monumentos_all: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json",
             hospedaxe: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=id+=+",
             hostalaria: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hostalaria&outputFormat=json&CQL_FILTER=id+=+",
             ocio: "/wfs/kml?request=GetFeature&typeName=cite:actividades_ocio&outputFormat=json&CQL_FILTER=id+=+",
-            outras: "/wfs/kml?request=GetFeature&typeName=cite:outras_actividades&outputFormat=json&CQL_FILTER=id+=+"
+            outras: "/wfs/kml?request=GetFeature&typeName=cite:outras_actividades&outputFormat=json&CQL_FILTER=id+=+",
+            hospedaxe_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+",
+            hostalaria_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+",
+            ocio_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+",
+            outras_bytag: "/wfs/kml?request=GetFeature&typeName=cite:lugares_hospedaxe&outputFormat=json&CQL_FILTER=sub_tag+=+"
         },
         opinions: {
             main: "/opinions",

@@ -64,6 +64,31 @@ class XestionDatosTurismo {
         }
     }
 
+    async getGeoAll(tipo) {
+        var url = await AsyncStorage.getItem('geoserver');
+
+        if (!url) {
+            if (tipo == "Lugar turístico") {
+                url = properties.url.geoserver.url + properties.url.geoserver.lugares_all;
+            } else if (tipo == "Monumento") {
+                url = properties.url.geoserver.url + properties.url.geoserver.monumentos_all;
+            }
+        }
+        else {
+            if (tipo == "Lugar turístico") {
+                url = url + properties.url.geoserver.lugares_all;
+            } else if (tipo == "Monumento") {
+                url = url + properties.url.geoserver.monumentos_all;
+            }
+        }
+        try {
+            const text = await fetchTextGet(url);
+            return text;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
     async getGeoItemJson(id, tipo) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -81,7 +106,6 @@ class XestionDatosTurismo {
                 url = url + properties.url.geoserver.monumentos + id;
             } 
         }
-        console.log(url);
         try {
             const json = await fetchJsonGet(url);
             return json;

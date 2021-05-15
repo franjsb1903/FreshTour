@@ -361,7 +361,7 @@ const AppContextProvider = (props) => {
         outrasFav: []
     });
 
-    const addElementoFav = async (token, changeFavView, item, model) => {
+    const addElementoFav = async (token, changeFavView, item, model, changeModal) => {
         try {
             let response;
             if (!model) {
@@ -375,8 +375,10 @@ const AppContextProvider = (props) => {
                         message: response.message,
                         type: "danger"
                     });
-                    return;
+                } else {
+                    changeModal();
                 }
+                return;
             }
             item.favorito = true;
             changeFavView();
@@ -407,8 +409,8 @@ const AppContextProvider = (props) => {
                         message: response.message,
                         type: "danger"
                     });
-                    return;
                 }
+                return;
             }
             item.favorito = false;
             changeFavView();

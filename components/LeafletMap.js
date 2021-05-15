@@ -4,6 +4,9 @@ import { WebView } from 'react-native-webview';
 import { WebView as WebViewWeb } from 'react-native-web-webview';
 import { showMessage } from "react-native-flash-message";
 
+import { getGeoAll as getGeoAllTurismo } from '../model/Turismo/Turismo';
+import { getGeoByTag, getGeoByTag as getGeoByTagHospedaxe } from '../model/Hospedaxe/Hospedaxe';
+
 import leaflet_map from '../leaflet/leaflet.js';
 import * as Location from 'expo-location'
 
@@ -30,6 +33,31 @@ const LeafletMap = (props) => {
     }
   }
 
+  const doActionMessage = async (action) => {
+    var data;
+    let injectedData;
+    switch (action) {
+      case "location":
+        await getLocation();
+        break;
+      case "show_monumentos":
+        data = await getGeoAllTurismo("Monumento");
+        injectedData = `addLayer(${data})`;
+        global.map.injectJavaScript(injectedData);
+        break;
+      case "show_lugares":
+        data = await getGeoAllTurismo("Lugar turístico");
+        injectedData = `addLayer(${data})`;
+        global.map.injectJavaScript(injectedData);
+        break;
+      case "show_hoteis":
+        data = await getGeoByTag("hotel");
+        injectedData = `addLayer(${data})`;
+        global.map.injectJavaScript(injectedData);
+        break;
+    }
+  }
+
   let injectedData = `addLayer(${props.selected})`
 
   return (
@@ -42,7 +70,8 @@ const LeafletMap = (props) => {
         javaScriptEnabledAndroid={true}
         injectedJavaScript={injectedData}
         onMessage={async e => {
-          await getLocation();
+          const message = e.nativeEvent.data;
+          await doActionMessage(message);
         }}
         androidHardwareAccelerationDisabled
       /> :
@@ -54,7 +83,8 @@ const LeafletMap = (props) => {
         javaScriptEnabledAndroid={true}
         injectedJavaScript={injectedData}
         onMessage={async e => {
-          await getLocation();
+          const message = e.nativeEvent.data;
+          await doActionMessage(message);
         }}
         androidHardwareAccelerationDisabled
       />

@@ -48,6 +48,18 @@ class XestionDatosHospedaxe {
         }
     }
 
+    async getGeoByTag(tag) {
+
+        const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bytag + "'" + tag + "'";
+
+        try {
+            const text = await fetchTextGet(url);
+            return text;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
     async getGeoItemJson(id) {
 
         const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;

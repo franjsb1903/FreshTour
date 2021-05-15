@@ -29,6 +29,15 @@ export const getGeoElement = async (id, tipo) => {
     }
 }
 
+export const getGeoAll = async (tipo) => {
+    try {
+        var data = await Turismo.getGeoAll(tipo);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getGeoElementJson = async (id, tipo) => {
     try {
         var data = await Turismo.getGeoItemJson(id, tipo);

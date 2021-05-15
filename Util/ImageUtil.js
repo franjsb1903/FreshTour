@@ -94,6 +94,13 @@ const getImageUri = (name) => {
                 return undefined
             }
             break;
+        case "menu_map":
+            try {
+                localUri = Image.resolveAssetSource(require('../images/map/menu.png')).uri;
+            } catch (err) {
+                return undefined
+            }
+            break;
         default:
             return undefined;
     }
