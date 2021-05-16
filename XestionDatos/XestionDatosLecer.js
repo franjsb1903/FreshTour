@@ -52,7 +52,6 @@ class XestionDatosHostalaria {
     async getGeoByTagHostalaria(tag) {
 
         const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
-        console.log(url);
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -184,7 +183,6 @@ class XestionDatosHostalaria {
     async getGeoByTagOcio(tag) {
 
         const url = properties.url.geoserver.url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
-        console.log(url);
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -328,8 +326,6 @@ class XestionDatosHostalaria {
     async getGeoByTagOutras(tag) {
 
         const url = properties.url.geoserver.url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
-
-        console.log(url);
 
         try {
             const text = await fetchTextGet(url);

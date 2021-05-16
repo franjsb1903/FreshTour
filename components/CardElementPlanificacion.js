@@ -27,7 +27,7 @@ const CardElementPlanificacion = (props) => {
             item.features[0].properties.tipo_visita ?
                 item.features[0].properties.tipo_visita
                 : item.features[0].properties.tempo_visita_rapida);
-                
+
     const [modal, setModal] = useState(false);
 
     const context = useContext(AppContext);
@@ -46,9 +46,10 @@ const CardElementPlanificacion = (props) => {
 
     const onSetTempo = (tempo) => {
         const tempoFloat = parseFloat(tempo);
+        item.features[0].properties['isFlexible'] = true;
         context.actualizaTempoVisita(tempoFloat, tipoVisita);
         setTipoVisita(tempoFloat);
-        context.changeTipoVisita(item.features[0].properties.id, tempoFloat,item.features[0].properties.tipo);
+        context.changeTipoVisita(item.features[0].properties.id, tempoFloat, item.features[0].properties.tipo);
     }
 
     return (
@@ -77,7 +78,7 @@ const CardElementPlanificacion = (props) => {
                 </View>
                 {
                     item.features[0].properties.tipo != "Hospedaxe" && item.features[0].properties.tipo != "Hostalaría"
-                    && item.features[0].properties.tipo != "Ocio" && item.features[0].properties.tipo != "Outra" ?
+                        && item.features[0].properties.tipo != "Ocio" && item.features[0].properties.tipo != "Outra" ?
                         <DropDownPicker
                             items={[
                                 { label: 'Visita rápida', value: item.features[0].properties.tempo_visita_rapida },
@@ -90,9 +91,13 @@ const CardElementPlanificacion = (props) => {
                             globalTextStyle={dropdown.text}
                             defaultValue={tipoVisita}
                             onChangeItem={e => {
-                                context.actualizaTempoVisita(e.value, tipoVisita);
-                                setTipoVisita(e.value);
-                                context.changeTipoVisita(item.features[0].properties.id, e.value, item.features[0].properties.tipo);
+                                if (e.label == "Visita flexible") {
+                                    showModal();
+                                } else {
+                                    context.actualizaTempoVisita(e.value, tipoVisita);
+                                    setTipoVisita(e.value);
+                                    context.changeTipoVisita(item.features[0].properties.id, e.value, item.features[0].properties.tipo);
+                                }
                             }}
                             scrollViewProps={{ heigth: 90 }}
                             dropDownStyle={dropdown.scroll}

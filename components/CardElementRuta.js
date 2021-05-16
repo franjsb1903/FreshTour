@@ -120,6 +120,9 @@ const CardElementRuta = (props) => {
                     return;
                 }
             }
+            if(context.planificacion.id == planificacion.id) {
+                context.resetPlanificacion();
+            }
             navigation.navigate("User");
         } catch (err) {
             showMessage({

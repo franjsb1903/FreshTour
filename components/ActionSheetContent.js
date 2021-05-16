@@ -52,7 +52,7 @@ const ActionSheetContent = (props) => {
                     <Text style={buttonStyle.buttonTextActionSheet}>Hoteis</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("hostal");
+                    const data = await getGeoByTagHospedaxe("hostel");
                     addToMap(data);
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Hostais</Text>

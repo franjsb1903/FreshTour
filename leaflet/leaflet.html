@@ -24,46 +24,71 @@
         src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/src/assets/js/leaflet.extra-markers.min.js"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
 
     <style>
-    .leaflet-control-slidemenu{
-        cursor: pointer;
-    }
-    
-    .leaflet-menu{
-        position: absolute;
-        background-color: rgba(255, 255, 255, 255);
-        overflow: auto;
-        cursor: default;
-        z-index: 9999;
-    }
-    
-    .leaflet-menu::-webkit-scrollbar{
-        width: 7px;
-        height: 7px;
-        background: #f2f2f2;
-    }
-    
-    .leaflet-menu::-webkit-scrollbar-thumb{
-        border-radius: 2px;
-        background: #777;   
-    }
-    
-    .leaflet-menu-close-button{
-        background-color: transparent;
-        border: none;
-        font-size: 14pt;
-        color: #777;
-        cursor: pointer;
-    }
-    
-    .leaflet-menu-close-button:hover{
-        color: #4285F4;
-    }
+        .leaflet-bar button,
+        .leaflet-bar button:hover {
+            background-color: #fff;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .leaflet-bar button {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            display: block;
+        }
+
+        .leaflet-bar button:hover {
+            background-color: #f4f4f4;
+        }
+
+        .leaflet-bar button:first-of-type {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .leaflet-bar button:last-of-type {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom: none;
+        }
+
+        .leaflet-bar.disabled,
+        .leaflet-bar button.disabled {
+            cursor: default;
+            pointer-events: none;
+            opacity: .4;
+        }
+
+        .easy-button-button .button-state {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+
+        .leaflet-touch .leaflet-bar button {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
     </style>
 
     <style>
@@ -85,6 +110,14 @@
 
         .leaflet-center {
             background-image: url(${center});
+        }
+
+        .leaflet-menu {
+            background-image: url(${menu});
+        }
+
+        .leaflet-clear {
+            background-image: url(${clear});
         }
 
         html,
@@ -159,193 +192,382 @@
 
         .content {
             padding: 10px;
-          }
+        }
     </style>
-
     <script>
 
-    L.Control.SlideMenu = L.Control.extend({
-        options: {
-            position: 'topleft',
-            menuposition: 'topleft', // topleft,topright,bottomleft,bottomright
-            width: '300px',
-            height: '100%',
-            direction: 'horizontal', // vertical or horizontal
-            changeperc: '10',
-            delay: '10',
-            icon: 'fas fa-bars',
-            hidden: false
-        },
-    
-        initialize: function(innerHTML, options){
-            L.Util.setOptions(this, options);
-            this._innerHTML = innerHTML;
-            this._isLeftPosition = this.options.menuposition == 'topleft' ||
-                this.options.menuposition == 'bottomleft' ? true : false;
-            this._isTopPosition = this.options.menuposition == 'topleft' ||
-                this.options.menuposition == 'topright' ? true : false;
-            this._isHorizontal = this.options.direction == 'horizontal' ? true : false;
-        },
-    
-        onAdd: function(map){
-            this._container = L.DomUtil.create('div', 'leaflet-control-slidemenu leaflet-bar leaflet-control');
-            var link = L.DomUtil.create('a', 'leaflet-bar-part leaflet-bar-part-single', this._container);
-            link.title = 'Menu';
-            L.DomUtil.create('span', this.options.icon, link);
-    
-            this._menu = L.DomUtil.create('div', 'leaflet-menu', map._container);
-    
-            this._menu.style.width = this.options.width;
-            this._menu.style.height = this.options.height;
-    
-            if(this._isHorizontal){
-                var frominit = -(parseInt(this.options.width, 10));
-                if(this._isLeftPosition){
-                    this._menu.style.left = '-' + this.options.width;
-                }
-                else{
-                    this._menu.style.right = '-' + this.options.width;
-                }
-    
-                if(this._isTopPosition){
-                    this._menu.style.top = '0px';
-                }
-                else{
-                    this._menu.style.bottom = '0px';
-                }
-            }
-            else{
-                var frominit = -(parseInt(this.options.height, 10));
-                if(this._isLeftPosition){
-                    this._menu.style.left = '0px';
-                }
-                else{
-                    this._menu.style.right = '0px';
-                }
-    
-                if(this._isTopPosition){
-                    this._menu.style.top = '-' + this.options.height;
-                }
-                else{
-                    this._menu.style.bottom = '-' + this.options.height;
-                }
-            }
-    
-            var closeButton = L.DomUtil.create('button', 'leaflet-menu-close-button', this._menu);
-    
-            if(this._isHorizontal){
-                if(this._isLeftPosition){
-                    closeButton.style.float = 'right';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-left');
-                }
-                else{
-                    closeButton.style.float = 'left';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-right');
-                }
-            }
-            else{
-                if(this._isTopPosition){
-                    closeButton.style.float = 'right';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-up');
-                }
-                else{
-                    closeButton.style.float = 'right';
-                    L.DomUtil.addClass(closeButton, 'fas fa-chevron-down');
-                }
-            }
-    
-            this._contents = L.DomUtil.create('div', 'leaflet-menu-contents', this._menu);
-            this._contents.innerHTML = this._innerHTML;
-            this._contents.style.clear = 'both';
-    
-            if(this._isHorizontal){
-                var ispx = this.options.width.slice(-1) == 'x' ? true : false;
-                var unit = parseInt(this.options.width, 10) * parseInt(this.options.changeperc, 10) / 100;
-            }
-            else{
-                var ispx = this.options.height.slice(-1) == 'x' ? true : false;
-                var unit = parseInt(this.options.height, 10) * parseInt(this.options.changeperc, 10) / 100;
-            }
-    
-            L.DomEvent.disableClickPropagation(this._menu);
-            L.DomEvent
-                .on(link, 'click', L.DomEvent.stopPropagation)
-                .on(link, 'click', function(){
-                    // Open
-                    this._animate(this._menu, frominit, 0, true, ispx, unit);
-                }, this)
-                .on(closeButton, 'click', L.DomEvent.stopPropagation)
-                .on(closeButton, 'click', function(){
-                    // Close
-                    this._animate(this._menu, 0, frominit, false, ispx, unit);
-                }, this);
-            L.DomEvent.on(this._menu, 'mouseover', function(){
-                map.scrollWheelZoom.disable();
-            });
-            L.DomEvent.on(this._menu, 'mouseout', function(){
-                map.scrollWheelZoom.enable();
-            });
-    
-            if(this.options.hidden){
-                this.hide();
-            }
-    
-            return this._container;
-        },
-    
-        onRemove: function(map){
-            //Remove sliding menu from DOM
-            map._container.removeChild(this._menu);
-            delete this._menu;
-        },
-    
-        setContents: function(innerHTML){
-            this._innerHTML = innerHTML;
-            this._contents.innerHTML = this._innerHTML;
-        },
-    
-        _animate: function(menu, from, to, isOpen, ispx, unit){
-            if(this._isHorizontal){
-                if(this._isLeftPosition){
-                    menu.style.left = from + (ispx ? 'px' : '%');
-                }
-                else{
-                    menu.style.right = from + (ispx ? 'px' : '%');
-                }
-            }
-            else{
-                if(this._isTopPosition){
-                    menu.style.top = from + (ispx ? 'px' : '%');
-                }
-                else{
-                    menu.style.bottom = from + (ispx ? 'px' : '%');
-                }
-            }
-    
-            if(from != to){
-                setTimeout(function(slideMenu){
-                    var value = isOpen ? from + unit : from - unit;
-                    slideMenu._animate(slideMenu._menu, value, to, isOpen, ispx, unit);
-                }, parseInt(this.options.delay), this);
-            }
-            else{
-                return;
-            }
-        },
-    
-        hide: function () {
-            this._container.style.display = 'none';
-        },
-    
-        show: function () {
-            this._container.style.display = 'inherit';
-        }
-    });
-    
-    L.control.slideMenu = function(innerHTML, options) {
-        return new L.Control.SlideMenu(innerHTML, options);
-    };
+        (function () {
+            L.Control.EasyBar = L.Control.extend({
 
+                options: {
+                    position: 'topright',  // part of leaflet's defaults
+                    id: null,       // an id to tag the Bar with
+                    leafletClasses: true        // use leaflet classes?
+                },
+
+
+                initialize: function (buttons, options) {
+
+                    if (options) {
+                        L.Util.setOptions(this, options);
+                    }
+
+                    this._buildContainer();
+                    this._buttons = [];
+
+                    for (var i = 0; i < buttons.length; i++) {
+                        buttons[i]._bar = this;
+                        buttons[i]._container = buttons[i].button;
+                        this._buttons.push(buttons[i]);
+                        this.container.appendChild(buttons[i].button);
+                    }
+
+                },
+
+
+                _buildContainer: function () {
+                    this._container = this.container = L.DomUtil.create('div', '');
+                    this.options.leafletClasses && L.DomUtil.addClass(this.container, 'leaflet-bar easy-button-container leaflet-control');
+                    this.options.id && (this.container.id = this.options.id);
+                },
+
+
+                enable: function () {
+                    L.DomUtil.addClass(this.container, 'enabled');
+                    L.DomUtil.removeClass(this.container, 'disabled');
+                    this.container.setAttribute('aria-hidden', 'false');
+                    return this;
+                },
+
+
+                disable: function () {
+                    L.DomUtil.addClass(this.container, 'disabled');
+                    L.DomUtil.removeClass(this.container, 'enabled');
+                    this.container.setAttribute('aria-hidden', 'true');
+                    return this;
+                },
+
+
+                onAdd: function () {
+                    return this.container;
+                },
+
+                addTo: function (map) {
+                    this._map = map;
+
+                    for (var i = 0; i < this._buttons.length; i++) {
+                        this._buttons[i]._map = map;
+                    }
+
+                    var container = this._container = this.onAdd(map),
+                        pos = this.getPosition(),
+                        corner = map._controlCorners[pos];
+
+                    L.DomUtil.addClass(container, 'leaflet-control');
+
+                    if (pos.indexOf('bottom') !== -1) {
+                        corner.insertBefore(container, corner.firstChild);
+                    } else {
+                        corner.appendChild(container);
+                    }
+
+                    return this;
+                }
+
+            });
+
+            L.easyBar = function () {
+                var args = [L.Control.EasyBar];
+                for (var i = 0; i < arguments.length; i++) {
+                    args.push(arguments[i]);
+                }
+                return new (Function.prototype.bind.apply(L.Control.EasyBar, args));
+            };
+
+            // L.EasyButton is the actual buttons
+            // can be called without being grouped into a bar
+            L.Control.EasyButton = L.Control.extend({
+
+                options: {
+                    position: 'topright',       // part of leaflet's defaults
+
+                    id: null,            // an id to tag the button with
+
+                    type: 'replace',       // [(replace|animate)]
+                    // replace swaps out elements
+                    // animate changes classes with all elements inserted
+
+                    states: [],              // state names look like this
+                    // {
+                    //   stateName: 'untracked',
+                    //   onClick: function(){ handle_nav_manually(); };
+                    //   title: 'click to make inactive',
+                    //   icon: 'fa-circle',    // wrapped with <a>
+                    // }
+
+                    leafletClasses: true,     // use leaflet styles for the button
+                    tagName: 'button',
+                },
+
+
+
+                initialize: function (icon, onClick, title, id) {
+
+                    // clear the states manually
+                    this.options.states = [];
+
+                    // add id to options
+                    if (id != null) {
+                        this.options.id = id;
+                    }
+
+                    // storage between state functions
+                    this.storage = {};
+
+                    // is the last item an object?
+                    if (typeof arguments[arguments.length - 1] === 'object') {
+
+                        // if so, it should be the options
+                        L.Util.setOptions(this, arguments[arguments.length - 1]);
+                    }
+
+                    // if there aren't any states in options
+                    // use the early params
+                    if (this.options.states.length === 0 &&
+                        typeof icon === 'string' &&
+                        typeof onClick === 'function') {
+
+                        // turn the options object into a state
+                        this.options.states.push({
+                            icon: icon,
+                            onClick: onClick,
+                            title: typeof title === 'string' ? title : ''
+                        });
+                    }
+
+                    // curate and move user's states into
+                    // the _states for internal use
+                    this._states = [];
+
+                    for (var i = 0; i < this.options.states.length; i++) {
+                        this._states.push(new State(this.options.states[i], this));
+                    }
+
+                    this._buildButton();
+
+                    this._activateState(this._states[0]);
+
+                },
+
+                _buildButton: function () {
+
+                    this.button = L.DomUtil.create(this.options.tagName, '');
+
+                    if (this.options.tagName === 'button') {
+                        this.button.setAttribute('type', 'button');
+                    }
+
+                    if (this.options.id) {
+                        this.button.id = this.options.id;
+                    }
+
+                    if (this.options.leafletClasses) {
+                        L.DomUtil.addClass(this.button, 'easy-button-button leaflet-bar-part leaflet-interactive');
+                    }
+
+                    // don't let double clicks and mousedown get to the map
+                    L.DomEvent.addListener(this.button, 'dblclick', L.DomEvent.stop);
+                    L.DomEvent.addListener(this.button, 'mousedown', L.DomEvent.stop);
+                    L.DomEvent.addListener(this.button, 'mouseup', L.DomEvent.stop);
+
+                    // take care of normal clicks
+                    L.DomEvent.addListener(this.button, 'click', function (e) {
+                        L.DomEvent.stop(e);
+                        this._currentState.onClick(this, this._map ? this._map : null);
+                        this._map && this._map.getContainer().focus();
+                    }, this);
+
+                    // prep the contents of the control
+                    if (this.options.type == 'replace') {
+                        this.button.appendChild(this._currentState.icon);
+                    } else {
+                        for (var i = 0; i < this._states.length; i++) {
+                            this.button.appendChild(this._states[i].icon);
+                        }
+                    }
+                },
+
+
+                _currentState: {
+                    // placeholder content
+                    stateName: 'unnamed',
+                    icon: (function () { return document.createElement('span'); })()
+                },
+
+
+
+                _states: null, // populated on init
+
+
+
+                state: function (newState) {
+
+                    // when called with no args, it's a getter
+                    if (arguments.length === 0) {
+                        return this._currentState.stateName;
+                    }
+
+                    // activate by name
+                    if (typeof newState == 'string') {
+
+                        this._activateStateNamed(newState);
+
+                        // activate by index
+                    } else if (typeof newState == 'number') {
+
+                        this._activateState(this._states[newState]);
+                    }
+
+                    return this;
+                },
+
+
+                _activateStateNamed: function (stateName) {
+                    for (var i = 0; i < this._states.length; i++) {
+                        if (this._states[i].stateName == stateName) {
+                            this._activateState(this._states[i]);
+                        }
+                    }
+                },
+
+                _activateState: function (newState) {
+
+                    if (newState === this._currentState) {
+
+                        // don't touch the dom if it'll just be the same after
+                        return;
+
+                    } else {
+
+                        // swap out elements... if you're into that kind of thing
+                        if (this.options.type == 'replace') {
+                            this.button.appendChild(newState.icon);
+                            this.button.removeChild(this._currentState.icon);
+                        }
+
+                        if (newState.title) {
+                            this.button.title = newState.title;
+                        } else {
+                            this.button.removeAttribute('title');
+                        }
+
+                        // update classes for animations
+                        for (var i = 0; i < this._states.length; i++) {
+                            L.DomUtil.removeClass(this._states[i].icon, this._currentState.stateName + '-active');
+                            L.DomUtil.addClass(this._states[i].icon, newState.stateName + '-active');
+                        }
+
+                        // update classes for animations
+                        L.DomUtil.removeClass(this.button, this._currentState.stateName + '-active');
+                        L.DomUtil.addClass(this.button, newState.stateName + '-active');
+
+                        // update the record
+                        this._currentState = newState;
+
+                    }
+                },
+
+                enable: function () {
+                    L.DomUtil.addClass(this.button, 'enabled');
+                    L.DomUtil.removeClass(this.button, 'disabled');
+                    this.button.setAttribute('aria-hidden', 'false');
+                    return this;
+                },
+
+                disable: function () {
+                    L.DomUtil.addClass(this.button, 'disabled');
+                    L.DomUtil.removeClass(this.button, 'enabled');
+                    this.button.setAttribute('aria-hidden', 'true');
+                    return this;
+                },
+
+                onAdd: function (map) {
+                    var bar = L.easyBar([this], {
+                        position: this.options.position,
+                        leafletClasses: this.options.leafletClasses
+                    });
+                    this._anonymousBar = bar;
+                    this._container = bar.container;
+                    return this._anonymousBar.container;
+                },
+
+                removeFrom: function (map) {
+                    if (this._map === map)
+                        this.remove();
+                    return this;
+                },
+
+            });
+
+            L.easyButton = function (/* args will pass automatically */) {
+                var args = Array.prototype.concat.apply([L.Control.EasyButton], arguments);
+                return new (Function.prototype.bind.apply(L.Control.EasyButton, args));
+            };
+
+            /*************************
+             *
+             * util functions
+             *
+             *************************/
+
+            // constructor for states so only curated
+            // states end up getting called
+            function State(template, easyButton) {
+
+                this.title = template.title;
+                this.stateName = template.stateName ? template.stateName : 'unnamed-state';
+
+                // build the wrapper
+                this.icon = L.DomUtil.create('span', '');
+
+                L.DomUtil.addClass(this.icon, 'button-state state-' + this.stateName.replace(/(^\s*|\s*$)/g, ''));
+                this.icon.innerHTML = buildIcon(template.icon);
+                this.onClick = L.Util.bind(template.onClick ? template.onClick : function () { }, easyButton);
+            }
+
+            function buildIcon(ambiguousIconString) {
+
+                var tmpIcon;
+
+                // does this look like html? (i.e. not a class)
+                if (ambiguousIconString.match(/[&;=<>"']/)) {
+
+                    // if so, the user should have put in html
+                    // so move forward as such
+                    tmpIcon = ambiguousIconString;
+
+                    // then it wasn't html, so
+                    // it's a class list, figure out what kind
+                } else {
+                    ambiguousIconString = ambiguousIconString.replace(/(^\s*|\s*$)/g, '');
+                    tmpIcon = L.DomUtil.create('span', '');
+
+                    if (ambiguousIconString.indexOf('fa-') === 0) {
+                        L.DomUtil.addClass(tmpIcon, 'fa ' + ambiguousIconString)
+                    } else if (ambiguousIconString.indexOf('glyphicon-') === 0) {
+                        L.DomUtil.addClass(tmpIcon, 'glyphicon ' + ambiguousIconString)
+                    } else {
+                        L.DomUtil.addClass(tmpIcon, /*rollwithit*/ ambiguousIconString)
+                    }
+
+                    // make this a string so that it's easy to set innerHTML below
+                    tmpIcon = tmpIcon.outerHTML;
+                }
+
+                return tmpIcon;
+            }
+
+        })();
     </script>
 </head>
 
@@ -391,60 +613,7 @@
 
         L.control.layers(baseMaps, {}).addTo(myMap);
 
-        function showMonumentos() {
-            window.ReactNativeWebView.postMessage("show_monumentos");
-        }
-
-        function showLugares() {
-            window.ReactNativeWebView.postMessage("show_lugares");
-        }
-
-        function showHoteis(data) {
-            console.log(data);
-        }
- 
-        let contentMenu = '<div style="text-align: center;">';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onclick="showMonumentos()">Monumentos</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onclick="showLugares()">Lugares turísticos</button> </div>';
-        contentMenu += '<div class="content d-grid gap-2"> <button type="button" class="btn btn-primary rounded-pill" onClick="showHoteis(\'hotel\')" name="hotel">Hoteis</button> </div>';
-        contentMenu += '</div>';
-
-        var slideMenu = L.control.slideMenu(contentMenu, {
-            width: '50%',
-            position: 'topright',
-            delay: '20'
-        }).addTo(myMap);
-
         var geojson = undefined;
-
-        function setIcon(layer, tipo) {
-            switch (tipo) {
-                case "Hotel":
-                    layer.setIcon(hotelMarker);
-                    break;
-                case "Hostal":
-                    layer.setIcon(hostalMarker);
-                    break;
-                case "Aloxamento":
-                    layer.setIcon(aloxamentoMarker);
-                    break;
-                case "Motel":
-                    layer.setIcon(motelMarker);
-                    break;
-                case "Camping":
-                    layer.setIcon(campingMarker);
-                    break;
-                case "Estacionamento de caravanas":
-                    layer.setIcon(caravanMarker);
-                    break;
-                case "Vivenda":
-                    layer.setIcon(vivendaMarker);
-                    break;
-                default:
-                    break;
-
-            }
-        }
 
         function addLayer(data, tipo) {
             if (geojson != undefined) {
@@ -458,13 +627,11 @@
                     } else if (feature.properties.display_name !== undefined) {
                         layer.bindPopup('<p>' + feature.properties.display_name + '</p>');
                     } else {
-                        layer.bindPopup('<p>' + feature.properties.tipo + '</p>');
+                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p>');
                     }
-                    if (tipo) {
-                        setIcon(layer, tipo);
-                    }
+                    setIcon(layer, feature.properties.sub_tag);
                     layer.on('click', function (e) {
-                        myMap.setView(e.latlng, 13);
+                        myMap.setView(e.latlng);
                     });
                 }
             }).addTo(myMap);
@@ -529,12 +696,54 @@
 
         myMap.pm.Toolbar.createCustomControl(centerControl);
 
+        var menuControl = {
+            name: "Menu",
+            block: "custom",
+            title: "Menú",
+            onClick: function () {
+                window.ReactNativeWebView.postMessage("menu");
+            },
+            toggle: false,
+            className: "leaflet-menu"
+        }
+
+        myMap.pm.Toolbar.createCustomControl(menuControl);
+
+        var clearControl = {
+            name: "Clear",
+            block: "custom",
+            title: "Limpar",
+            onClick: function () {
+                if (geojson != undefined) {
+                    myMap.removeLayer(geojson);
+                    geojson = undefined;
+                }
+            },
+            toggle: false,
+            className: "leaflet-clear"
+        }
+
+        myMap.pm.Toolbar.createCustomControl(clearControl);
+
         function addMarker(lat, lang) {
             L.marker([lat, lang], {
                 icon: userMarker
             }).addTo(myMap);
             myMap.setView([lat, lang], 13);
         }
+
+        var helloPopup = L.popup().setContent('Hello World!');
+
+        L.easyButton({
+            states: [{
+                stateName: 'zoom-to-forest',        // name the state
+                icon: 'fa-tree',               // and define its properties
+                title: 'zoom to a forest',      // like its title
+                onClick: function (btn, map) {       // and its callback
+                    map.setView([46.25, -121.8], 10);
+                }
+            }]
+        }).addTo(myMap);
 
         var marker = undefined;
         var arrayMarkers = [];
@@ -585,7 +794,7 @@
 
         let hostalMarker = L.ExtraMarkers.icon({
             shape: 'circle',
-            markerColor: 'blue-dark',
+            markerColor: 'blue',
             prefix: 'fa',
             icon: 'fa-hotel',
             iconColor: '#fff',
@@ -609,7 +818,7 @@
 
         let vivendaMarker = L.ExtraMarkers.icon({
             shape: 'circle',
-            markerColor: 'green-dark',
+            markerColor: 'green',
             prefix: 'fa',
             icon: 'fa-house-user',
             iconColor: '#fff',
@@ -645,7 +854,7 @@
 
         let caravanMarker = L.ExtraMarkers.icon({
             shape: 'circle',
-            markerColor: 'orange-dark',
+            markerColor: 'orange',
             prefix: 'fa',
             icon: 'fa-caravan',
             iconColor: '#fff',
@@ -654,6 +863,921 @@
             number: '',
             svg: false
         });
+
+        let barMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-glass-cheers',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let restauranteMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-utensils',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let cafeMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-coffee',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let pubMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-glass-martini-alt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let zonaComidasMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-utensils',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let comidaRapidaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-hamburger',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let xeaderiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'pink',
+            prefix: 'fa',
+            icon: 'fa-ice-cream',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let pasteleriaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-bread-slice',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let panaderiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-bread-slice',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let chocolateMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'brown',
+            prefix: 'fa',
+            icon: 'fa-mug-hot',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let picnicMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-apple-alt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let arcadeMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'grey',
+            prefix: 'fa',
+            icon: 'fa-gamepad',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let boleraMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-bowling-ball',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let escapeRoomMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-users',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let xardinMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'green',
+            prefix: 'fa',
+            icon: 'fa-leaf',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let parkMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'green',
+            prefix: 'fa',
+            icon: 'fa-leaf',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let playgroundMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'green',
+            prefix: 'fa',
+            icon: 'fa-shapes',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let stadiumMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-futbol',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let elasticasMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'purple',
+            prefix: 'fa',
+            icon: 'fa-grin-squint-tears',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let pitchMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-futbol',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let centroDeportivoMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-futbol',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let terrazaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'purple',
+            prefix: 'fa',
+            icon: 'fa-umbrella-beach',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let baileMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'purple',
+            prefix: 'fa',
+            icon: 'fa-music',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let pabellonMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-futbol',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let cineMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'cyan',
+            prefix: 'fa',
+            icon: 'fa-film',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let teatroMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'cyan',
+            prefix: 'fa',
+            icon: 'fa-theater-masks',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let clubMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'pink',
+            prefix: 'fa',
+            icon: 'fa-glass-martini-alt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let miradorMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-binoculars',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let bancoMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-piggy-bank',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let farmaciaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'green',
+            prefix: 'fa',
+            icon: 'fa-prescription-bottle-alt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let correosMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-mail-bulk',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let taxiMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'yellow',
+            prefix: 'fa',
+            icon: 'fa-taxi',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let policiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-exclamation',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let parkingMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-parking',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let caixeiroMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-credit-card',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let bañosMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'cyan',
+            prefix: 'fa',
+            icon: 'fa-toilet',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let superMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'purple',
+            prefix: 'fa',
+            icon: 'fa-shopping-basket',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let superPequeMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'purple',
+            prefix: 'fa',
+            icon: 'fa-shopping-basket',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let pescaderiaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-fish',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let carniceriaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-drumstick-bite',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let roupaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-shirt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let regaloMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'green',
+            prefix: 'fa',
+            icon: 'fa-gift',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let zapatoMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-shoe-prints',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let bebidasMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'orange',
+            prefix: 'fa',
+            icon: 'fa-wine-bottle',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let bolsaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-shopping-bag',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let almacenesMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'green',
+            prefix: 'fa',
+            icon: 'fa-building',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let perfumeriaMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'cyan',
+            prefix: 'fa',
+            icon: 'fa-store-alt',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let infoMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'grey',
+            prefix: 'fa',
+            icon: 'fa-info',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let clinicMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-clinic-medical',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let fotoMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-camera',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        function setIcon(layer, tipo) {
+            switch (tipo) {
+                case "hotel":
+                    layer.setIcon(hotelMarker);
+                    break;
+                case "hostel":
+                    layer.setIcon(hostalMarker);
+                    break;
+                case "guest_house":
+                    layer.setIcon(aloxamentoMarker);
+                    break;
+                case "motel":
+                    layer.setIcon(motelMarker);
+                    break;
+                case "camp_pitch":
+                    layer.setIcon(campingMarker);
+                    break;
+                case "camp_site":
+                    layer.setIcon(campingMarker);
+                    break;
+                case "caravan_site":
+                    layer.setIcon(caravanMarker);
+                    break;
+                case "apartment":
+                    layer.setIcon(vivendaMarker);
+                    break;
+                case "bar":
+                    layer.setIcon(barMarker);
+                    break;
+                case "restaurant":
+                    layer.setIcon(restauranteMarker);
+                    break;
+                case "cafe":
+                    layer.setIcon(cafeMarker);
+                    break;
+                case "pub":
+                    layer.setIcon(pubMarker);
+                    break;
+                case "food_court":
+                    layer.setIcon(zonaComidasMarker);
+                    break;
+                case "fast_food":
+                    layer.setIcon(comidaRapidaMarker);
+                    break;
+                case "ice_cream":
+                    layer.setIcon(xeaderiaMarker);
+                    break;
+                case "confectionery":
+                    layer.setIcon(pasteleriaMarker);
+                    break;
+                case "bakery":
+                    layer.setIcon(panaderiaMarker);
+                    break;
+                case "chocolate":
+                    layer.setIcon(chocolateMarker);
+                    break;
+                case "picnic_table":
+                    layer.setIcon(picnicMarker);
+                    break;
+                case "picnic_site":
+                    layer.setIcon(picnicMarker);
+                    break;
+                case "amusement_arcade":
+                    layer.setIcon(arcadeMarker);
+                    break;
+                case "bowling_alley":
+                    layer.setIcon(boleraMarker);
+                    break;
+                case "escape_game":
+                    layer.setIcon(escapeRoomMarker);
+                    break;
+                case "park":
+                    layer.setIcon(parkMarker);
+                    break;
+                case "garden":
+                    layer.setIcon(xardinMarker);
+                    break;
+                case "playground":
+                    layer.setIcon(playgroundMarker);
+                    break;
+                case "stadium":
+                    layer.setIcon(stadiumMarker);
+                    break;
+                case "trampoline_park":
+                    layer.setIcon(elasticasMarker);
+                    break;
+                case "pitch":
+                    layer.setIcon(pitchMarker);
+                    break;
+                case "sports_centre":
+                    layer.setIcon(centroDeportivoMarker);
+                    break;
+                case "outdoor_seating":
+                    layer.setIcon(terrazaMarker);
+                    break;
+                case "dance":
+                    layer.setIcon(baileMarker);
+                    break;
+                case "sports_hall":
+                    layer.setIcon(pabellonMarker);
+                    break;
+                case "cinema":
+                    layer.setIcon(cineMarker);
+                    break;
+                case "theatre":
+                    layer.setIcon(teatroMarker);
+                    break;
+                case "nightclub":
+                    layer.setIcon(clubMarker);
+                    break;
+                case "viewpoint":
+                    layer.setIcon(miradorMarker);
+                    break;
+                case "bank":
+                    layer.setIcon(bancoMarker);
+                    break;
+                case "pharmacy":
+                    layer.setIcon(farmaciaMarker);
+                    break;
+                case "post_office":
+                    layer.setIcon(correosMarker);
+                    break;
+                case "taxi":
+                    layer.setIcon(taxiMarker);
+                    break;
+                case "police":
+                    layer.setIcon(policiaMarker);
+                    break;
+                case "bicycle_parking":
+                    layer.setIcon(parkingMarker);
+                    break;
+                case "atm":
+                    layer.setIcon(caixeiroMarker);
+                    break;
+                case "toilets":
+                    layer.setIcon(bañosMarker);
+                    break;
+                case "supermarket":
+                    layer.setIcon(superMarker);
+                    break;
+                case "convenience":
+                    layer.setIcon(superPequeMarker);
+                    break;
+                case "seafood":
+                    layer.setIcon(pescaderiaMarker);
+                    break;
+                case "butcher":
+                    layer.setIcon(carniceriaMarker);
+                    break;
+                case "clothes":
+                    layer.setIcon(roupaMarker);
+                    break;
+                case "gift":
+                    layer.setIcon(regaloMarker);
+                    break;
+                case "shoes":
+                    layer.setIcon(zapatoMarker);
+                    break;
+                case "beverages":
+                    layer.setIcon(bebidasMarker);
+                    break;
+                case "department_store":
+                    layer.setIcon(almacenesMarker);
+                    break;
+                case "bag":
+                    layer.setIcon(bolsaMarker);
+                    break;
+                case "perfumery":
+                    layer.setIcon(perfumeriaMarker);
+                    break;
+                case "information":
+                    layer.setIcon(infoMarker);
+                    break;
+                case "hospital":
+                    layer.setIcon(hospitalMarker);
+                    break;
+                case "clinic":
+                    layer.setIcon(clinicMarker);
+                    break;
+                case "photo":
+                    layer.setIcon(fotoMarker);
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        const traductor = (tag) => {
+            switch (tag) {
+                case "hotel":
+                    return "Hotel";
+                case "hostel":
+                    return "Hostal";
+                case "guest_house":
+                    return "Aloxamento";
+                case "caravan_site":
+                    return "Estacionamento de caravanas";
+                case "apartment":
+                    return "Vivenda";
+                case "camp_pitch":
+                    return "Camping";
+                case "camp_site":
+                    return "Camping";
+                case "motel":
+                    return "Motel";
+                case "bar":
+                    return "Bar";
+                case "restaurant":
+                    return "Restaurante";
+                case "cafe":
+                    return "Café";
+                case "pub":
+                    return "Pub";
+                case "food_court":
+                    return "Zona de comidas";
+                case "fast_food":
+                    return "Comida rápida";
+                case "ice_cream":
+                    return "Xeadería";
+                case "confectionery":
+                    return "Pastelería";
+                case "bakery":
+                    return "Panadería";
+                case "chocolate":
+                    return "Chocolatería";
+                case "picnic_table":
+                    return "Picnic";
+                case "picnic_site":
+                    return "Picnic";
+                case "amusement_arcade":
+                    return "Sala de xogos";
+                case "bowling_alley":
+                    return "Bolera";
+                case "escape_game":
+                    return "Escape room";
+                case "garden":
+                    return "Xardín";
+                case "park":
+                    return "Parque";
+                case "playground":
+                    return "Parque infantil";
+                case "stadium":
+                    return "Estadio";
+                case "trampoline_park":
+                    return "Parque de camas elásticas";
+                case "pitch":
+                    return "Zona de deportes ao aire libre";
+                case "sports_centre":
+                    return "Centro deportivo";
+                case "outdoor_seating":
+                    return "Terraza";
+                case "dance":
+                    return "Baile";
+                case "sports_hall":
+                    return "Pabellón deportivo";
+                case "cinema":
+                    return "Cine";
+                case "theatre":
+                    return "Teatro";
+                case "nightclub":
+                    return "Club nocturno";
+                case "viewpoint":
+                    return "Mirador";
+                case "bank":
+                    return "Banco";
+                case "pharmacy":
+                    return "Farmacia";
+                case "post_office":
+                    return "Oficina de Correos";
+                case "taxi":
+                    return "Taxi";
+                case "police":
+                    return "Policía";
+                case "bicycle_parking":
+                    return "Parking de bicicletas";
+                case "atm":
+                    return "Caixeiro";
+                case "toilets":
+                    return "Baños públicos";
+                case "supermarket":
+                    return "Supermercado";
+                case "convenience":
+                    return "Pequeno supermercado";
+                case "seafood":
+                    return "Pescadería";
+                case "butcher":
+                    return "Carnicería";
+                case "clothes":
+                    return "Tenda de roupa";
+                case "gift":
+                    return "Tenda de regalos";
+                case "shoes":
+                    return "Tenda de zapatos";
+                case "beverages":
+                    return "Tenda de bebidas";
+                case "department_store":
+                    return "Grandes almacenes";
+                case "bag":
+                    return "Tenda de bolsas";
+                case "perfumery":
+                    return "Perfumería";
+                case "information":
+                    return "Punto de información";
+                case "hospital":
+                    return "Hospital";
+                case "clinic":
+                    return "Clínica";
+                case "photo":
+                    return "Tenda de fotos";
+                default:
+                    return "Elemento";
+            }
+        }
 
     </script>
 

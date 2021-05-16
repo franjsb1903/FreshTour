@@ -16,7 +16,6 @@ class XestionDatosOpinions {
         else {
             url = url + properties.url.opinions.main + properties.url.opinions.opinions + type + "/" + id
         }
-        console.log(url, type, id);
         try {
             const json = await fetchJsonGet(url, undefined, signal);
             return json;

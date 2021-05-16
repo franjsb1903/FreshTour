@@ -37,37 +37,38 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         await client.query('BEGIN');
         const resultsOne = await client.query(sql.planificacions.new, [userId, titulo, comentario, isShared, distancia, tempoVisita, tempoRuta]);
         var i = 0;
-        console.log(elementos.length);
         await Promise.all(elementos.map(async (elemento) => {
             if (elemento.features[0].properties.tipo == "Lugar turístico") {
                 valuesLugares.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesLugaresWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
+                if(elemento.features[0].properties.isFlexible) {
+                    await client.query(sql.planificacions.newTempoLugares, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita])
+                }
             } else if (elemento.features[0].properties.tipo == "Monumento") {
                 valuesMonumentos.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesMonumentosWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
+                if(elemento.features[0].properties.isFlexible) {
+                    await client.query(sql.planificacions.newTempoMonumentos, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita])
+                }
             } else if (elemento.features[0].properties.tipo == "Hospedaxe") {
-                console.log(i);
                 valuesHospedaxe.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHospedaxeWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
                 if (elemento.features[0].properties.tipo_visita) {
                     await client.query(sql.planificacions.newTempoHospedaxe, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                 }
             } else if (elemento.features[0].properties.tipo == "Hostalaría") {
-                console.log(i);
                 valuesHostalaria.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHostalariaWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
                 if (elemento.features[0].properties.tipo_visita) {
                     await client.query(sql.planificacions.newTempoHostalaria, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                 }
             } else if (elemento.features[0].properties.tipo == "Ocio") {
-                console.log(i);
                 valuesOcio.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesOcioWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
                 if (elemento.features[0].properties.tipo_visita) {
                     await client.query(sql.planificacions.newTempoOcio, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                 }
             } else if (elemento.features[0].properties.tipo == "Outra") {
-                console.log(i);
                 valuesOutras.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesOutrasWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
                 if (elemento.features[0].properties.tipo_visita) {
@@ -75,7 +76,6 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 }
             }
         }));
-        console.log(valuesHostalariaWithArrays, valuesHospedaxeWithArrays, valuesOcioWithArrays, valuesOutrasWithArrays);
         var indexLug = 0;
         if (valuesLugares.length > 0) {
             await Promise.all(valuesLugaresWithArrays.map(e => {
@@ -148,10 +148,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 indexOutras += 4;
             }));
         }
-        console.log(outras);
-        console.log(ocio);
-        console.log(hostalaria);
-        console.log(hospedaxes);
+        
         if (valuesLugares.length > 0) {
             await client.query(lugares, valuesLugares);
         }

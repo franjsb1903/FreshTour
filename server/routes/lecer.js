@@ -449,8 +449,6 @@ router.get('/ocio/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => 
 
         const query = getQueryOcio(type);
 
-        console.log(query);
-
         if (!query) {
             helpers.onError(500, "Erro interno do servidor", err, res);
             return;
