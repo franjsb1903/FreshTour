@@ -46,7 +46,9 @@ const RutasRecomendadasList = (props) => {
             if (!await shouldDeleteToken(data.message, 'id_token')) {
                 showMessage({
                     message: data.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -79,7 +81,9 @@ const RutasRecomendadasList = (props) => {
             } catch (err) {
                 showMessage({
                     message: 'Erro de conexión',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
             }
         }
@@ -111,7 +115,9 @@ const RutasRecomendadasList = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro de conexión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -173,7 +179,9 @@ const RutasRecomendadasList = (props) => {
                 if (!await shouldDeleteToken(elements.message, 'id_token')) {
                     showMessage({
                         message: elements.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                     return;
                 }
@@ -189,7 +197,9 @@ const RutasRecomendadasList = (props) => {
             console.error(err);
             showMessage({
                 message: "Erro na ordeación",
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -210,14 +220,18 @@ const RutasRecomendadasList = (props) => {
             } else {
                 showMessage({
                     message: 'Erro de conexión',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
             }
         } catch (err) {
             console.error(err);
             showMessage({
                 message: 'Erro de conexión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import { IconButton } from 'react-native-paper';
 
 import properties from '../properties/properties_expo'
@@ -19,6 +20,14 @@ const CalendarIcon = () => (
 
 const CalendarOutlineIcon = () => (
     <Icon name="calendar-outline" size={30} color="#000" />
+);
+
+const CalendarPlusIcon = () => (
+    <FontAwesome name="calendar-plus" solid={true} size={30} color="#000" />
+);
+
+const CalendarPlusOutlineIcon = () => (
+    <FontAwesome name="calendar-plus" solid={false} size={30} color="#000" />
 );
 
 const MapIcon = () => (
@@ -237,6 +246,60 @@ export const CalendarOutlineIconButton = (props) => {
     return (
         <IconButton
             icon={CalendarOutlineIcon}
+            onPress={async () => {
+                addToPlanificacion ?
+                    result = await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd)
+                    :
+                    _onPress()
+                result ?
+                    changeAdd ?
+                        changeAdd() :
+                        console.log("Not function") :
+                    {}
+            }}
+            style={style} />
+    )
+};
+
+export const CalendarPlusIconButton = (props) => {
+
+    const style = props.style;
+    const item = props.item;
+    const addToPlanificacion = props.addToPlanificacion;
+    const changeAdd = props.changeAdd;
+    const added = props.added;
+
+    let result;
+    return (
+        <IconButton
+            icon={CalendarPlusIcon}
+            onPress={async () => {
+                addToPlanificacion ?
+                    result = await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd)
+                    :
+                    {}
+                result ?
+                    changeAdd ?
+                        changeAdd() :
+                        console.log("Not function") :
+                    {}
+            }}
+            style={style} />
+    )
+};
+
+export const CalendarPlusOutlineIconButton = (props) => {
+
+    const style = props.style;
+    const item = props.item;
+    const addToPlanificacion = props.addToPlanificacion;
+    const changeAdd = props.changeAdd;
+    const added = props.added;
+    const _onPress = props._onPress;
+    let result;
+    return (
+        <IconButton
+            icon={CalendarPlusOutlineIcon}
             onPress={async () => {
                 addToPlanificacion ?
                     result = await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd)

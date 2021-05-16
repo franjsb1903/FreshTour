@@ -99,7 +99,9 @@ const GardarPlanificacion = (props) => {
             if (!checked.valid) {
                 showMessage({
                     message: checked.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -126,7 +128,9 @@ const GardarPlanificacion = (props) => {
             if (response.auth == false) {
                 showMessage({
                     message: response.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 setModal({
                     ...modal, ['loading']: false
@@ -138,7 +142,9 @@ const GardarPlanificacion = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                 }
                 setModal({
@@ -153,7 +159,9 @@ const GardarPlanificacion = (props) => {
                 changeIsSaved();
                 showMessage({
                     message: 'Planificación almacenada correctamente',
-                    type: "success"
+                    type: "success",
+                    position: "bottom",
+                    icon: "success"
                 });
                 context.updatePlanificacion(response.planificacion);
                 props.navigation.navigate("Planificator");
@@ -164,7 +172,9 @@ const GardarPlanificacion = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro no almacenamento da planificación',
-                type: "success"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

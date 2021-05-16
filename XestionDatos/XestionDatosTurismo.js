@@ -1,5 +1,5 @@
 import properties from '../properties/properties_expo';
-import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost } from '../Util/FetchUtil'
+import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class XestionDatosTurismo {

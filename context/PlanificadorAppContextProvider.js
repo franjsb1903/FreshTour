@@ -68,7 +68,9 @@ const AppContextProvider = (props) => {
                 console.error(err);
                 showMessage({
                     message: 'Erro na obtención da ruta',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
             }
         }
@@ -109,7 +111,9 @@ const AppContextProvider = (props) => {
             } catch (err) {
                 showMessage({
                     message: 'Erro na obtención da ruta',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 console.error(err);
             }
@@ -225,7 +229,9 @@ const AppContextProvider = (props) => {
             if (!added) {
                 showMessage({
                     message: 'Cargando...',
-                    type: "info"
+                    type: "info",
+                    position: "bottom",
+                    icon: "info"
                 });
                 let data;
                 if (tipo == "Hospedaxe") {
@@ -243,20 +249,26 @@ const AppContextProvider = (props) => {
                 if (data == undefined || data.features[0] == undefined) {
                     showMessage({
                         message: 'Elemento non engadido',
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                     return;
                 }
                 addItem(data);
                 showMessage({
                     message: 'Elemento engadido á planificación',
-                    type: "success"
+                    type: "success",
+                    position: "bottom",
+                    icon: "success"
                 });
                 return true;
             } else {
                 showMessage({
                     message: 'Elemento xa engadido á planificación',
-                    type: "warning"
+                    type: "warning",
+                    position: "bottom",
+                    icon: "warning"
                 });
                 return false;
             }
@@ -264,7 +276,9 @@ const AppContextProvider = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro de conexión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
             return false;
         }
@@ -297,7 +311,9 @@ const AppContextProvider = (props) => {
         try {
             showMessage({
                 message: 'Cargando...',
-                type: "info"
+                type: "info",
+                position: "bottom",
+                icon: "info"
             });
             const newElements = [];
             setTempoVisita(0);
@@ -328,7 +344,9 @@ const AppContextProvider = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro de conexión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -373,7 +391,9 @@ const AppContextProvider = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                 } else {
                     changeModal();
@@ -383,14 +403,18 @@ const AppContextProvider = (props) => {
             item.favorito = true;
             changeFavView();
             showMessage({
-                message: 'Pode ver os seus elementos favoritos no seu perfil',
-                type: "info"
+                message: 'Pode ver os seu elementos favoritos no seu perfil',
+                type: "info",
+                position: "bottom",
+                icon: "info"
             });
         } catch (err) {
             console.error(err);
             showMessage({
                 message: 'Erro marcando o elemento como favorito',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -407,7 +431,9 @@ const AppContextProvider = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                 }
                 return;
@@ -416,13 +442,17 @@ const AppContextProvider = (props) => {
             changeFavView();
             showMessage({
                 message: 'Pode ver os seus elementos favoritos no seu perfil',
-                type: "info"
+                type: "info",
+                position: "bottom",
+                icon: "info"
             });
         } catch (err) {
             console.error(err);
             showMessage({
                 message: 'Erro quitando elemento como favorito',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

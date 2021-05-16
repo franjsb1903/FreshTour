@@ -95,7 +95,9 @@ const Register = (props) => {
         if (!checked.valid) {
             showMessage({
                 message: checked.message,
-                type: "danger"
+                type: "warning",
+                position: "bottom",
+                icon: "warning"
             });
             setLoading(false);
             return;

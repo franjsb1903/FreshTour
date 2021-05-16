@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from "react-native-flash-message";
 
+import { addElementoFav, deleteElementoFav } from '../model/Planificador/Planificador';
 import { stylesCardElement as stylesCard } from '../styles/styles';
 import { ShareIconButtonBlack, SharedIconButtonBlack, CloseIconButton, EditIconButton, CalendarOutlineIconButton, HeartIconButton, HeartOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
@@ -95,7 +96,9 @@ const CardElementRuta = (props) => {
             console.error(err.message);
             showMessage({
                 message: 'Erro na planificación',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -106,7 +109,9 @@ const CardElementRuta = (props) => {
             if (!token) {
                 showMessage({
                     message: 'Non se pode identificar ao usuario',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -115,7 +120,9 @@ const CardElementRuta = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                     return;
                 }
@@ -127,7 +134,9 @@ const CardElementRuta = (props) => {
         } catch (err) {
             showMessage({
                 message: 'Erro eliminando a planificación',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
             return;
         }
@@ -150,13 +159,13 @@ const CardElementRuta = (props) => {
             fav ?
                 <>
                     <HeartIconButton onQuitFav={async () => {
-                        await onQuitFav(changeFav, planificacion, context);
+                        await onQuitFav(changeFav, planificacion, context, deleteElementoFav);
                     }} />
                 </>
                 :
                 <>
                     <HeartOutlineIconButton onPressFav={async () => {
-                        await onPressFav(changeFav, planificacion, changeModal, context);
+                        await onPressFav(changeFav, planificacion, changeModal, context, addElementoFav);
                     }} />
                 </>
         )

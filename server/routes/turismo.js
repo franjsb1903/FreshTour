@@ -149,15 +149,12 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 
         const lugar_turistico = sql.elementos.favs.new.lugares;
         const monumento = sql.elementos.favs.new.monumentos;
-        const planificacion = sql.elementos.favs.new.planificacions;
 
         if (type === "Lugar turístico") {
             helpers.onExecuteQuery(lugar_turistico, userId, id_elemento, res, pool);
         } else if (type === "Monumento") {
             helpers.onExecuteQuery(monumento, userId, id_elemento, res, pool);
-        } else {
-            helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
-        }
+        } 
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
@@ -177,15 +174,12 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
 
         const lugar_turistico = sql.elementos.favs.delete.lugares;
         const monumento = sql.elementos.favs.delete.monumentos;
-        const planificacion = sql.elementos.favs.delete.planificacions;
 
         if (type === "Lugar turístico") {
             helpers.onExecuteQuery(lugar_turistico, userId, id_elemento, res, pool);
         } else if (type === "Monumento") {
             helpers.onExecuteQuery(monumento, userId, id_elemento, res, pool);
-        } else {
-            helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
-        }
+        } 
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }

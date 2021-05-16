@@ -530,4 +530,45 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+router.post('/fav', verify.verifyToken, (req, res) => {
+
+    try {
+        const { id_elemento } = req.body;
+        const userId = req.userId;
+
+        if (userId == undefined || id_elemento == undefined) {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
+
+        const planificacion = sql.elementos.favs.new.planificacions;
+
+        helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
+        
+    } catch (err) {
+        helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+
+});
+
+router.delete('/fav', verify.verifyToken, (req, res) => {
+
+    try {
+        const { id_elemento } = req.body;
+        const userId = req.userId;
+
+        if (userId == undefined || id_elemento == undefined) {
+            helpers.onError(500, "Erro quitando elemento como favorito no servidor", undefined, res);
+            return;
+        }
+        const planificacion = sql.elementos.favs.delete.planificacions;
+
+        helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
+        
+    } catch (err) {
+        helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+
+});
+
 module.exports = router;

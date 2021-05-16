@@ -47,7 +47,9 @@ const User = () => {
                         if (!await shouldDeleteToken(data.message, 'id_token')) {
                             showMessage({
                                 message: data.message,
-                                type: "danger"
+                                type: "danger",
+                                position: "bottom",
+                                icon: "danger"
                             });
                         }
                         if (mounted) {
@@ -83,7 +85,9 @@ const User = () => {
             if (!data.auth) {
                 showMessage({
                     message: data.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return false;
             }
@@ -94,7 +98,9 @@ const User = () => {
             console.error(err);
             showMessage({
                 message: 'Erro no rexistro, tenteo de novo',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -105,7 +111,9 @@ const User = () => {
             if (!data.auth) {
                 showMessage({
                     message: data.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return false;
             }
@@ -116,7 +124,9 @@ const User = () => {
             console.error(err);
             showMessage({
                 message: 'Erro no login, tenteo de novo',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -128,7 +138,9 @@ const User = () => {
             context.resetUser();
             showMessage({
                 message: 'Sesión pechada satisfactoriamente',
-                type: "success"
+                type: "success",
+                position: "bottom",
+                icon: "success"
             });
             setLoading(false);
             setLoggedIn(false);
@@ -136,7 +148,9 @@ const User = () => {
             console.error(err);
             showMessage({
                 message: 'Erro no peche de sesión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

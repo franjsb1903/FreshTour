@@ -4,7 +4,7 @@ import { Card } from 'react-native-elements';
 
 import Stars from './CustomStarsDisplay';
 import { stylesCardElement as stylesCard } from '../styles/styles';
-import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton, HeartOutlineIconButton } from './CustomIcons';
+import { HeartIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton, MapIconButton, HeartOutlineIconButton } from './CustomIcons';
 import { onPressFav, onQuitFav } from './Common';
 import ModalInicioSesion from './ModalInicioSesion';
 
@@ -78,8 +78,8 @@ const CardElementLecer = (props) => {
                             }
                             {
                                 added ?
-                                    <CalendarIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} /> :
-                                    <CalendarOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} />
+                                    <CalendarPlusIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} /> :
+                                    <CalendarPlusOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} />
                             }
                             <MapIconButton onMapClick={async () => {
                                 await showOnMap(element.id, element.tipo, element.sub_tag);

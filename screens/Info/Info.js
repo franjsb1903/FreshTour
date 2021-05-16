@@ -53,7 +53,9 @@ const Info = () => {
                 }
                 showMessage({
                     message: 'Erro de conexión',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
             }
         }

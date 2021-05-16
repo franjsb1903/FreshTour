@@ -74,7 +74,9 @@ const Planificador = (props) => {
                 :
                 showMessage({
                     message: 'Engada máis elementos á planificación',
-                    type: "warning"
+                    type: "warning",
+                    position: "bottom",
+                    icon: "danger"
                 });
         }} />
     )

@@ -1,9 +1,3 @@
-import { getImageUri } from '../Util/ImageUtil';
-const center = getImageUri("center_map");
-const locate = getImageUri("locate_map");
-const menu = getImageUri("menu_map");
-const clear = getImageUri("clear_map");
-
 const leaflet = `
 
 <!DOCTYPE html>
@@ -110,22 +104,6 @@ const leaflet = `
         #myMap {
             height: 100%;
             width: 100%;
-        }
-
-        .leaflet-locate {
-            background-image: url(${locate});
-        }
-
-        .leaflet-center {
-            background-image: url(${center});
-        }
-
-        .leaflet-menu {
-            background-image: url(${menu});
-        }
-
-        .leaflet-clear {
-            background-image: url(${clear});
         }
 
         html,
@@ -678,48 +656,6 @@ const leaflet = `
 
         myMap.pm.setLang('es');
 
-        var centerControl = {
-            name: "Center",
-            block: "custom",
-            title: "Centrar vista",
-            onClick: function () {
-                myMap.setView([42.88078486209454, -8.544641203634002], 13);
-            },
-            toggle: false,
-            className: "leaflet-center"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(centerControl);
-
-        var menuControl = {
-            name: "Menu",
-            block: "custom",
-            title: "Menú",
-            onClick: function () {
-                window.ReactNativeWebView.postMessage("menu");
-            },
-            toggle: false,
-            className: "leaflet-menu"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(menuControl);
-
-        var clearControl = {
-            name: "Clear",
-            block: "custom",
-            title: "Limpar",
-            onClick: function () {
-                if (geojson != undefined) {
-                    myMap.removeLayer(geojson);
-                    geojson = undefined;
-                }
-            },
-            toggle: false,
-            className: "leaflet-clear"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(clearControl);
-
         function addMarker(lat, lang) {
             L.marker([lat, lang], {
                 icon: userMarker
@@ -729,7 +665,22 @@ const leaflet = `
 
         L.easyButton('fa-location-arrow', function(btn, map){
             window.ReactNativeWebView.postMessage("location");
-        }).addTo();
+        }).addTo(myMap);
+
+        L.easyButton('fa-compress-arrows-alt', function(btn, map){
+            map.setView([42.88078486209454, -8.544641203634002], 13);
+        }).addTo(myMap);
+
+        L.easyButton('fa-trash', function(btn, map){
+            if (geojson != undefined) {
+                myMap.removeLayer(geojson);
+                geojson = undefined;
+            }
+        }).addTo(myMap);
+
+        L.easyButton('fa-caret-square-up', function(btn, map){
+            window.ReactNativeWebView.postMessage("menu");
+        }).addTo(myMap);
 
         var marker = undefined;
         var arrayMarkers = [];

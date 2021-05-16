@@ -235,6 +235,56 @@ class XestionDatosPlanificador {
             throw new Error(err);
         }
     }
+
+    async addElementoFav(token, id_elemento) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.fav;
+        }
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_elemento: id_elemento
+            }
+            const json = await fecthJsonAuthPost(url, JSON.stringify(body), headers);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async deleteElementoFav(token, id_elemento) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.fav;
+        }
+        try {
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-token': token
+            }
+            const body = {
+                id_elemento: id_elemento
+            }
+            const json = await fetchJsonDelete(url, headers, JSON.stringify(body));
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
 }
 
 module.exports = XestionDatosPlanificador;

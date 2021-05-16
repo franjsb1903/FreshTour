@@ -16,8 +16,10 @@ const LeafletMap = (props) => {
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {
       showMessage({
-        message: 'Habilite o GPS para localizar a súa posición actual',
-        type: "warning"
+        message: 'Ten que conceder permisos para localizar a súa posición actual',
+        type: "warning",
+        position: "bottom",
+        icon: "warning"
       });
       return;
     }
@@ -28,7 +30,9 @@ const LeafletMap = (props) => {
     } catch (err) {
       showMessage({
         message: 'Habilite o GPS para localizar a súa posición actual',
-        type: "warning"
+        type: "warning",
+        position: "bottom",
+        icon: "warning"
       });
     }
   }

@@ -30,7 +30,9 @@ const TurismoItem = ({ route, navigation }) => {
             if (data.status != 200) {
                 showMessage({
                     message: 'Erro na obtención das opinións do elemento',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 if (mounted) {
                     setOpinions({
@@ -60,7 +62,9 @@ const TurismoItem = ({ route, navigation }) => {
             console.error(err);
             showMessage({
                 message: 'Erro na obtención das opinións do elemento',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

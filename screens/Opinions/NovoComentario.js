@@ -108,7 +108,9 @@ const NovoComentario = (props) => {
             if (!checked.valid) {
                 showMessage({
                     message: checked.message,
-                    type: "danger"
+                    type: "warning",
+                    position: "bottom",
+                    icon: "warning"
                 });
                 return;
             }
@@ -131,7 +133,9 @@ const NovoComentario = (props) => {
             if (response.auth == false) {
                 showMessage({
                     message: 'Non se pode autenticar ao usuario',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 setModal({
                     ...modal, ['loading']: false
@@ -143,7 +147,11 @@ const NovoComentario = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                 }
                 setModal({
@@ -153,6 +161,12 @@ const NovoComentario = (props) => {
             }
             setModal({
                 ...modal, ['loading']: false
+            });
+            showMessage({
+                message: 'Pode revisar os seus comentarios no seu perfil',
+                type: "info",
+                position: "bottom",
+                icon: "info"
             });
             if (comment) {
                 props.navigation.navigate("User");
@@ -172,7 +186,9 @@ const NovoComentario = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro no envío do comentario',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

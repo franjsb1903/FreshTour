@@ -139,3 +139,21 @@ export const getByName = async (token, name) => {
         throw new Error(err);
     }
 }
+
+export const addElementoFav = async (token, id_elemento) => {
+    try {
+        const json = await Planificador.addElementoFav(token, id_elemento);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const deleteElementoFav = async (token, id_elemento) => {
+    try {
+        const json = await Planificador.deleteElementoFav(token, id_elemento);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}

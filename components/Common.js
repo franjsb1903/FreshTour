@@ -26,7 +26,9 @@ export const onPressFav = async (changeFav, item, changeModal, context, model) =
         console.error(err);
         showMessage({
             message: 'Erro engadindo elemento como favorito',
-            type: "danger"
+            type: "danger",
+            position: "bottom",
+            icon: "danger"
         });
     }
 }
@@ -39,7 +41,9 @@ export const onQuitFav = async (changeFav, item, context, model) => {
         console.error(err);
         showMessage({
             message: 'Erro quitando elemento como favorito',
-            type: "danger"
+            type: "danger",
+            position: "bottom",
+            icon: "danger"
         });
     }
 }
@@ -50,7 +54,9 @@ export const onShare = async (changeShared, shared, planificacion) => {
         if (!token) {
             showMessage({
                 message: 'Non se pode identificar ao usuario',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
             return;
         }
@@ -59,7 +65,9 @@ export const onShare = async (changeShared, shared, planificacion) => {
             if(!await shouldDeleteToken(response.message, 'id_token')) {
                 showMessage({
                     message: response.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -71,7 +79,9 @@ export const onShare = async (changeShared, shared, planificacion) => {
         console.error(err);
         showMessage({
             message: 'Erro na acción, tenteo de novo',
-            type: "danger"
+            type: "danger",
+            position: "bottom",
+            icon: "danger"
         });
     }
 }

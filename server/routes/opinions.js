@@ -61,9 +61,9 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         const mediaPlanificacions = sql.opinions.new.planificacions.media;
         const updateValoracionPlanificacions = sql.opinions.new.planificacions.updateVal;
 
-        const queryHospedaxes = sql.opinions.new.hospedaxes.insert;
-        const mediaHospedaxes = sql.opinions.new.hospedaxes.media;
-        const updateValoracionHospedaxes = sql.opinions.new.hospedaxes.updateVal;
+        const queryHospedaxes = sql.opinions.new.hospedaxe.insert;
+        const mediaHospedaxes = sql.opinions.new.hospedaxe.media;
+        const updateValoracionHospedaxes = sql.opinions.new.hospedaxe.updateVal;
 
         const queryHostalaria = sql.opinions.new.hostalaria.insert;
         const mediaHostalaria = sql.opinions.new.hostalaria.media;

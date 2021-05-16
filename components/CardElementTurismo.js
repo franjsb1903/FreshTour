@@ -4,7 +4,7 @@ import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';
 
-import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton, HeartOutlineIconButton } from './CustomIcons';
+import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton, HeartOutlineIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
 import ModalInicioSesion from './ModalInicioSesion';
 
@@ -95,8 +95,8 @@ const CardElement = (props) => {
 
                                             {
                                                 added ?
-                                                    <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
-                                                    <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
+                                                    <CalendarPlusIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
+                                                    <CalendarPlusOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
                                             }
                                             <MapIconButton showOnMap={showOnMap} item={item} />
                                         </View>
@@ -120,8 +120,8 @@ const CardElement = (props) => {
                                     <HeartIconButton />
                                     {
                                         added ?
-                                            <CalendarIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
-                                            <CalendarOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
+                                            <CalendarPlusIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
+                                            <CalendarPlusOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
                                     }
                                     <MapIconButton showOnMap={showOnMap} item={item} />
                                 </View>

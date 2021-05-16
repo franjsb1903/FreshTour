@@ -32,7 +32,9 @@ const OpinionsUsuario = (props) => {
             if(!token) {
                 showMessage({
                     message: 'Non se pode identificar ao usuario',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -41,7 +43,9 @@ const OpinionsUsuario = (props) => {
                 if(!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: data.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                 }
                 return;

@@ -55,7 +55,9 @@ const Turism = (props) => {
             if (!await shouldDeleteToken(data.message, 'id_token')) {
                 showMessage({
                     message: data.message,
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -86,7 +88,9 @@ const Turism = (props) => {
                 console.error(err);
                 showMessage({
                     message: 'Erro de conexión',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
             }
         }
@@ -116,7 +120,9 @@ const Turism = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro de conexión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -142,14 +148,18 @@ const Turism = (props) => {
             } else {
                 showMessage({
                     message: 'Erro de conexión',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
             }
         } catch (err) {
             console.error(err);
             showMessage({
                 message: 'Erro de conexión',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -160,7 +170,9 @@ const Turism = (props) => {
             if (text == undefined) {
                 showMessage({
                     message: 'Erro xeolocalizando elemento, probe de novo',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 return;
             }
@@ -171,7 +183,9 @@ const Turism = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro xeolocalizando elemento, probe de novo',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -228,7 +242,9 @@ const Turism = (props) => {
                 if (!await shouldDeleteToken(elements.message, 'id_token')) {
                     showMessage({
                         message: elements.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                     return;
                 }
@@ -244,7 +260,9 @@ const Turism = (props) => {
             console.error(err);
             showMessage({
                 message: "Erro na ordeación",
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

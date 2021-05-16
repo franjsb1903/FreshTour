@@ -2,11 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 
 import { styleTurismoItem as styles, stylesScroll } from '../../styles/styles'
-import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton } from '../../components/CustomIcons'
+import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton } from '../../components/CustomIcons'
 import Stars from '../../components/CustomStarsDisplay';
 import ModalInicioSesion from '../../components/ModalInicioSesion';
 
-import { onPressFav, onQuitFav } from '../../components/Common'
+import { onPressFav, onQuitFav } from '../../components/Common';
+import { addElementoFav, deleteElementoFav } from '../../model/Planificador/Planificador';
 
 import AppContext from '../../context/PlanificadorAppContext';
 
@@ -47,7 +48,8 @@ const Resumo = (props) => {
 
     const changeFav = () => {
         setFav(!fav);
-        onRefresh();
+        if (onRefresh)
+            onRefresh();
     }
 
     const changeModal = () => {
@@ -58,11 +60,11 @@ const Resumo = (props) => {
         return (
             fav ?
                 <HeartIconButton onQuitFav={() => {
-                    onQuitFav(changeFav, element, context);
+                    onQuitFav(changeFav, element, context, element.tipo == "Planificación" ? deleteElementoFav : undefined);
                 }} />
                 :
                 <HeartOutlineIconButton onPressFav={() => {
-                    onPressFav(changeFav, element, changeModal, context);
+                    onPressFav(changeFav, element, changeModal, context, element.tipo == "Planificación" ? addElementoFav : undefined);
                 }} />
         )
     }
@@ -80,18 +82,21 @@ const Resumo = (props) => {
                 }
                 {
                     isRuta ?
-                        element.id_actual_usuario ?
-                            element.id_actual_usuario != element.id_usuario ?
-                                <HeartIcons />
-                                :
-                                <></>
-                            : <HeartIcons />
+                        <></>
                         : <HeartIcons />
                 }
                 {
-                    added ?
-                        <CalendarIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                        <CalendarOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                    isElementoRuta ?
+                        <></>
+                        :
+                        isRuta ?
+                            added ?
+                                <CalendarIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
+                                <CalendarOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                            :
+                            added ?
+                                <CalendarPlusIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
+                                <CalendarPlusOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
                 }
                 {
                     isRuta ?

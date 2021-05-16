@@ -125,7 +125,9 @@ const Register = (props) => {
             if (!checked.valid) {
                 showMessage({
                     message: checked.message,
-                    type: "danger"
+                    type: "warning",
+                    position: "bottom",
+                    icon: "warning"
                 });
                 setLoading(false);
                 return;
@@ -141,7 +143,9 @@ const Register = (props) => {
             if (!token) {
                 showMessage({
                     message: 'Non se pode autenticar ao usuario',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 setLoading(false);
                 return
@@ -151,7 +155,9 @@ const Register = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                     setLoading(false);
                     setUser({
@@ -167,7 +173,9 @@ const Register = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro na edición, tenteo de novo',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }
@@ -179,7 +187,9 @@ const Register = (props) => {
             if (!token) {
                 showMessage({
                     message: 'Non se pode autenticar ao usuario',
-                    type: "danger"
+                    type: "danger",
+                    position: "bottom",
+                    icon: "danger"
                 });
                 setLoading(false);
                 return
@@ -189,7 +199,9 @@ const Register = (props) => {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
                         message: response.message,
-                        type: "danger"
+                        type: "danger",
+                        position: "bottom",
+                        icon: "danger"
                     });
                     setUser({
                         ...user, contrasinal: '', confirm_contrasinal: ''
@@ -207,7 +219,9 @@ const Register = (props) => {
             console.error(err);
             showMessage({
                 message: 'Erro na edición, tenteo de novo',
-                type: "danger"
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
             });
         }
     }

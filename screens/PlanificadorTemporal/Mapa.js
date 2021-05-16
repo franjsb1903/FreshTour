@@ -125,7 +125,9 @@ const Map = (props) => {
       console.error(err);
       showMessage({
         message: 'Erro de conexión',
-        type: "danger"
+        type: "danger",
+        position: "bottom",
+        icon: "danger"
       });
     }
   }
@@ -150,7 +152,9 @@ const Map = (props) => {
       if (text == undefined) {
         showMessage({
           message: 'Erro xeolocalizando o elemento, probe de novo',
-          type: "danger"
+          type: "danger",
+          position: "bottom",
+          icon: "danger"
         });
         return;
       }
@@ -162,7 +166,9 @@ const Map = (props) => {
       console.error(err);
       showMessage({
         message: 'Erro de conexión',
-        type: "danger"
+        type: "danger",
+        position: "bottom",
+        icon: "danger"
       });
     }
   }
