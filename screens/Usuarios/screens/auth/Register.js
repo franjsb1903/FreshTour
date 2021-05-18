@@ -36,6 +36,18 @@ const Register = (props) => {
                 message: 'O campo de usuario é obrigatorio'
             }
         }
+        if (user.nome == '') {
+            return {
+                valid: false,
+                message: 'O campo de nome é obrigatorio'
+            }
+        }
+        if (user.apelidos == '') {
+            return {
+                valid: false,
+                message: 'O campo de apelidos é obrigatorio'
+            }
+        }
         if (user.email == '') {
             return {
                 valid: false,
@@ -181,6 +193,7 @@ const Register = (props) => {
                         placeholderTextColor="#808080"
                         textContentType="emailAddress"
                         autoCapitalize="none"
+                        keyboardType="email-address"
                         clearButtonMode="always"
                          />
                     {

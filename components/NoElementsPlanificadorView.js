@@ -12,13 +12,33 @@ const NoElementsPlanificadorView = () => {
     return (
         <View style={styles.noElementsContainer}>
             <Text style={styles.textNoElements}>Engada elementos á súa planificación!</Text>
-            <TouchableOpacity style={styleButton.buttonContainer} onPress={() => {
-                navigation.navigate("Turism",{
-                    updateItem: global.setSelected
-                });
-            }}>
-                <Text style={styleButton.buttonText}>Engadir elementos</Text>
-            </TouchableOpacity>
+            <View style={{ margin: 10, width: "100%" }}>
+                <TouchableOpacity style={[styleButton.buttonContainer, { width: "100%" }]} onPress={() => {
+                    navigation.navigate("Turism", {
+                        updateItem: global.setSelected
+                    });
+                }}>
+                    <Text style={styleButton.buttonText}>Puntos de interese</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{ margin: 10, width: "100%" }}>
+                <TouchableOpacity style={[styleButton.buttonContainer, { width: "100%" }]} onPress={() => {
+                    navigation.navigate("HospedaxeList", {
+                        updateItem: global.setSelected
+                    });
+                }}>
+                    <Text style={styleButton.buttonText}>Hospedaxe</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{ margin: 10, width: "100%" }}>
+                <TouchableOpacity style={[styleButton.buttonContainer, { width: "100%" }]} onPress={() => {
+                    navigation.navigate("LecerList", {
+                        updateItem: global.setSelected
+                    });
+                }}>
+                    <Text style={styleButton.buttonText}>Lecer</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

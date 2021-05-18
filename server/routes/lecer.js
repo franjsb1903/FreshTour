@@ -131,7 +131,7 @@ router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, re
         const query = getQueryHospedaxe(type);
 
         if (!query) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 
@@ -193,7 +193,7 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
         const query = getFavQueryHospedaxe(type);
 
         if (!query) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 
@@ -450,7 +450,7 @@ router.get('/ocio/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => 
         const query = getQueryOcio(type);
 
         if (!query) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 
@@ -512,7 +512,7 @@ router.get('/ocio/fav/filter/:type', verify.verifyToken, (req, res) => {
         const query = getFavQueryOcio(type);
 
         if (!query) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 
@@ -833,7 +833,7 @@ router.get('/outras/filter/:type', verify.verifyTokenWithoutReturn, (req, res) =
         const query = getQueryOutras(type);
 
         if (!query) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 
@@ -895,7 +895,7 @@ router.get('/outras/fav/filter/:type', verify.verifyToken, (req, res) => {
         const query = getFavQueryOutras(type);
 
         if (!query) {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 

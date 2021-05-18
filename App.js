@@ -17,11 +17,11 @@ export default function App() {
 
     <AppContextProvider>
       <SafeAreaView style={styles.AndroidSafeArea}>
+        <FlashMessage position="bottom" titleStyle={{ fontSize: 18 }} animationDuration={400} />
         <NavigationContainer>
           <MainStack />
         </NavigationContainer>
       </SafeAreaView>
-      <FlashMessage position="top" titleStyle={{ fontSize: 18 }} animationDuration={400} />
     </AppContextProvider>
   );
 }

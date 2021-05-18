@@ -45,6 +45,9 @@ const CardElementPlanificacion = (props) => {
     }
 
     const onSetTempo = (tempo) => {
+        if(!tempo) {
+            tempo = 0;
+        }
         const tempoFloat = parseFloat(tempo);
         item.features[0].properties['isFlexible'] = true;
         context.actualizaTempoVisita(tempoFloat, tipoVisita);

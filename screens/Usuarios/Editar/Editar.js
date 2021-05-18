@@ -335,7 +335,7 @@ const Register = (props) => {
                         <Text style={button.buttonTextSmaller}>Eliminar conta</Text>
                     </TouchableOpacity>
                 </View>
-                <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"Está a punto de borrar a súa conta de maneira permanente, está seguro?"} />
+                <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"Está a punto de borrar a súa conta de maneira permanente. Ao borrar a conta, eliminaranse todos os datos que estean ligados a ela. Está seguro?"} />
             </ScrollView>
     )
 }

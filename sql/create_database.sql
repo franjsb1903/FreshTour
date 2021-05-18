@@ -15,10 +15,10 @@ CREATE SCHEMA IF NOT EXISTS fresh_tour AUTHORIZATION postgres;
 CREATE TABLE IF NOT EXISTS fresh_tour.usuarios (
     id SERIAL PRIMARY KEY NOT NULL,
     usuario VARCHAR(50) NOT NULL,
-    nome VARCHAR(50),
-    apelidos VARCHAR(50),
+    nome VARCHAR(50) NOT NULL,
+    apelidos VARCHAR(50) NOT NULL,
     email VARCHAR(70) NOT NULL,
-    contrasinal VARCHAR(50) NOT NULL,
+    contrasinal VARCHAR NOT NULL,
     data TIMESTAMP NOT NULL,
     CONSTRAINT pk_usuarios PRIMARY KEY (id)
 );
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.planificacions (
     id SERIAL NOT NULL,
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
-    comentario VARCHAR(250) NOT NULL,
+    comentario VARCHAR NOT NULL,
     esta_compartida BOOLEAN NOT NULL,
     valoracion FLOAT,
     distancia FLOAT NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_monumentos (
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
+    valoracion FLOAT NOT NULL,
     comentario VARCHAR(250) NOT NULL,
     id_monumento INT NOT NULL,
     CONSTRAINT pk_com_val_mon PRIMARY KEY (id),
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_lugares_turisticos
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
+    valoracion FLOAT NOT NULL,
     comentario VARCHAR(250) NOT NULL,
     id_lugar_turistico INT NOT NULL,
     CONSTRAINT pk_com_val_lug PRIMARY KEY (id),
@@ -147,8 +147,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_planificacions (
     id_usuario INT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
-    valoracion INT NOT NULL,
-    comentario VARCHAR NOT NULL,
+    valoracion FLOAT NOT NULL,
+    comentario(250) VARCHAR NOT NULL,
     id_planificacion INT NOT NULL,
     CONSTRAINT pk_com_val_plan PRIMARY KEY (id),
     CONSTRAINT fk_planificacion FOREIGN KEY (id_planificacion) REFERENCES fresh_tour.planificacions(id),
@@ -193,7 +193,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.lugares_hostalaria (
     titulo VARCHAR,
     data_adicion TIMESTAMP,
     data_modificacion TIMESTAMP,
-    tipo VARCHAR,
+    main_tag VARCHAR,
+    sub_tag VARCHAR,
     CONSTRAINT pk_lugares_hostalaria PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
@@ -209,7 +210,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.lugares_hospedaxe (
     titulo VARCHAR,
     data_adicion TIMESTAMP,
     data_modificacion TIMESTAMP,
-    tipo VARCHAR,
+    main_tag VARCHAR,
+    sub_tag VARCHAR,
     CONSTRAINT pk_lugares_hospedaxe PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
@@ -225,7 +227,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.actividades_ocio (
     titulo VARCHAR,
     data_adicion TIMESTAMP,
     data_modificacion TIMESTAMP,
-    tipo VARCHAR,
+    main_tag VARCHAR,
+    sub_tag VARCHAR,
     CONSTRAINT pk_actividades_ocio PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
@@ -241,7 +244,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.outras_actividades (
     titulo VARCHAR,
     data_adicion TIMESTAMP,
     data_modificacion TIMESTAMP,
-    tipo VARCHAR,
+    main_tag VARCHAR,
+    sub_tag VARCHAR,
     CONSTRAINT pk_outras_actividades PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
@@ -341,7 +345,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.tempo_lugares_hospedaxe (
     id SERIAL NOT NULL,
     id_lugar_hospedaxe INT NOT NULL,
     tempo FLOAT NOT NULL,
-    data TIMESTAMP,
+    data TIMESTAMP NOT NULL,
     CONSTRAINT pk_tempo_lugares_hospedaxe PRIMARY KEY (id),
     CONSTRAINT fk_hospedaxe FOREIGN KEY (id_lugar_hospedaxe) REFERENCES fresh_tour.lugares_hospedaxe(id)
 );
@@ -358,7 +362,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.tempo_lugares_hostalaria (
     id SERIAL NOT NULL,
     id_lugar_hostalaria INT NOT NULL,
     tempo FLOAT NOT NULL,
-    data TIMESTAMP,
+    data TIMESTAMP NOT NULL,
     CONSTRAINT pk_tempo_lugares_hostalaria PRIMARY KEY (id),
     CONSTRAINT fk_hostalaria FOREIGN KEY (id_lugar_hostalaria) REFERENCES fresh_tour.lugares_hostalaria(id)
 );
@@ -375,7 +379,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.tempo_actividades_ocio (
     id SERIAL NOT NULL,
     id_actividade_ocio INT NOT NULL,
     tempo FLOAT NOT NULL,
-    data TIMESTAMP,
+    data TIMESTAMP NOT NULL,
     CONSTRAINT pk_tempo_actividades_ocio PRIMARY KEY (id),
     CONSTRAINT fk_ocio FOREIGN KEY (id_actividade_ocio) REFERENCES fresh_tour.actividades_ocio(id)
 );
@@ -392,7 +396,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.tempo_outras_actividades (
     id SERIAL NOT NULL,
     id_outra_actividade INT NOT NULL,
     tempo FLOAT NOT NULL,
-    data TIMESTAMP,
+    data TIMESTAMP NOT NULL,
     CONSTRAINT pk_tempo_outras_actividades PRIMARY KEY (id),
     CONSTRAINT fk_outra FOREIGN KEY (id_outra_actividade) REFERENCES fresh_tour.outras_actividades(id)
 );
@@ -408,10 +412,13 @@ ALTER TABLE fresh_tour.actividades_ocio ALTER COLUMN geom SET NOT NULL;
 ALTER TABLE fresh_tour.outras_actividades ADD sub_tag varchar NOT NULL;
 ALTER TABLE fresh_tour.outras_actividades ALTER COLUMN main_tag SET NOT NULL;
 ALTER TABLE fresh_tour.outras_actividades ALTER COLUMN geom SET NOT NULL;
-ALTER TABLE fresh_tour.lugares_hospedaxe ADD valoracion float8 NULL;
-ALTER TABLE fresh_tour.lugares_hostalaria ADD valoracion float8 NULL;
-ALTER TABLE fresh_tour.actividades_ocio ADD valoracion float8 NULL;
-ALTER TABLE fresh_tour.outras_actividades ADD valoracion float8 NULL;
+ALTER TABLE fresh_tour.lugares_hospedaxe ADD valoracion FLOAT;
+ALTER TABLE fresh_tour.lugares_hostalaria ADD valoracion FLOAT;
+ALTER TABLE fresh_tour.actividades_ocio ADD valoracion FLOAT;
+ALTER TABLE fresh_tour.outras_actividades ADD valoracion FLOAT;
+ALTER TABLE fresh_tour.lugares_turisticos ALTER COLUMN geom SET NOT NULL;
+ALTER TABLE fresh_tour.monumentos ALTER COLUMN geom SET NOT NULL;
+
 
 --- AUXILIAR TABLES
 --- SCHEMA

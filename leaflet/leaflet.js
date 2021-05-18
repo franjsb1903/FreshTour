@@ -616,6 +616,7 @@ const leaflet = `
                         layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p>');
                     }
                     setIcon(layer, feature.properties.sub_tag);
+                    myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
                     layer.on('click', function (e) {
                         myMap.setView(e.latlng);
                     });
@@ -636,25 +637,6 @@ const leaflet = `
             }
             route = L.geoJson(data).addTo(myMap);
         }
-
-        var options = {
-            position: 'topright', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
-            drawMarker: false, // adds button to draw markers
-            drawPolyline: false, // adds button to draw a polyline
-            drawRectangle: false, // adds button to draw a rectangle
-            drawPolygon: false, // adds button to draw a polygon
-            drawCircle: false, // adds button to draw a cricle
-            cutPolygon: false, // adds button to cut a hole in a polygon
-            editMode: false, // adds button to toggle edit mode for all layers
-            removalMode: true, // adds a button to remove layers
-            drawCircleMarker: false,
-            dragMode: false
-        };
-
-        // add leaflet.pm controls to the map
-        myMap.pm.addControls(options);
-
-        myMap.pm.setLang('es');
 
         function addMarker(lat, lang) {
             L.marker([lat, lang], {

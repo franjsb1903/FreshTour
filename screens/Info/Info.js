@@ -51,12 +51,6 @@ const Info = () => {
                 if (mounted) {
                     setLoading(false);
                 }
-                showMessage({
-                    message: 'Erro de conexión',
-                    type: "danger",
-                    position: "bottom",
-                    icon: "danger"
-                });
             }
         }
 

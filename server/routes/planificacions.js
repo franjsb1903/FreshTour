@@ -42,13 +42,17 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 valuesLugares.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesLugaresWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
                 if(elemento.features[0].properties.isFlexible) {
-                    await client.query(sql.planificacions.newTempoLugares, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita])
+                    await client.query(sql.planificacions.newTempoLugares, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
+                    const tempo = await client.query(sql.planificacions.getAVGTempoLugares, [elemento.features[0].properties.id]);
+                    await client.query(sql.planificacions.updateTempoLugares, [tempo.rows[0].tempo, elemento.features[0].properties.id]);
                 }
             } else if (elemento.features[0].properties.tipo == "Monumento") {
                 valuesMonumentos.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesMonumentosWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
                 if(elemento.features[0].properties.isFlexible) {
-                    await client.query(sql.planificacions.newTempoMonumentos, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita])
+                    await client.query(sql.planificacions.newTempoMonumentos, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
+                    const tempo = await client.query(sql.planificacions.getAVGTempoMonumentos, [elemento.features[0].properties.id]);
+                    await client.query(sql.planificacions.updateTempoMonumentos, [tempo.rows[0].tempo, elemento.features[0].properties.id]);
                 }
             } else if (elemento.features[0].properties.tipo == "Hospedaxe") {
                 valuesHospedaxe.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);

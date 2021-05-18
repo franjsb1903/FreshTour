@@ -224,20 +224,20 @@ const Hospedaxe = (props) => {
     const itemsDropDown = [
         { label: 'Ordear por valoración', value: 'all_valoracion' },
         { label: 'Ordear por título', value: 'all_titulo' },
-        { label: 'Hoteis por valoración', value: 'hoteis_valoracion' },
-        { label: 'Hoteis por título', value: 'hoteis_titulo' },
-        { label: 'Hostais por valoración', value: 'hostais_valoracion' },
-        { label: 'Hostais por título', value: 'hostais_titulo' },
         { label: 'Aloxamentos por valoración', value: 'aloxamento_valoracion' },
         { label: 'Aloxamentos por título', value: 'aloxamento_titulo' },
-        { label: 'Caravanas por valoración', value: 'caravanas_valoracion' },
-        { label: 'Caravanas por título', value: 'caravanas_titulo' },
-        { label: 'Vivendas por valoración', value: 'vivendas_valoracion' },
-        { label: 'Vivendas por título', value: 'vivendas_titulo' },
         { label: 'Camping por valoración', value: 'camping_valoracion' },
         { label: 'Camping por título', value: 'camping_titulo' },
+        { label: 'Caravanas por valoración', value: 'caravanas_valoracion' },
+        { label: 'Caravanas por título', value: 'caravanas_titulo' },
+        { label: 'Hostais por valoración', value: 'hostais_valoracion' },
+        { label: 'Hostais por título', value: 'hostais_titulo' },
+        { label: 'Hoteis por valoración', value: 'hoteis_valoracion' },
+        { label: 'Hoteis por título', value: 'hoteis_titulo' },
         { label: 'Moteis por valoración', value: 'moteis_valoracion' },
-        { label: 'Moteis por título', value: 'moteis_titulo' }
+        { label: 'Moteis por título', value: 'moteis_titulo' },
+        { label: 'Vivendas por valoración', value: 'vivendas_valoracion' },
+        { label: 'Vivendas por título', value: 'vivendas_titulo' }
     ];
 
     const onChangeDropDown = async (item) => {

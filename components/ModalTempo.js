@@ -35,7 +35,7 @@ const ModalTempo = (props) => {
                                 placeholder="Tempo en minutos"
                                 onChangeText={(value) => handleChangeText(value)}
                                 placeholderTextColor="#808080"
-                                textContentType="none"
+                                keyboardType="numeric"
                                 clearButtonMode="always" />
                         </View>
                         <View style={modalStyle.rowButton}>

@@ -246,7 +246,7 @@ const CardElementRuta = (props) => {
             <ModalConfirmacion modal={confirmacion} showModal={showConfirmacion} confirm={onDelete} text={"A planificación borrarase para sempre, está seguro?"} />
             <ModalConfirmacion modal={confirmacionShare} showModal={showConfirmacionShare} confirm={() => {
                 onShare(changeShare, shared, planificacion);
-            }} text={"Ao compartir unha planificación, todos os usuarios poderán vela. Está seguro?"} />
+            }} text={shared ? "Ao deixar de compartir esta planificación, todos os usuarios deixarán de vela. Está seguro?" : "Ao compartir unha planificación, todos os usuarios poderán vela. Está seguro?"} />
         </>
     )
 }

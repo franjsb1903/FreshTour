@@ -5,7 +5,14 @@ import { traductorHostalaria, traductorOcio, traductorOutras } from '../Util/Tra
 class XestionDatosHostalaria {
 
     async getAllHostalaria(signal, token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.all;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.all;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.all;
+        }
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -16,7 +23,14 @@ class XestionDatosHostalaria {
     }
 
     async getByNameHostalaria(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.byName + name
+
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.byName + name
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.byName + name
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -27,7 +41,14 @@ class XestionDatosHostalaria {
     }
 
     async getFavByNameHostalaria(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + "/" + name;
+
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + "/" + name;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + "/" + name;
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -38,8 +59,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoElementHostalaria(id) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
+        } else {
+            url = url + properties.url.geoserver.hostalaria + id;
+        }
 
         try {
             const text = await fetchTextGet(url);
@@ -50,8 +76,14 @@ class XestionDatosHostalaria {
     }
 
     async getGeoByTagHostalaria(tag) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
+        } else {
+            url = url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
+        }
+
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -61,8 +93,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoElementJsonHostalaria(id) {
-
-        const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
+        var url = await AsyncStorage.getItem('geoserver');
+        
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
+        } else {
+            url = url + properties.url.geoserver.hostalaria + id;
+        }
 
         try {
             const json = await fetchJsonGet(url);
@@ -75,7 +112,13 @@ class XestionDatosHostalaria {
 
     async filterSortHostalaria(typeSort, token) {
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.filter + typeSort;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.filter + typeSort;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.filter + typeSort;
+        } 
 
         try {
             const json = fetchJsonGet(url, token);
@@ -87,7 +130,13 @@ class XestionDatosHostalaria {
 
     async favFilterSortHostalaria(typeSort, token) {
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + properties.url.lecer.hostalaria.filter + typeSort;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + properties.url.lecer.hostalaria.filter + typeSort;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + properties.url.lecer.hostalaria.filter + typeSort;
+        }
 
         try {
             const json = fetchJsonGet(url, token);
@@ -98,7 +147,13 @@ class XestionDatosHostalaria {
     }
 
     async addFavHostalaria(token, id_lugar_hostalaria) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
+        }
 
         try {
             const headers = {
@@ -117,7 +172,13 @@ class XestionDatosHostalaria {
     }
 
     async quitFavHostalaria(token, id_lugar_hostalaria) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
+        var url = await AsyncStorage.getItem('url');
+        
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
+        }
 
         try {
             const headers = {
@@ -136,7 +197,14 @@ class XestionDatosHostalaria {
     }
 
     async getAllOcio(signal, token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
+        
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
+        }
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -147,7 +215,13 @@ class XestionDatosHostalaria {
     }
 
     async getByNameOcio(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.byName + name
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.byName + name
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.byName + name
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -158,7 +232,13 @@ class XestionDatosHostalaria {
     }
 
     async getFavByNameOcio(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + "/" + name;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + "/" + name;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + "/" + name;
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -169,8 +249,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoElementOcio(id) {
-
-        const url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
+        var url = await AsyncStorage.getItem('geoserver');
+        
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
+        } else {
+            url = url + properties.url.geoserver.ocio + id;
+        }
 
         try {
             const text = await fetchTextGet(url);
@@ -181,8 +266,14 @@ class XestionDatosHostalaria {
     }
 
     async getGeoByTagOcio(tag) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
+        } else {
+            url = url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
+        }
+
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -192,8 +283,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoByMultipleTagOcio(tag, secondTag) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.ocio_bymultipletag + "('" + tag + "','" + secondTag + "')";
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.ocio_bymultipletag + "('" + tag + "','" + secondTag + "')";
+        } else {
+            url = url + properties.url.geoserver.ocio_bymultipletag + "('" + tag + "','" + secondTag + "')";
+        }
 
         try {
             const text = await fetchTextGet(url);
@@ -204,8 +300,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoElementJsonOcio(id) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
+        } else {
+            url = url + properties.url.geoserver.ocio + id;
+        }
 
         try {
             const json = await fetchJsonGet(url);
@@ -217,8 +318,13 @@ class XestionDatosHostalaria {
     }
 
     async filterSortOcio(typeSort, token) {
+        var url = await AsyncStorage.getItem('url');
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.filter + typeSort;
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.filter + typeSort;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.filter + typeSort;
+        }
 
         try {
             const json = fetchJsonGet(url, token);
@@ -229,8 +335,13 @@ class XestionDatosHostalaria {
     }
 
     async favFilterSortOcio(typeSort, token) {
+        var url = await AsyncStorage.getItem('url');
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + properties.url.lecer.ocio.filter + typeSort;
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + properties.url.lecer.ocio.filter + typeSort;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + properties.url.lecer.ocio.filter + typeSort;
+        }
 
         try {
             const json = fetchJsonGet(url, token);
@@ -241,7 +352,13 @@ class XestionDatosHostalaria {
     }
 
     async addFavOcio(token, id_actividade_ocio) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
+        }
 
         try {
             const headers = {
@@ -260,7 +377,13 @@ class XestionDatosHostalaria {
     }
 
     async quitFavOcio(token, id_actividade_ocio) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
+        }
 
         try {
             const headers = {
@@ -279,7 +402,13 @@ class XestionDatosHostalaria {
     }
 
     async getAllOutras(signal, token) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
+        }
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -290,7 +419,13 @@ class XestionDatosHostalaria {
     }
 
     async getByNameOutras(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
+        var url = await AsyncStorage.getItem('url');
+        
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -301,7 +436,13 @@ class XestionDatosHostalaria {
     }
 
     async getFavByNameOutras(token, name) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
+        }
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -312,8 +453,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoElementOutras(id) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
+        } else {
+            url = url + properties.url.geoserver.outras + id;
+        }
 
         try {
             const text = await fetchTextGet(url);
@@ -324,8 +470,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoByTagOutras(tag) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
+        if(!url){
+            url = properties.url.geoserver.url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
+        } else {
+            url = url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
+        }
 
         try {
             const text = await fetchTextGet(url);
@@ -336,8 +487,13 @@ class XestionDatosHostalaria {
     }
 
     async getGeoElementJsonOutras(id) {
+        var url = await AsyncStorage.getItem('geoserver');
 
-        const url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
+        if(!url) {
+            url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
+        } else {
+            url = url + properties.url.geoserver.outras + id;
+        }
 
         try {
             const json = await fetchJsonGet(url);
@@ -349,8 +505,13 @@ class XestionDatosHostalaria {
     }
 
     async filterSortOutras(typeSort, token) {
+        var url = await AsyncStorage.getItem('url');
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
+        }
 
         try {
             const json = fetchJsonGet(url, token);
@@ -361,8 +522,13 @@ class XestionDatosHostalaria {
     }
 
     async favFilterSortOutras(typeSort, token) {
+        var url = await AsyncStorage.getItem('url');
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
+        }
 
         try {
             const json = fetchJsonGet(url, token);
@@ -373,7 +539,13 @@ class XestionDatosHostalaria {
     }
 
     async addFavOutras(token, id_outra_actividade) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+        }
 
         try {
             const headers = {
@@ -392,7 +564,13 @@ class XestionDatosHostalaria {
     }
 
     async quitFavOutras(token, id_outra_actividade) {
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
+        }
 
         try {
             const headers = {
