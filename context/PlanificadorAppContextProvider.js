@@ -233,18 +233,7 @@ const AppContextProvider = (props) => {
                     position: "bottom",
                     icon: "info"
                 });
-                let data;
-                if (tipo == "Hospedaxe") {
-                    data = await getGeoElementJsonHospedaxe(id);
-                } else if (tipo == "Hostalaría") {
-                    data = await getGeoElementJsonHostalaria(id);
-                } else if (tipo == "Ocio") {
-                    data = await getGeoElementJsonOcio(id);
-                } else if (tipo == "Outra") {
-                    data = await getGeoElementJsonOutras(id);
-                } else {
-                    data = await getGeoElementJson(id, tipo);
-                }
+                let data = await getDataJson(id, tipo);
 
                 if (data == undefined || data.features[0] == undefined) {
                     showMessage({

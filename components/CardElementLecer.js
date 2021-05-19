@@ -29,7 +29,7 @@ const CardElementLecer = (props) => {
     useEffect(() => {
         let mounted = true;
 
-        const value = isAdded(element.titulo);
+        const value = isAdded(element.id, element.tipo);
         if (mounted) {
             setAdded(value);
             setFav(element.favorito);

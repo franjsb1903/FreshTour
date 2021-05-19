@@ -1,6 +1,8 @@
 import properties from '../properties/properties_expo';
 import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
 import { traductorHostalaria, traductorOcio, traductorOutras } from '../Util/TraductorUtil';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 class XestionDatosHostalaria {
 

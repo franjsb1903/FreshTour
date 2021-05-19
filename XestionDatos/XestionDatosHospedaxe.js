@@ -68,8 +68,6 @@ class XestionDatosHospedaxe {
             url = url + properties.url.geoserver.hospedaxe + id;
         }
 
-        const 
-
         try {
             const text = await fetchTextGet(url);
             return text;
