@@ -9,7 +9,7 @@ router.get('/:type/:id', async (req, res) => {
 
     try {
         const { type, id } = req.params;
-
+        
         if (type === "Lugar turístico") {
             onSearch(sql.opinions.get.lugares.get, sql.opinions.get.lugares.count_valoracion, id, res);
         } else if (type === "Monumento") {
@@ -41,6 +41,13 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 
         const { valoracion, titulo, comentario, id_elemento, type } = req.body;
 
+        if (valoracion == undefined || !titulo || !comentario || !id_elemento || !type || titulo.length > 50 
+            || comentario.length > 250 || titulo == '' || comentario == '' 
+            || valoracion < 0 || valoracion > 5) {
+            helpers.onError(500, "Erro interno no servidor", undefined, res);
+            return;
+        }
+        
         const existLugares = sql.opinions.exists.lugares;
         const existMonumentos = sql.opinions.exists.monumentos;
         const existPlanificacions = sql.opinions.exists.planificacions;
@@ -166,8 +173,8 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const mediaPlanificacions = sql.opinions.new.planificacions.media;
         const updateValoracionPlanificacions = sql.opinions.new.planificacions.updateVal;
 
-        const mediaHospedaxes = sql.opinions.new.hospedaxes.media;
-        const updateValoracionHospedaxes = sql.opinions.new.hospedaxes.updateVal;
+        const mediaHospedaxes = sql.opinions.new.hospedaxe.media;
+        const updateValoracionHospedaxes = sql.opinions.new.hospedaxe.updateVal;
 
         const mediaHostalaria = sql.opinions.new.hostalaria.media;
         const updateValoracionHostalaria = sql.opinions.new.hostalaria.updateVal;
@@ -207,6 +214,13 @@ router.post('/edit', verify.verifyToken, (req, res) => {
 
         const { id, valoracion, titulo, comentario, id_elemento, type } = req.body;
 
+        if (valoracion == undefined || !titulo || !comentario || id_elemento == undefined || !type || titulo.length > 50 
+            || comentario.length > 250 || titulo == '' || comentario == '' 
+            || valoracion < 0 || valoracion > 5 || id == undefined) {
+            helpers.onError(500, "Erro interno no servidor", undefined, res);
+            return;
+        }
+
         const queryLugares = sql.opinions.edit.lugares;
         const mediaLugares = sql.opinions.new.lugares.media;
         const updateValoracionLugares = sql.opinions.new.lugares.updateVal;
@@ -219,19 +233,19 @@ router.post('/edit', verify.verifyToken, (req, res) => {
         const mediaPlanificacions = sql.opinions.new.planificacions.media;
         const updateValoracionPlanificacions = sql.opinions.new.planificacions.updateVal;
 
-        const queryHospedaxes = sql.opinions.new.hospedaxes.edit;
-        const mediaHospedaxes = sql.opinions.new.hospedaxes.media;
-        const updateValoracionHospedaxes = sql.opinions.new.hospedaxes.updateVal;
+        const queryHospedaxes = sql.opinions.edit.hospedaxes;
+        const mediaHospedaxes = sql.opinions.new.hospedaxe.media;
+        const updateValoracionHospedaxes = sql.opinions.new.hospedaxe.updateVal;
 
-        const queryHostalaria = sql.opinions.new.hostalaria.edit;
+        const queryHostalaria = sql.opinions.edit.hostalaria;
         const mediaHostalaria = sql.opinions.new.hostalaria.media;
         const updateValoracionHostalaria = sql.opinions.new.hostalaria.updateVal;
 
-        const queryOcio = sql.opinions.new.ocio.edit;
+        const queryOcio = sql.opinions.edit.ocio;
         const mediaOcio = sql.opinions.new.ocio.media;
         const updateValoracionOcio = sql.opinions.new.ocio.updateVal;
 
-        const queryOutras = sql.opinions.new.outras.edit;
+        const queryOutras = sql.opinions.edit.outras;
         const mediaOutras = sql.opinions.new.outras.media;
         const updateValoracionOutras = sql.opinions.new.outras.updateVal;
 

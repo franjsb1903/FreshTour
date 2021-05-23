@@ -15,6 +15,12 @@ router.post('/register', (req, res) => {
 
     const { usuario, nome, apelidos, email, contrasinal } = req.body;
 
+    if (!usuario || usuario == '' || usuario.length > 50 || !nome || nome == '' || nome.length > 50
+        || !apelidos || apelidos == '' || apelidos.length > 50 || !email || email == '' || !contrasinal || contrasinal == '' || email.length > 70) {
+        helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", undefined, res);
+        return;
+    }
+
     var hashedPssw = bcrypt.hashSync(contrasinal, 10);
 
     const queryDuplicateUser = sql.usuarios.exists;
@@ -98,6 +104,11 @@ router.post('/login', (req, res) => {
     const { usuario, contrasinal } = req.body;
 
     const query = sql.usuarios.get.user;
+
+    if (!usuario || !contrasinal || contrasinal == undefined) {
+        helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", undefined, res);
+        return;
+    }
 
     const elementos_favoritos = sql.usuarios.get.elementosFav
     const plan_fav = sql.usuarios.get.plansFav;
@@ -197,7 +208,7 @@ router.post('/login', (req, res) => {
 
                                 pool.query(ocio_fav, [user.id], (err, ocio) => {
                                     var ocioArray;
-    
+
                                     if (err) {
                                         helpers.onErrorAuth(500, "Erro obtendo as actividades de ocio favoritas do usuario", err, res);
                                         ocioArray = [];
@@ -210,7 +221,7 @@ router.post('/login', (req, res) => {
 
                                     pool.query(outras_fav, [user.id], (err, outras) => {
                                         var outrasArray;
-        
+
                                         if (err) {
                                             helpers.onErrorAuth(500, "Erro obtendo as actividades de ocio favoritas do usuario", err, res);
                                             outrasArray = [];
@@ -220,7 +231,7 @@ router.post('/login', (req, res) => {
                                                 element.sub_tag = tag_traductor.outras(element.sub_tag);
                                             });
                                         }
-        
+
                                         helpers.onCorrectAuth(token, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray, ocioArray, outrasArray);
                                     })
                                 })
@@ -334,7 +345,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
 
                                 pool.query(ocio_fav, [user.id], (err, ocio) => {
                                     var ocioArray;
-    
+
                                     if (err) {
                                         helpers.onErrorAuth(500, "Erro obtendo as actividades de ocio favoritas do usuario", err, res);
                                         ocioArray = [];
@@ -344,10 +355,10 @@ router.get('/me', verify.verifyToken, (req, res) => {
                                             element.sub_tag = tag_traductor.ocio(element.sub_tag);
                                         });
                                     }
-    
+
                                     pool.query(outras_fav, [user.id], (err, outras) => {
                                         var outrasArray;
-        
+
                                         if (err) {
                                             helpers.onErrorAuth(500, "Erro obtendo as actividades de ocio favoritas do usuario", err, res);
                                             outrasArray = [];
@@ -357,7 +368,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
                                                 element.sub_tag = tag_traductor.outras(element.sub_tag);
                                             });
                                         }
-        
+
                                         helpers.onCorrectAuth(undefined, user, res, planificacionsFavArray, plansArray, opinionsArray, elementosFavArray, hospedaxesArray, hostalariaArray, ocioArray, outrasArray);
                                     })
                                 })

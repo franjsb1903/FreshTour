@@ -34,6 +34,7 @@ helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, op
     return res.status(200).send({
         auth: true,
         token: token,
+        status: 200,
         user: user,
         planificacionsFav: planificacionsFav,
         planificacions: planificacions,

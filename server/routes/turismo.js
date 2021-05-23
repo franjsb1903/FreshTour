@@ -154,7 +154,10 @@ router.post('/fav', verify.verifyToken, (req, res) => {
             helpers.onExecuteQuery(lugar_turistico, userId, id_elemento, res, pool);
         } else if (type === "Monumento") {
             helpers.onExecuteQuery(monumento, userId, id_elemento, res, pool);
-        } 
+        }  else {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
@@ -179,7 +182,10 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
             helpers.onExecuteQuery(lugar_turistico, userId, id_elemento, res, pool);
         } else if (type === "Monumento") {
             helpers.onExecuteQuery(monumento, userId, id_elemento, res, pool);
-        } 
+        } else {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }

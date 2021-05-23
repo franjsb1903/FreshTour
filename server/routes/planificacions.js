@@ -41,7 +41,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             if (elemento.features[0].properties.tipo == "Lugar turístico") {
                 valuesLugares.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesLugaresWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
-                if(elemento.features[0].properties.isFlexible) {
+                if (elemento.features[0].properties.isFlexible) {
                     await client.query(sql.planificacions.newTempoLugares, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                     const tempo = await client.query(sql.planificacions.getAVGTempoLugares, [elemento.features[0].properties.id]);
                     await client.query(sql.planificacions.updateTempoLugares, [tempo.rows[0].tempo, elemento.features[0].properties.id]);
@@ -49,7 +49,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             } else if (elemento.features[0].properties.tipo == "Monumento") {
                 valuesMonumentos.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesMonumentosWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
-                if(elemento.features[0].properties.isFlexible) {
+                if (elemento.features[0].properties.isFlexible) {
                     await client.query(sql.planificacions.newTempoMonumentos, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                     const tempo = await client.query(sql.planificacions.getAVGTempoMonumentos, [elemento.features[0].properties.id]);
                     await client.query(sql.planificacions.updateTempoMonumentos, [tempo.rows[0].tempo, elemento.features[0].properties.id]);
@@ -152,7 +152,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 indexOutras += 4;
             }));
         }
-        
+
         if (valuesLugares.length > 0) {
             await client.query(lugares, valuesLugares);
         }
@@ -265,7 +265,7 @@ router.get('/elements/:id', (req, res) => {
                         lecerItem.sub_tag = tag_traductor.outras(lecerItem.sub_tag);
                     }
                 })
-                
+
                 while (indexTurismo < turismo.rowCount && indexLecer < lecer.rowCount) {
                     if ((turismo.rows[indexTurismo].posicion_visita - lecer.rows[indexLecer].posicion_visita) < 0) {
                         elements.push(turismo.rows[indexTurismo++]);
@@ -380,6 +380,11 @@ router.post('/edit', verify.verifyToken, (req, res) => {
     try {
 
         const { titulo, comentario, id } = req.body;
+
+        if (!titulo || !comentario || !id || titulo.length < 1 || titulo.length == 0 || titulo == '') {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
 
         pool.query(sql.planificacions.edit, [titulo, comentario, id], (err, results) => {
             if (err) {
@@ -548,7 +553,7 @@ router.post('/fav', verify.verifyToken, (req, res) => {
         const planificacion = sql.elementos.favs.new.planificacions;
 
         helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
-        
+
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
@@ -568,7 +573,7 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
         const planificacion = sql.elementos.favs.delete.planificacions;
 
         helpers.onExecuteQuery(planificacion, userId, id_elemento, res, pool);
-        
+
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
