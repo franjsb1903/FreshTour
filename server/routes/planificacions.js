@@ -220,6 +220,11 @@ router.post('/share', verify.verifyToken, (req, res) => {
     try {
         const { isShare, id } = req.body;
 
+        if (isShare == undefined || id == undefined) {
+            helpers.onError(500, "Erro obtendo compartindo a planificación", undefined, res);
+            return;
+        }
+
         pool.query(sql.planificacions.share, [isShare, id], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo compartindo a planificación", err, res);
@@ -241,6 +246,11 @@ router.get('/elements/:id', (req, res) => {
     try {
 
         const { id } = req.params;
+
+        if (id == undefined) {
+            helpers.onError(500, "Erro obtendo o elemento da planificación", undefined, res);
+            return;
+        }
 
         pool.query(sql.planificacions.elementos, [id], (err, turismo) => {
             if (err) {
@@ -293,9 +303,17 @@ router.get('/elements/:id', (req, res) => {
     }
 });
 
-router.delete('/', verify.verifyToken, (req, res) => {
+router.delete('/', verify.verifyToken, async (req, res) => {
     try {
+        const userId = req.userId;
         const { id } = req.body;
+
+        const response = await pool.query('SELECT * FROM fresh_tour.planificacions WHERE id = $1 AND id_usuario = $2', [id, userId]);
+
+        if (response.rowCount == 0) {
+            helpers.onErrorAuth(404, "A planificación non é túa", undefined, res);
+            return;
+        }
 
         pool.connect((err, client, done) => {
             const shouldAbort = err => {
@@ -341,7 +359,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
                                             client.query(sql.planificacions.delete.outras, [id], (err, results) => {
                                                 if (shouldAbort(err)) return;
 
-                                                client.query(sql.planificacions.delete.planificacion, [id], (err, results) => {
+                                                client.query(sql.planificacions.delete.planificacion, [id, userId], (err, results) => {
                                                     if (shouldAbort(err)) return;
 
                                                     client.query('COMMIT', error => {
@@ -379,10 +397,18 @@ router.delete('/', verify.verifyToken, (req, res) => {
 router.post('/edit', verify.verifyToken, (req, res) => {
     try {
 
+        const userId = req.userId;
         const { titulo, comentario, id } = req.body;
 
         if (!titulo || !comentario || !id || titulo.length < 1 || titulo.length == 0 || titulo == '') {
             helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
+
+        const response = await pool.query('SELECT * FROM fresh_tour.planificacions WHERE id = $1 AND id_usuario = $2', [id, userId]);
+
+        if (response.rowCount == 0) {
+            helpers.onErrorAuth(404, "A planificación non é túa", undefined, res);
             return;
         }
 

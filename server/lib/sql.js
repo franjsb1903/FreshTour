@@ -29,7 +29,7 @@ sql.planificacions.delete.hospedaxes = "DELETE FROM fresh_tour.planificacions_lu
 sql.planificacions.delete.hostalaria = "DELETE FROM fresh_tour.planificacions_lugares_hostalaria WHERE id_planificacion = $1";
 sql.planificacions.delete.ocio = "DELETE FROM fresh_tour.planificacions_actividades_ocio WHERE id_planificacion = $1";
 sql.planificacions.delete.outras = "DELETE FROM fresh_tour.planificacions_outras_actividades WHERE id_planificacion = $1";
-sql.planificacions.delete.planificacion = "DELETE FROM fresh_tour.planificacions WHERE id = $1";
+sql.planificacions.delete.planificacion = "DELETE FROM fresh_tour.planificacions WHERE id = $1 AND id_usuario = $2";
 sql.planificacions.delete.comentarios = "DELETE FROM fresh_tour.comentarios_valoracions_planificacions WHERE id_planificacion = $1";
 sql.planificacions.delete.favoritas = "DELETE FROM fresh_tour.planificacions_favoritas WHERE id_planificacion = $1";
 sql.planificacions.edit = "UPDATE fresh_tour.planificacions SET titulo = $1, comentario = $2 WHERE id = $3";

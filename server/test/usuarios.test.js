@@ -8,7 +8,7 @@ const config = {
     database: 'fresh_tour'
 };
 const pool = new Pool(config);
-/*
+
 describe('MP-CN06', () => {
     const url = "http://192.168.1.72:3000/auth/register";
 
@@ -345,8 +345,8 @@ describe('MP-CN06', () => {
             throw new Error("Error: CP-CN83");
         }
     });
-});*/
-/*
+});
+
 describe('MP-CN07', () => {
     const url = "http://192.168.1.72:3000/auth/login";
 
@@ -370,7 +370,7 @@ describe('MP-CN07', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN85");
+            throw new Error("Error: CP-CN84");
         }
     })
 
@@ -392,7 +392,7 @@ describe('MP-CN07', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN86");
+            throw new Error("Error: CP-CN85");
         }
     })
 
@@ -419,10 +419,10 @@ describe('MP-CN07', () => {
             expect(json.status).toBe(200);
             done();
         } catch (err) {
-            throw new Error("Error: CP-CN87");
+            throw new Error("Error: CP-CN86");
         }
     });
-});*/
+});
 
 describe('MP-CN08', () => {
     const url = "http://192.168.1.72:3000/usuario/edit";
@@ -450,7 +450,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN88");
+            throw new Error("Error: CP-CN87");
         }
     })
 
@@ -473,7 +473,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN89");
+            throw new Error("Error: CP-CN88");
         }
     })
 
@@ -500,7 +500,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN90");
+            throw new Error("Error: CP-CN89");
         }
     })
 
@@ -527,7 +527,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN91");
+            throw new Error("Error: CP-CN90");
         }
     })
 
@@ -554,7 +554,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN92");
+            throw new Error("Error: CP-CN91");
         }
     })
 
@@ -581,7 +581,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN93");
+            throw new Error("Error: CP-CN92");
         }
     })
 
@@ -608,7 +608,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN94");
+            throw new Error("Error: CP-CN93");
         }
     })
 
@@ -635,7 +635,7 @@ describe('MP-CN08', () => {
             const json = await response.json();
             expect(json.status).not.toBe(200);
         } catch (err) {
-            throw new Error("Error: CP-CN95");
+            throw new Error("Error: CP-CN94");
         }
     })
 
@@ -663,7 +663,7 @@ describe('MP-CN08', () => {
             expect(json.status).not.toBe(200);
             done();
         } catch (err) {
-            throw new Error("Error: CP-CN96");
+            throw new Error("Error: CP-CN95");
         }
     })
 
@@ -691,7 +691,7 @@ describe('MP-CN08', () => {
             expect(json.status).not.toBe(200);
             done();
         } catch (err) {
-            throw new Error("Error: CP-CN97");
+            throw new Error("Error: CP-CN96");
         }
     })
 
@@ -725,7 +725,7 @@ describe('MP-CN08', () => {
                 done();
             });
         } catch (err) {
-            throw new Error("Error: CP-CN98");
+            throw new Error("Error: CP-CN97");
         }
     });
 
@@ -759,7 +759,7 @@ describe('MP-CN08', () => {
                 done();
             });
         } catch (err) {
-            throw new Error("Error: CP-CN99");
+            throw new Error("Error: CP-CN98");
         }
     });
 });
