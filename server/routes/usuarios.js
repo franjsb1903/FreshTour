@@ -40,10 +40,11 @@ router.post('/edit', verify.verifyToken, (req, res) => {
                     if (shouldAbort(err)) return;
 
                     if (results.rowCount > 0) {
-                        if (email == results.rows[0].email) {
+                        console.log(userId, results.rows[0].id);
+                        if (userId != results.rows[0].id && email == results.rows[0].email) {
                             helpers.onErrorAuth(401, "Email xa rexistrado na plataforma", err, res);
                             return;
-                        } else if (usuario == results.rows[0].usuario) {
+                        } else if (userId != results.rows[0].id && usuario == results.rows[0].usuario) {
                             helpers.onErrorAuth(401, "Nome de usuario xa existente", err, res);
                             return;
                         }

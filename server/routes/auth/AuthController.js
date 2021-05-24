@@ -15,8 +15,8 @@ router.post('/register', (req, res) => {
 
     const { usuario, nome, apelidos, email, contrasinal } = req.body;
 
-    if (!usuario || usuario == '' || usuario.length > 50 || !nome || nome == '' || nome.length > 50
-        || !apelidos || apelidos == '' || apelidos.length > 50 || !email || email == '' || !contrasinal || contrasinal == '' || email.length > 70) {
+    if (!usuario || usuario == '' || usuario.length > 50 || nome == undefined  || nome.length > 50
+        || apelidos == undefined || apelidos.length > 50 || !email || email == '' || !contrasinal || contrasinal == '' || email.length > 70) {
         helpers.onErrorAuth(500, "Erro interno do servidor, tenteo de novo", undefined, res);
         return;
     }

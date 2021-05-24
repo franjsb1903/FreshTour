@@ -394,7 +394,7 @@ router.delete('/', verify.verifyToken, async (req, res) => {
     }
 });
 
-router.post('/edit', verify.verifyToken, (req, res) => {
+router.post('/edit', verify.verifyToken, async (req, res) => {
     try {
 
         const userId = req.userId;

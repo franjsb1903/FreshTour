@@ -185,6 +185,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const mediaOutras = sql.opinions.new.outras.media;
         const updateValoracionOutras = sql.opinions.new.outras.updateVal;
 
+        console.log(type);
         if (type === "Lugar turístico") {
             onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);
         } else if (type === "Monumento") {
@@ -200,7 +201,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
         } else if (type === "Outra") {
             onTransactionUpdate(outras, [id], mediaOutras, updateValoracionOutras, id_elemento, res);
         } else {
-            helpers.onError(500, "Erro interno do servidor", err, res);
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
             return;
         }
 

@@ -36,18 +36,6 @@ const Register = (props) => {
                 message: 'O campo de usuario é obrigatorio'
             }
         }
-        if (user.nome == '') {
-            return {
-                valid: false,
-                message: 'O campo de nome é obrigatorio'
-            }
-        }
-        if (user.apelidos == '') {
-            return {
-                valid: false,
-                message: 'O campo de apelidos é obrigatorio'
-            }
-        }
         if (user.email == '') {
             return {
                 valid: false,
@@ -72,6 +60,12 @@ const Register = (props) => {
                 message: 'Os contrasinais non coinciden'
             }
         }
+        if (user.contrasinal.length < 8) {
+            return {
+                valid: false,
+                message: 'O contrasinal debe ter un tamaño mínimo de 8 caracteres'
+            }
+        }
         if (!checkEmail(user.email)) {
             return {
                 valid: false,
@@ -84,13 +78,13 @@ const Register = (props) => {
                 message: 'Nome de usuario inválido (demasiado longo, contén espacios ou contén caractéres raros)'
             }
         }
-        if (!checkName(user.nome)) {
+        if (user.nome != '' && !checkName(user.nome)) {
             return {
                 valid: false,
                 message: 'O nome non é correcto'
             }
         }
-        if (!checkName(user.apelidos)) {
+        if (user.apelidos != '' &&!checkName(user.apelidos)) {
             return {
                 valid: false,
                 message: 'Os apelidos non son correctos'
@@ -195,7 +189,7 @@ const Register = (props) => {
                         autoCapitalize="none"
                         keyboardType="email-address"
                         clearButtonMode="always"
-                         />
+                    />
                     {
                         clearButton(() => emailInput.clear())
                     }

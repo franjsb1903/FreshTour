@@ -133,7 +133,7 @@ const CardElementPlanificacion = (props) => {
                         <></>
                         : <View style={styles.chevron}>
                             <ChevronDownIconButton onPressIcon={() => {
-                                context.changeOrderUp(item.features[0].properties.id, item.features[0].properties.tipo)
+                                context.changeOrderDown(item.features[0].properties.id, item.features[0].properties.tipo)
                             }} />
                         </View>
                 }

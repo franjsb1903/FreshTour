@@ -132,6 +132,7 @@ const CardElementRuta = (props) => {
             }
             navigation.navigate("User");
         } catch (err) {
+            console.log(err);
             showMessage({
                 message: 'Erro eliminando a planificación',
                 type: "danger",

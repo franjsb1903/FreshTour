@@ -42,7 +42,7 @@ const OpinionsUsuario = (props) => {
             if (response.status != 200) {
                 if(!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
-                        message: data.message,
+                        message: response.message,
                         type: "danger",
                         position: "bottom",
                         icon: "danger"
