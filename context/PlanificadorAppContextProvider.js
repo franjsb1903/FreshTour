@@ -5,6 +5,7 @@ import { getGeoElementJson as getGeoElementJsonHospedaxe } from '../model/Hosped
 import { getGeoElementJsonHostalaria, getGeoElementJsonOcio, getGeoElementJsonOutras } from '../model/Lecer/Lecer'
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Turismo/Turismo';
+import { getData as getCalidadeAireData } from '../model/CalidadeAire/CalidadeAire';
 import { showMessage } from "react-native-flash-message";
 import { shouldDeleteToken } from '../Util/TokenUtil'
 
@@ -25,6 +26,8 @@ const AppContextProvider = (props) => {
     const [geoMap, setGeoMap] = useState('');
 
     const [tempoVisita, setTempoVisita] = useState(parseFloat(0));
+
+    const [calidadeAire, setCalidadeAire] = useState([]);
 
     useEffect(() => {
         let mounted = true;
@@ -85,13 +88,10 @@ const AppContextProvider = (props) => {
     useEffect(() => {
         let mounted = true;
 
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-
         async function getAsyncRoute() {
             try {
                 if (coordinates.length > 1) {
-                    const route = await getRoute(coordinates, walking, signal);
+                    const route = await getRoute(coordinates, walking);
                     if (route != undefined) {
                         if (mounted) {
                             setRoute({
@@ -122,10 +122,114 @@ const AppContextProvider = (props) => {
         getAsyncRoute();
 
         return () => {
-            abortController.abort();
             mounted = false;
         }
     }, [walking]);
+
+    const formatDate = (date) => {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        if(minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        const dataString = hours - 2 + ":" + minutes
+        return dataString;
+    }
+
+    const onGetDataCalidadeAire = async (mounted) => {
+        try {
+            const first = turismoItems.items[0];
+            let actual = new Date();
+            actual.setHours(actual.getHours() + 2);
+            let calidadeArray = [];
+            const calidade = await getCalidadeAireData(first.features[0].geometry.coordinates[1], first.features[0].geometry.coordinates[0], actual.toISOString());
+            const calidadeObject = {
+                text: calidade,
+                date: "actual"
+            }
+            calidadeArray.push(calidadeObject);
+
+            if (route.routeJson != undefined) {
+                var seconds = 0;
+                for (var i = 0; i < route.routeJson.features[0].properties.segments.length; i++) {
+                    const segment = route.routeJson.features[0].properties.segments[i];
+                    const itemFirst = turismoItems.items[i];
+                    const itemSecond = turismoItems.items[i + 1];
+                    seconds += itemFirst.tipo_visita ? parseFloat(itemFirst.features[0].properties.tipo_visita) * 60 : parseFloat(itemFirst.features[0].properties.tempo_visita_rapida) * 60;
+                    if (seconds >= 3600) {
+                        const coord = itemFirst.features[0].geometry.coordinates;
+                        actual.setHours(actual.getHours() + 1);
+                        const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
+                        const dataString = formatDate(actual);
+                        const calidadeObject = {
+                            text: calidade,
+                            date: dataString
+                        }
+                        calidadeArray.push(calidadeObject);
+                        seconds = seconds - 3600;
+
+                    }
+                    for (var j = 0; j < segment.steps.length; j++) {
+                        const step = segment.steps[j];
+                        seconds += parseFloat(step.duration);
+                        if (seconds >= 3600) {
+                            const coord = route.routeJson.features[0].geometry.coordinates[step.way_points[0]];
+                            actual.setHours(actual.getHours() + 1);
+                            const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
+                            const dataString = formatDate(actual);
+                            const calidadeObject = {
+                                text: calidade,
+                                date: dataString
+                            }
+                            calidadeArray.push(calidadeObject);
+                            seconds = seconds - 3600;
+                        }
+                    }
+                    seconds += itemSecond.tipo_visita ? parseFloat(itemSecond.features[0].properties.tipo_visita) * 60 : parseFloat(itemSecond.features[0].properties.tempo_visita_rapida) * 60;
+                    if (seconds >= 3600) {
+                        const coord = itemSecond.features[0].geometry.coordinates;
+                        actual.setHours(actual.getHours() + 1);
+                        const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
+                        const dataString = formatDate(actual);
+                        const calidadeObject = {
+                            text: calidade,
+                            date: dataString
+                        }
+                        calidadeArray.push(calidadeObject);
+                        seconds = seconds - 3600;
+                    }
+                }
+            }
+            if (mounted) {
+                setCalidadeAire(calidadeArray);
+            }
+
+        } catch (err) {
+            console.error(err);
+            showMessage({
+                message: 'Non se puido obter a información da calidade do aire',
+                type: "danger",
+                position: "bottom",
+                icon: "danger"
+            });
+        }
+    }
+
+    useEffect(() => {
+        let mounted = true;
+
+        const getData = async () => {
+            await onGetDataCalidadeAire(mounted);
+        }
+
+        if (turismoItems.items.length > 1) {
+            getData();
+        }
+
+        return () => {
+            mounted = false;
+        }
+    }, [route.routeJson]);
 
     const addItem = (item) => {
 
@@ -340,7 +444,7 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const changeTipoVisita = (id, tipoVisita, tipo) => {
+    const changeTipoVisita = async (id, tipoVisita, tipo) => {
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
             if (`${e.features[0].properties.id}` == id && e.features[0].properties.tipo == tipo) {
@@ -348,6 +452,7 @@ const AppContextProvider = (props) => {
                 break;
             }
         }
+        await onGetDataCalidadeAire(true);
         setPlanificacion(undefined);
     }
 
@@ -484,6 +589,7 @@ const AppContextProvider = (props) => {
         existItem: existItem,
         coordinates: coordinates,
         turismoItems: turismoItems.items,
+        calidadeAire: calidadeAire,
         actualizaTempoVisita: actualizaTempoVisita,
         tempoVisita: tempoVisita,
         updateItems: updateItems,
@@ -503,7 +609,8 @@ const AppContextProvider = (props) => {
         planificacion: planificacion,
         resetPlanificacion: resetPlanificacion,
         updatePlanificacion: updatePlanificacion,
-        changeTipoVisita: changeTipoVisita
+        changeTipoVisita: changeTipoVisita,
+        refreshCalidadeAire: onGetDataCalidadeAire
     }
 
     return (

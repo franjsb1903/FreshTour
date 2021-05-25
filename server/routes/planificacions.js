@@ -131,7 +131,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         var indexOcio = 0;
         if (valuesOcio.length > 0) {
             await Promise.all(valuesOcioWithArrays.map(e => {
-                if ((indexHosta / 4) < (valuesOcioWithArrays.length) - 1) {
+                if ((indexOcio / 4) < (valuesOcioWithArrays.length) - 1) {
                     ocio = ocio + "($" + (indexOcio + 1) + ", $" + (indexOcio + 2) + ", $" + (indexOcio + 3) + ", $" + (indexOcio + 4) + "), ";
                 } else {
                     ocio = ocio + "($" + (indexOcio + 1) + ", $" + (indexOcio + 2) + ", $" + (indexOcio + 3) + ", $" + (indexOcio + 4) + ")";
@@ -153,21 +153,27 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             }));
         }
 
+        console.log('lugares', lugares);
         if (valuesLugares.length > 0) {
             await client.query(lugares, valuesLugares);
         }
+        console.log('monumentos', monumentos)
         if (valuesMonumentos.length > 0) {
             await client.query(monumentos, valuesMonumentos);
         }
+        console.log('hospedaxe', hospedaxes);
         if (valuesHospedaxe.length > 0) {
             await client.query(hospedaxes, valuesHospedaxe);
         }
+        console.log('hostalaria', hostalaria);
         if (valuesHostalaria.length > 0) {
             await client.query(hostalaria, valuesHostalaria);
         }
+        console.log('ocio', ocio);
         if (valuesOcio.length > 0) {
             await client.query(ocio, valuesOcio);
         }
+        console.log('outras', outras);
         if (valuesOutras.length > 0) {
             await client.query(outras, valuesOutras);
         }

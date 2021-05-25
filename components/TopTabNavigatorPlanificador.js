@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import DatosRuta from '../screens/Common/DatosRuta';
 import Instrucions from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/Instrucions';
 import Planificacion from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/Planificacion'
+import CalidadeAire from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/CalidadeAire'
 
 import properties from '../properties/properties_expo';
 import { stylesTopNavigator as styles } from '../styles/styles'
@@ -44,6 +45,13 @@ const TopTabNavigator = (props) => {
                     options={{
                         tabBarLabel: 'Instrucions'
                     }} />
+                <Tab.Screen 
+                    name="CalidadeAire"
+                    children={() => <CalidadeAire />}
+                    options={{
+                        tabBarLabel: 'Calidade do aire'
+                    }}
+                />
             </Tab.Navigator>
         </>
     )

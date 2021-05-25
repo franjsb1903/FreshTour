@@ -118,6 +118,10 @@ const PlusIcon = () => (
     <MaterialIcons name="add-circle" size={30} />
 );
 
+const RefreshIcon = () => (
+    <Icon name="refresh" size={30} />
+);
+
 export const BinIcon = () => (
     <Icon name="trash-bin" size={30} color={properties.style.color.iconColor} />
 )
@@ -568,6 +572,22 @@ export const PlusIconButton = (props) => {
     return (
         <IconButton
             icon={PlusIcon}
+            onPress={() => {
+                _onPress();
+            }}
+            style={styles}
+        />
+    );
+}
+
+export const RefreshIconButton = (props) => {
+
+    const _onPress = props._onPress;
+    const styles = props.styles;
+
+    return (
+        <IconButton
+            icon={RefreshIcon}
             onPress={() => {
                 _onPress();
             }}
