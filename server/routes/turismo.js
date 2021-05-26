@@ -34,6 +34,66 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
     }
 });
 
+router.get('/lugar/:id', verify.verifyTokenWithoutReturn, function (req, res) {
+
+    try {
+
+        const userId = req.userId;
+        const query = sql.elementos.lugar;
+        const { id } = req.params;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+        values.push(id);
+
+        pool.query(query, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+                return;
+            }
+            res.status(200).json({
+                elemento: results.rows[0],
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+    }
+});
+
+router.get('/monumento/:id', verify.verifyTokenWithoutReturn, function (req, res) {
+
+    try {
+
+        const userId = req.userId;
+        const query = sql.elementos.monumento;
+        const { id } = req.params;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+        values.push(id);
+
+        pool.query(query, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+                return;
+            }
+            res.status(200).json({
+                elemento: results.rows[0],
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os puntos de interese", err, res);
+    }
+});
+
 router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
     try {
         const userId = req.userId;

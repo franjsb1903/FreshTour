@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { stylesScroll } from '../../../../styles/styles';
-import { RefreshIconButton } from '../../../../components/CustomIcons';
+import { stylesScroll, customTouchableOpacity } from '../../../../styles/styles';
+import { RefreshIcon } from '../../../../components/CustomIcons';
+import Semaforo from '../../../../components/Semaforo';
+import { stylesTurismoList } from '../../../../styles/styles';
+import ProgressBar from '../../../../components/ProgressBar'
 
 import AppContext from '../../../../context/PlanificadorAppContext';
 
 const CalidadeAire = () => {
 
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const context = useContext(AppContext);
 
@@ -22,27 +26,37 @@ const CalidadeAire = () => {
     }, [context.calidadeAire]);
 
     return (
-        <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
-            <RefreshIconButton _onPress={async () => {
-                await context.refreshCalidadeAire(true);
-            }} />
-            {
-                data.map((calidade, index) => {
-                    return (
-                        <View style={styles.view} key={index}>
-
-                            {
-                                index == 0 ?
-                                    <Text style={styles.title}>Calidade do aire {calidade.date}</Text>
-                                    :
-                                    <Text style={styles.title}>Calidade do aire ás {calidade.date}</Text>
-                            }
-                            <Text>{calidade.text.split("NODATA_VALUE")[1].split("\n")[1]}</Text>
-                        </View>
-                    )
-                })
-            }
-        </ScrollView>
+        loading ?
+            <View style={stylesTurismoList.container}>
+                <ProgressBar />
+            </View>
+            :
+            <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>
+                <View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                    <TouchableOpacity style={customTouchableOpacity.buttonContainerSmaller} onPress={async () => {
+                        setLoading(true);
+                        await context.refreshCalidadeAire(true);
+                        setLoading(false);
+                    }}>
+                        <RefreshIcon />
+                    </TouchableOpacity>
+                </View>
+                {
+                    data.map((calidade, index) => {
+                        return (
+                            <View style={styles.view} key={index}>
+                                {
+                                    index == 0 ?
+                                        <Text style={styles.title}>Calidade do aire {calidade.date}</Text>
+                                        :
+                                        <Text style={styles.title}>Calidade do aire ás {calidade.date}</Text>
+                                }
+                                <Semaforo type={"no2"} value={calidade.text.split("NODATA_VALUE")[1].split("\n")[1]} size={60} />
+                            </View>
+                        )
+                    })
+                }
+            </ScrollView>
     );
 }
 
@@ -55,7 +69,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: "bold",
-        fontStyle: "italic"
+        fontStyle: "italic",
+        textAlign: "center"
     }
 });
 

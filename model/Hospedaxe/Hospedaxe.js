@@ -11,6 +11,15 @@ export const getAll = async (signal, token) => {
     }
 }
 
+export const getConcreto = async (id, token) => {
+    try {
+        const json = await Hospedaxe.getConcreto(id, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getByName = async (token, name) => {
     try {
         const json = await Hospedaxe.getByName(token, name);

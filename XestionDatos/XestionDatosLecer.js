@@ -24,6 +24,24 @@ class XestionDatosHostalaria {
         }
     }
 
+    async getHostalariaConcreto(id, token) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.concreto + "/" + id;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.concreto + "/" + id;
+        }
+
+        try {
+            const json = fetchJsonGet(url, token, signal);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
     async getByNameHostalaria(token, name) {
 
         var url = await AsyncStorage.getItem('url');
@@ -206,6 +224,24 @@ class XestionDatosHostalaria {
             url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
         } else {
             url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
+        }
+
+        try {
+            const json = fetchJsonGet(url, token, signal);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getOcioConcreto(id, token) {
+        
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.concreto + '/' + id;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.concreto + '/' + id;
         }
 
         try {
@@ -410,6 +446,23 @@ class XestionDatosHostalaria {
             url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
         } else {
             url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
+        }
+
+        try {
+            const json = fetchJsonGet(url, token, signal);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async getOutrasConcreto(id, token) {
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.concreto + '/' + id;
+        } else {
+            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.concreto + '/' + id;
         }
 
         try {

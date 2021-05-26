@@ -22,7 +22,9 @@ const properties = {
         turismo: {
             turismo: "/turismo",                        // /turismo/, /turismo/:name
             sortBy: "/sortBy/",                           // /turismo/sortBy/:type
-            fav: "/fav"
+            fav: "/fav",
+            lugar: "/lugar",
+            monumento: "/monumento"
         },
         geoserver: {
             url: "http://192.168.1.72:8080/geoserver",
@@ -62,7 +64,8 @@ const properties = {
             main: '/hospedaxe',
             all: '/',
             filter: '/filter/',          // /filter/:type
-            fav: '/fav'
+            fav: '/fav',
+            concreto: '/concreto'
         },
         lecer: {
             main: "/lecer",
@@ -71,21 +74,24 @@ const properties = {
                 all: '/',
                 byName: '/',
                 fav: '/fav',
-                filter: '/filter/'
+                filter: '/filter/',
+                concreto: '/concreto'
             },
             ocio: {
                 main: '/ocio',
                 all: '/',
                 byName: '/',
                 fav: '/fav',
-                filter: '/filter/'
+                filter: '/filter/',
+                concreto: 'concreto'
             },
             outras: {
                 main: '/outras',
                 all: '/',
                 byName: '/',
                 fav: '/fav',
-                filter: '/filter/'
+                filter: '/filter/',
+                concreto: '/concreto'
             }
         }
     },
@@ -240,6 +246,16 @@ const properties = {
     },
     openstreetmap: {
         edit: "https://www.openstreetmap.org/edit#map=18/42.88816/-8.53012"
+    },
+    calidade: {
+        no2: {
+            vermello: 200,
+            verde: 150
+        },
+        o3: {
+            vermello: 120,
+            verde: 100
+        }
     }
 }
 

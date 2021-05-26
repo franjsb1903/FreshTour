@@ -36,6 +36,38 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        const { id } = req.params;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+        values.push(id);
+
+        pool.query(sql.hospedaxe.concreto, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hospedaxe", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
+            });
+            res.status(200).json({
+                elemento: results.rows[0],
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hospedaxe", err, res);
+    }
+});
+
 router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {

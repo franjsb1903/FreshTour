@@ -5,15 +5,18 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { stylesScroll } from '../../styles/styles';
 import CardElement from '../../components/CardElementInfo'
 import ProgressBar from '../../components/ProgressBar';
+import Semaforo from '../../components/Semaforo';
 
-import { getCovidData, getTempoData } from '../../model/Info/Info'
+import { getCovidData, getTempoData } from '../../model/Info/Info';
+import { getRealTimeData as getRealTimeDataCalidade } from '../../model/CalidadeAire/CalidadeAire';
 import { stylesTurismoList as progress } from '../../styles/styles'
 
 const Info = () => {
 
     const [data, setData] = useState({
         covid: {},
-        tempo: {}
+        tempo: {},
+        calidade: {}
     })
     const [loading, setLoading] = useState(false);
 
@@ -38,10 +41,12 @@ const Info = () => {
                 }
                 const covidData = await getCovidData(signal);
                 const tempoData = await getTempoData(signal);
+                const calidadeData = await getRealTimeDataCalidade(signal);
                 if (mounted) {
                     setData({
                         covid: covidData,
-                        tempo: tempoData
+                        tempo: tempoData,
+                        calidade: calidadeData
                     });
                 }
                 if (mounted) {
@@ -108,6 +113,25 @@ const Info = () => {
         )
     }
 
+    const DataCalidadeCard = () => {
+
+        return (
+            data.calidade ?
+                <View style={[styles.row, {flex: 1}]}>
+                    <View style={styles.column}>
+                        <Text style={styles.title}>NO2</Text>
+                        <Semaforo type={"no2"} value={data.calidade.no2} size={30} />
+                    </View>
+                    <View style={styles.column}>
+                        <Text style={styles.title}>O3</Text>
+                        <Semaforo type={"o3"} value={data.calidade.o3} size={30} />
+                    </View>
+                </View>
+                :
+                <></>
+        )
+    };
+
     const cardsData = [
         {
             id: 1,
@@ -129,6 +153,15 @@ const Info = () => {
         },
         {
             id: 3,
+            label: "CALIDADE DO AIRE",
+            data: data.calidade,
+            CardData: DataCalidadeCard,
+            onPress: () => navigation.navigate("CalidadeAireScreen", {
+                data: data.calidade
+            })
+        },
+        {
+            id: 4,
             label: "CONSELLOS DA VIAXE",
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
@@ -137,7 +170,7 @@ const Info = () => {
             })
         },
         {
-            id: 4,
+            id: 5,
             label: "SOBRE NÓS",
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
@@ -146,7 +179,7 @@ const Info = () => {
             })
         },
         {
-            id: 5,
+            id: 6,
             label: "CONTACTO",
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {

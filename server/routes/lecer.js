@@ -38,6 +38,37 @@ router.get('/hostalaria', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+        values.push(id);
+
+        pool.query(sql.lecer.hostalaria.concreto, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.hostalaria(element.sub_tag);
+            });
+            res.status(200).json({
+                elemento: results.rows[0],
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+    }
+});
+
 router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -340,6 +371,38 @@ router.get('/ocio', verify.verifyTokenWithoutReturn, (req, res) => {
         }
 
         pool.query(sql.lecer.ocio.valoracion, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.ocio(element.sub_tag);
+            });
+            res.status(200).json({
+                lecer: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+    }
+});
+
+router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        const { id } = req.params;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+        values.push(id);
+
+        pool.query(sql.lecer.ocio.concreto, values, (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
                 return;
@@ -723,6 +786,38 @@ router.get('/outras', verify.verifyTokenWithoutReturn, (req, res) => {
         }
 
         pool.query(sql.lecer.outras.valoracion, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.outras(element.sub_tag);
+            });
+            res.status(200).json({
+                lecer: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+    }
+});
+
+router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        const { id } = req.params;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+        values.push(id);
+
+        pool.query(sql.lecer.outras.concreto, values, (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
                 return;

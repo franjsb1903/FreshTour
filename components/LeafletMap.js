@@ -1,16 +1,24 @@
-import React from 'react';
-import { Platform, View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useContext } from 'react';
+import { Platform } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { WebView as WebViewWeb } from 'react-native-web-webview';
 import { showMessage } from "react-native-flash-message";
 import ActionSheet from "react-native-actions-sheet";
-
+import { useNavigation } from '@react-navigation/native';
 import leaflet_map from '../leaflet/leaflet.js';
 import * as Location from 'expo-location';
 
+import AppContext from '../context/PlanificadorAppContext';
+
+import { getLugar, getMonumento } from '../model/Turismo/Turismo';
+import { getConcreto as getHospedaxe } from '../model/Hospedaxe/Hospedaxe';
+import { getHostalariaConcreto, getOcioConcreto, getOutrasConcreto } from '../model/Lecer/Lecer';
+import { getToken } from '../Util/TokenUtil';
 import ActionSheetContent from './ActionSheetContent';
 
 const LeafletMap = (props) => {
+
+  const context = useContext(AppContext);
 
   const getLocation = async () => {
     let { status } = await Location.requestPermissionsAsync();
@@ -49,7 +57,7 @@ const LeafletMap = (props) => {
   }
 
   let injectedData = `addLayer(${props.selected})`
-
+  const navigation = useNavigation();
   return (
     Platform.OS != "web" ?
       <>
@@ -62,7 +70,75 @@ const LeafletMap = (props) => {
           injectedJavaScript={injectedData}
           onMessage={async e => {
             const message = e.nativeEvent.data;
-            await doActionMessage(message);
+            console.log(message);
+            if (message.split(':').length == 3) {
+              const data = message.split(':');
+              const token = await getToken();
+              switch (data[2]) {
+                case "Lugar turístico":
+                  const lugar = await getLugar(token, data[1]);
+                  if (response.status != 200) {
+                    return;
+                  }
+                  navigation.navigate('Turism', {
+                    elemento: lugar.elemento,
+                    updateItem: context.updateGeoMap
+                  })
+                  break;
+                case "Monumento":
+                  const monumento = await getMonumento(token, data[1]);
+                  if (response.status != 200) {
+                    return;
+                  }
+                  navigation.navigate('Turism', {
+                    elemento: monumento.elemento,
+                    updateItem: context.updateGeoMap
+                  })
+                  break;
+                case "Hospedaxe":
+                  const hospedaxe = await getHospedaxe(data[1], token);
+                  if (response.status != 200) {
+                    return;
+                  }
+                  navigation.navigate('Turism', {
+                    elemento: hospedaxe.elemento,
+                    updateItem: context.updateGeoMap
+                  })
+                  break;
+                case "Hostalaría":
+                  const hostalaria = await getHostalariaConcreto(data[1], token);
+                  if (response.status != 200) {
+                    return;
+                  }
+                  navigation.navigate('Turism', {
+                    elemento: hostalaria.elemento,
+                    updateItem: context.updateGeoMap
+                  })
+                  break;
+                case "Ocio":
+                  const ocio = await getOcioConcreto(data[1], token);
+                  if (response.status != 200) {
+                    return;
+                  }
+                  navigation.navigate('Turism', {
+                    elemento: ocio.elemento,
+                    updateItem: context.updateGeoMap
+                  })
+                  break;
+                case "Outra":
+                  const outra = await getOutrasConcreto(data[1], token);
+                  if (response.status != 200) {
+                    return;
+                  }
+                  navigation.navigate('Turism', {
+                    elemento: outra.elemento,
+                    updateItem: context.updateGeoMap
+                  })
+                  break;
+              }
+            } else {
+              await doActionMessage(message);
+            }
           }}
           androidHardwareAccelerationDisabled
         />

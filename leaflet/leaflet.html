@@ -31,6 +31,7 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         .leaflet-bar button,
@@ -102,22 +103,6 @@
         #myMap {
             height: 100%;
             width: 100%;
-        }
-
-        .leaflet-locate {
-            background-image: url(${locate});
-        }
-
-        .leaflet-center {
-            background-image: url(${center});
-        }
-
-        .leaflet-menu {
-            background-image: url(${menu});
-        }
-
-        .leaflet-clear {
-            background-image: url(${clear});
         }
 
         html,
@@ -573,8 +558,6 @@
 
 <body>
 
-
-
     <div id="myMap"></div>
     <script>
 
@@ -615,6 +598,16 @@
 
         var geojson = undefined;
 
+        const moreInfo = (feature) => {
+            alert(feature);
+        }
+
+        var objeto = {
+            hola: "hola"
+        }
+        var marker = L.marker([42.88077700031269, -8.544673389662318]).addTo(myMap);
+        marker.bindPopup("<div><p>hola</p></div><div><button type='button' class='btn btn-success' onclick='moreInfo('objeto')'>+ info</button></div>").openPopup();
+
         function addLayer(data, tipo) {
             if (geojson != undefined) {
                 myMap.removeLayer(geojson);
@@ -623,13 +616,14 @@
             geojson = L.geoJson(data, {
                 onEachFeature: function (feature, layer) {
                     if (feature.properties.display_name === undefined && feature.properties.titulo !== null) {
-                        layer.bindPopup('<p>' + feature.properties.titulo + '</p>');
+                        layer.bindPopup("<div><p>" + feature.properties.titulo + "</p></div><div><button type='button' class='btn btn-success' onclick='moreInfo("+feature+")'>+ info</button></div>");
                     } else if (feature.properties.display_name !== undefined) {
-                        layer.bindPopup('<p>' + feature.properties.display_name + '</p>');
+                        layer.bindPopup('<p>' + feature.properties.display_name + '</p><div> <button type="button" class="btn btn-success" onclick="moreInfo("\'+feature.properties.tipo+\'", "\'+feature.properties.id+\'")">+ info</button></div>');
                     } else {
-                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p>');
+                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p><div> <button type="button" class="btn btn-success" onclick="moreInfo("\"+feature.properties.tipo+\"", "\"+feature.properties.id+\"")">+ info</button></div>');
                     }
                     setIcon(layer, feature.properties.sub_tag);
+                    myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
                     layer.on('click', function (e) {
                         myMap.setView(e.latlng);
                     });
@@ -651,80 +645,6 @@
             route = L.geoJson(data).addTo(myMap);
         }
 
-        var options = {
-            position: 'topright', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
-            drawMarker: false, // adds button to draw markers
-            drawPolyline: false, // adds button to draw a polyline
-            drawRectangle: false, // adds button to draw a rectangle
-            drawPolygon: false, // adds button to draw a polygon
-            drawCircle: false, // adds button to draw a cricle
-            cutPolygon: false, // adds button to cut a hole in a polygon
-            editMode: false, // adds button to toggle edit mode for all layers
-            removalMode: true, // adds a button to remove layers
-            drawCircleMarker: false,
-            dragMode: false
-        };
-
-        // add leaflet.pm controls to the map
-        myMap.pm.addControls(options);
-
-        myMap.pm.setLang('es');
-
-        var locateControl = {
-            name: "Locate",
-            block: "custom",
-            title: "Localizar posicion actual",
-            onClick: function () {
-                window.ReactNativeWebView.postMessage("location");
-            },
-            toggle: false,
-            className: "leaflet-locate"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(locateControl);
-
-        var centerControl = {
-            name: "Center",
-            block: "custom",
-            title: "Centrar vista",
-            onClick: function () {
-                myMap.setView([42.88078486209454, -8.544641203634002], 13);
-            },
-            toggle: false,
-            className: "leaflet-center"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(centerControl);
-
-        var menuControl = {
-            name: "Menu",
-            block: "custom",
-            title: "Menú",
-            onClick: function () {
-                window.ReactNativeWebView.postMessage("menu");
-            },
-            toggle: false,
-            className: "leaflet-menu"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(menuControl);
-
-        var clearControl = {
-            name: "Clear",
-            block: "custom",
-            title: "Limpar",
-            onClick: function () {
-                if (geojson != undefined) {
-                    myMap.removeLayer(geojson);
-                    geojson = undefined;
-                }
-            },
-            toggle: false,
-            className: "leaflet-clear"
-        }
-
-        myMap.pm.Toolbar.createCustomControl(clearControl);
-
         function addMarker(lat, lang) {
             L.marker([lat, lang], {
                 icon: userMarker
@@ -732,17 +652,23 @@
             myMap.setView([lat, lang], 13);
         }
 
-        var helloPopup = L.popup().setContent('Hello World!');
+        L.easyButton('fa-location-arrow', function(btn, map){
+            window.ReactNativeWebView.postMessage("location");
+        }).addTo(myMap);
 
-        L.easyButton({
-            states: [{
-                stateName: 'zoom-to-forest',        // name the state
-                icon: 'fa-tree',               // and define its properties
-                title: 'zoom to a forest',      // like its title
-                onClick: function (btn, map) {       // and its callback
-                    map.setView([46.25, -121.8], 10);
-                }
-            }]
+        L.easyButton('fa-compress-arrows-alt', function(btn, map){
+            map.setView([42.88078486209454, -8.544641203634002], 13);
+        }).addTo(myMap);
+
+        L.easyButton('fa-trash', function(btn, map){
+            if (geojson != undefined) {
+                myMap.removeLayer(geojson);
+                geojson = undefined;
+            }
+        }).addTo(myMap);
+
+        L.easyButton('fa-caret-square-up', function(btn, map){
+            window.ReactNativeWebView.postMessage("menu");
         }).addTo(myMap);
 
         var marker = undefined;

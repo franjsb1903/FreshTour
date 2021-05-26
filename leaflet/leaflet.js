@@ -33,6 +33,7 @@ const leaflet = `
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         .leaflet-bar button,
@@ -559,8 +560,6 @@ const leaflet = `
 
 <body>
 
-
-
     <div id="myMap"></div>
     <script>
 
@@ -601,6 +600,10 @@ const leaflet = `
 
         var geojson = undefined;
 
+        const moreInfo = (feature) => {
+            window.ReactNativeWebView.postMessage("info");
+        }
+
         function addLayer(data, tipo) {
             if (geojson != undefined) {
                 myMap.removeLayer(geojson);
@@ -609,11 +612,11 @@ const leaflet = `
             geojson = L.geoJson(data, {
                 onEachFeature: function (feature, layer) {
                     if (feature.properties.display_name === undefined && feature.properties.titulo !== null) {
-                        layer.bindPopup('<p>' + feature.properties.titulo + '</p>');
+                        layer.bindPopup("<div><p>" + feature.properties.titulo + "</p></div><div><button type='button' class='btn btn-success' onclick='moreInfo("+feature+")'>+ info</button></div>");
                     } else if (feature.properties.display_name !== undefined) {
-                        layer.bindPopup('<p>' + feature.properties.display_name + '</p>');
+                        layer.bindPopup('<p>' + feature.properties.display_name + '</p><div> <button type="button" class="btn btn-success" onclick="moreInfo("\'+feature.properties.tipo+\'", "\'+feature.properties.id+\'")">+ info</button></div>');
                     } else {
-                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p>');
+                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p><div> <button type="button" class="btn btn-success" onclick="moreInfo("\"+feature.properties.tipo+\"", "\"+feature.properties.id+\"")">+ info</button></div>');
                     }
                     setIcon(layer, feature.properties.sub_tag);
                     myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);

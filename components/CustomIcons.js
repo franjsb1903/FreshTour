@@ -118,8 +118,8 @@ const PlusIcon = () => (
     <MaterialIcons name="add-circle" size={30} />
 );
 
-const RefreshIcon = () => (
-    <Icon name="refresh" size={30} />
+export const RefreshIcon = () => (
+    <Icon name="refresh" size={40} color={"#fff"} />
 );
 
 export const BinIcon = () => (
@@ -163,6 +163,36 @@ export const CommentIcon = (props) => {
         <Icon name="chatbubble" size={30} style={style} />
     )
 }
+
+export const HappyIcon = (props) => {
+
+    const size = props.size;
+    const styles = props.styles;
+
+    return (
+        <MaterialIcons name="mood" size={size} color={"green"} style={styles} />
+    )
+};
+
+export const MediumHappyIcon = (props) => {
+
+    const size = props.size;
+    const styles = props.styles;
+
+    return (
+        <MaterialIcons name="sentiment-neutral" size={size} color={"yellow"} style={styles} />
+    )
+};
+
+export const SadIcon = (props) => {
+
+    const size = props.size;
+    const styles = props.styles;
+
+    return (
+        <MaterialIcons name="mood-bad" size={size} color={"red"} style={styles} />
+    )
+};
 
 export const ChevronRightIcon = (props) => {
 

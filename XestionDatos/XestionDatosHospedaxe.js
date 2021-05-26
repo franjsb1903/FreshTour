@@ -22,6 +22,24 @@ class XestionDatosHospedaxe {
         }
     }
 
+    async getConcreto(id, token) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if(!url) {
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.concreto + '/' + id;
+        } else {
+            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.concreto + '/' + id;
+        }
+
+        try {
+            const json = fetchJsonGet(url, token, signal);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
     async getByName(token, name) {
 
         var url = await AsyncStorage.getItem('url');

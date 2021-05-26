@@ -498,6 +498,13 @@ export const customTouchableOpacity = {
         paddingVertical: 10,
         paddingHorizontal: 12
     },
+    buttonContainerSmaller: {
+        elevation: 0,
+        backgroundColor: properties.style.color.button,
+        borderRadius: 10,
+        paddingVertical: 3,
+        paddingHorizontal: 4
+    },
     buttonText: {
         fontSize: 25,
         color: "#fff",

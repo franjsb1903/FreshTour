@@ -22,6 +22,42 @@ class XestionDatosTurismo {
 
     }
 
+    async getLugar(token, id) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.lugar + "/" + id;
+        else {
+            url = url + properties.url.turismo.turismo;
+        }
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+
+    }
+
+    async getMonumento(token, id) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.monumento + "/" + id;
+        else {
+            url = url + properties.url.turismo.turismo + properties.url.turismo.monumento + "/" + id;
+        }
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+
+    }
+
     async getElementData(name, token) {
 
         var url = await AsyncStorage.getItem('url');

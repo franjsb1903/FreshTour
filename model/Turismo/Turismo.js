@@ -11,6 +11,24 @@ export const getData = async (token, signal) => {
     }
 }
 
+export const getLugar = async (token, id) => {
+    try {
+        var data = await Turismo.getLugar(token, id);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getMonumento = async (token, id) => {
+    try {
+        var data = await Turismo.getMonumento(token, id);
+        return data;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getElement = async (name, token) => {
     try {
         var data = await Turismo.getElementData(name, token);

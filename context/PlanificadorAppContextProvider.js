@@ -145,7 +145,7 @@ const AppContextProvider = (props) => {
             const calidade = await getCalidadeAireData(first.features[0].geometry.coordinates[1], first.features[0].geometry.coordinates[0], actual.toISOString());
             const calidadeObject = {
                 text: calidade,
-                date: "actual"
+                date: "actual (inicio da ruta)"
             }
             calidadeArray.push(calidadeObject);
 
@@ -160,7 +160,7 @@ const AppContextProvider = (props) => {
                         const coord = itemFirst.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
                         const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
-                        const dataString = formatDate(actual);
+                        const dataString = formatDate(actual) + " en " + itemFirst.features[0].properties.titulo;
                         const calidadeObject = {
                             text: calidade,
                             date: dataString
@@ -176,7 +176,7 @@ const AppContextProvider = (props) => {
                             const coord = route.routeJson.features[0].geometry.coordinates[step.way_points[0]];
                             actual.setHours(actual.getHours() + 1);
                             const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
-                            const dataString = formatDate(actual);
+                            const dataString = formatDate(actual) + " en ruta de " + itemFirst.features[0].properties.titulo + " a " + itemSecond.features[0].properties.titulo;
                             const calidadeObject = {
                                 text: calidade,
                                 date: dataString
@@ -190,7 +190,7 @@ const AppContextProvider = (props) => {
                         const coord = itemSecond.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
                         const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
-                        const dataString = formatDate(actual);
+                        const dataString = formatDate(actual) + " en " + itemSecond.features[0].properties.titulo;
                         const calidadeObject = {
                             text: calidade,
                             date: dataString

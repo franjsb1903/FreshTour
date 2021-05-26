@@ -13,6 +13,15 @@ export const getAllHostalaria = async (signal, token) => {
     }
 }
 
+export const getHostalariaConcreto = async (id, token) => {
+    try {
+        const json = await Lecer.getHostalariaConcreto(id, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export const getByNameHostalaria = async (token, name) => {
     try {
         const json = await Lecer.getByNameHostalaria(token, name);
@@ -99,6 +108,15 @@ export const quitFavHostalaria = async (token, id_lugar_hostalaria) => {
 export const getAllOcio = async (signal, token) => {
     try {
         const json = await Lecer.getAllOcio(signal, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getOcioConcreto = async (id, token) => {
+    try {
+        const json = await Lecer.getOcioConcreto(id, token);
         return json;
     } catch (err) {
         throw new Error(err);
@@ -200,6 +218,15 @@ export const quitFavOcio = async (token, id_actividade_ocio) => {
 export const getAllOutras = async (signal, token) => {
     try {
         const json = await Lecer.getAllOutras(signal, token);
+        return json;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export const getOutrasConcreto = async (id, token) => {
+    try {
+        const json = await Lecer.getOutrasConcreto(id, token);
         return json;
     } catch (err) {
         throw new Error(err);

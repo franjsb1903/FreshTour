@@ -17,6 +17,7 @@ import RutasRecomendadasList from '../screens/PlanificadorTemporal/Rutas/RutasRe
 import EditarUsuario from '../screens/Usuarios/Editar/Editar';
 import InfoCommon from '../screens/Info/Screens/Common';
 import CovidScreen from '../screens/Info/Screens/CovidScreen';
+import CalidadeAireScreen from '../screens/Info/Screens/CalidadeAireScreen';
 import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
 
 import { stylesApp as styles } from '../styles/styles';
@@ -207,6 +208,16 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "O TEMPO",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="CalidadeAireScreen"
+                component={CalidadeAireScreen}
+                options={{
+                    headerShown: true,
+                    title: "CALIDADE DO AIRE",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}
