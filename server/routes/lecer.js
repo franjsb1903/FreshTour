@@ -44,6 +44,7 @@ router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, re
 
         const userId = req.userId;
         var values = [];
+        const { id } = req.params;
         if (userId === undefined) {
             values.push(-1);
         } else {

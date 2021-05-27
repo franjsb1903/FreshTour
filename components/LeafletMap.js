@@ -7,7 +7,33 @@ import ActionSheet from "react-native-actions-sheet";
 import { useNavigation } from '@react-navigation/native';
 import leaflet_map from '../leaflet/leaflet.js';
 import * as Location from 'expo-location';
-
+import {
+  getAllHostalaria,
+  getGeoElementHostalaria,
+  filterSortHostalaria,
+  addFavHostalaria,
+  quitFavHostalaria,
+  getByNameHostalaria,
+  getFavByNameHostalaria,
+  favFilterSortHostalaria,
+  getAllOcio,
+  getGeoElementOcio,
+  filterSortOcio,
+  addFavOcio,
+  quitFavOcio,
+  getByNameOcio,
+  getFavByNameOcio,
+  favFilterSortOcio,
+  getAllOutras,
+  getGeoElementOutras,
+  filterSortOutras,
+  addFavOutras,
+  quitFavOutras,
+  getByNameOutras,
+  getFavByNameOutras,
+  favFilterSortOutras
+} from '../model/Lecer/Lecer';
+import properties from '../properties/properties_expo'
 import AppContext from '../context/PlanificadorAppContext';
 
 import { getLugar, getMonumento } from '../model/Turismo/Turismo';
@@ -73,11 +99,11 @@ const LeafletMap = (props) => {
             console.log(message);
             if (message.split(':').length == 3) {
               const data = message.split(':');
-              const token = await getToken();
+              const token = await getToken('id_token');
               switch (data[2]) {
-                case "Lugar turístico":
+                case "lugar":
                   const lugar = await getLugar(token, data[1]);
-                  if (response.status != 200) {
+                  if (lugar.status != 200) {
                     return;
                   }
                   navigation.navigate('Turism', {
@@ -85,9 +111,9 @@ const LeafletMap = (props) => {
                     updateItem: context.updateGeoMap
                   })
                   break;
-                case "Monumento":
+                case "monumento":
                   const monumento = await getMonumento(token, data[1]);
-                  if (response.status != 200) {
+                  if (monumento.status != 200) {
                     return;
                   }
                   navigation.navigate('Turism', {
@@ -95,45 +121,87 @@ const LeafletMap = (props) => {
                     updateItem: context.updateGeoMap
                   })
                   break;
-                case "Hospedaxe":
+                case "hospedaxe":
                   const hospedaxe = await getHospedaxe(data[1], token);
-                  if (response.status != 200) {
+                  if (hospedaxe.status != 200) {
                     return;
                   }
-                  navigation.navigate('Turism', {
-                    elemento: hospedaxe.elemento,
+                  navigation.navigate('HospedaxeList', {
+                    data: [hospedaxe.elemento],
                     updateItem: context.updateGeoMap
                   })
                   break;
-                case "Hostalaría":
+                case "hostalaria":
                   const hostalaria = await getHostalariaConcreto(data[1], token);
-                  if (response.status != 200) {
+                  if (hostalaria.status != 200) {
+                    showMessage({
+                      message: hostalaria.message,
+                      type: "danger",
+                      position: "bottom",
+                      icon: "danger"
+                    });
                     return;
                   }
-                  navigation.navigate('Turism', {
-                    elemento: hostalaria.elemento,
-                    updateItem: context.updateGeoMap
-                  })
+                  navigation.navigate('CommonLecerList', {
+                    data: [hostalaria.elemento],
+                    updateItem: context.updateGeoMap,
+                    model: {
+                        getAll: getAllHostalaria,
+                        getGeoElement: getGeoElementHostalaria,
+                        filterSort: filterSortHostalaria,
+                        addFav: addFavHostalaria,
+                        quitFav: quitFavHostalaria,
+                        getByName: getByNameHostalaria,
+                        getFavByName: getFavByNameHostalaria,
+                        favFilterSort: favFilterSortHostalaria
+                    },
+                    itemsDropDown: properties.dropdown.items.hostalaria,
+                    titulo: "Lugares de hostalaría favoritos"
+                })
                   break;
-                case "Ocio":
+                case "ocio":
                   const ocio = await getOcioConcreto(data[1], token);
-                  if (response.status != 200) {
+                  if (ocio.status != 200) {
                     return;
                   }
-                  navigation.navigate('Turism', {
-                    elemento: ocio.elemento,
-                    updateItem: context.updateGeoMap
-                  })
+                  navigation.navigate('CommonLecerList', {
+                    data: [ocio.elemento],
+                    updateItem: context.updateGeoMap,
+                    model: {
+                        getAll: getAllOcio,
+                        getGeoElement: getGeoElementOcio,
+                        filterSort: filterSortOcio,
+                        addFav: addFavOcio,
+                        quitFav: quitFavOcio,
+                        getByName: getByNameOcio,
+                        getFavByName: getFavByNameOcio,
+                        favFilterSort: favFilterSortOcio
+                    },
+                    itemsDropDown: properties.dropdown.items.ocio,
+                    titulo: "Actividades de ocio favoritas"
+                })
                   break;
-                case "Outra":
+                case "outra":
                   const outra = await getOutrasConcreto(data[1], token);
-                  if (response.status != 200) {
+                  if (outra.status != 200) {
                     return;
                   }
-                  navigation.navigate('Turism', {
-                    elemento: outra.elemento,
-                    updateItem: context.updateGeoMap
-                  })
+                  navigation.navigate("CommonLecerList", {
+                    data: [outra.elemento],
+                    updateItem: context.updateGeoMap,
+                    model: {
+                        getAll: getAllOutras,
+                        getGeoElement: getGeoElementOutras,
+                        filterSort: filterSortOutras,
+                        addFav: addFavOutras,
+                        quitFav: quitFavOutras,
+                        getByName: getByNameOutras,
+                        getFavByName: getFavByNameOutras,
+                        favFilterSort: favFilterSortOutras
+                    },
+                    itemsDropDown: properties.dropdown.items.outras,
+                    titulo: "Outras actividades"
+                })
                   break;
               }
             } else {

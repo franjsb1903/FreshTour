@@ -33,7 +33,7 @@ class XestionDatosHospedaxe {
         }
 
         try {
-            const json = fetchJsonGet(url, token, signal);
+            const json = fetchJsonGet(url, token);
             return json;
         } catch (err) {
             throw new Error(err);

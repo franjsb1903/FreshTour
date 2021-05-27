@@ -600,10 +600,6 @@ const leaflet = `
 
         var geojson = undefined;
 
-        const moreInfo = (feature) => {
-            window.ReactNativeWebView.postMessage("info");
-        }
-
         function addLayer(data, tipo) {
             if (geojson != undefined) {
                 myMap.removeLayer(geojson);
@@ -611,13 +607,58 @@ const leaflet = `
             }
             geojson = L.geoJson(data, {
                 onEachFeature: function (feature, layer) {
+                    var content = document.createElement("div");
+                    content.style.cssText = 'text-align: center';
                     if (feature.properties.display_name === undefined && feature.properties.titulo !== null) {
-                        layer.bindPopup("<div><p>" + feature.properties.titulo + "</p></div><div><button type='button' class='btn btn-success' onclick='moreInfo("+feature+")'>+ info</button></div>");
+                        const id = feature.properties.id;
+                        const tipo = feature.properties.tipo;
+                        if(tipo === "Lugar turístico") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoLugares('+id+')">+ info</button>';
+                        } else if(tipo === "Monumento") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoMonumentos('+id+')">+ info</button>'
+                        } else if(tipo === "Hospedaxe") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoHospedaxe('+id+')">+ info</button>'
+                        } else if(tipo === "Hostalaría") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoHostalaria('+id+')">+ info</button>'
+                        } else if(tipo === "Ocio") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
+                        } else if(tipo === "Outra") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                        }
                     } else if (feature.properties.display_name !== undefined) {
-                        layer.bindPopup('<p>' + feature.properties.display_name + '</p><div> <button type="button" class="btn btn-success" onclick="moreInfo("\'+feature.properties.tipo+\'", "\'+feature.properties.id+\'")">+ info</button></div>');
+                        const id = feature.properties.id;
+                        const tipo = feature.properties.tipo;
+                        if(tipo === "Lugar turístico") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoLugares('+id+')">+ info</button>';
+                        } else if(tipo === "Monumento") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoMonumentos('+id+')">+ info</button>'
+                        } else if(tipo === "Hospedaxe") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoHospedaxe('+id+')">+ info</button>'
+                        } else if(tipo === "Hostalaría") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoHostalaria('+id+')">+ info</button>'
+                        } else if(tipo === "Ocio") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
+                        } else if(tipo === "Outra") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                        }
                     } else {
-                        layer.bindPopup('<p>' + traductor(feature.properties.sub_tag) + '</p><div> <button type="button" class="btn btn-success" onclick="moreInfo("\"+feature.properties.tipo+\"", "\"+feature.properties.id+\"")">+ info</button></div>');
+                        const id = feature.properties.id;
+                        const tipo = feature.properties.tipo;
+                        if(tipo === "Lugar turístico") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoLugares('+id+')">+ info</button>';
+                        } else if(tipo === "Monumento") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoMonumentos('+id+')">+ info</button>'
+                        } else if(tipo === "Hospedaxe") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoHospedaxe('+id+')">+ info</button>'
+                        } else if(tipo === "Hostalaría") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoHostalaria('+id+')">+ info</button>'
+                        } else if(tipo === "Ocio") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
+                        } else if(tipo === "Outra") {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                        }
                     }
+                    layer.bindPopup(content);
                     setIcon(layer, feature.properties.sub_tag);
                     myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
                     layer.on('click', function (e) {
@@ -1385,6 +1426,30 @@ const leaflet = `
             number: '',
             svg: false
         });
+
+        const moreInfoLugares = (id) => {
+            window.ReactNativeWebView.postMessage("info:"+id+":lugar");
+        }
+
+        const moreInfoMonumentos = (id) => {
+            window.ReactNativeWebView.postMessage("info:"+id+":monumento");
+        }
+
+        const moreInfoHospedaxe = (id) => {
+            window.ReactNativeWebView.postMessage("info:"+id+":hospedaxe");
+        }
+
+        const moreInfoHostalaria = (id) => {
+            window.ReactNativeWebView.postMessage("info:"+id+":hostalaria");
+        }
+
+        const moreInfoOcio = (id) => {
+            window.ReactNativeWebView.postMessage("info:"+id+":ocio");
+        }
+
+        const moreInfoOutras = (id) => {
+            window.ReactNativeWebView.postMessage("info:"+id+":outra");
+        }
 
         function setIcon(layer, tipo) {
             switch (tipo) {
