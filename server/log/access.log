@@ -4310,3 +4310,14 @@
 192.168.1.104 - - [27/May/2021:12:36:05 +0000] "GET /lecer/hostalaria/concreto/488 HTTP/1.1" 200 131
 192.168.1.104 - - [27/May/2021:12:36:13 +0000] "GET /lecer/hostalaria/concreto/488 HTTP/1.1" 304 -
 192.168.1.104 - - [27/May/2021:12:36:14 +0000] "GET /opinions/Hostalar%C3%ADa/488 HTTP/1.1" 200 58
+192.168.1.104 - - [27/May/2021:18:07:05 +0000] "GET /planificacions HTTP/1.1" 200 1017
+192.168.1.104 - - [27/May/2021:18:07:14 +0000] "GET /planificacions HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:17:56 +0000] "GET /turismo/lugar/14 HTTP/1.1" 200 2236
+192.168.1.104 - - [27/May/2021:18:17:56 +0000] "GET /opinions/Lugar%20tur%C3%ADstico/14 HTTP/1.1" 200 178
+192.168.1.104 - - [27/May/2021:18:18:14 +0000] "GET /turismo/lugar/14 HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:18:15 +0000] "GET /opinions/Lugar%20tur%C3%ADstico/14 HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:19:11 +0000] "GET /turismo/lugar/14 HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:19:11 +0000] "GET /opinions/Lugar%20tur%C3%ADstico/14 HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:19:51 +0000] "GET /turismo/lugar/14 HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:19:51 +0000] "GET /opinions/Lugar%20tur%C3%ADstico/14 HTTP/1.1" 304 -
+192.168.1.104 - - [27/May/2021:18:19:51 +0000] "GET /turismo HTTP/1.1" 200 23458

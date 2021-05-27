@@ -17,6 +17,7 @@ import RutasRecomendadasList from '../screens/PlanificadorTemporal/Rutas/RutasRe
 import EditarUsuario from '../screens/Usuarios/Editar/Editar';
 import InfoCommon from '../screens/Info/Screens/Common';
 import CovidScreen from '../screens/Info/Screens/CovidScreen';
+import InfoCalidadeAire from '../screens/Info/Screens/InfoCalidadeAire';
 import CalidadeAireScreen from '../screens/Info/Screens/CalidadeAireScreen';
 import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
 
@@ -218,6 +219,16 @@ const MainStack = () => {
                 options={{
                     headerShown: true,
                     title: "CALIDADE DO AIRE",
+                    headerStyle: styles.headerStyle,
+                    headerTintColor: "#fff"
+                }}
+            />
+            <Stack.Screen
+                name="InfoCalidadeAire"
+                component={InfoCalidadeAire}
+                options={{
+                    headerShown: true,
+                    title: "INFORMACIÓN CALIDADE AIRE",
                     headerStyle: styles.headerStyle,
                     headerTintColor: "#fff"
                 }}

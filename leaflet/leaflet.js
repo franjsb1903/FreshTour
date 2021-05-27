@@ -659,7 +659,11 @@ const leaflet = `
                         }
                     }
                     layer.bindPopup(content);
-                    setIcon(layer, feature.properties.sub_tag);
+                    if(feature.properties.sub_tag) {
+                        setIcon(layer, feature.properties.sub_tag);
+                    } else {
+                        setIcon(layer, feature.properties.tipo);
+                    }
                     myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
                     layer.on('click', function (e) {
                         myMap.setView(e.latlng);
@@ -736,6 +740,30 @@ const leaflet = `
             markerColor: 'red',
             prefix: 'fa',
             icon: 'fa-user',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let monumentoMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'blue',
+            prefix: 'fa',
+            icon: 'fa-landmark',
+            iconColor: '#fff',
+            iconRotate: 0,
+            extraClasses: '',
+            number: '',
+            svg: false
+        });
+
+        let lugarMarker = L.ExtraMarkers.icon({
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            icon: 'fa-landmark',
             iconColor: '#fff',
             iconRotate: 0,
             extraClasses: '',
@@ -1453,6 +1481,12 @@ const leaflet = `
 
         function setIcon(layer, tipo) {
             switch (tipo) {
+                case "Lugar turístico":
+                    layer.setIcon(lugarMarker);
+                    break;
+                case "Monumento":
+                    layer.setIcon(monumentoMarker);
+                    break;
                 case "hotel":
                     layer.setIcon(hotelMarker);
                     break;

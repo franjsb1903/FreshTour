@@ -25,7 +25,7 @@ const Turism = (props) => {
     const [dropDownValue, setDropDownValue] = useState("valoracion");
 
     const data = props.route.params.data;
-    const elemento = props.route.params.elemento;
+    let elemento = props.route.params.elemento;
 
     React.useLayoutEffect(() => {
         let mounted = true;
@@ -102,6 +102,9 @@ const Turism = (props) => {
                 showOnMap: showOnMap,
                 onRefresh: onRefresh
             })
+            elemento = undefined;
+            if (mounted)
+                reload();
         } else if (!data) {
             if (mounted)
                 reload();

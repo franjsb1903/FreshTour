@@ -162,6 +162,12 @@ const Info = () => {
         },
         {
             id: 4,
+            label: "INFORMACIÓN CALIDADE AIRE",
+            data: [],
+            onPress: () => navigation.navigate("InfoCalidadeAire")
+        },
+        {
+            id: 5,
             label: "CONSELLOS DA VIAXE",
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
@@ -170,7 +176,7 @@ const Info = () => {
             })
         },
         {
-            id: 5,
+            id: 6,
             label: "SOBRE NÓS",
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
@@ -179,7 +185,7 @@ const Info = () => {
             })
         },
         {
-            id: 6,
+            id: 7,
             label: "CONTACTO",
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
