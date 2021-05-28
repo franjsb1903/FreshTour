@@ -96,7 +96,6 @@ const LeafletMap = (props) => {
           injectedJavaScript={injectedData}
           onMessage={async e => {
             const message = e.nativeEvent.data;
-            console.log(message);
             if (message.split(':').length == 3) {
               const data = message.split(':');
               const token = await getToken('id_token');

@@ -27,6 +27,7 @@ const getData = (query, res, format) => {
     });
 };
 
+// getSearch()
 router.get('/:search', (req, res) => {
     try {
         var { search } = req.params;
@@ -42,6 +43,7 @@ router.get('/:search', (req, res) => {
     }
 })
 
+// getSearchGeojson()
 router.get('/geojson/:search', (req, res) => {
     try {
         const { search } = req.params;

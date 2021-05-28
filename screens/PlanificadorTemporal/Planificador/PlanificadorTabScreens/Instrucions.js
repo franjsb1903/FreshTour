@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import AppContext from '../../../../context/PlanificadorAppContext';
 

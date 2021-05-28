@@ -11,6 +11,7 @@ const tag_traductor = require('../../lib/tag_traductor');
 
 var verify = require('../../lib/VerifyToken');
 
+// postRegister()
 router.post('/register', (req, res) => {
 
     const { usuario, nome, apelidos, email, contrasinal } = req.body;
@@ -100,6 +101,7 @@ router.post('/register', (req, res) => {
     });
 });
 
+// postLogin()
 router.post('/login', (req, res) => {
     const { usuario, contrasinal } = req.body;
 
@@ -245,6 +247,7 @@ router.post('/login', (req, res) => {
     })
 })
 
+// getMe()
 router.get('/me', verify.verifyToken, (req, res) => {
 
     const userId = req.userId;

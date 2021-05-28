@@ -6,6 +6,7 @@ const sql = require('../lib/sql');
 const helpers = require('../lib/helpers');
 const verify = require('../lib/VerifyToken');
 
+// get()
 router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -34,6 +35,7 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
     }
 });
 
+// getLugar()
 router.get('/lugar/:id', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -64,6 +66,7 @@ router.get('/lugar/:id', verify.verifyTokenWithoutReturn, function (req, res) {
     }
 });
 
+// getMonumento()
 router.get('/monumento/:id', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -94,6 +97,7 @@ router.get('/monumento/:id', verify.verifyTokenWithoutReturn, function (req, res
     }
 });
 
+// getByName()
 router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
     try {
         const userId = req.userId;
@@ -122,6 +126,7 @@ router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
     }
 });
 
+// getSortBy()
 router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -159,6 +164,7 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, function (req, res)
     }
 });
 
+// getFavSortBy()
 router.get('/fav/sortBy/:type', verify.verifyToken, function (req, res) {
 
     try {
@@ -196,6 +202,7 @@ router.get('/fav/sortBy/:type', verify.verifyToken, function (req, res) {
     }
 });
 
+// postFav()
 router.post('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -224,6 +231,7 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// deleteFav()
 router.delete('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -252,6 +260,7 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// getFav()
 router.get('/fav/', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
@@ -272,6 +281,7 @@ router.get('/fav/', verify.verifyToken, (req, res) => {
     }
 });
 
+// getFavByName()
 router.get('/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;

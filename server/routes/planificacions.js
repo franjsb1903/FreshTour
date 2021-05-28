@@ -7,6 +7,7 @@ const helpers = require('../lib/helpers');
 const sql = require('../lib/sql');
 const tag_traductor = require('../lib/tag_traductor');
 
+// postNew()
 router.post('/new', verify.verifyToken, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -192,6 +193,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
     }
 });
 
+// get()
 router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
@@ -221,6 +223,7 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 })
 
+// share()
 router.post('/share', verify.verifyToken, (req, res) => {
 
     try {
@@ -247,6 +250,7 @@ router.post('/share', verify.verifyToken, (req, res) => {
 
 });
 
+// elements()
 router.get('/elements/:id', (req, res) => {
 
     try {
@@ -309,6 +313,7 @@ router.get('/elements/:id', (req, res) => {
     }
 });
 
+// delete()
 router.delete('/', verify.verifyToken, async (req, res) => {
     try {
         const userId = req.userId;
@@ -400,6 +405,7 @@ router.delete('/', verify.verifyToken, async (req, res) => {
     }
 });
 
+// postEdit()
 router.post('/edit', verify.verifyToken, async (req, res) => {
     try {
 
@@ -434,6 +440,7 @@ router.post('/edit', verify.verifyToken, async (req, res) => {
     }
 });
 
+// getSortBy()
 router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
@@ -487,6 +494,7 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getFavSortBy()
 router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
@@ -540,6 +548,7 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
     }
 });
 
+// getByName()
 router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
@@ -571,6 +580,7 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// postFav()
 router.post('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -592,6 +602,7 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// deleteFav()
 router.delete('/fav', verify.verifyToken, (req, res) => {
 
     try {

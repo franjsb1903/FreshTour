@@ -23,6 +23,7 @@ app.use('/usuario', require('./routes/usuarios'));
 app.use('/planificacions', require('./routes/planificacions'));
 app.use('/hospedaxe', require('./routes/hospedaxe'));
 app.use('/lecer', require('./routes/lecer'));
+app.use('/legal', require('./routes/legal'));
 
 const hostname = "192.168.1.72";
 

@@ -4,7 +4,7 @@ import { Card } from 'react-native-elements';
 
 import { getImageUri } from '../Util/ImageUtil';
 
-import { HeartIconButton, CalendarIconButton, CalendarOutlineIconButton, MapIconButton, HeartOutlineIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton } from './CustomIcons';
+import { HeartIconButton, MapIconButton, HeartOutlineIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
 import ModalInicioSesion from './ModalInicioSesion';
 

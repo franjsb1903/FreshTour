@@ -6,6 +6,7 @@ const verify = require('../lib/VerifyToken');
 const helpers = require('../lib/helpers');
 const tag_traductor = require('../lib/tag_traductor');
 
+// getAll()
 router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -36,6 +37,7 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getConcreto()
 router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -68,6 +70,7 @@ router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getByName()
 router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -102,6 +105,7 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getFavByName()
 router.get('/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -124,6 +128,7 @@ router.get('/fav/:name', verify.verifyToken, (req, res) => {
     }
 });
 
+// getFilterType()
 router.get('/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -159,6 +164,7 @@ router.get('/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
 });
 
+// getFavFilterType()
 router.get('/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
@@ -194,6 +200,7 @@ router.get('/fav/filter/:type', verify.verifyToken, (req, res) => {
 
 });
 
+// postFav()
 router.post('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -216,6 +223,7 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// deleteFav()
 router.delete('/fav', verify.verifyToken, (req, res) => {
 
     try {

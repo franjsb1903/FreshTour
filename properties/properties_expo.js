@@ -256,6 +256,10 @@ const properties = {
             vermello: 120,
             verde: 100
         }
+    },
+    legalidade: {
+        politica: 'https://www.privacypolicies.com/live/1abd86f3-d5ce-4c82-af15-353abebcc704',
+        condicions: 'http://192.168.1.72:3000/legal/condicions'
     }
 }
 

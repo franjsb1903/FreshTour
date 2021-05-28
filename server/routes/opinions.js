@@ -5,6 +5,7 @@ const sql = require('../lib/sql');
 const verify = require('../lib/VerifyToken');
 const helpers = require('../lib/helpers');
 
+// get()
 router.get('/:type/:id', async (req, res) => {
 
     try {
@@ -34,6 +35,7 @@ router.get('/:type/:id', async (req, res) => {
 
 });
 
+// postNew()
 router.post('/new', verify.verifyToken, async (req, res) => {
     try {
 
@@ -150,6 +152,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
     }
 });
 
+// delete()
 router.delete('/', verify.verifyToken, (req, res) => {
 
     try {
@@ -210,6 +213,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
     }
 });
 
+// postEdit()
 router.post('/edit', verify.verifyToken, (req, res) => {
     try {
 

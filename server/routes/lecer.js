@@ -8,6 +8,7 @@ const tag_traductor = require('../lib/tag_traductor');
 
 // Hostalaria
 
+// getAllHostalaria()
 router.get('/hostalaria', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -38,6 +39,7 @@ router.get('/hostalaria', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getConcretoHostalaria()
 router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -70,6 +72,7 @@ router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, re
     }
 });
 
+// getHostalariaByName()
 router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -104,6 +107,7 @@ router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// postHostalariaFav()
 router.post('/hostalaria/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -126,6 +130,7 @@ router.post('/hostalaria/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// deleteHostalariaFav()
 router.delete('/hostalaria/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -153,6 +158,7 @@ router.delete('/hostalaria/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// getHostalariaFilterType()
 router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -193,6 +199,7 @@ router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, re
 
 });
 
+// getFavHostalariaByName()
 router.get('/hostalaria/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -215,6 +222,7 @@ router.get('/hostalaria/fav/:name', verify.verifyToken, (req, res) => {
     }
 });
 
+// getFavHostalariaFilterType()
 router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
@@ -359,6 +367,7 @@ const getQueryHospedaxe = (type) => {
 
 // Actividades de ocio
 
+// getAllOcio()
 router.get('/ocio', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -389,6 +398,7 @@ router.get('/ocio', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getOcioConcreto()
 router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -421,6 +431,7 @@ router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => 
     }
 });
 
+// getOcioByName()
 router.get('/ocio/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -455,6 +466,7 @@ router.get('/ocio/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// postOcioFav()
 router.post('/ocio/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -477,6 +489,7 @@ router.post('/ocio/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// deleteOcioFav()
 router.delete('/ocio/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -504,6 +517,7 @@ router.delete('/ocio/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// getOcioFilterType()
 router.get('/ocio/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -544,6 +558,7 @@ router.get('/ocio/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => 
 
 });
 
+// getFavOcioByName()
 router.get('/ocio/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -566,6 +581,7 @@ router.get('/ocio/fav/:name', verify.verifyToken, (req, res) => {
     }
 });
 
+// getFavOcioFilterType()
 router.get('/ocio/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
@@ -774,6 +790,7 @@ const getQueryOcio = (type) => {
 
 // Outras actividades
 
+// getAllOutras()
 router.get('/outras', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -804,6 +821,7 @@ router.get('/outras', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// getOutrasConcreto()
 router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -836,6 +854,7 @@ router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) =
     }
 });
 
+// getOutrasByName()
 router.get('/outras/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -870,6 +889,7 @@ router.get('/outras/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
+// postOutrasFav()
 router.post('/outras/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -892,6 +912,7 @@ router.post('/outras/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// deleteOutrasFav()
 router.delete('/outras/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -919,6 +940,7 @@ router.delete('/outras/fav', verify.verifyToken, (req, res) => {
 
 });
 
+// getOutrasFilterType()
 router.get('/outras/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -959,6 +981,7 @@ router.get('/outras/filter/:type', verify.verifyTokenWithoutReturn, (req, res) =
 
 });
 
+// getFavOutrasByName()
 router.get('/outras/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -981,6 +1004,7 @@ router.get('/outras/fav/:name', verify.verifyToken, (req, res) => {
     }
 });
 
+// getFavOutrasFilterType()
 router.get('/outras/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {

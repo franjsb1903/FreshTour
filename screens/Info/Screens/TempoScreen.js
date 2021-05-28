@@ -4,8 +4,6 @@ import { ScrollView } from 'react-native';
 import CardElementTempo from '../../../components/CardElementTempo';
 import NoData from '../../../components/NoData';
 
-import { stylesScroll } from '../../../styles/styles'
-
 const TempoScreen = (props) => {
 
     const data = props.route.params.data;

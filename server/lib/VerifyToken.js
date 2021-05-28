@@ -41,20 +41,4 @@ verify.verifyTokenWithoutReturn = (req, res, next) => {
     })
 }
 
-verify.verifyTokenGet = (req, res) => {
-
-    var token = req.headers['access-token'];
-    if(!token) {
-        return undefined;
-    }
-    var userId;
-    jwt.verify(token, config.secret, (err, decoded) => {
-        if(err) {
-            return res.status(500).send({ auth: false, message: err.message });
-        }
-        userId = decoded.id;
-    })
-    return userId;
-}
-
 module.exports = verify;

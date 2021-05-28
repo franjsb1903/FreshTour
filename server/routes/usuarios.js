@@ -7,6 +7,7 @@ const pool = require('../../database/database');
 const verify = require('../lib/VerifyToken');
 const sql = require('../lib/sql');
 
+// postEdit()
 router.post('/edit', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
@@ -88,6 +89,7 @@ router.post('/edit', verify.verifyToken, (req, res) => {
     }
 });
 
+// delete()
 router.delete('/', verify.verifyToken, async (req, res) => {
     
     const client = await pool.connect();

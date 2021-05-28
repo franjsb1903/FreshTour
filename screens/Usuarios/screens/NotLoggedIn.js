@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import * as Linking from 'expo-linking';
 
 import { notLoggedIn as styles, customTouchableOpacity as buttonStyle } from '../../../styles/styles';
 import { getImageUri } from '../../../Util/ImageUtil';
 
 import { useNavigation } from '@react-navigation/native';
+import properties from '../../../properties/properties_expo'
 
 const NotLoggedIn = (props) => {
 
@@ -29,12 +31,22 @@ const NotLoggedIn = (props) => {
                 </TouchableOpacity>
                 <Text style={styles.textBottom}>ou</Text>
                 <View style={styles.rowTextBottom}>
-                    <Text style={styles.textBottom}>Se xa estás rexistrado, </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Login', { login: login })}>
+                        <Text style={styles.textBottom}>Se xa estás rexistrado, </Text>
                         <Text style={styles.textLogIn}>
                             Inicia sesión
                     </Text>
                     </TouchableOpacity>
+                </View>
+                <View style={styles.rowTextBottom}>
+                    <Text style={styles.textBottom}>Revise a nosa </Text>
+                    <Text style={} onPress={() => {
+                        Linking.openURL(properties.legalidade.politica);
+                    }}>Política de privacidade</Text>
+                    <Text style={styles.textBottom}>e as nosas </Text>
+                    <Text style={} onPress={() => {
+                        Linking.openURL(properties.legalidade.politica);
+                    }}>Condicións de uso</Text>
                 </View>
             </View>
         </View>

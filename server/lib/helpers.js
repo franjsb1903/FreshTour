@@ -20,16 +20,6 @@ helpers.onErrorAuth = (code, message, err, res) => {
     });
 }
 
-helpers.onError = (code, message, err, res) => {
-    if (err) {
-        console.error(err.message);
-    }
-    return res.status(code).json({
-        message: message,
-        status: code
-    });
-}
-
 helpers.onCorrectAuth = (token, user, res, planificacionsFav, planificacions, opinions, elementosFav, hospedaxeFav, hostalariaFav, ocioFav, outrasArray) => {
     return res.status(200).send({
         auth: true,
