@@ -166,7 +166,7 @@ router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, re
         const userId = req.userId;
         const { type } = req.params;
 
-        const query = getQueryHospedaxe(type);
+        const query = getQueryHostalaria(type);
 
         if (!query) {
             helpers.onError(500, "Erro interno do servidor", undefined, res);
@@ -230,7 +230,7 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
         const userId = req.userId;
         const { type } = req.params;
 
-        const query = getFavQueryHospedaxe(type);
+        const query = getFavQueryHostalaria(type);
 
         if (!query) {
             helpers.onError(500, "Erro interno do servidor", undefined, res);
@@ -263,7 +263,7 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
 
 });
 
-const getFavQueryHospedaxe = (type) => {
+const getFavQueryHostalaria = (type) => {
     switch (type) {
         case "bares_titulo":
             return sql.lecer.hostalaria.fav.bares.titulo;
@@ -314,7 +314,7 @@ const getFavQueryHospedaxe = (type) => {
     }
 }
 
-const getQueryHospedaxe = (type) => {
+const getQueryHostalaria = (type) => {
     switch (type) {
         case "bares_titulo":
             return sql.lecer.hostalaria.bares.titulo;

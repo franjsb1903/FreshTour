@@ -4,7 +4,7 @@ import { traductorHostalaria, traductorOcio, traductorOutras } from '../Util/Tra
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-class XestionDatosHostalaria {
+class XestionDatosLecer {
 
     async getAllHostalaria(signal, token) {
 
@@ -646,4 +646,4 @@ class XestionDatosHostalaria {
     
 }
 
-module.exports = XestionDatosHostalaria;
+module.exports = XestionDatosLecer;
