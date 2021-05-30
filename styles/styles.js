@@ -204,8 +204,8 @@ export const modal = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
-      },
-      modalView: {
+    },
+    modalView: {
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
@@ -213,39 +213,39 @@ export const modal = StyleSheet.create({
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2
+            width: 0,
+            height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
-      },
-      modalText: {
+    },
+    modalText: {
         marginBottom: 15,
         textAlign: "center",
         fontSize: 20
-      },
-      button: {
+    },
+    button: {
         borderRadius: 20,
         padding: 10,
         elevation: 2,
         margin: 10
-      },
-      buttonClose: {
+    },
+    buttonClose: {
         backgroundColor: "grey",
-      },
-      buttonOk: {
+    },
+    buttonOk: {
         backgroundColor: properties.style.color.button
-      },    
-      textStyle: {
+    },
+    textStyle: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center",
         fontSize: 18
-      },
-      rowButton: {
-          flexDirection: "row"
-      }
+    },
+    rowButton: {
+        flexDirection: "row"
+    }
 });
 
 export const stylesCardElementPlanificacion = StyleSheet.create({
@@ -487,6 +487,11 @@ export const notLoggedIn = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 15,
         justifyContent: "flex-end"
+    },
+    link: { 
+        fontSize: 12, 
+        color: "green", 
+        textDecorationLine: "underline" 
     }
 });
 
@@ -635,9 +640,9 @@ export const loggedIn = StyleSheet.create({
     menuUser: {
         paddingTop: 50
     },
-    listItem: { 
-        borderColor: "green", 
-        borderWidth: 1 
+    listItem: {
+        borderColor: "green",
+        borderWidth: 1
     },
     listItemContainer: {
         backgroundColor: properties.style.color.background

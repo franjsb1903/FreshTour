@@ -31,21 +31,27 @@ const NotLoggedIn = (props) => {
                 </TouchableOpacity>
                 <Text style={styles.textBottom}>ou</Text>
                 <View style={styles.rowTextBottom}>
+                    <Text style={styles.textBottom}>Se xa estás rexistrado, </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Login', { login: login })}>
-                        <Text style={styles.textBottom}>Se xa estás rexistrado, </Text>
                         <Text style={styles.textLogIn}>
                             Inicia sesión
                     </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.rowTextBottom}>
-                    <Text style={styles.textBottom}>Revise a nosa </Text>
-                    <Text style={} onPress={() => {
+            </View>
+            <View style={{
+                justifyContent: "center",
+                alignContent: "center",
+                padding: 10
+            }}>
+                <View style={[styles.rowTextBottom, { flexWrap: "nowrap" }]}>
+                    <Text style={{ fontSize: 12 }}>Revise a nosa </Text>
+                    <Text style={styles.link} onPress={() => {
                         Linking.openURL(properties.legalidade.politica);
                     }}>Política de privacidade</Text>
-                    <Text style={styles.textBottom}>e as nosas </Text>
-                    <Text style={} onPress={() => {
-                        Linking.openURL(properties.legalidade.politica);
+                    <Text style={{ fontSize: 12 }}> e as nosas </Text>
+                    <Text style={styles.link} onPress={() => {
+                        Linking.openURL(properties.legalidade.condicions);
                     }}>Condicións de uso</Text>
                 </View>
             </View>
