@@ -3,10 +3,13 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-nativ
 
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../../styles/styles';
+import * as Linking from 'expo-linking';
 
 import ProgressBar from '../../../../components/ProgressBar';
 import { clearButton } from '../../../../components/Common';
 import { showMessage } from "react-native-flash-message";
+import CheckBox from '@react-native-community/checkbox';
+import properties from '../../../../properties/properties_expo'
 
 import { checkEmail, checkName, checkUsername } from '../../../../Util/CheckFieldsUtil';
 
@@ -23,6 +26,8 @@ const Register = (props) => {
 
     const [loading, setLoading] = useState(false);
 
+    const [legalCheckBox, setlegalCheckBox] = useState(false)
+
     const registerUser = props.route.params.register;
 
     const handleChangeText = (attr, value) => {
@@ -30,6 +35,12 @@ const Register = (props) => {
     }
 
     const checkFields = () => {
+        if(!legalCheckBox){
+            return {
+                valid: false,
+                message: 'Ten que aceptar a Política de Privacidade e Condicións de uso'
+            }
+        }
         if (user.usuario == '') {
             return {
                 valid: false,
@@ -84,7 +95,7 @@ const Register = (props) => {
                 message: 'O nome non é correcto'
             }
         }
-        if (user.apelidos != '' &&!checkName(user.apelidos)) {
+        if (user.apelidos != '' && !checkName(user.apelidos)) {
             return {
                 valid: false,
                 message: 'Os apelidos non son correctos'
@@ -220,6 +231,24 @@ const Register = (props) => {
                     {
                         clearButton(() => confirmInput.clear())
                     }
+                </View>
+                <View style={styles.legal}>
+                    <CheckBox
+                        disabled={false}
+                        value={legalCheckBox}
+                        onValueChange={(newValue) => setlegalCheckBox(newValue)}
+                        style={{margin: 0}}
+                    />
+                    <View style={{ flex: 0, flexWrap: "nowrap", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                        <Text style={{ fontSize: 12 }}>Acepto a </Text>
+                        <Text style={styles.link} onPress={() => {
+                            Linking.openURL(properties.legalidade.politica);
+                        }}>Política de privacidade</Text>
+                        <Text style={{ fontSize: 12 }}> e </Text>
+                        <Text style={styles.link} onPress={() => {
+                            Linking.openURL(properties.legalidade.condicions);
+                        }}>Condicións de uso</Text>
+                    </View>
                 </View>
                 <View style={styles.buttonViewContainer}>
                     <TouchableOpacity style={button.buttonContainer} onPress={() => {

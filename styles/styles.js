@@ -587,6 +587,15 @@ export const fromScreen = StyleSheet.create({
     buttonViewContainer: {
         paddingTop: 20
     },
+    legal: {
+        flexDirection: "row",
+        paddingTop: 15
+    },
+    link: { 
+        fontSize: 12, 
+        color: "green", 
+        textDecorationLine: "underline" 
+    },
     clearButton: {
         justifyContent: "center"
     },
