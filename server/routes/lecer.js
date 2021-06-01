@@ -114,6 +114,11 @@ router.post('/hostalaria/fav', verify.verifyToken, (req, res) => {
         const userId = req.userId;
         const { id_lugar_hostalaria } = req.body;
 
+        if(id_lugar_hostalaria == undefined) {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+                return;
+        }
+
         pool.query(sql.lecer.hostalaria.fav.add, [id_lugar_hostalaria, userId], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro interno do servidor", err, res);
@@ -472,6 +477,11 @@ router.post('/ocio/fav', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
         const { id_actividade_ocio } = req.body;
+
+        if(id_actividade_ocio == undefined) {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+                return;
+        }
 
         pool.query(sql.lecer.ocio.fav.add, [id_actividade_ocio, userId], (err, results) => {
             if (err) {
@@ -895,6 +905,11 @@ router.post('/outras/fav', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
         const { id_outra_actividade } = req.body;
+
+        if(id_outra_actividade == undefined) {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
 
         pool.query(sql.lecer.outras.fav.add, [id_outra_actividade, userId], (err, results) => {
             if (err) {

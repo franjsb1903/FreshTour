@@ -22,7 +22,6 @@ const CalidadeAire = () => {
         if (mounted)
             setData(context.calidadeAire);
 
-        console.log(context.calidadeAire);
         return () => mounted = false;
     }, [context.calidadeAire]);
 
@@ -53,7 +52,7 @@ const CalidadeAire = () => {
                                         <Text style={styles.title}>Calidade do aire ás {calidade.date}</Text>
                                 }
                                 {
-                                    calidade != undefined && calidade.text != undefined && calidade.text.split("NODATA_VALUE").length > 0 ?
+                                    calidade != undefined && calidade.text != undefined && calidade.text.split("<").length == 0 ?
                                         <Semaforo type={"no2"} value={calidade.text.split("NODATA_VALUE")[1].split("\n")[1]} size={60} />
                                         :
                                         <></>

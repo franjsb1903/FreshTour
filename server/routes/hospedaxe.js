@@ -207,6 +207,11 @@ router.post('/fav', verify.verifyToken, (req, res) => {
         const userId = req.userId;
         const { id_lugar_hospedaxe } = req.body;
 
+        if (id_lugar_hospedaxe == undefined) {
+            helpers.onError(500, "Erro interno do servidor", undefined, res);
+            return;
+        }
+
         pool.query(sql.hospedaxe.fav.add, [id_lugar_hospedaxe, userId], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro interno do servidor", err, res);
