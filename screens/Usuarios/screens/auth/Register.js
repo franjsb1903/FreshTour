@@ -153,7 +153,7 @@ const Register = (props) => {
                     <TextInput
                         ref={ref => usuarioInput = ref}
                         style={styles.textInput}
-                        placeholder="Nome de usuario"
+                        placeholder="Nome de usuario*"
                         onChangeText={(value) => handleChangeText('usuario', value)}
                         placeholderTextColor="#808080"
                         textContentType="username"
@@ -193,7 +193,7 @@ const Register = (props) => {
                         ref={ref => emailInput = ref}
                         style={styles.textInput}
                         style={styles.textInput}
-                        placeholder="Email"
+                        placeholder="Email*"
                         onChangeText={(value) => handleChangeText('email', value)}
                         placeholderTextColor="#808080"
                         textContentType="emailAddress"
@@ -209,7 +209,7 @@ const Register = (props) => {
                     <TextInput
                         ref={ref => contrasinalInput = ref}
                         style={styles.textInput}
-                        placeholder="Contrasinal"
+                        placeholder="Contrasinal*"
                         onChangeText={(value) => handleChangeText('contrasinal', value)}
                         textContentType="password"
                         secureTextEntry={true}
@@ -223,7 +223,7 @@ const Register = (props) => {
                     <TextInput
                         ref={ref => confirmInput = ref}
                         style={styles.textInput}
-                        placeholder="Repita o contrasinal"
+                        placeholder="Repita o contrasinal*"
                         onChangeText={(value) => handleChangeText('confirm_contrasinal', value)}
                         textContentType="password" secureTextEntry={true}
                         placeholderTextColor="#808080"

@@ -8,7 +8,7 @@ const CustomStarsDisplay = (props) => {
     const style = props.style;
     return (
         <Stars
-            display={value}
+            display={value === null || value == 0 ? 0.1 : value}
             spacing={4}
             count={5}
             starSize={10}

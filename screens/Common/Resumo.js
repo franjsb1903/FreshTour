@@ -80,11 +80,9 @@ const Resumo = (props) => {
                         :
                         <Text style={styles.valoracion}></Text>
                 }
-                {
-                    isRuta ?
-                        <></>
-                        : <HeartIcons />
-                }
+
+                <HeartIcons />
+
                 {
                     isElementoRuta ?
                         <></>

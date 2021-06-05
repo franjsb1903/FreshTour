@@ -137,10 +137,6 @@ const CardElementPlanificacion = (props) => {
                             }} />
                         </View>
                 }
-                <View style={styles.iconsContainer}>
-                    <PlayIconButton />
-                    <StopIconButton />
-                </View>
             </View>
             <ModalTempo modal={modal} showModal={showModal} _onCorrect={onSetTempo} />
         </Card >

@@ -23,11 +23,11 @@ const ElementosVisitar = (props) => {
                 return (
                     <TouchableOpacity
                         key={element.id}
-                        onPress={() => navigation.navigate('TurismoItem', {
+                        onPress={() => element.tipo != "Hospedaxe" && element.tipo != "Hostalaría" && element.tipo != "Ocio" && element.tipo != "Outra" ? navigation.navigate('TurismoItem', {
                             element: element,
                             isRuta: true,
                             isElementoRuta: true
-                        })}>
+                        }) : {}}>
                             {
                                 element.tipo != "Hospedaxe" && element.tipo != "Hostalaría" && element.tipo != "Ocio" && element.tipo != "Outra" ?
                                 <CardElement item={element} isRuta={true} />
