@@ -1,22 +1,48 @@
-import React from 'react';
-import { Platform, View, Text, ScrollView, TouchableOpacity } from 'react-native'
+/**
+ * @fileoverview Menú do mapa da pantalla principal
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
+// módulos
+import React, { Component } from 'react';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+
+// model
 import { getGeoAll as getGeoAllTurismo } from '../model/Turismo/Turismo';
 import { getGeoByTag as getGeoByTagHospedaxe } from '../model/Hospedaxe/Hospedaxe';
 import { getGeoByTagHostalaria, getGeoByTagOcio, getGeoByMultipleTagOcio, getGeoByTagOutras } from '../model/Lecer/Lecer';
+
+// styles
 import { customTouchableOpacity as buttonStyle } from '../styles/styles'
 
+/**
+ * Compoñente que conforma o menú do mapa da pantalla principal
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const ActionSheetContent = (props) => {
 
-    const actionRef = props.actionRef;
-    const mapRef = props.mapRef;
+    const actionRef = props.actionRef;              // Referencia do botón que permite abrir o mapa
+    const mapRef = props.mapRef;                    // Referencia do mapa da pantalla principal
 
+    /**
+     * Xeolocaliza un elemento ou grupo de elementos no mapa
+     * @param {string} data 
+     */
     const addToMap = (data) => {
         const injectedData = `addLayer(${data})`;
         mapRef.injectJavaScript(injectedData);
         actionRef.hide();
     }
 
+    /**
+     * Grupo de botóns para xeolocalizar elementos turísticos
+     * @returns {Component}
+     */
     const Turismo = () => (
         <>
             <View style={{ padding: 5 }}>
@@ -39,6 +65,10 @@ const ActionSheetContent = (props) => {
         </>
     )
 
+    /**
+     * Grupo de botóns para xeolocalizar lugares de hospedaxe
+     * @returns {Component}
+     */
     const Hospedaxe = () => (
         <>
             <View style={{ padding: 5 }}>
@@ -91,6 +121,10 @@ const ActionSheetContent = (props) => {
         </>
     )
 
+    /**
+     * Grupo de botóns para xeolocalizar lugares de hostalaría
+     * @returns {Component}
+     */
     const Hostalaria = () => (
         <>
             <View style={{ padding: 5 }}>
@@ -161,6 +195,10 @@ const ActionSheetContent = (props) => {
         </>
     )
 
+    /**
+     * Grupo de botóns para xeolocalizar actividades de ocio
+     * @returns {Component}
+     */
     const Ocio = () => (
         <>
             <View style={{ padding: 5 }}>
@@ -279,6 +317,10 @@ const ActionSheetContent = (props) => {
         </>
     )
 
+    /**
+     * Grupo de botóns para xeolocalizar tendas
+     * @returns {Component}
+     */
     const Tendas = () => (
         <>
             <View style={{ padding: 5 }}>
@@ -361,6 +403,10 @@ const ActionSheetContent = (props) => {
         </>
     )
 
+    /**
+     * Grupo de botóns para xeolocalizar lugares relacionados ca saúde
+     * @returns {Component}
+     */
     const Saude = () => (
         <>
             <View style={{ padding: 5 }}>
@@ -389,6 +435,10 @@ const ActionSheetContent = (props) => {
         </>
     )
 
+    /**
+     * Grupo de botóns para xeolocalizar outro tipo de actividades
+     * @returns {Component}
+     */
     const Outros = () => (
         <>
             <View style={{ padding: 5 }}>

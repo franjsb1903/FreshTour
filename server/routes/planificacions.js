@@ -223,7 +223,7 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 })
 
-// share()
+// postShare()
 router.post('/share', verify.verifyToken, (req, res) => {
 
     try {
@@ -250,7 +250,7 @@ router.post('/share', verify.verifyToken, (req, res) => {
 
 });
 
-// elements()
+// getElements()
 router.get('/elements/:id', (req, res) => {
 
     try {

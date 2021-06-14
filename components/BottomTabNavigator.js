@@ -1,7 +1,18 @@
-import React from 'react';
+/**
+ * @fileoverview Menú inferior principal da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { Component } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+// pantallas
 import Info from '../screens/Info/Info'
 import Map from '../screens/PlanificadorTemporal/Mapa'
 import Routes from '../screens/PlanificadorTemporal/Rutas/RutasRecomendadasList'
@@ -9,8 +20,12 @@ import Planificator from '../screens/PlanificadorTemporal/Planificador/Planifica
 import User from '../screens/Usuarios/Usuarios';
 
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();         // Constante global sobre a que se constrúe o menú
 
+/**
+ * Compoñente que conforma o menú inferior en si mesmo
+ * @returns {Component}
+ */
 const BottomTabNavigator = () => {
   return (
 
