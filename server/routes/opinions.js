@@ -43,6 +43,8 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 
         const { valoracion, titulo, comentario, id_elemento, type } = req.body;
 
+        console.log(valoracion, titulo, comentario, id_elemento, type);
+
         if (valoracion == undefined || !titulo || !comentario || !id_elemento || !type || titulo.length > 50 
             || comentario.length > 250 || titulo == '' || comentario == '' 
             || valoracion < 0 || valoracion > 5) {
@@ -262,7 +264,7 @@ router.post('/edit', verify.verifyToken, (req, res) => {
             onTransactionUpdate(queryPlanificacions, [valoracion, titulo, comentario, id], mediaPlanificacions, updateValoracionPlanificacions, id_elemento, res);
         } else if (type === "Hospedaxe") {
             onTransactionUpdate(queryHospedaxes, [valoracion, titulo, comentario, id], mediaHospedaxes, updateValoracionHospedaxes, id_elemento, res);
-        } else if (type === "Hostalaria") {
+        } else if (type === "Hostalaría") {
             onTransactionUpdate(queryHostalaria, [valoracion, titulo, comentario, id], mediaHostalaria, updateValoracionHostalaria, id_elemento, res);
         } else if (type === "Ocio") {
             onTransactionUpdate(queryOcio, [valoracion, titulo, comentario, id], mediaOcio, updateValoracionOcio, id_elemento, res);
@@ -312,7 +314,7 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                     id_elemento = comment.id_planificacion;
                 } else if (type == "Hospedaxe") {
                     id_elemento = comment.id_lugar_hospedaxe;
-                } else if (type == "Hostalaria") {
+                } else if (type == "Hostalaría") {
                     id_elemento = comment.id_lugar_hostalaria;
                 } else if (type == "Ocio") {
                     id_elemento = comment.id_actividade_ocio;

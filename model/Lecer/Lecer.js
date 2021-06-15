@@ -116,6 +116,7 @@ export const getAllOcio = async (signal, token) => {
 
 export const getOcioConcreto = async (id, token) => {
     try {
+        console.log(id, token);
         const json = await Lecer.getOcioConcreto(id, token);
         return json;
     } catch (err) {

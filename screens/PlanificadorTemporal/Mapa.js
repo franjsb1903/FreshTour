@@ -36,7 +36,7 @@ const Map = (props) => {
     type: ''
   });
 
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const showModal = () => {
     setModal(!modal);

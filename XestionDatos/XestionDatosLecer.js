@@ -239,7 +239,7 @@ class XestionDatosLecer {
         var url = await AsyncStorage.getItem('url');
 
         if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.concreto + '/' + id;
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + '/' + properties.url.lecer.ocio.concreto + '/' + id;
         } else {
             url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.concreto + '/' + id;
         }

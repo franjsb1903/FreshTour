@@ -22,7 +22,6 @@ const CalidadeAire = () => {
         if (mounted)
             setData(context.calidadeAire);
 
-        console.log(context.calidadeAire);
         return () => mounted = false;
     }, [context.calidadeAire]);
 

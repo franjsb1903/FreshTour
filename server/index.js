@@ -25,7 +25,7 @@ app.use('/hospedaxe', require('./routes/hospedaxe'));
 app.use('/lecer', require('./routes/lecer'));
 app.use('/legal', require('./routes/legal'));
 
-const hostname = "192.168.1.72";
+const hostname = "192.168.1.70";
 
 app.listen(3000, hostname, () => {
     console.log('Server on port 3000');

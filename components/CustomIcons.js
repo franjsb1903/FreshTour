@@ -211,6 +211,15 @@ export const UmbrellaIcon = (props) => {
     )
 }
 
+export const MailIcon = (props) => {
+
+    const style = props.style;
+    const size = props.size;
+    return (
+        <Icon name="mail" size={size} style={style} />
+    )
+}
+
 export const HeartIconButton = (props) => {
 
     const style = props.style;

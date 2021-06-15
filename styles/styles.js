@@ -42,12 +42,15 @@ export const stylesScroll = StyleSheet.create({
     }
 })
 
-export const styleTurismoItem = StyleSheet.create({
+export const styleURL = StyleSheet.create({
     url: {
         fontWeight: "bold",
         fontSize: 15,
         color: "blue"
-    },
+    }
+})
+
+export const styleTurismoItem = StyleSheet.create({
     stars: {
         padding: 0,
         flex: 1

@@ -145,18 +145,18 @@ const LeafletMap = (props) => {
                     data: [hostalaria.elemento],
                     updateItem: context.updateGeoMap,
                     model: {
-                        getAll: getAllHostalaria,
-                        getGeoElement: getGeoElementHostalaria,
-                        filterSort: filterSortHostalaria,
-                        addFav: addFavHostalaria,
-                        quitFav: quitFavHostalaria,
-                        getByName: getByNameHostalaria,
-                        getFavByName: getFavByNameHostalaria,
-                        favFilterSort: favFilterSortHostalaria
+                      getAll: getAllHostalaria,
+                      getGeoElement: getGeoElementHostalaria,
+                      filterSort: filterSortHostalaria,
+                      addFav: addFavHostalaria,
+                      quitFav: quitFavHostalaria,
+                      getByName: getByNameHostalaria,
+                      getFavByName: getFavByNameHostalaria,
+                      favFilterSort: favFilterSortHostalaria
                     },
                     itemsDropDown: properties.dropdown.items.hostalaria,
-                    titulo: "Lugares de hostalaría favoritos"
-                })
+                    titulo: "Lugares de hostalaría"
+                  })
                   break;
                 case "ocio":
                   const ocio = await getOcioConcreto(data[1], token);
@@ -167,18 +167,18 @@ const LeafletMap = (props) => {
                     data: [ocio.elemento],
                     updateItem: context.updateGeoMap,
                     model: {
-                        getAll: getAllOcio,
-                        getGeoElement: getGeoElementOcio,
-                        filterSort: filterSortOcio,
-                        addFav: addFavOcio,
-                        quitFav: quitFavOcio,
-                        getByName: getByNameOcio,
-                        getFavByName: getFavByNameOcio,
-                        favFilterSort: favFilterSortOcio
+                      getAll: getAllOcio,
+                      getGeoElement: getGeoElementOcio,
+                      filterSort: filterSortOcio,
+                      addFav: addFavOcio,
+                      quitFav: quitFavOcio,
+                      getByName: getByNameOcio,
+                      getFavByName: getFavByNameOcio,
+                      favFilterSort: favFilterSortOcio
                     },
                     itemsDropDown: properties.dropdown.items.ocio,
-                    titulo: "Actividades de ocio favoritas"
-                })
+                    titulo: "Actividades de ocio"
+                  })
                   break;
                 case "outra":
                   const outra = await getOutrasConcreto(data[1], token);
@@ -189,18 +189,18 @@ const LeafletMap = (props) => {
                     data: [outra.elemento],
                     updateItem: context.updateGeoMap,
                     model: {
-                        getAll: getAllOutras,
-                        getGeoElement: getGeoElementOutras,
-                        filterSort: filterSortOutras,
-                        addFav: addFavOutras,
-                        quitFav: quitFavOutras,
-                        getByName: getByNameOutras,
-                        getFavByName: getFavByNameOutras,
-                        favFilterSort: favFilterSortOutras
+                      getAll: getAllOutras,
+                      getGeoElement: getGeoElementOutras,
+                      filterSort: filterSortOutras,
+                      addFav: addFavOutras,
+                      quitFav: quitFavOutras,
+                      getByName: getByNameOutras,
+                      getFavByName: getFavByNameOutras,
+                      favFilterSort: favFilterSortOutras
                     },
                     itemsDropDown: properties.dropdown.items.outras,
                     titulo: "Outras actividades"
-                })
+                  })
                   break;
               }
             } else {

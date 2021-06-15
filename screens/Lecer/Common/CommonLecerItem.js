@@ -18,6 +18,7 @@ const CommonLecerItem = (props) => {
     const [loading, setLoading] = useState(true);
 
     const lecer = props.route.params.lecer;
+    var titulo = lecer.titulo == null ? lecer.sub_tag : lecer.titulo;
 
     const onGetData = async (mounted, signal) => {
         try {
@@ -77,8 +78,9 @@ const CommonLecerItem = (props) => {
             await onGetData(mounted, signal);
         }
 
-        if (mounted)
+        if (mounted) {
             getOpinions();
+        }
 
         return () => {
             mounted = false;
@@ -90,7 +92,7 @@ const CommonLecerItem = (props) => {
         let mounted = true;
         if (mounted) {
             props.navigation.setOptions({
-                title: "Opinións de " + lecer.titulo
+                title: "Opinións de " + titulo
             });
         }
 
@@ -106,7 +108,7 @@ const CommonLecerItem = (props) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <Opinions opinions={opinions} element={lecer} onRefreshOpinions={onRefreshOpinions} titulo={lecer.titulo != null ? lecer.titulo : lecer.sub_tag} isLecer={true} />
+            <Opinions opinions={opinions} element={lecer} onRefreshOpinions={onRefreshOpinions} titulo={lecer.titulo == null ? lecer.sub_tag : lecer.titulo} isLecer={true} />
     )
 
 }

@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, VirtualizedList } from 'react-nativ
 import { Title } from 'react-native-paper';
 import * as Linking from 'expo-linking';
 
-import { styleTurismoItem as styles, stylesBorderContainer as borderStyle, stylesScroll } from '../../../styles/styles'
+import { styleTurismoItem as styles, stylesBorderContainer as borderStyle, stylesScroll, styleURL } from '../../../styles/styles'
 
 const Informacion = (props) => {
 
@@ -37,7 +37,7 @@ const Informacion = (props) => {
                 </View>
                 <View style={borderStyle.viewTextContainer}>
                     <Title style={borderStyle.titleSize}>URL</Title>
-                    <Text style={styles.url} onPress={() => {
+                    <Text style={styleURL.url} onPress={() => {
                         Linking.openURL(element.url);
                     }}>{element.url}</Text>
                 </View>

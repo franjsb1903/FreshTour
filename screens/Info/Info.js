@@ -9,7 +9,8 @@ import Semaforo from '../../components/Semaforo';
 
 import { getCovidData, getTempoData } from '../../model/Info/Info';
 import { getRealTimeData as getRealTimeDataCalidade } from '../../model/CalidadeAire/CalidadeAire';
-import { stylesTurismoList as progress } from '../../styles/styles'
+import { stylesTurismoList as progress } from '../../styles/styles';
+import { MailIcon } from '../../components/CustomIcons';
 
 const Info = () => {
 
@@ -81,11 +82,7 @@ const Info = () => {
 
         return (
             <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text style={styles.title}>Nivel</Text>
-                    <Text style={{ fontSize: 18, color: "#ffd700" }}>Medio</Text>
-                </View>
-                <View style={styles.column}>
+                <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", flex: 1 }}>
                     <Text style={styles.title}>Novos</Text>
                     {
                         datos ?
@@ -117,7 +114,7 @@ const Info = () => {
 
         return (
             data.calidade ?
-                <View style={[styles.row, {flex: 1}]}>
+                <View style={[styles.row, { flex: 1 }]}>
                     <View style={styles.column}>
                         <Text style={styles.title}>NO2</Text>
                         <Semaforo type={"no2"} value={data.calidade.no2} size={30} />
@@ -131,6 +128,39 @@ const Info = () => {
                 <></>
         )
     };
+
+    const ConsellosViaxe = () => (
+        <>
+            <View style={{ paddingTop: 20 }}>
+                <Text style={styles.titleGrande}>O tempo</Text>
+                <Text style={styles.text}>Santiago de Compostela está situada no oeste de España a pouco máis de media hora da costa atlántica, sendo así un lugar moi dado ás chuvias e á humidade. Recoméndase, polo tanto, revisar o tempo antes de acudir á cidade, xa que en caso de facer calor este pode ser moi abafante, e as chuvias moi traicioneiras.</Text>
+            </View>
+            <View style={{ paddingTop: 20 }}>
+                <Text style={styles.titleGrande}>Onde comer</Text>
+                <Text style={styles.text}>A cidade conta con múltiples lugares de hostalaría onde xantar. Ao redor da propia Catedral e preto da mesma existen moitos moi interesantes, sendo unha área recomendada ao coincidir cunha zona amplamente turística. Na zona do Parque da Alameda e Porta Facheira atópanse outros tantos dun prezo máis axeitado e reducido.</Text>
+            </View>
+            <View style={{ paddingTop: 20 }}>
+                <Text style={styles.titleGrande}>Cando visitala</Text>
+                <Text style={styles.text}>Recoméndase a visita da cidade en calquera época do ano. No mes de maio celébrase a Ascensión, unha festividade na que se pode disfrutar de diversas actividades. En xullo, o Apóstolo, sendo unha data moi sinalada no calendario é polo tanto recomendada. Nos meses de Nadal, a partir de novembro, a cidade vístese de gala para recibir a Papá Noel e os Reis Magos, así como para celebrar a entrada do novo ano, con gran cantidade de luces por toda a cidade.</Text>
+            </View>
+        </>
+    )
+
+    const SobreNos = () => (
+
+        <View style={{ paddingTop: 20 }}>
+            <Text style={styles.text}>FreshTour: A túa visita saudable a Santiago de Compostela, é unha aplicación de turismo á capital galega, levada a cabo no ámbito do desarrollo dun Traballo de Fin de Grado na Universidade de Santiago de Compostela. A aplicación conta con gran cantidade de funcionalidades que permiten levar a cabo unha planificación temporal para visitar a cidade, con elementos turísticos, lugares de hospedaxe e actividades de lecer a realizar. Tamén poderá almacenar elementos como favoritos e engadir comentarios, así como gardar unha planificación e compartila con outros usuarios, podendo visualizar toda esta información no seu perfil. Do mesmo xeito, pode consultar as planificacións que realicen outros usuarios.</Text>
+            <Text style={styles.text}>Sen dúbida a característica máis diferenciadora desta aplicación é o feito de contar con información de calidade do aire na cidade, tanto no apartado de información da aplicación como cando se constrúe unha planificación. Esta información de calidade do aire procede dos datos que recolle o proxecto TRAFAIR en Santiago de Compostela.</Text>
+            <Text style={styles.text}>Os encargados desta aplicación somos Francisco Javier Saa Besteiro (desarrollador da propia app) e José Ramón Ríos Viqueira (colaborador e guía na súa realización). Pola nosa parte, queremos agradecerche enormemente que empregues a nosa aplicación. Ten moito traballo detrás para que poida axudarche o máximo posible na túa visita. Calquera suxestión, cambios ou melloras, por favor, non dudes en realizalas, contactando con nós a través do correo que aparece no apartado de Contacto. Grazas de novo!</Text>
+        </View>
+    )
+
+    const Contacto = () => (
+        <View style={[styles.row, { paddingTop: 20 }]}>
+            <MailIcon size={30} style={{ margin: 5 }} />
+            <Text style={[styles.text, { margin: 5 }]}>franciscojavier.saa@rai.usc.es</Text>
+        </View>
+    )
 
     const cardsData = [
         {
@@ -172,7 +202,7 @@ const Info = () => {
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
                 titulo: "Consellos da viaxe",
-                text: lorem
+                Content: ConsellosViaxe
             })
         },
         {
@@ -181,7 +211,7 @@ const Info = () => {
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
                 titulo: "Sobre nós",
-                text: lorem
+                Content: SobreNos
             })
         },
         {
@@ -190,7 +220,7 @@ const Info = () => {
             data: [],
             onPress: () => navigation.navigate('InfoCommon', {
                 titulo: "Contacto",
-                text: lorem
+                Content: Contacto
             })
         }
     ];
@@ -229,6 +259,15 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: "bold"
+    },
+    titleGrande: {
+        fontSize: 25,
+        fontWeight: "bold",
+        textDecorationLine: "underline"
+    },
+    text: {
+        fontSize: 20,
+        textAlign: "justify"
     }
 });
 

@@ -2,7 +2,7 @@
 const properties = {
     connection: {
         type: "http",
-        host: "192.168.1.72",
+        host: "192.168.1.70",
         port: "3000"
     },
     url: {
@@ -27,7 +27,7 @@ const properties = {
             monumento: "/monumento"
         },
         geoserver: {
-            url: "http://192.168.1.72:8080/geoserver",
+            url: "http://192.168.1.70:8080/geoserver",
             lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",                    // /geoserver/:id
             monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+",
             lugares_all: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json",                    // /geoserver/:id

@@ -18,7 +18,6 @@ const Opinions = (props) => {
     const isPlanificacion = props.isPlanificacion;
     const isHospedaxe = props.isHospedaxe;
     const isLecer = props.isLecer;
-
     const navigation = useNavigation();
 
     const onRefresh = async () => {

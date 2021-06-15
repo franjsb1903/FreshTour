@@ -129,7 +129,7 @@ const AppContextProvider = (props) => {
     const formatDate = (date) => {
         var hours = date.getHours();
         var minutes = date.getMinutes();
-        if(minutes < 10) {
+        if (minutes < 10) {
             minutes = "0" + minutes;
         }
         const dataString = hours - 2 + ":" + minutes
@@ -155,7 +155,7 @@ const AppContextProvider = (props) => {
                     const segment = route.routeJson.features[0].properties.segments[i];
                     const itemFirst = turismoItems.items[i];
                     const itemSecond = turismoItems.items[i + 1];
-                    seconds += itemFirst.tipo_visita ? parseFloat(itemFirst.features[0].properties.tipo_visita) * 60 : parseFloat(itemFirst.features[0].properties.tempo_visita_rapida) * 60;
+                    seconds += itemFirst.features[0].properties.tipo_visita ? parseFloat(itemFirst.features[0].properties.tipo_visita) * 60 : parseFloat(itemFirst.features[0].properties.tempo_visita_rapida) * 60;
                     if (seconds >= 3600) {
                         const coord = itemFirst.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
@@ -185,7 +185,7 @@ const AppContextProvider = (props) => {
                             seconds = seconds - 3600;
                         }
                     }
-                    seconds += itemSecond.tipo_visita ? parseFloat(itemSecond.features[0].properties.tipo_visita) * 60 : parseFloat(itemSecond.features[0].properties.tempo_visita_rapida) * 60;
+                    seconds += itemSecond.features[0].properties.tipo_visita ? parseFloat(itemSecond.features[0].properties.tipo_visita) * 60 : parseFloat(itemSecond.features[0].properties.tempo_visita_rapida) * 60;
                     if (seconds >= 3600) {
                         const coord = itemSecond.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
@@ -452,7 +452,8 @@ const AppContextProvider = (props) => {
                 break;
             }
         }
-        await onGetDataCalidadeAire(true);
+        if (turismoItems.items.length > 1)
+            await onGetDataCalidadeAire(true);
         setPlanificacion(undefined);
     }
 

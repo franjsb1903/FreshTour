@@ -4,7 +4,7 @@ import { Text, ScrollView, StyleSheet } from 'react-native'
 import { stylesScroll } from '../../../styles/styles'
 
 const Common = (props) => {
-    const text = props.route.params.text;
+    const Content = props.route.params.Content;
     const titulo = props.route.params.titulo;
 
     React.useLayoutEffect(() => {
@@ -20,7 +20,7 @@ const Common = (props) => {
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={[stylesScroll.containerScroll, { padding: 20 }]}>
-            <Text style={styles.text}>{text}</Text>
+            <Content />
         </ScrollView>
     )
 

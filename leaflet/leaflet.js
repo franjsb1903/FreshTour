@@ -645,17 +645,17 @@ const leaflet = `
                         const id = feature.properties.id;
                         const tipo = feature.properties.tipo;
                         if(tipo === "Lugar turístico") {
-                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoLugares('+id+')">+ info</button>';
+                            content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoLugares('+id+')">+ info</button>';
                         } else if(tipo === "Monumento") {
-                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoMonumentos('+id+')">+ info</button>'
+                            content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoMonumentos('+id+')">+ info</button>'
                         } else if(tipo === "Hospedaxe") {
-                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoHospedaxe('+id+')">+ info</button>'
+                            content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoHospedaxe('+id+')">+ info</button>'
                         } else if(tipo === "Hostalaría") {
-                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoHostalaria('+id+')">+ info</button>'
+                            content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoHostalaria('+id+')">+ info</button>'
                         } else if(tipo === "Ocio") {
-                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
+                            content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
                         } else if(tipo === "Outra") {
-                            content.innerHTML='<p style="display: block;">'+feature.properties.sub_tag+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                            content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
                         }
                     }
                     layer.bindPopup(content);

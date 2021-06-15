@@ -88,7 +88,7 @@ const CardElementLecer = (props) => {
             <Card.Divider />
             <View style={stylesCard.rowView}>
                 <View style={{ flex: 1.3 }}>
-                    <Text style={styles.textBold}>Tipo: {element.sub_tag} </Text>
+                    <Text style={stylesCard.textBold}>Tipo: {element.sub_tag} </Text>
                 </View>
                 {
                     isRuta ?                                    // Se está no contexto da ruta, non se amosa nada

@@ -427,7 +427,7 @@ router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => 
                 element.sub_tag = tag_traductor.ocio(element.sub_tag);
             });
             res.status(200).json({
-                lecer: results.rows,
+                elemento: results.rows[0],
                 status: 200
             });
         });
@@ -855,7 +855,7 @@ router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) =
                 element.sub_tag = tag_traductor.outras(element.sub_tag);
             });
             res.status(200).json({
-                lecer: results.rows,
+                elemento: results.rows[0],
                 status: 200
             });
         });

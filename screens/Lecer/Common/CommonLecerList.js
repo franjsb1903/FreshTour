@@ -32,6 +32,8 @@ const CommonLecerList = (props) => {
     const model = props.route.params.model;
     const titulo = props.route.params.titulo;
 
+    console.log(data);
+
     const showModal = () => {
         setModal(!modal);
     }
