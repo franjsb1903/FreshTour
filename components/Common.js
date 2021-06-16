@@ -1,12 +1,34 @@
-import React from 'react';
+/**
+ * @fileoverview Reúne compoñentes e funcións comúns a empregar entre os compoñentes da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { Platform } from 'react-native';
-import { sharePlanificacion } from '../model/Planificador/Planificador';
-import { fromScreen as styles } from '../styles/styles';
-import { CloseCircleIconButton } from './CustomIcons';
 import { showMessage } from "react-native-flash-message";
 
+// modelo
+import { sharePlanificacion } from '../model/Planificador/Planificador';
+
+// estilos
+import { fromScreen as styles } from '../styles/styles';
+
+// compoñentes
+import { CloseCircleIconButton } from './CustomIcons';
+
+// Util
 import { getToken, shouldDeleteToken } from '../Util/TokenUtil'
 
+/**
+ * Compoñente que conforma unha icona de cerrado
+ * @param {Function} func 
+ * @returns {Component}
+ */
 export const clearButton = (func) => (
     Platform.OS == "android" ?
         <CloseCircleIconButton style={styles.clearButton} clear={func} />
@@ -14,6 +36,14 @@ export const clearButton = (func) => (
         <></>
 )
 
+/**
+ * Engade un elemento como favorito
+ * @param {Function} changeFav 
+ * @param {Object} item 
+ * @param {Function} changeModal 
+ * @param {Object} context 
+ * @param {Function} model 
+ */
 export const onPressFav = async (changeFav, item, changeModal, context, model) => {
     try {
         const token = await getToken('id_token');
@@ -33,6 +63,13 @@ export const onPressFav = async (changeFav, item, changeModal, context, model) =
     }
 }
 
+/**
+ * Quita un elemento como favorito
+ * @param {Function} changeFav 
+ * @param {Object} item 
+ * @param {Object} context 
+ * @param {Function} model 
+ */
 export const onQuitFav = async (changeFav, item, context, model) => {
     try {
         const token = await getToken('id_token');
@@ -48,6 +85,12 @@ export const onQuitFav = async (changeFav, item, context, model) => {
     }
 }
 
+/**
+ * Comparte unha planificación
+ * @param {Function} changeShared 
+ * @param {Boolean} shared 
+ * @param {Object} planificacion 
+ */
 export const onShare = async (changeShared, shared, planificacion) => {
     try {
         const token = await getToken('id_token');

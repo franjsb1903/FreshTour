@@ -1,15 +1,31 @@
-import React from 'react'
+/**
+ * @fileoverview Modal de inicio de sesión
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react'
 import { Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 
+// estilos
 import { modal as modalStyle } from '../styles/styles';
 
+/**
+ * Compoñente que conforma o modal de inicio de sesión
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const ModalInicioSesion = (props) => {
 
-    const modal = props.modal;
-    const showModal = props.showModal;
-    const navigation = useNavigation();
+    const modal = props.modal;                          // Boolean que indica se o modal se debe de amosar ou non
+    const showModal = props.showModal;                  // Función para cambiar o estado de visualización do modal
+    const navigation = useNavigation();                 // Constante para empregar a navegación da aplicación
 
     return (
 

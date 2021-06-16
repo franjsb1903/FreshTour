@@ -1,11 +1,28 @@
-import React from 'react';
+/**
+ * @fileoverview Listaxe de opcións no menú de usuario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { View, Text } from 'react-native'
 import { ListItem } from 'react-native-elements';
+
+// estilos
 import { loggedIn as styles } from '../styles/styles'
 
+/**
+ * Compoñente que conforma o menú de usuario
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const ListItemMenuUser = (props) => {
 
-    const data = props.data;
+    const data = props.data;                                // Información a amosar no menú
 
     return (
         <View>

@@ -1,16 +1,37 @@
-import React, { useState } from 'react'
+/**
+ * @fileoverview Modal para establecer tempos de visita flexibles
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useState, Component } from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
+
+// estilos
 import { modal as modalStyle, fromScreen as form } from '../styles/styles';
 
+/**
+ * Compoñente que conforma o modal para establecer tempos de visita flexibles
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const ModalTempo = (props) => {
 
-    const modal = props.modal;
-    const showModal = props.showModal;
-    const _onCorrect = props._onCorrect;
+    const modal = props.modal;                              // Boolean que indica se o modal se debe de amosar ou non
+    const showModal = props.showModal;                      // Función para cambiar o estado de visualización do modal
+    const _onCorrect = props._onCorrect;                    // Función que se executa cando se confirma a operación
 
-    const [tempo, setTempo] = useState(0);
+    const [tempo, setTempo] = useState(0);                  // Estado que almacena o tempo introducido polo usuario
 
+    /**
+     * Actualiza o número introducido polo usuario
+     * @param {String} value 
+     */
     const handleChangeText = (value) => {
         setTempo(value);
     }

@@ -1,31 +1,55 @@
-import React, { useContext, useEffect, useState } from 'react'
+/**
+ * @fileoverview Tarxeta dun elemento turístico
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, useEffect, useState, Component } from 'react'
 import { Text, ImageBackground, View } from 'react-native';
 import { Card } from 'react-native-elements';
 
+// Util
 import { getImageUri } from '../Util/ImageUtil';
 
+// compoñentes
 import { HeartIconButton, MapIconButton, HeartOutlineIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton } from './CustomIcons';
 import Stars from './CustomStarsDisplay';
 import ModalInicioSesion from './ModalInicioSesion';
-
 import { onPressFav, onQuitFav } from './Common'
 
+// estilos
 import { stylesCardElement as styles } from '../styles/styles';
 
+// contexto
 import AppContext from '../context/PlanificadorAppContext';
 
+/**
+ * Compoñente que conforma a tarxeta dun elemento turístico
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const CardElement = (props) => {
 
-    const [added, setAdded] = useState(false);
-    const [fav, setFav] = useState(false);
-    const [modal, setModal] = useState(false);
+    const [added, setAdded] = useState(false);                                      // Estado que controla se un elemento foi engadido á planificación ou non
+    const [fav, setFav] = useState(false);                                          // Estado que controla se un elemento foi engadido como favorito ou non
+    const [modal, setModal] = useState(false);                                      // Estado que controla a visualización ou non dun modal
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);                                         // Constante a partir da cal se pode acceder ao contexto
 
-    const isAdded = context.existItem;
-    const item = props.item;
-    const isRuta = props.isRuta;
+    const isAdded = context.existItem;                                              // Función do contexto que determina se un elemento está engadido á planificación
+    const item = props.item;                                                        // Obxecto que reúne a información do elemento turístico
+    const isRuta = props.isRuta;                                                    // Boolean que identifica se se está no contexto dunha ruta recomendada
+    const showOnMap = props.showOnMap;                                              // Función para xeolocalizar o elemento no mapa
 
+    const localUri = getImageUri(item.imaxe);
+
+    /**
+     * Cando que constrúe o compoñente, execútase o contido da función
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -38,25 +62,26 @@ const CardElement = (props) => {
         return () => mounted = false;
     }, [])
 
+    /**
+     * Cambia o estado do elemento, de non engadido á planificación a engadido
+     */
     const changeAdd = () => {
         setAdded(true);
     }
 
+    /**
+     * Cambia o estado do elemento, de favorito a non favorito ou viceversa
+     */
     const changeFav = () => {
         setFav(!fav);
     }
 
+    /**
+     * Amosa ou oculta o modal
+     */
     const showModal = () => {
         setModal(!modal);
     }
-
-    const changeModal = () => {
-        setModal(!modal);
-    }
-
-    const showOnMap = props.showOnMap;
-
-    const localUri = getImageUri(item.imaxe);
 
     return (
         <>
@@ -89,7 +114,7 @@ const CardElement = (props) => {
                                                     }} />
                                                     :
                                                     <HeartOutlineIconButton onPressFav={async () => {
-                                                        await onPressFav(changeFav, item, changeModal, context);
+                                                        await onPressFav(changeFav, item, showModal, context);
                                                     }} />
                                             }
 

@@ -1,15 +1,31 @@
-import React from 'react'
+/**
+ * @fileoverview Modal de confirmación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react'
 import { Text, View, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 
+// estilos
 import { modal as modalStyle } from '../styles/styles';
 
+/**
+ * Compoñente que conforma o modal de confirmación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const ModalConfirmacion = (props) => {
 
-    const modal = props.modal;
-    const showModal = props.showModal;
-    const confirm = props.confirm;
-    const text = props.text;
+    const modal = props.modal;                          // Boolean que indica se o modal se ten que amosar ou non
+    const showModal = props.showModal;                  // Función para cambiar o estado de visualización do modal
+    const confirm = props.confirm;                      // Función a executar cando se confirma
+    const text = props.text;                            // Texto a amosar
 
     return (
 

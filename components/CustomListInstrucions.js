@@ -1,14 +1,31 @@
-import React from 'react';
+/**
+ * @fileoverview Listaxe de instrucións da ruta da planificación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { View, Text } from 'react-native'
 import { ListItem } from 'react-native-elements';
 
+// estilos
 import { stylesListInstrucion as styles } from '../styles/styles';
 
+// compoñentes
 import { MarkerIcon, RouteIcon } from '../components/CustomIcons'
 
+/**
+ * Compoñente que conforma a listaxe de instrucións da ruta da planificación
+ * @param {*} props 
+ * @returns 
+ */
 const CustomListInstrucions = (props) => {
-    const element = props.element;
-    const steps = props.steps;
+    const element = props.element;              // Elemento da planificación
+    const steps = props.steps;                  // Pasos da ruta
 
     return (
         <View>

@@ -1,14 +1,29 @@
-import React from 'react'
+/**
+ * @fileoverview Compoñente DropDown (combo-box)
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Card } from 'react-native-elements';
 
+/**
+ * Compoñente DropDown personalizado
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const CustomDropDown = (props) => {
 
-    const items = props.items;
-    const onChange = props.onChange;
-    const style = props.style;
-    const container = props.style;
-    const defaultValue = props.defaultValue;
+    const items = props.items;                      // Array cas opcións do DropDown
+    const onChange = props.onChange;                // Función que indica a operación a realizar cando se selecciona un elemento no DropDown
+    const style = props.style;                      // Obxecto cos estilos a aplicar
+    const container = props.container;              // Obxecto cos estilos a aplicar no contenedor
+    const defaultValue = props.defaultValue;        // Valor por defecto
 
     return (
         <DropDownPicker

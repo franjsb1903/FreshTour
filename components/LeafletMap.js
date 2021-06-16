@@ -1,12 +1,26 @@
-import React, { useContext } from 'react';
+/**
+ * @fileoverview Mapa da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, Component } from 'react';
 import { Platform } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { WebView as WebViewWeb } from 'react-native-web-webview';
 import { showMessage } from "react-native-flash-message";
 import ActionSheet from "react-native-actions-sheet";
 import { useNavigation } from '@react-navigation/native';
-import leaflet_map from '../leaflet/leaflet.js';
 import * as Location from 'expo-location';
+
+// mapa leaflet
+import leaflet_map from '../leaflet/leaflet.js';
+
+// modelo
 import {
   getAllHostalaria,
   getGeoElementHostalaria,
@@ -33,19 +47,34 @@ import {
   getFavByNameOutras,
   favFilterSortOutras
 } from '../model/Lecer/Lecer';
-import properties from '../properties/properties_expo'
-import AppContext from '../context/PlanificadorAppContext';
-
 import { getLugar, getMonumento } from '../model/Turismo/Turismo';
 import { getConcreto as getHospedaxe } from '../model/Hospedaxe/Hospedaxe';
 import { getHostalariaConcreto, getOcioConcreto, getOutrasConcreto } from '../model/Lecer/Lecer';
+
+// properties
+import properties from '../properties/properties_expo';
+
+// contexto
+import AppContext from '../context/PlanificadorAppContext';
+
+// Util
 import { getToken } from '../Util/TokenUtil';
+
+// compoñentes
 import ActionSheetContent from './ActionSheetContent';
 
+/**
+ * Compoñente que conforma o mapa da aplicación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const LeafletMap = (props) => {
 
-  const context = useContext(AppContext);
+  const context = useContext(AppContext);                           // Constante que permite acceder ao contexto
 
+  /**
+   * Recupera a localización actual do usuario
+   */
   const getLocation = async () => {
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {
@@ -71,6 +100,10 @@ const LeafletMap = (props) => {
     }
   }
 
+  /**
+   * Execútase unha operación en función da mensaxe recibida
+   * @param {String} action 
+   */
   const doActionMessage = async (action) => {
     switch (action) {
       case "location":
@@ -82,8 +115,8 @@ const LeafletMap = (props) => {
     }
   }
 
-  let injectedData = `addLayer(${props.selected})`
-  const navigation = useNavigation();
+  let injectedData = `addLayer(${props.selected})`;
+  const navigation = useNavigation();                               // Constante para navegar na aplicación           
   return (
     Platform.OS != "web" ?
       <>

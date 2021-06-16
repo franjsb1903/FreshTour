@@ -1,9 +1,21 @@
-import React from 'react'
-import { Text } from 'react-native';
+/**
+ * @fileoverview Stack de navegación da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
+// módulos
+import React, {Component} from 'react'
+import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+// compoñentes
 import BottomTabNavigator from './BottomTabNavigator';
+
+// pantallas
 import TurismoList from '../screens/Turismo/TurismoList';
 import TurismoItem from '../screens/Turismo/TurismoItem/TurismoItem';
 import Register from '../screens/Usuarios/screens/auth/Register';
@@ -20,16 +32,21 @@ import CovidScreen from '../screens/Info/Screens/CovidScreen';
 import InfoCalidadeAire from '../screens/Info/Screens/InfoCalidadeAire';
 import CalidadeAireScreen from '../screens/Info/Screens/CalidadeAireScreen';
 import HospedaxeList from '../screens/Hospedaxe/HospedaxeList'
-
-import { stylesApp as styles } from '../styles/styles';
 import HospedaxeItem from '../screens/Hospedaxe/HospedaxeItem';
 import LecerList from '../screens/Lecer/LecerList';
 import CommonLecerList from '../screens/Lecer/Common/CommonLecerList';
 import CommonLecerItem from '../screens/Lecer/Common/CommonLecerItem';
 import TempoScreen from '../screens/Info/Screens/TempoScreen';
 
-const Stack = createStackNavigator();
+// estilos
+import { stylesApp as styles } from '../styles/styles';
 
+const Stack = createStackNavigator();                               // Constante sobre a que se crea o stack de navegación
+
+/**
+ * Compoñente que conforma o stack de navegación
+ * @returns {Component}
+ */
 const MainStack = () => {
     return (
         <Stack.Navigator>
