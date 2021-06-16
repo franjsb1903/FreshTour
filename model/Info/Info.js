@@ -1,6 +1,23 @@
+/**
+ * @fileoverview Modelo de información
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do contexto
+*/
+
+// properties
 import properties from '../../properties/properties_expo';
+
+// Util
 import { fetchJsonGet } from '../../Util/FetchUtil'
 
+/**
+ * Obtén información sobre a COVID
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
 export const getCovidData = async (signal) => {
 
     var today = new Date();
@@ -20,6 +37,11 @@ export const getCovidData = async (signal) => {
     }
 }
 
+/**
+ * Obtén a información do tempo
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
 export const getTempoData = async (signal) => {
     const url = properties.info.meteosix_api + properties.info.meteosix_api_key
     try {

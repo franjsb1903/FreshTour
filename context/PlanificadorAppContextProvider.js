@@ -1,34 +1,60 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * @fileoverview Proveedor do contexto da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do contexto
+*/
+
+// PLANIFICADOR TEMPORAL
+
+// módulos
+import React, { useState, useEffect, Component } from 'react';
+import { showMessage } from "react-native-flash-message";
+
+// contexto
 import AppContext from './PlanificadorAppContext';
+
+// modelo
 import { getGeoElementJson } from '../model/Turismo/Turismo';
 import { getGeoElementJson as getGeoElementJsonHospedaxe } from '../model/Hospedaxe/Hospedaxe'
 import { getGeoElementJsonHostalaria, getGeoElementJsonOcio, getGeoElementJsonOutras } from '../model/Lecer/Lecer'
 import { getRoute } from '../model/Planificador/Planificador';
 import { addElementoFav as addElementoFavModel, deleteElementoFav as deleteElementoFavModel } from '../model/Turismo/Turismo';
 import { getData as getCalidadeAireData } from '../model/CalidadeAire/CalidadeAire';
-import { showMessage } from "react-native-flash-message";
+
+// Util
 import { shouldDeleteToken } from '../Util/TokenUtil'
 
+/**
+ * Proveedor do contexto na aplicación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const AppContextProvider = (props) => {
 
-    const [turismoItems, setTurismoItems] = useState({
+    const [turismoItems, setTurismoItems] = useState({                          // Estado que reúne os elementos turísticos da planificación
         items: []
     });
-    const [coordinates, setCoordinates] = useState([]);
-    const [route, setRoute] = useState({
+    const [coordinates, setCoordinates] = useState([]);                         // Coordenadas dos elementos turísticos da planificación
+    const [route, setRoute] = useState({                                        // Ruta asociada á planificación, en formato JSON e formato texto
         route: '',
         routeJson: {}
     });
 
-    const [planificacion, setPlanificacion] = useState(undefined);
+    const [planificacion, setPlanificacion] = useState(undefined);              // Planificación actual almacenada no planificador
 
-    const [walking, setWalking] = useState(true);
-    const [geoMap, setGeoMap] = useState('');
+    const [walking, setWalking] = useState(true);                               // Estado que indica se está seleccionada a ruta a pé ou en bicicleta
+    const [geoMap, setGeoMap] = useState('');                                   // Estado que permite almacenar datos a xeolocalizar no mapa
 
-    const [tempoVisita, setTempoVisita] = useState(parseFloat(0));
+    const [tempoVisita, setTempoVisita] = useState(parseFloat(0));              // Estado que indica o tempo de visita total na planificación
 
-    const [calidadeAire, setCalidadeAire] = useState([]);
+    const [calidadeAire, setCalidadeAire] = useState([]);                       // Calidade do aire na planificación
 
+    /**
+     * Cando cambia o array que items, execútase o contido da función. Neste caso, obtéñense as súas coordenadas
+     */
     useEffect(() => {
         let mounted = true;
         var arrayCoordinates = [];
@@ -43,6 +69,9 @@ const AppContextProvider = (props) => {
         return () => mounted = false;
     }, [turismoItems.items]);
 
+    /**
+     * Cando cambia o array de coordenadas, execútase o contido da función. Neste caso, obtense a ruta
+     */
     useEffect(() => {
 
         let mounted = true;
@@ -85,6 +114,9 @@ const AppContextProvider = (props) => {
         }
     }, [coordinates]);
 
+    /**
+     * Cando cambia o perfil de ruta, execútase o contido da función, obtendo de novo a ruta
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -126,6 +158,11 @@ const AppContextProvider = (props) => {
         }
     }, [walking]);
 
+    /**
+     * Formatea unha determinada data
+     * @param {Date} date 
+     * @returns {String}
+     */
     const formatDate = (date) => {
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -136,11 +173,15 @@ const AppContextProvider = (props) => {
         return dataString;
     }
 
+    /**
+     * Obtén a calidade do aire
+     * @param {Boolean} mounted 
+     */
     const onGetDataCalidadeAire = async (mounted) => {
         try {
             const first = turismoItems.items[0];
             let actual = new Date();
-            actual.setHours(actual.getHours() + 2);
+            actual.setHours(actual.getHours() + 2);                                                     // Necesario para obter os datos no horario actual
             let calidadeArray = [];
             const calidade = await getCalidadeAireData(first.features[0].geometry.coordinates[1], first.features[0].geometry.coordinates[0], actual.toISOString());
             const calidadeObject = {
@@ -151,12 +192,12 @@ const AppContextProvider = (props) => {
 
             if (route.routeJson != undefined) {
                 var seconds = 0;
-                for (var i = 0; i < route.routeJson.features[0].properties.segments.length; i++) {
+                for (var i = 0; i < route.routeJson.features[0].properties.segments.length; i++) {      // A partir dos segmentos da ruta, contrúese a calidade do aire en rangos de 60 minutos, tendo en conta os tempos de visita
                     const segment = route.routeJson.features[0].properties.segments[i];
                     const itemFirst = turismoItems.items[i];
                     const itemSecond = turismoItems.items[i + 1];
                     seconds += itemFirst.features[0].properties.tipo_visita ? parseFloat(itemFirst.features[0].properties.tipo_visita) * 60 : parseFloat(itemFirst.features[0].properties.tempo_visita_rapida) * 60;
-                    if (seconds >= 3600) {
+                    if (seconds >= 3600) {                                                              // Para cada segmento, compróbase se se superan os 60 minutos a partir do tempo de visita ao primeiro elemento. Nese caso, obtense a calidade do aire nas coordenadas actuais do segmento
                         const coord = itemFirst.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
                         const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
@@ -169,7 +210,7 @@ const AppContextProvider = (props) => {
                         seconds = seconds - 3600;
 
                     }
-                    for (var j = 0; j < segment.steps.length; j++) {
+                    for (var j = 0; j < segment.steps.length; j++) {                                    // Para cada segmento, recórrense os seus pasos ata completar os 60 minutos, se é que se completan
                         const step = segment.steps[j];
                         seconds += parseFloat(step.duration);
                         if (seconds >= 3600) {
@@ -186,7 +227,7 @@ const AppContextProvider = (props) => {
                         }
                     }
                     seconds += itemSecond.features[0].properties.tipo_visita ? parseFloat(itemSecond.features[0].properties.tipo_visita) * 60 : parseFloat(itemSecond.features[0].properties.tempo_visita_rapida) * 60;
-                    if (seconds >= 3600) {
+                    if (seconds >= 3600) {                                                              // Compróbase se se superan os 60 minutos tendo en conta os tempos de visita do segundo elemento
                         const coord = itemSecond.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
                         const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
@@ -215,6 +256,9 @@ const AppContextProvider = (props) => {
         }
     }
 
+    /**
+     * Cando cambia a ruta, execútase o contido da función obtendo a calidade do aire
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -231,6 +275,10 @@ const AppContextProvider = (props) => {
         }
     }, [route.routeJson]);
 
+    /**
+     * Engade un elemento á planificación
+     * @param {Object} item 
+     */
     const addItem = (item) => {
 
         var exist = existItem(`${item.features[0].properties.id}`, item.features[0].properties.tipo);
@@ -247,6 +295,12 @@ const AppContextProvider = (props) => {
         }
     };
 
+    /**
+     * Determina se un elemento xa foi engadido á planificación
+     * @param {Number} id 
+     * @param {String} tipo 
+     * @returns 
+     */
     const existItem = (id, tipo) => {
         var exist = false;
         for (var i = 0; i < turismoItems.items.length; i++) {
@@ -260,14 +314,27 @@ const AppContextProvider = (props) => {
         return exist;
     }
 
+    /**
+     * Actualiza o tempo de visita da planificación
+     * @param {Number} novoTempo 
+     * @param {Number} antigoTempo 
+     */
     const actualizaTempoVisita = (novoTempo, antigoTempo) => {
         setTempoVisita(tempoVisita - antigoTempo + novoTempo);
     }
 
+    /**
+     * Reinicializa o tempo de visita da planificación
+     * @param {Number} tempo 
+     */
     const initTempoVisita = (tempo) => {
         setTempoVisita(tempo);
     }
 
+    /**
+     * Actualiza os elementos da planificación
+     * @param {Array} newItems 
+     */
     const updateItems = (newItems) => {
         setTurismoItems({
             items: newItems
@@ -276,18 +343,33 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
+    /**
+     * Cambia o perfil da planificación
+     */
     const changeProfile = () => {
         setWalking(!walking);
     }
 
+    /**
+     * Resetea a planificación almacenada
+     */
     const resetPlanificacion = () => {
         setPlanificacion(undefined);
     }
 
+    /**
+     * Actualiza a planificación almacenada
+     * @param {Object} planificacion 
+     */
     const updatePlanificacion = (planificacion) => {
         setPlanificacion(planificacion);
     }
 
+    /**
+     * Cambia a orde hacia arriba dun elemento da planificación
+     * @param {Number} id 
+     * @param {String} tipo 
+     */
     const changeOrderUp = (id, tipo) => {
         var index;
         var aux = [];
@@ -308,6 +390,11 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
+    /**
+     * Cambia a orde hacia abaixo dun elemento da planificación
+     * @param {Number} id 
+     * @param {String} tipo 
+     */
     const changeOrderDown = (id, tipo) => {
         var index;
         var aux = [];
@@ -328,6 +415,13 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
+    /**
+     * Engade un elemento á planificación
+     * @param {Number} id 
+     * @param {Boolean} added 
+     * @param {String} tipo 
+     * @returns {Boolean}
+     */
     const addToPlanificacion = async (id, added, tipo) => {
         try {
             if (!added) {
@@ -377,6 +471,12 @@ const AppContextProvider = (props) => {
         }
     }
 
+    /**
+     * Obtén información xeográfica dun determinado elemento en formato JSON
+     * @param {Number} id 
+     * @param {String} tipo 
+     * @returns {Object}
+     */
     const getDataJson = async (id, tipo) => {
         let data;
         switch (tipo) {
@@ -400,6 +500,12 @@ const AppContextProvider = (props) => {
         return data;
     }
 
+    /**
+     * Engade una serie de elementos á planificación dunha vez
+     * @param {Array} elements 
+     * @param {Object} planificacion 
+     * @param {Object} navigation 
+     */
     const addElementsToPlanificacion = async (elements, planificacion, navigation) => {
         try {
             showMessage({
@@ -444,6 +550,12 @@ const AppContextProvider = (props) => {
         }
     }
 
+    /**
+     * Cambia o tipo de visita dun determinado elemento da planificación
+     * @param {Number} id 
+     * @param {Number} tipoVisita 
+     * @param {String} tipo 
+     */
     const changeTipoVisita = async (id, tipoVisita, tipo) => {
         for (var i = 0; i < turismoItems.items.length; i++) {
             const e = turismoItems.items[i];
@@ -457,11 +569,17 @@ const AppContextProvider = (props) => {
         setPlanificacion(undefined);
     }
 
+    /**
+     * Actualiza información xeográfica a amosar no mapa
+     * @param {String} text 
+     */
     const updateGeoMap = (text) => {
         setGeoMap(text);
     }
 
-    const [user, setUser] = useState({
+    // USUARIOS
+
+    const [user, setUser] = useState({                  // Estado que almacena a información dun usuario
         user: {},
         isLoggedIn: false,
         planificacions: [],
@@ -474,6 +592,15 @@ const AppContextProvider = (props) => {
         outrasFav: []
     });
 
+    /**
+     * Engade un elemento como favorito
+     * @param {String} token 
+     * @param {Function} changeFavView 
+     * @param {Object} item 
+     * @param {Function} model 
+     * @param {Function} changeModal 
+     * @returns 
+     */
     const addElementoFav = async (token, changeFavView, item, model, changeModal) => {
         try {
             let response;
@@ -514,6 +641,14 @@ const AppContextProvider = (props) => {
         }
     }
 
+    /**
+     * Quita un elemento como favorito
+     * @param {String} token 
+     * @param {Function} changeFavView 
+     * @param {Object} item 
+     * @param {Function} model 
+     * @returns 
+     */
     const deleteElementoFav = async (token, changeFavView, item, model) => {
         try {
             let response;
@@ -552,6 +687,10 @@ const AppContextProvider = (props) => {
         }
     }
 
+    /**
+     * Almacena un novo usuario
+     * @param {Object} data 
+     */
     const setNewUser = (data) => {
         if (data != undefined) {
             setUser({
@@ -569,6 +708,9 @@ const AppContextProvider = (props) => {
         }
     }
 
+    /**
+     * Reinicia un usuario almacenado
+     */
     const resetUser = () => {
         setUser({
             user: {},
@@ -584,7 +726,7 @@ const AppContextProvider = (props) => {
         })
     }
 
-    const settings = {
+    const settings = {                                      // Settings do contexto, exportando todas aquelas funcionalidades que sexan necesario empregalas noutros lugares
         addItem: addItem,
         route: route,
         existItem: existItem,

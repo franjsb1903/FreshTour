@@ -1,18 +1,35 @@
-import React from 'react';
+/**
+ * @fileoverview Menú de navegación superior no planificador
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
+// pantallas
 import DatosRuta from '../screens/Common/DatosRuta';
 import Instrucions from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/Instrucions';
 import Planificacion from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/Planificacion'
 import CalidadeAire from '../screens/PlanificadorTemporal/Planificador/PlanificadorTabScreens/CalidadeAire'
 
+// propiedades
 import properties from '../properties/properties_expo';
+
+// estilos
 import { stylesTopNavigator as styles } from '../styles/styles'
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator();                        // Constante sobre a que se constrúe o menú
 
-
-const TopTabNavigator = (props) => {
+/**
+ * Compoñente que conforma o menú de navegación superior no planificador
+ * @returns {Component}
+ */
+const TopTabNavigator = () => {
 
     return (
         <>

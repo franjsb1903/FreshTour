@@ -1,29 +1,48 @@
-import React from 'react';
+/**
+ * @fileoverview Menú de navegador superior dun elemento turístico concreto
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { View, Image } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
+// Util
 import { getImageUri } from '../Util/ImageUtil';
 
+// pantallas
 import Informacion from '../screens/Turismo/TurismoItem/Informacion';
 import Resumo from '../screens/Common/Resumo';
 import TiposVisita from '../screens/Turismo/TurismoItem/TiposVisita';
 import Opinions from '../screens/Common/Opinions';
 
+// propiedades
 import properties from '../properties/properties_expo';
+
+//estilos
 import { stylesTopNavigator as styles } from '../styles/styles'
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator();                            // Constante sobre a que se constrúe o menú
 
-
+/**
+ * Compoñente que reúne o menú superior dun elemento turístico concreto
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const TopTabNavigator = (props) => {
 
-    const element = props.element;
-    const showOnMap = props.showOnMap;
-    const opinions = props.opinions;
-    const onRefreshOpinions = props.onRefreshOpinions;
-    const onRefresh = props.onRefresh;
-    const isRuta = props.isRuta;
-    const isElementoRuta = props.isElementoRuta;
+    const element = props.element;                                      // Elemento turístico
+    const showOnMap = props.showOnMap;                                  // Función que permite xeolocalizar o elemento no mapa
+    const opinions = props.opinions;                                    // Opinións do elemento
+    const onRefreshOpinions = props.onRefreshOpinions;                  // Función que permite refrescar as opinións do elemento
+    const onRefresh = props.onRefresh;                                  // Función que permite refrescar a información do elemento
+    const isRuta = props.isRuta;                                        // Boolean que determina se se está no contexto dunha ruta
+    const isElementoRuta = props.isElementoRuta;                        // Boolean que determina se é un elemento pertencente a unha ruta
 
     const uriImage = getImageUri(element.imaxe);
 
