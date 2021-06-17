@@ -13,7 +13,7 @@ import { getToken, shouldDeleteToken, deleteToken } from '../../../Util/TokenUti
 
 import { showMessage } from "react-native-flash-message";
 import { checkEmail, checkName, checkUsername } from '../../../Util/CheckFieldsUtil'
-import AppContext from '../../../context/PlanificadorAppContext';
+import AppContext from '../../../context/AppContext';
 
 const Register = (props) => {
 

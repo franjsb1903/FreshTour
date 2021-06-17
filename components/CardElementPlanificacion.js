@@ -21,7 +21,7 @@ import ModalTempo from './ModalTempo';
 import { stylesCardElementPlanificacion as styles, stylesDropDown as dropdown, customTouchableOpacity as buttonStyle } from '../styles/styles';
 
 // contexto
-import AppContext from '../context/PlanificadorAppContext';
+import AppContext from '../context/AppContext';
 
 /**
  * Compoñente que conforma a tarxeta de elementos dunha planificador no planificador

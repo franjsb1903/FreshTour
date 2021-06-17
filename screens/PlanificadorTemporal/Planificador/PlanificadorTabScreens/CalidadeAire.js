@@ -7,7 +7,7 @@ import Semaforo from '../../../../components/Semaforo';
 import { stylesTurismoList } from '../../../../styles/styles';
 import ProgressBar from '../../../../components/ProgressBar'
 
-import AppContext from '../../../../context/PlanificadorAppContext';
+import AppContext from '../../../../context/AppContext';
 
 const CalidadeAire = () => {
 

@@ -20,7 +20,7 @@ import { onPressFav, onQuitFav } from './Common';
 import ModalInicioSesion from './ModalInicioSesion';
 
 // contexto
-import AppContext from '../context/PlanificadorAppContext';
+import AppContext from '../context/AppContext';
 
 /**
  * Compoñente que conforma a tarxeta a empregar na listaxe de elementos de lecer e hospedaxe

@@ -1,7 +1,22 @@
+/**
+ * @fileoverview Modelo dos Usuarios
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do contexto
+*/
+
+// xestion de datos
 import XestionDatosUsuarios from '../../XestionDatos/XestionDatosUsuarios';
 
 const Usuarios = new XestionDatosUsuarios();
 
+/**
+ * Rexistra un usuario na plataforma
+ * @param {Object} user 
+ * @returns {Object}
+ */
 export const registerUser = async (user) => {
 
     try {
@@ -12,6 +27,11 @@ export const registerUser = async (user) => {
     }
 }
 
+/**
+ * Permite o inicio de sesión dun usuario na plataforma
+ * @param {Object} user 
+ * @returns {Object}
+ */
 export const loginUser = async (user) => {
     try {
         const json = await Usuarios.loginUser(user);
@@ -21,6 +41,12 @@ export const loginUser = async (user) => {
     }
 }
 
+/**
+ * Inicio de sesión dun usuario a través do seu token
+ * @param {String} token 
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
 export const getUserByToken = async (token, signal) => {
     try {
         const json = await Usuarios.getUserByToken(token, signal);
@@ -30,6 +56,12 @@ export const getUserByToken = async (token, signal) => {
     }
 }
 
+/**
+ * Permite a edición dun usuario
+ * @param {String} token 
+ * @param {Object} user 
+ * @returns {Object}
+ */
 export const editUser = async (token, user) => {
     try {
         const json = await Usuarios.editUser(token, user);
@@ -39,6 +71,11 @@ export const editUser = async (token, user) => {
     }
 }
 
+/**
+ * Eliminación da conta dun usuario
+ * @param {String} token 
+ * @returns {Object}
+ */
 export const deleteUser = async (token) => {
     try {
         const json = await Usuarios.deleteUser(token);

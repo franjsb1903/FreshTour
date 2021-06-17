@@ -32,7 +32,7 @@ import {
     favFilterSortOutras
 } from '../../../model/Lecer/Lecer';
 
-import AppContext from '../../../context/PlanificadorAppContext';
+import AppContext from '../../../context/AppContext';
 
 import { loggedIn as styles, customTouchableOpacity as button, stylesTurismoList as bar } from '../../../styles/styles';
 

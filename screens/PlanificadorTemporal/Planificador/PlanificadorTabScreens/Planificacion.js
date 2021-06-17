@@ -7,7 +7,7 @@ import NoElementsPlanificadorView from '../../../../components/NoElementsPlanifi
 
 import { stylesScroll } from '../../../../styles/styles';
 
-import AppContext from '../../../../context/PlanificadorAppContext';
+import AppContext from '../../../../context/AppContext';
 
 const Planificacion = () => {
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 
-import AppContextProvider from './context/PlanificadorAppContextProvider'
+import AppContextProvider from './context/AppContextProvider'
 
 import { stylesApp as styles } from './styles/styles';
 import FlashMessage from 'react-native-flash-message'

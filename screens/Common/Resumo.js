@@ -9,7 +9,7 @@ import ModalInicioSesion from '../../components/ModalInicioSesion';
 import { onPressFav, onQuitFav } from '../../components/Common';
 import { addElementoFav, deleteElementoFav } from '../../model/Planificador/Planificador';
 
-import AppContext from '../../context/PlanificadorAppContext';
+import AppContext from '../../context/AppContext';
 
 const Resumo = (props) => {
 

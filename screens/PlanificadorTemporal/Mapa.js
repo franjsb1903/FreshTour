@@ -6,7 +6,7 @@ import { stylesMapa as styles } from '../../styles/styles'
 
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
-import AppContext from '../../context/PlanificadorAppContext';
+import AppContext from '../../context/AppContext';
 import { PointsInterestIconButton, BedIconButton, ClockIconButton } from '../../components/CustomIcons';
 
 import { getIconContent } from '../../Util/IconMapUtil'

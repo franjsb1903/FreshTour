@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Title } from 'react-native-paper';
 
-import AppContext from '../../context/PlanificadorAppContext';
+import AppContext from '../../context/AppContext';
 import NoElementsPlanificadorView from '../../components/NoElementsPlanificadorView';
 
 import { stylesScroll, stylesBorderContainer as borderStyle } from '../../styles/styles'

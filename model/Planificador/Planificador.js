@@ -1,8 +1,26 @@
+/**
+ * @fileoverview Modelo do Planificador coas funcionalidades asociadas ao planificador
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do contexto
+*/
+
+// properties
 import properties from '../../properties/properties_expo';
+
+// xestión de datos
 const XestionDatosPlanificador = require('../../XestionDatos/XestionDatosPlanificador')
 
 const Planificador = new XestionDatosPlanificador();
 
+/**
+ * Obtén unha determinada ruta a partir das coordenadas
+ * @param {Array} coordinates 
+ * @param {Boolean} walking 
+ * @returns {Object}
+ */
 export const getRoute = (coordinates, walking) => {
     return new Promise((resolve, reject) => {
 
@@ -59,6 +77,13 @@ export const getRoute = (coordinates, walking) => {
     })
 }
 
+/**
+ * Garda unha planificación na plataforma
+ * @param {String} token
+ * @param {Object} planificacion 
+ * @param {Array} elementos 
+ * @returns {Object}
+ */
 export const savePlanificacion = async (token, planificacion, elementos) => {
     try {
         const json = await Planificador.savePlanificacion(token, planificacion, elementos);
@@ -68,6 +93,12 @@ export const savePlanificacion = async (token, planificacion, elementos) => {
     }
 }
 
+/**
+ * Obtén aquelas planificacións almacenadas e visibles por todos os usuarios
+ * @param {Boolean} signal 
+ * @param {String} token 
+ * @returns {Object}
+ */
 export const getPlanificacions = async (signal, token) => {
     try {
         const json = await Planificador.getPlanificacions(signal, token);
@@ -77,6 +108,13 @@ export const getPlanificacions = async (signal, token) => {
     }
 }
 
+/**
+ * Comparte unha planificación almacenada
+ * @param {String} token 
+ * @param {Boolean} isShared 
+ * @param {Number} id 
+ * @returns {Object}
+ */
 export const sharePlanificacion = async (token, isShared, id) => {
     try {
         const json = await Planificador.sharePlanificacion(token, isShared, id);
@@ -86,6 +124,12 @@ export const sharePlanificacion = async (token, isShared, id) => {
     }
 }
 
+/**
+ * Obtén os elementos que compoñen unha planificación
+ * @param {Number} id 
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
 export const getElements = async (id, signal) => {
     try {
         const json = await Planificador.getElements(id, signal);
@@ -95,6 +139,12 @@ export const getElements = async (id, signal) => {
     }
 }
 
+/**
+ * Elimina unha planificación
+ * @param {Number} id 
+ * @param {String} token 
+ * @returns {Object}
+ */
 export const deletePlanificacion = async (id, token) => {
     try {
         const json = await Planificador.deletePlanificacion(id, token);
@@ -104,6 +154,14 @@ export const deletePlanificacion = async (id, token) => {
     }
 }
 
+/**
+ * Edita unha planificación almacenada
+ * @param {String} titulo 
+ * @param {String} comentario 
+ * @param {Number} id 
+ * @param {String} token 
+ * @returns {Object}
+ */
 export const editPlanificacion = async (titulo, comentario, id, token) => {
     try {
         const json = await Planificador.editPlanificacion(token, titulo, comentario, id);
@@ -113,6 +171,12 @@ export const editPlanificacion = async (titulo, comentario, id, token) => {
     }
 }
 
+/**
+ * Obtén as planificacións ordenadas dun determinado modo
+ * @param {String} token 
+ * @param {String} type 
+ * @returns {Object}
+ */
 export const sortBy = async (token, type) => {
     try {
         const json = await Planificador.sortBy(token, type);
@@ -122,6 +186,12 @@ export const sortBy = async (token, type) => {
     }
 }
 
+/**
+ * Obtén as planificacións favoritas ordenadas dun determinado modo
+ * @param {String} token 
+ * @param {String} type 
+ * @returns {Object}
+ */
 export const favSortBy = async (token, type) => {
     try {
         const json = await Planificador.favSortBy(token, type);
@@ -131,6 +201,12 @@ export const favSortBy = async (token, type) => {
     }
 }
 
+/**
+ * Obtén as planificacións en función dun determinado nome introducido polo usuario
+ * @param {String} token 
+ * @param {String} name 
+ * @returns {Object}
+ */
 export const getByName = async (token, name) => {
     try {
         const json = await Planificador.getByName(token, name);
@@ -140,6 +216,12 @@ export const getByName = async (token, name) => {
     }
 }
 
+/**
+ * Engade unha planificación como favorita
+ * @param {String} token 
+ * @param {Number} id_elemento 
+ * @returns {Object}
+ */
 export const addElementoFav = async (token, id_elemento) => {
     try {
         const json = await Planificador.addElementoFav(token, id_elemento);
@@ -149,6 +231,12 @@ export const addElementoFav = async (token, id_elemento) => {
     }
 }
 
+/**
+ * Quita unha planificación como favorita
+ * @param {String} token 
+ * @param {Number} id_elemento 
+ * @returns {Object}
+ */
 export const deleteElementoFav = async (token, id_elemento) => {
     try {
         const json = await Planificador.deleteElementoFav(token, id_elemento);

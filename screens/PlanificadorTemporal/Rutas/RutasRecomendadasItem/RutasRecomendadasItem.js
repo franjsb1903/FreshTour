@@ -9,7 +9,7 @@ import { getElements } from '../../../../model/Planificador/Planificador'
 import ProgressBar from '../../../../components/ProgressBar';
 import { stylesTurismoList as styles } from '../../../../styles/styles';
 
-import AppContext from '../../../../context/PlanificadorAppContext';
+import AppContext from '../../../../context/AppContext';
 
 const TurismoItem = ({ route, navigation }) => {
 

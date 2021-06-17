@@ -32,7 +32,7 @@ import { onQuitFav, onPressFav, onShare } from './Common';
 import { getToken, shouldDeleteToken } from '../Util/TokenUtil'
 
 // contexto
-import AppContext from '../context/PlanificadorAppContext';
+import AppContext from '../context/AppContext';
 
 /**
  * Compoñente que conforma a tarxeta que amosa unha planificación recomendada ou unha planificación gardada por un usuario

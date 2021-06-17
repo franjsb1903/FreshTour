@@ -6,7 +6,7 @@ import { showMessage } from "react-native-flash-message";
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button, stylesTurismoList as stylesProgress } from '../../../../styles/styles'
 import { clearButton } from '../../../../components/Common';
 import ModalInicioSesion from '../../../../components/ModalInicioSesion';
-import AppContext from '../../../../context/PlanificadorAppContext';
+import AppContext from '../../../../context/AppContext';
 import ProgressBar from '../../../../components/ProgressBar'
 
 import { savePlanificacion, editPlanificacion } from '../../../../model/Planificador/Planificador';

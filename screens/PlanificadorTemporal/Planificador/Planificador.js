@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from "react-native-flash-message";
 
-import AppContext from '../../../context/PlanificadorAppContext';
+import AppContext from '../../../context/AppContext';
 import NoElementsPlanificadorView from '../../../components/NoElementsPlanificadorView'
 import TopTabNavigator from '../../../components/TopTabNavigatorPlanificador';
 import { BinIcon, SaveIconButton, ShareIconButton, WalkIconButton, BicycleIconButton, MapIconButton, PointsInterestIconButton, SavedIconButton, SharedIconButton } from '../../../components/CustomIcons';

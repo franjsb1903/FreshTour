@@ -55,7 +55,7 @@ import { getHostalariaConcreto, getOcioConcreto, getOutrasConcreto } from '../mo
 import properties from '../properties/properties_expo';
 
 // contexto
-import AppContext from '../context/PlanificadorAppContext';
+import AppContext from '../context/AppContext';
 
 // Util
 import { getToken } from '../Util/TokenUtil';

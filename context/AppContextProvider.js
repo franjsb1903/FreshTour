@@ -14,7 +14,7 @@ import React, { useState, useEffect, Component } from 'react';
 import { showMessage } from "react-native-flash-message";
 
 // contexto
-import AppContext from './PlanificadorAppContext';
+import AppContext from './AppContext';
 
 // modelo
 import { getGeoElementJson } from '../model/Turismo/Turismo';

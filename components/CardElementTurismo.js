@@ -25,7 +25,7 @@ import { onPressFav, onQuitFav } from './Common'
 import { stylesCardElement as styles } from '../styles/styles';
 
 // contexto
-import AppContext from '../context/PlanificadorAppContext';
+import AppContext from '../context/AppContext';
 
 /**
  * Compoñente que conforma a tarxeta dun elemento turístico

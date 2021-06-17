@@ -11,7 +11,7 @@ import ProgressBar from '../../components/ProgressBar';
 import LoggedIn from './screens/LoggedIn';
 import NotLoggedIn from './screens/NotLoggedIn';
 
-import AppContext from '../../context/PlanificadorAppContext';
+import AppContext from '../../context/AppContext';
 import { registerUser, loginUser } from '../../model/Usuarios/Usuarios';
 import { showMessage } from "react-native-flash-message";
 
