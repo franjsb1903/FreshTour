@@ -1,21 +1,41 @@
-import React, { useState, useEffect, useContext } from 'react';
+/**
+ * @fileoverview Pantalla do mapa da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useState, useEffect, useContext, Component } from 'react';
 import { LogBox, Text, View, Platform } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 
+// estilos
 import { stylesMapa as styles } from '../../styles/styles'
 
+// modelo
 import { getData, getItem } from '../../model/Planificador/Mapa';
 
+// contexto
 import AppContext from '../../context/AppContext';
+
+// compoñentes
 import { PointsInterestIconButton, BedIconButton, ClockIconButton } from '../../components/CustomIcons';
-
-import { getIconContent } from '../../Util/IconMapUtil'
-
 import LeafletMap from '../../components/LeafletMap';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList';
-import ModalUrl from '../../components/ModalUrl'
+import ModalUrl from '../../components/ModalUrl';
 
+// Util
+import { getIconContent } from '../../Util/IconMapUtil'
+
+/**
+ * Compoñente que conforma a pantalla principal da aplicación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Map = (props) => {
 
   if (Platform.OS != "web") {
@@ -24,47 +44,60 @@ const Map = (props) => {
     ])
   }
 
-  const context = useContext(AppContext);
+  const context = useContext(AppContext);                   // Constante para empregar o contexto da aplicación
 
-  const [items, setItems] = useState({
+  const [items, setItems] = useState({                      // Estado que almacena elementos a xeolocalizar no mapa dunha planificación e controla cando esta está cargando información
     data: [],
     loading: false
   });
 
-  const [selected, setSelected] = useState({
+  const [selected, setSelected] = useState({                // Estado que almacena información a amosar no mapa
     selected: '',
     type: ''
   });
 
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);                // Estado que controla un modal
 
+  /**
+   * Amosa ou oculta o modal
+   */
   const showModal = () => {
     setModal(!modal);
   }
-  let injectedData = `addLayer(${selected.selected}, "${selected.type}")`;
 
+  let injectedData = `addLayer(${selected.selected}, "${selected.type}")`;  // Liña JavaScript para inxectar código no mapa
+
+  /**
+   * Execútase cando se construe o compoñente
+   */
   useEffect(() => {
     let mounted = true;
 
     if (mounted) {
-      global.setSelected = updateSelected;
+      global.setSelected = updateSelected;                  // Gardamos a función para amosar información no mapa nunha variable accesible dende toda a aplicación
     }
 
     return () => mounted = false;
   }, []);
 
+  /**
+   * Execútase cando cambia o estado selected
+   */
   useEffect(() => {
     let mounted = true;
 
     if (mounted) {
       if (Platform.OS != "web") {
-        global.map.injectJavaScript(injectedData);
+        global.map.injectJavaScript(injectedData);            // Inxectamos a información no mapa
       }
     }
 
     return () => mounted = false;
   }, [selected]);
 
+  /**
+   * Execútase cando cambia o estado geoMap no contexto
+   */
   useEffect(() => {
     let mounted = true;
 
@@ -77,17 +110,20 @@ const Map = (props) => {
     return () => mounted = false;
   }, [context.geoMap]);
 
+  /**
+   * Execútase cando cambia o estado route no contexto, isto é, cando hai unha nova ruta que amosar no mapa
+   */
   useEffect(() => {
     let mounted = true;
 
     if (mounted) {
       if (Platform.OS != "web") {
-        global.map.injectJavaScript(`deleteMarkerPlanificacionLayer()`);
+        global.map.injectJavaScript(`deleteMarkerPlanificacionLayer()`);      // Eliminamos os marcadores de rutas que podan existir no mapa
         const data = context.route.route;
         if (Platform.OS != "web") {
-          global.map.injectJavaScript(`addRoute(${data})`);
+          global.map.injectJavaScript(`addRoute(${data})`);                   // Debuxamos a ruta
           var i = 0;
-          context.turismoItems.map(e => {
+          context.turismoItems.map(e => {                                     // Debuxamos un marcador por cada elemento da planificación
             i++;
             const content = getIconContent(i);
             const coord = [parseFloat(`${e.features[0].geometry.coordinates[0]}`), parseFloat(`${e.features[0].geometry.coordinates[1]}`)]
@@ -106,6 +142,11 @@ const Map = (props) => {
     return () => mounted = false;
   }, [context.route]);
 
+  /**
+   * Obtén unha listaxe de lugares a partir dunha busca do usuario
+   * @param {String} newSearch 
+   * @returns 
+   */
   const getElements = async (newSearch) => {
     try {
       setItems({ loading: true, data: [] });
@@ -132,10 +173,19 @@ const Map = (props) => {
     }
   }
 
+  /**
+   * Execútase cando se realiza unha busca polo usuario
+   * @param {String} value 
+   */
   const doSearch = (value) => {
     getElements(value);
   }
 
+  /**
+   * Execútase cando o usuario selecciona un dos lugares de entre os dispoñibles da listaxe amosada a partir da súa busca, permitindo a súa xeolocalización
+   * @param {String} selected 
+   * @returns 
+   */
   const selectedItem = async (selected) => {
 
     try {
@@ -173,6 +223,9 @@ const Map = (props) => {
     }
   }
 
+  /**
+   * Actualiza os elementos da planificación  almacenados
+   */
   const updateItems = () => {
     setItems({
       data: [],
@@ -180,6 +233,11 @@ const Map = (props) => {
     })
   }
 
+  /**
+   * Actualiza a selección actual do usuario
+   * @param {String} selected 
+   * @param {String} type 
+   */
   const updateSelected = (selected, type) => {
     setSelected({
       selected: selected,

@@ -1,37 +1,62 @@
-import React, { useState, useEffect, useContext } from 'react';
+/**
+ * @fileoverview Pantalla de usuario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useState, useEffect, useContext, Component } from 'react';
 import { View } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { showMessage } from "react-native-flash-message";
+
+// estilos
 import { stylesTurismoList as progress } from '../../styles/styles';
 
+// Util
 import { getToken, shouldDeleteToken, storeToken, deleteToken } from '../../Util/TokenUtil'
 
+// modelo
 import { getUserByToken } from '../../model/Usuarios/Usuarios'
+import { registerUser, loginUser } from '../../model/Usuarios/Usuarios';
+
+// compoñentes
 import ProgressBar from '../../components/ProgressBar';
 
+// pantallas
 import LoggedIn from './screens/LoggedIn';
 import NotLoggedIn from './screens/NotLoggedIn';
 
+// contexto
 import AppContext from '../../context/AppContext';
-import { registerUser, loginUser } from '../../model/Usuarios/Usuarios';
-import { showMessage } from "react-native-flash-message";
 
+/**
+ * Compoñente que conforma a pantalla de usuario da aplicación
+ * @returns {Component}
+ */
 const User = () => {
 
-    const [loading, setLoading] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(false);              // Estado que indica se a pantalla está cargando
+    const [loggedIn, setLoggedIn] = useState(false);            // Estado que indica se o usuario ten iniciada a sesión
 
-    const context = useContext(AppContext);
-    const isFocused = useIsFocused();
+    const context = useContext(AppContext);                     // Constante que permite acceder ao contexto
+    const isFocused = useIsFocused();                           // Instancia que indica cando se accede á pantalla
 
     const changeLoading = (value) => {
         setLoading(value);
     }
 
+    /**
+     * Execútase cando se accede á pantalla, tratando de iniciar a sesión do usuario a partir do seu token almacenado no dispositivo, se é que existe
+     */
     useEffect(() => {
 
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                      // Control da petición
         const signal = abortController.signal;
 
         const getUser = async () => {
@@ -40,9 +65,9 @@ const User = () => {
                     setLoading(true);
                     setLoggedIn(false);
                 }
-                const token = await getToken('id_token');
+                const token = await getToken('id_token');                   // Obtense o token de usuario
                 if (token) {
-                    const data = await getUserByToken(token, signal);
+                    const data = await getUserByToken(token, signal);       // Trátase de iniciar a sesión a partir do token
                     if (!data.auth) {
                         if (!await shouldDeleteToken(data.message, 'id_token')) {
                             showMessage({
@@ -58,8 +83,8 @@ const User = () => {
                         return false;
                     }
                     if (mounted) {
-                        context.setUser(data);
-                        setLoggedIn(true);
+                        context.setUser(data);                              // Gárdase o usuario no contexto
+                        setLoggedIn(true);                                  // Indícase que o usuario iniciou sesión
                     }
                 }
                 if (mounted) {
@@ -79,6 +104,11 @@ const User = () => {
         }
     }, [isFocused]);
 
+    /**
+     * Rexistra ao usuario na plataforma
+     * @param {Object} user 
+     * @returns {Boolean}
+     */
     const register = async (user) => {
         try {
             const data = await registerUser(user);
@@ -91,8 +121,8 @@ const User = () => {
                 });
                 return false;
             }
-            await storeToken('id_token', data.token);
-            context.setUser(data);
+            await storeToken('id_token', data.token);               // Garda o token de usuario obtido da resposta
+            context.setUser(data);                                  // Garda ao usuario no contexto
             return true;
         } catch (err) {
             console.error(err);
@@ -105,6 +135,11 @@ const User = () => {
         }
     }
 
+    /**
+     * Inicia a sesión do usuario
+     * @param {Object} user 
+     * @returns {Boolean}
+     */
     const login = async (user) => {
         try {
             const data = await loginUser(user);
@@ -117,8 +152,8 @@ const User = () => {
                 });
                 return false;
             }
-            await storeToken('id_token', data.token);
-            context.setUser(data);
+            await storeToken('id_token', data.token);                   // Garda o token do usuario obtido da resposta
+            context.setUser(data);                                      // Garda ao usuario no contexto
             return true;
         } catch (err) {
             console.error(err);
@@ -131,10 +166,13 @@ const User = () => {
         }
     }
 
+    /**
+     * Cerra a sesión do usuario
+     */
     const logout = async () => {
         try {
             setLoading(true);
-            await deleteToken('id_token');
+            await deleteToken('id_token');                                  // Borra o token do usuario
             context.resetUser();
             showMessage({
                 message: 'Sesión pechada satisfactoriamente',

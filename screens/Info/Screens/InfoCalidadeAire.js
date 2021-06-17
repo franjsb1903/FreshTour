@@ -1,8 +1,26 @@
-import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native'
+/**
+ * @fileoverview Pantalla de información explicativa sobre a calidade do aire
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
+
+// compoñentes
 import { HappyIcon, MediumHappyIcon, SadIcon } from '../../../components/CustomIcons';
+
+// estilos
 import { stylesScroll } from '../../../styles/styles';
 
+/**
+ * Compoñente que conforma a pantalla de información explicativa sobre a calidade do aire
+ * @returns {Component}
+ */
 const InfoCalidadeAire = () => {
 
     return (

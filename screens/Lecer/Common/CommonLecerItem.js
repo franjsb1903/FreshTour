@@ -1,25 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import Opinions from '../../Common/Opinions';
+/**
+ * @fileoverview Pantalla dun elemento de lecer concreto
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
-import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
-import { stylesTurismoList as styles } from '../../../styles/styles';
-import ProgressBar from '../../../components/ProgressBar';
+// módulos
+import React, { useEffect, useState, Component } from 'react';
+import { View } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 
+// pantallas
+import Opinions from '../../Common/Opinions';
+
+// compoñentes
+import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
+import ProgressBar from '../../../components/ProgressBar';
+
+// estilos
+import { stylesTurismoList as styles } from '../../../styles/styles';
+
+/**
+ * Compoñente que conforma a pantalla dun elemento de lecer concreto
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const CommonLecerItem = (props) => {
 
-    const [opinions, setOpinions] = useState({
+    const [opinions, setOpinions] = useState({                              // Estado que reúne as opinións do elemento
         count: 0,
         valoracion: 0,
         opinions: [],
         status: 0
     });
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);                           // Estado que indica cando o compoñente está cargando datos
 
-    const lecer = props.route.params.lecer;
-    var titulo = lecer.titulo == null ? lecer.sub_tag : lecer.titulo;
+    const lecer = props.route.params.lecer;                                 // Obxecto que reúne a información do elemento
+    var titulo = lecer.titulo == null ? lecer.sub_tag : lecer.titulo;       // Título da pantalla
 
+    /**
+     * Obtén información sobre o elemento
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns 
+     */
     const onGetData = async (mounted, signal) => {
         try {
             
@@ -67,11 +93,14 @@ const CommonLecerItem = (props) => {
         }
     }
 
+    /**
+     * Execútase o contido da función cando se constrúe o compoñente
+     */
     useEffect(() => {
 
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                      // Control dunha petición web para maior seguridade
         const signal = abortController.signal;
 
         const getOpinions = async () => {
@@ -88,10 +117,13 @@ const CommonLecerItem = (props) => {
         };
     }, []);
 
+    /**
+     * Execútase o contido da función cando se constrúe o compoñente
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
         if (mounted) {
-            props.navigation.setOptions({
+            props.navigation.setOptions({                                   // Establécense opcións de navegación da presente pantalla
                 title: "Opinións de " + titulo
             });
         }
@@ -99,6 +131,9 @@ const CommonLecerItem = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Refresca a pantalla
+     */
     const onRefreshOpinions = async () => {
         await onGetData(true);
     }

@@ -1,24 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import Opinions from '../Common/Opinions';
+/**
+ * @fileoverview Pantalla dun elemento de hospedaxe concreto
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
-import { getOpinions as getOpinionsModel } from '../../model/Opinions/Opinions';
-import { stylesTurismoList as styles } from '../../styles/styles';
-import ProgressBar from '../../components/ProgressBar';
+// módulos
+import React, { useEffect, useState, Component } from 'react';
+import { View } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 
+// pantallas
+import Opinions from '../Common/Opinions';
+
+// modelo
+import { getOpinions as getOpinionsModel } from '../../model/Opinions/Opinions';
+
+// estilo
+import { stylesTurismoList as styles } from '../../styles/styles';
+
+// compoñentes
+import ProgressBar from '../../components/ProgressBar';
+
+/**
+ * Compoñente que conforma a pantalla dun elemento de hospedaxe concreto
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const HospedaxeItem = (props) => {
 
-    const [opinions, setOpinions] = useState({
+    const [opinions, setOpinions] = useState({                          // Estado que reúne as opinións do elemento
         count: 0,
         valoracion: 0,
         opinions: [],
         status: 0
     });
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);                       // Estado que indica se a pantalla está cargando ou non
 
-    const hospedaxe = props.route.params.hospedaxe;
+    const hospedaxe = props.route.params.hospedaxe;                     // Obxecto que reúne a información do elemento de hospedaxe
 
+    /**
+     * Obtén información do elemento de hospedaxe concreto
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns 
+     */
     const onGetData = async (mounted, signal) => {
         try {
             const data = await getOpinionsModel(hospedaxe.tipo, hospedaxe.id, signal);
@@ -65,12 +93,15 @@ const HospedaxeItem = (props) => {
         }
     }
 
+    /**
+     * Cando se monta o compoñente, execútase o contido da función
+     */
     useEffect(() => {
 
         let mounted = true;
 
-        const abortController = new AbortController();
-        const signal = abortController.signal;
+        const abortController = new AbortController();                  // Controla unha petición web, para rematala ou abortala cando o compoñente non se chega a montar
+        const signal = abortController.signal;                          // Cuestión de seguridade, evita perdas de memoria
 
         const getOpinions = async () => {
             await onGetData(mounted, signal);
@@ -85,10 +116,13 @@ const HospedaxeItem = (props) => {
         };
     }, []);
 
+    /**
+     * Cando se monta o compoñente, execútase o contido da función
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
         if (mounted) {
-            props.navigation.setOptions({
+            props.navigation.setOptions({                               // Establécense opcións de navegación da pantalla actual
                 title: "Opinións de " + hospedaxe.titulo
             });
         }
@@ -96,6 +130,9 @@ const HospedaxeItem = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Refresca a pantalla
+     */
     const onRefreshOpinions = async () => {
         await onGetData(true);
     }

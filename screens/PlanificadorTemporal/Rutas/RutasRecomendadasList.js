@@ -1,38 +1,63 @@
-import React, { useEffect, useState } from 'react'
+/**
+ * @fileoverview Pantalla de listaxe de rutas recomendadas
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, Component } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native'
 import { showMessage } from "react-native-flash-message";
+import { useIsFocused } from '@react-navigation/native';
 
+// compoñentes
 import ProgressBar from '../../../components/ProgressBar';
-import { getPlanificacions as getPlanificacionsModel, sortBy, favSortBy } from '../../../model/Planificador/Planificador'
 import CardElement from '../../../components/CardElementRuta';
 import NoData from '../../../components/NoData';
 import DropDown from '../../../components/CustomDropDown';
-import { getByName } from '../../../model/Planificador/Planificador';
 import CustomSearchBar from '../../../components/CustomSearchBar';
 
-import { useIsFocused } from '@react-navigation/native';
+// model
+import { getPlanificacions as getPlanificacionsModel, sortBy, favSortBy } from '../../../model/Planificador/Planificador'
+import { getByName } from '../../../model/Planificador/Planificador';
 
+// estilos
 import { stylesTurismoList as styles, stylesScroll, dropDownBorderStyles as dropdownStyles } from '../../../styles/styles';
 
+// Util
 import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
+/**
+ * Compoñente que conforma a pantalla da lista de rutas recomendadas
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const RutasRecomendadasList = (props) => {
 
-    const [state, setState] = useState({
+    const [state, setState] = useState({                                // Estado que almacena os datos e controla o estado de carga da pantalla
         loading: true,
         data: []
     });
 
-    const [refreshing, setRefreshing] = useState(false);
-    const [dropDownValue, setDropDownValue] = useState("valoracion");
+    const [refreshing, setRefreshing] = useState(false);                // Estado que indica se a pantalla se está refrescando
+    const [dropDownValue, setDropDownValue] = useState("valoracion");   // Estado que almacena o valor do DropDown
 
-    const isFocused = useIsFocused();
+    const isFocused = useIsFocused();                                   // Constante que indica cando se accede á pantalla
 
-    let data;
+    let data;                                                           // Datos a amosar, en caso de que se acceda dende a pantalla de usuario como rutas favoritas
     if (props.route.params != undefined) {
         data = props.route.params.data;
     }
 
+    /**
+     * Obtén os datos da listaxe de rutas
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns 
+     */
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
         var data = await getPlanificacionsModel(signal, token);
@@ -62,11 +87,14 @@ const RutasRecomendadasList = (props) => {
         }
     }
 
+    /**
+     * Execútase o contido da función cando se accede á pantalla, obtendo os datos e almacenándoos
+     */
     useEffect(() => {
 
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                      // Control dunha petición web
         const signal = abortController.signal;
 
         const reload = async () => {
@@ -106,6 +134,9 @@ const RutasRecomendadasList = (props) => {
         };
     }, [isFocused]);
 
+    /**
+     * Refresca o contido da pantalla
+     */
     const onRefresh = async () => {
         setRefreshing(true);
         try {
@@ -122,10 +153,15 @@ const RutasRecomendadasList = (props) => {
         }
     }
 
+    /**
+     * Constrúe a listaxe en si mesma
+     * @param {Object} props 
+     * @returns {Component}
+     */
     const ListData = (props) => {
 
-        const data = props.data;
-        const navigate = props.navigate;
+        const data = props.data;                        // Array de datos a listar
+        const navigate = props.navigate;                // Instancia para empregar a navegación
 
         return (
             data == undefined ?
@@ -146,7 +182,7 @@ const RutasRecomendadasList = (props) => {
         )
     }
 
-    const itemsDropDown = [
+    const itemsDropDown = [                             // Elementos do DropDown
         { label: 'Ordear por valoración', value: 'valoracion' },
         { label: 'Menor distancia primeiro', value: 'menor_distancia' },
         { label: 'Maior distancia primeiro', value: 'maior_distancia' },
@@ -158,15 +194,20 @@ const RutasRecomendadasList = (props) => {
         { label: 'Maior tempo total primeiro', value: 'maior_tempo_total' }
     ];
 
+    /**
+     * Execútase cando cambia a selección do usuario no DropDown, ordenando os elementos
+     * @param {Object} item 
+     * @returns
+     */
     const onChangeDropDown = async (item) => {
         try {
             setState({
                 loading: true,
                 data: []
             });
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');                       // Obtense o token de usuario
             var elements;
-            if (!data) {
+            if (!data) {                                                    // Se non hai elementos favoritos, ordénase toda a listaxe
                 elements = await sortBy(token, item.value);
             } else {
                 elements = await favSortBy(token, item.value);
@@ -204,10 +245,14 @@ const RutasRecomendadasList = (props) => {
         }
     }
 
+    /**
+     * Busca unha determinada ruta por nome
+     * @param {String} name 
+     */
     const doSearch = async (name) => {
         try {
             var element;
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');                       // Obtense o token de usuario
             element = await getByName(token, name);
             if (element.status != 200) {
                 await shouldDeleteToken(element.message, 'id_token');

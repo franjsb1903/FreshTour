@@ -1,21 +1,41 @@
-import React, { useContext, useEffect, useState } from 'react';
+/**
+ * @fileoverview Pantalla de planificación dentro do planificador
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, useEffect, useState, Component } from 'react';
 import { View, ScrollView } from 'react-native';
 
+// compoñentes
 import CardElementPlanificacion from '../../../../components/CardElementPlanificacion';
 import CardElementRuta from '../../../../components/CardElementRutaPlanificacion';
 import NoElementsPlanificadorView from '../../../../components/NoElementsPlanificadorView';
 
+// estilos
 import { stylesScroll } from '../../../../styles/styles';
 
+// contexto
 import AppContext from '../../../../context/AppContext';
 
+/**
+ * Compoñente que conforma a pantalla de planificación dentro do planificador
+ * @returns 
+ */
 const Planificacion = () => {
 
-    const [items, setItems] = useState([]);
-    const [route, setRoute] = useState({});
+    const [items, setItems] = useState([]);             // Estado que almacena os elementos da planificación
+    const [route, setRoute] = useState({});             // Estado que almacena os datos da ruta
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);             // Constante para empregar o contexto
 
+    /**
+     * Execútase o contido da función cando cambia o array de elementos do contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -25,6 +45,9 @@ const Planificacion = () => {
         return () => mounted = false;
     }, [context.turismoItems]);
 
+    /**
+     * Execútase o contido da función cando cambian os datos da ruta no contexto
+     */
     useEffect(() => {
         let mounted = true;
         if (mounted)
@@ -34,6 +57,10 @@ const Planificacion = () => {
     }, [context.route.routeJson]);
 
 
+    /**
+     * Constrúe a listaxe de tarxetas da planificación
+     * @returns {Component}
+     */
     const drawCards = () => {
         var cards = [];
         for (var i = 0; i < items.length; i++) {
@@ -54,6 +81,10 @@ const Planificacion = () => {
         return cards;
     }
 
+    /**
+     * Elimina un elemento da planificación
+     * @param {Number} id 
+     */
     const onDeleteItem = (id) => {
         var aux = [];
         for (var i = 0; i < items.length; i++) {
@@ -74,8 +105,6 @@ const Planificacion = () => {
             </ScrollView>
             :
             <NoElementsPlanificadorView />
-
-
     );
 }
 

@@ -1,12 +1,30 @@
-import React from 'react';
+/**
+ * @fileoverview Pantalla de calidade do aire
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native'
 
+// compoñentes
 import Semaforo from '../../../components/Semaforo';
+
+// estilos
 import { stylesScroll } from '../../../styles/styles'
 
+/**
+ * Compoñente que conforma a pantalla de calidade do aire
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const CalidadeAireScreen = (props) => {
 
-    const data = props.route.params.data;
+    const data = props.route.params.data;               // Información a amosar
 
     return (
         <>

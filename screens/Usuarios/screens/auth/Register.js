@@ -1,21 +1,41 @@
-import React, { useState } from 'react'
+/**
+ * @fileoverview Pantalla de rexistro de usuario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useState, Component } from 'react'
 import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
-
-import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
-import { stylesTurismoList as progress } from '../../../../styles/styles';
 import * as Linking from 'expo-linking';
-
-import ProgressBar from '../../../../components/ProgressBar';
-import { clearButton } from '../../../../components/Common';
 import { showMessage } from "react-native-flash-message";
 import CheckBox from '@react-native-community/checkbox';
+
+// estilos
+import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
+import { stylesTurismoList as progress } from '../../../../styles/styles';
+
+// compoñentes
+import ProgressBar from '../../../../components/ProgressBar';
+import { clearButton } from '../../../../components/Common';
+
+// propiedades
 import properties from '../../../../properties/properties_expo'
 
+// Util
 import { checkEmail, checkName, checkUsername } from '../../../../Util/CheckFieldsUtil';
 
+/**
+ * Compoñente que conforma a pantalla de rexistro de usuario
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Register = (props) => {
 
-    const [user, setUser] = useState({
+    const [user, setUser] = useState({                              // Estado que almacenan os datos dos campos que o usuario ten que cubrir
         usuario: '',
         nome: '',
         apelidos: '',
@@ -24,16 +44,25 @@ const Register = (props) => {
         confirm_contrasinal: ''
     });
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);                  // Estado que indica se a pantalla está cargando
 
-    const [legalCheckBox, setlegalCheckBox] = useState(false)
+    const [legalCheckBox, setlegalCheckBox] = useState(false)       // Estado que indica se o usuario marcou o checkbox da legalidade
 
-    const registerUser = props.route.params.register;
+    const registerUser = props.route.params.register;               // Función que efectúa o rexistro
 
+    /**
+     * Actualiza os campos introducidos polo usuario no estado
+     * @param {String} attr 
+     * @param {String} value 
+     */
     const handleChangeText = (attr, value) => {
         setUser({ ...user, [attr]: value })
     }
 
+    /**
+     * Chequeo de campos
+     * @returns {Object}
+     */
     const checkFields = () => {
         if(!legalCheckBox){
             return {
@@ -106,6 +135,10 @@ const Register = (props) => {
         }
     }
 
+    /**
+     * Execútase cando o usuario indica que desexa rexistrarse, rexistrando ao usuario na aplicación
+     * @returns 
+     */    
     const register = async () => {
         setLoading(true);
         const checked = checkFields();

@@ -1,36 +1,62 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, ScrollView, ToastAndroid } from 'react-native';
+/**
+ * @fileoverview Pantalla de resumo dun elemento concreto ou planificación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
+// módulos
+import React, { useEffect, useState, useContext, Component } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+
+// estilos
 import { styleTurismoItem as styles, stylesScroll } from '../../styles/styles'
+
+// compoñentes
 import { HeartIconButton, HeartOutlineIconButton, MapIconButton, CalendarIconButton, CalendarOutlineIconButton, CalendarPlusIconButton, CalendarPlusOutlineIconButton } from '../../components/CustomIcons'
 import Stars from '../../components/CustomStarsDisplay';
 import ModalInicioSesion from '../../components/ModalInicioSesion';
-
 import { onPressFav, onQuitFav } from '../../components/Common';
+
+// modelo
 import { addElementoFav, deleteElementoFav } from '../../model/Planificador/Planificador';
 
+// contexto
 import AppContext from '../../context/AppContext';
 
+/**
+ * Compoñente que conforma a pantalla de resumo dun elemento ou planificación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Resumo = (props) => {
 
-    const [added, setAdded] = useState(false);
-    const [fav, setFav] = useState(false);
-    const [modal, setModal] = useState(false);
+    const [added, setAdded] = useState(false);                  // Estado que indica se o elemento está engadido ou non á planificación
+    const [fav, setFav] = useState(false);                      // Estado que indica se lo elemento é favorito ou non
+    const [modal, setModal] = useState(false);                  // Estado que controla a visualización dun modal
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);                     // Constante que permite acceder ao contexto da aplicación
 
-    const element = props.element;
-    const showOnMap = props.showOnMap;
-    const opinions = props.opinions;
-    const isRuta = props.isRuta;
-    const onRefresh = props.onRefresh;
-    const showOnPlanificacion = props.showOnPlanificacion;
-    const isElementoRuta = props.isElementoRuta;
+    const element = props.element;                              // Obxecto que reúne a información do elemento
+    const showOnMap = props.showOnMap;                          // Función para xeolocalizar o elemento no mapa
+    const opinions = props.opinions;                            // Obxecto que reúne as opinións do elemento
+    const isRuta = props.isRuta;                                // Boolean que indica se é o resumo dunha ruta
+    const onRefresh = props.onRefresh;                          // Función para refrescar a pantalla
+    const showOnPlanificacion = props.showOnPlanificacion;      // Función para amosar a planificación neste caso no planificador
+    const isElementoRuta = props.isElementoRuta;                // Boolean que indica se é o resumo do elemento dunha planificación
 
+    /**
+     * Oculta ou amosa o modal
+     */
     const showModal = () => {
         setModal(!modal);
     }
 
+    /**
+     * Cando se constrúe o compoñente, execútase o contido da función
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -42,20 +68,26 @@ const Resumo = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Cambia o estado do elemento indicando que foi engadido á planificación
+     */
     const changeAdd = () => {
         setAdded(true);
     }
 
+    /**
+     * Cambia o estado do elemento ou planificación, de favorito a non favorito ou viceversa
+     */
     const changeFav = () => {
         setFav(!fav);
         if (onRefresh)
             onRefresh();
     }
 
-    const changeModal = () => {
-        setModal(!modal);
-    }
-
+    /**
+     * Compoñente que conforma o botón de favorito
+     * @returns {Component}
+     */
     const HeartIcons = () => {
         return (
             fav ?
@@ -64,7 +96,7 @@ const Resumo = (props) => {
                 }} />
                 :
                 <HeartOutlineIconButton onPressFav={() => {
-                    onPressFav(changeFav, element, changeModal, context, element.tipo == "Planificación" ? addElementoFav : undefined);
+                    onPressFav(changeFav, element, showModal, context, element.tipo == "Planificación" ? addElementoFav : undefined);
                 }} />
         )
     }
@@ -88,9 +120,7 @@ const Resumo = (props) => {
                         <></>
                         :
                         isRuta ?
-                            added ?
-                                <CalendarIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                                <CalendarOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                            <CalendarOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
                             :
                             added ?
                                 <CalendarPlusIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :

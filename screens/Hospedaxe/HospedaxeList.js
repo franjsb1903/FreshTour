@@ -1,6 +1,19 @@
-import React, { useEffect, useState } from 'react'
+/**
+ * @fileoverview Pantalla de listaxe de elementos de hospedaxe
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, Component } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
+import * as Linking from 'expo-linking';
+
+// compoñentes
 import ProgressBar from '../../components/ProgressBar';
 import CardElement from '../../components/CardElementLecer';
 import CustomSearchBar from '../../components/CustomSearchBar';
@@ -8,31 +21,50 @@ import NoData from '../../components/NoData';
 import DropDown from '../../components/CustomDropDown';
 import { PlusIconButton } from '../../components/CustomIcons';
 import ModalConfirmacion from '../../components/ModalConfirmacion';
-import * as Linking from 'expo-linking';
+
+// propiedades
 import properties from '../../properties/properties_expo'
 
+// modelo
 import { getAll, getGeoElement, filterSort, addFav, quitFav, getByName, getFavByName, favFilterSort } from '../../model/Hospedaxe/Hospedaxe'
+
+// Util
 import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
 
+// estilos
 import { stylesTurismoList as styles } from '../../styles/styles'
 
+/**
+ * Compoñente que conforma a listaxe de elementos de hospedaxe
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Hospedaxe = (props) => {
 
-    const [state, setState] = useState({
+    const [state, setState] = useState({                                    // Estado que reúne os elementos a amosar e controla se a pantalla está cargando información
         loading: true,
         data: []
     });
-    const [modal, setModal] = useState(false);
-    const [dropDownValue, setDropDownValue] = useState("all_valoracion");
+    const [modal, setModal] = useState(false);                              // Estado que controla a visualización dun modal
+    const [dropDownValue, setDropDownValue] = useState("all_valoracion");   // Estado que garda o valor actual do dropdown
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);                    // Estado que indica cando se está a refrescar a pantalla
 
-    const data = props.route.params.data;
+    const data = props.route.params.data;                                   // Array que reúne os datos a amosar, neste caso os favoritos do usuario
 
+    /**
+     * Amosa ou oculta o modal
+     */
     const showModal = () => {
         setModal(!modal);
     }
 
+    /**
+     * Obtén datos a amosar e os garda no estado
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns 
+     */
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
         var data = await getAll(signal, token);
@@ -62,11 +94,14 @@ const Hospedaxe = (props) => {
         }
     }
 
+    /**
+     * Cando se monta o compoñente, execútase o contido da función
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
         if (mounted) {
             data ?
-                props.navigation.setOptions({
+                props.navigation.setOptions({                               // Establécense opcións de navegación na pantalla actual
                     title: "Lugares de hospedaxe favoritos"
                 })
                 :
@@ -78,10 +113,13 @@ const Hospedaxe = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Cando se monta o compoñente, execútase o contido da función
+     */
     useEffect(() => {
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                      // Controla unha chamada web, evitando perdas de memoria
         const signal = abortController.signal;
         const reload = async () => {
             try {
@@ -118,6 +156,9 @@ const Hospedaxe = (props) => {
         };
     }, []);
 
+    /**
+     * Refresca a pantalla
+     */
     const onRefresh = async () => {
         setRefreshing(true);
         try {
@@ -134,6 +175,13 @@ const Hospedaxe = (props) => {
         }
     }
 
+    /**
+     * Xeolocaliza un elemento no mapa
+     * @param {Number} id 
+     * @param {String} tipo 
+     * @param {String} subtipo 
+     * @returns
+     */
     const showOnMap = async (id, tipo, subtipo) => {
         try {
             const text = await getGeoElement(id, tipo);
@@ -146,7 +194,7 @@ const Hospedaxe = (props) => {
                 });
                 return;
             }
-            const update = props.route.params.updateItem;
+            const update = props.route.params.updateItem;                   // Función que permite xeolocalizar un elemento no mapa
             update(text, subtipo);
             props.navigation.navigate('Map');
         } catch (err) {
@@ -160,11 +208,15 @@ const Hospedaxe = (props) => {
         }
     }
 
+    /**
+     * Realiza unha busca dun elemento por nome
+     * @param {String} name 
+     */
     const doSearch = async (name) => {
         try {
             var element;
-            const token = await getToken('id_token');
-            if (!data) {
+            const token = await getToken('id_token');                       // Obtención do token de usuario
+            if (!data) {                                                    // En función de se existen datos favoritos ou non, búscase de entre todos os elementos ou so aqueles favoritos do usuario
                 element = await getByName(token, name);
             } else {
                 element = await getFavByName(token, name);
@@ -197,10 +249,15 @@ const Hospedaxe = (props) => {
         }
     }
 
+    /**
+     * Compoñente que conforma a listaxe dos elementos en si mesma
+     * @param {Object} props 
+     * @returns {Component}
+     */
     const ListData = (props) => {
 
-        const data = props.data;
-        const navigate = props.navigate;
+        const data = props.data;                                            // Array de elementos a listar
+        const navigate = props.navigate;                                    // Instancia para empregar a navegación
 
         return (
             data == undefined ?
@@ -221,7 +278,7 @@ const Hospedaxe = (props) => {
         )
     }
 
-    const itemsDropDown = [
+    const itemsDropDown = [                                                 // Elementos do dropdown
         { label: 'Ordear por valoración', value: 'all_valoracion' },
         { label: 'Ordear por título', value: 'all_titulo' },
         { label: 'Aloxamentos por valoración', value: 'aloxamento_valoracion' },
@@ -240,6 +297,11 @@ const Hospedaxe = (props) => {
         { label: 'Vivendas por título', value: 'vivendas_titulo' }
     ];
 
+    /**
+     * Execútase cada vez que cambia o elemento seleccionado no dropdown
+     * @param {Object} item 
+     * @returns 
+     */
     const onChangeDropDown = async (item) => {
         try {
             setState({
@@ -247,9 +309,9 @@ const Hospedaxe = (props) => {
                 data: []
             });
 
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');                       // Obtense o token de usuario
             var elements;
-            if (!data) {
+            if (!data) {                                                    // Fíltranse e ordénanse os elementos en función da opción seleccionada
                 elements = await filterSort(item.value, token);
             } else {
                 elements = await favFilterSort(item.value, token);
@@ -288,12 +350,18 @@ const Hospedaxe = (props) => {
         }
     }
 
+    /**
+     * Execútase cando se presiona o botón co símbolo +
+     */
     const onPressPlus = () => {
         showModal();
     }
 
+    /**
+     * Execútase cando o usuario decide confirmar a operación de engadir un novo elemento no modal
+     */
     const onConfirmAdd = () => {
-        Linking.openURL(properties.openstreetmap.edit);
+        Linking.openURL(properties.openstreetmap.edit);                     // Redirixe ao usuario
     }
 
     return (

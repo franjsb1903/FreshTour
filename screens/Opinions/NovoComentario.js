@@ -1,33 +1,63 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * @fileoverview Pantalla para engadir ou editar un comentario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useState, useEffect, Component } from 'react';
 import { ScrollView, View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { showMessage } from "react-native-flash-message";
+import TextArea from 'react-native-textarea';
 
+// estilos
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button, formSocial as styles, stylesTurismoList as stylesProgress } from '../../styles/styles'
+
+// compoñentes
 import Stars from '../../components/CustomStarsSelection';
 import { clearButton } from '../../components/Common';
 import ModalInicioSesion from '../../components/ModalInicioSesion';
 import ProgressBar from '../../components/ProgressBar';
 
-import TextArea from 'react-native-textarea';
-
+// modelo
 import { newOpinion, editOpinion } from '../../model/Opinions/Opinions';
 
+// Util
 import { getToken, shouldDeleteToken } from '../../Util/TokenUtil';
 import { checkTitle } from '../../Util/CheckFieldsUtil';
 
+/**
+ * Compoñente que conforma a pantalla para engadir ou editar un comentario
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const NovoComentario = (props) => {
 
-    const [comentario, setComentario] = useState({
+    const [comentario, setComentario] = useState({                  // Estado que reúne a información do comentario a engadir
         valoracion: 0,
         comentario: '',
         titulo: ''
     });
 
-    const [modal, setModal] = useState({
+    const [modal, setModal] = useState({                            // Estado que controla a visualización dos modais
         login: false,
         loading: false
     })
 
+    const element = props.route.params.element;                     // Obxecto que reúne a información do elemento
+    const comment = props.route.params.comment;                     // Obxecto que reúne información dun comentario existente a editar
+    const titulo = props.route.params.titulo;                       // Título da pantalla
+    const isPlanificacion = props.route.params.isPlanificacion;     // Boolean que indica se se trata dunha planificación
+    const onRefreshOpinions = props.route.params.onRefreshOpinions; // Función para refrescar as opinións do elemento
+    const isHospedaxe = props.route.params.isHospedaxe;             // Boolean que indica se é un elemento de hospedaxe
+    const isLecer = props.route.params.isLecer;                     // Boolean que indica se é un elemento de lecer
+
+    /**
+     * Execútase o contido da función cando se monta o compoñente
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -42,25 +72,23 @@ const NovoComentario = (props) => {
         return () => mounted = false;
     }, [])
 
+    /**
+     * Amosa ou oculta o modal
+     */
     const showModal = () => {
         setModal({
             ...modal, login: !modal.login
         });
     }
 
-    const element = props.route.params.element;
-    const comment = props.route.params.comment;
-    const titulo = props.route.params.titulo;
-    const isPlanificacion = props.route.params.isPlanificacion;
-    const onRefreshOpinions = props.route.params.onRefreshOpinions;
-    const isHospedaxe = props.route.params.isHospedaxe;
-    const isLecer = props.route.params.isLecer;
-
+    /**
+     * Execútase o contido da función cando se constrúe o compoñente
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
 
         if (mounted) {
-            props.navigation.setOptions({
+            props.navigation.setOptions({                       // Fíxanse opcións de navegación
                 title: titulo
             });
         }
@@ -68,16 +96,29 @@ const NovoComentario = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Actualiza o valor da valoración indicada polo usuario
+     * @param {Number} valoracion 
+     */
     const updateValoracion = (valoracion) => {
         setComentario({
             ...comentario, ['valoracion']: valoracion
         })
     }
 
+    /**
+     * Actualiza o valor dos campos introducidos polo usuario
+     * @param {String} attr 
+     * @param {String} value 
+     */
     const handleChangeText = (attr, value) => {
         setComentario({ ...comentario, [attr]: value })
     }
 
+    /**
+     * Chequea os campos a cubrir polo usuario antes de enviar a información ao servidor
+     * @returns {Object}
+     */
     const checkFields = () => {
         if (comentario.titulo == '') {
             return {
@@ -102,9 +143,13 @@ const NovoComentario = (props) => {
         }
     }
 
+    /**
+     * Envía a información ao servidor
+     * @returns 
+     */
     const sendOpinion = async () => {
         try {
-            const checked = checkFields();
+            const checked = checkFields();                      // Chequeo de campos
             if (!checked.valid) {
                 showMessage({
                     message: checked.message,
@@ -114,7 +159,7 @@ const NovoComentario = (props) => {
                 });
                 return;
             }
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');           // Obtención do token de usuario
             if (!token) {
                 setModal({
                     ...modal, ['login']: true
@@ -125,7 +170,7 @@ const NovoComentario = (props) => {
                 ...modal, ['loading']: true
             });
             var response;
-            if (comment) {
+            if (comment) {                                      // En función de se é edición ou adición
                 response = await editOpinion(token, comment.tipo, comment.id_elemento, comentario, comment.id);
             } else {
                 response = await newOpinion(token, element.tipo, element.id, comentario);
@@ -168,7 +213,7 @@ const NovoComentario = (props) => {
                 position: "bottom",
                 icon: "info"
             });
-            if (comment) {
+            if (comment) {                                          // Redirección do usuario a outra pantalla
                 props.navigation.navigate("User");
             } else {
                 if (isPlanificacion) {

@@ -1,29 +1,56 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+/**
+ * @fileoverview Pantalla de login de usuario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
+// módulos
+import React, { useState, Component } from 'react'
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+import {showMessage} from "react-native-flash-message";
+
+// estilos
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../../styles/styles';
 
+// compoñentes
 import ProgressBar from '../../../../components/ProgressBar';
 import { clearButton } from '../../../../components/Common';
 
+// Util
 import { checkUsername, checkEmail } from '../../../../Util/CheckFieldsUtil'
-import {showMessage} from "react-native-flash-message";
 
-const Register = (props) => {
+/**
+ * Compoñente que conforma a pantalla de login de usuario
+ * @param {Object} props 
+ * @returns {Component}
+ */
+const Login = (props) => {
 
-    const [user, setUser] = useState({
+    const [user, setUser] = useState({                      // Estado que almacena as credenciais de usuario a medida que se escriben
         usuario: '',
         contrasinal: ''
     });
 
-    const [loading, setLoading] = useState(false);
-    const loginUser = props.route.params.login;
+    const [loading, setLoading] = useState(false);          // Estado que indica cando a pantalla está cargando
+    const loginUser = props.route.params.login;             // Función para efectuar o login de usuario
 
+    /**
+     * Función que actualiza os datos introducidos polo usuario no estado
+     * @param {String} attr 
+     * @param {String} value 
+     */
     const handleChangeText = (attr, value) => {
         setUser({ ...user, [attr]: value })
     }
 
+    /**
+     * Chequeo de campos
+     * @returns {Object}
+     */
     const checkFields = () => {
         if (user.usuario == '') {
             return {
@@ -57,6 +84,10 @@ const Register = (props) => {
         }
     }
 
+    /**
+     * Execútase cando o usuario quere iniciar a sesión, iniciando a súa sesión en función das credenciais
+     * @returns 
+     */
     const login = async () => {
         setLoading(true);
         const checked = checkFields();
@@ -132,4 +163,4 @@ const Register = (props) => {
     )
 }
 
-export default Register;
+export default Login;

@@ -1,6 +1,19 @@
-import React, { useEffect, useState } from 'react'
+/**
+ * @fileoverview Pantalla de listaxe de elementos de lecer
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, Component } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
+import * as Linking from 'expo-linking';
+
+// compoñentes
 import ProgressBar from '../../../components/ProgressBar';
 import CardElement from '../../../components/CardElementLecer';
 import CustomSearchBar from '../../../components/CustomSearchBar';
@@ -8,38 +21,53 @@ import NoData from '../../../components/NoData';
 import DropDown from '../../../components/CustomDropDown';
 import { PlusIconButton } from '../../../components/CustomIcons';
 import ModalConfirmacion from '../../../components/ModalConfirmacion';
-import * as Linking from 'expo-linking';
+
+// propiedades
 import properties from '../../../properties/properties_expo'
 
+// Util
 import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil'
 
+// estilos
 import { stylesTurismoList as styles } from '../../../styles/styles'
 
+/**
+ * Compoñente que conforma a listaxe de elementos de lecer
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const CommonLecerList = (props) => {
 
-    const [state, setState] = useState({
+    const [state, setState] = useState({                                        // Estado que reúne a información e indica cando se están cargando datos
         loading: true,
         data: []
     });
 
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false);                                  // Estado que controla a visualización dun modal
 
-    const [dropDownValue, setDropDownValue] = useState("all_valoracion");
+    const [dropDownValue, setDropDownValue] = useState("all_valoracion");       // Estado que reúne a selección actual do dropdown
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);                        // Estado que indica se se está a refrescar a pantalla
 
-    const data = props.route.params.data;
-    const model = props.route.params.model;
-    const titulo = props.route.params.titulo;
+    const data = props.route.params.data;                                       // Array de datos a amosar dende a pantalla de usuario, isto é, os favoritos do usuario
+    const model = props.route.params.model;                                     // Función do modelo
+    const titulo = props.route.params.titulo;                                   // Título da pantalla
 
-    console.log(data);
-
+    /**
+     * Amosa ou oculta o modal
+     */
     const showModal = () => {
         setModal(!modal);
     }
 
+    /**
+     * Obtén información da listaxe
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns 
+     */
     const onGetData = async (mounted, signal) => {
-        const token = await getToken('id_token');
+        const token = await getToken('id_token');                               // Obtén o token de usuario
         var data = await model.getAll(signal, token);
         if (data.status != 200 || data.auth == false) {
             if (mounted) {
@@ -67,10 +95,13 @@ const CommonLecerList = (props) => {
         }
     }
 
+    /**
+     * Execútase o contido da función cando se constrúe o compoñente
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
         if (mounted) {
-            props.navigation.setOptions({
+            props.navigation.setOptions({                                       // Fíxanse opcións de navegación
                 title: titulo
             })
         }
@@ -78,10 +109,13 @@ const CommonLecerList = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Execútase o contido da función cando se constrúe o compoñente
+     */
     useEffect(() => {
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                          // Control de chamada web
         const signal = abortController.signal;
         const reload = async () => {
             try {
@@ -118,6 +152,9 @@ const CommonLecerList = (props) => {
         };
     }, []);
 
+    /**
+     * Refresca a pantalla actual
+     */
     const onRefresh = async () => {
         setRefreshing(true);
         try {
@@ -135,6 +172,13 @@ const CommonLecerList = (props) => {
         }
     }
 
+    /**
+     * Xeolocaliza un elemento no mapa
+     * @param {Number} id 
+     * @param {String} tipo 
+     * @param {String} subtipo 
+     * @returns 
+     */
     const showOnMap = async (id, tipo, subtipo) => {
         try {
             const text = await model.getGeoElement(id, tipo);
@@ -147,7 +191,7 @@ const CommonLecerList = (props) => {
                 });
                 return;
             }
-            const update = props.route.params.updateItem;
+            const update = props.route.params.updateItem;                               // Función para xeolocalizar o elemento no mapa
             update(text, subtipo);
             props.navigation.navigate('Map');
         } catch (err) {
@@ -161,11 +205,15 @@ const CommonLecerList = (props) => {
         }
     }
 
+    /**
+     * Busca un elemento por nome
+     * @param {String} name 
+     */
     const doSearch = async (name) => {
         try {
             var element;
-            const token = await getToken('id_token');
-            if (!data) {
+            const token = await getToken('id_token');                                   // Obtense o token do usuario
+            if (!data) {                                                                // Se existen datos favoritos, búscase entre estes, senón, entre todos os datos
                 element = await model.getByName(token, name);
             } else {
                 element = await model.getFavByName(token, name);
@@ -198,10 +246,15 @@ const CommonLecerList = (props) => {
         }
     }
 
+    /**
+     * Listaxe en si mesma dos elementos
+     * @param {Object} props 
+     * @returns {Component}
+     */
     const ListData = (props) => {
 
-        const data = props.data;
-        const navigate = props.navigate;
+        const data = props.data;                                // Array de datos a listar
+        const navigate = props.navigate;                        // Instancia para empregar a navegación
 
         return (
             data == undefined ?
@@ -222,8 +275,13 @@ const CommonLecerList = (props) => {
         )
     }
 
-    const itemsDropDown = props.route.params.itemsDropDown;
+    const itemsDropDown = props.route.params.itemsDropDown;     // Elementos do dropdown
 
+    /**
+     * Execútase cando cambia a selección do usuario
+     * @param {Object} item 
+     * @returns 
+     */
     const onChangeDropDown = async (item) => {
         try {
             setState({
@@ -272,10 +330,16 @@ const CommonLecerList = (props) => {
         }
     }
 
+    /**
+     * Execútase cando se pulsa o botón +
+     */
     const onPressPlus = () => {
         showModal();
     }
 
+    /**
+     * Execútase cando se confirma a operación de engadir un novo elemento polo usuario
+     */
     const onConfirmAdd = () => {
         Linking.openURL(properties.openstreetmap.edit);
     }

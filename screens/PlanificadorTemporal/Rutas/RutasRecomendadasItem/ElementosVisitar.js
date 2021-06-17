@@ -1,21 +1,44 @@
-import React from 'react';
-import { TouchableOpacity, ScrollView } from 'react-native'
+/**
+ * @fileoverview Pantalla de elementos a visitar dunha ruta recomendada
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
+// módulos
+import React, {Component} from 'react';
+import { TouchableOpacity, ScrollView } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+
+// compoñentes
 import NoData from '../../../../components/NoData';
 import CardElement from '../../../../components/CardElementTurismo';
 import CardElementLecer from '../../../../components/CardElementLecer';
-import { useNavigation } from '@react-navigation/native';
+
+// estilos
 import { stylesScroll as styles } from '../../../../styles/styles'
 
+/**
+ * Compoñente que conforma a pantalla de elementos a visitar dunha ruta recomendada
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const ElementosVisitar = (props) => {
 
-    const elements = props.elements;
+    const elements = props.elements;                        // Array de elementos da ruta
 
-    const navigation = useNavigation();
+    const navigation = useNavigation();                     // Constante para empregar a navegación
 
+    /**
+     * Constrúe a lista dos elementos
+     * @param {Object} props 
+     * @returns {Component}
+     */
     const ListData = (props) => {
 
-        const data = props.data.elementos;
+        const data = props.data.elementos;                  // Elementos a listar
 
         return (
 

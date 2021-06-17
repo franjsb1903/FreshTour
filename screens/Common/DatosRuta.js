@@ -1,20 +1,42 @@
-import React, { useContext, useState, useEffect } from 'react';
+/**
+ * @fileoverview Pantalla de información dunha determinada ruta
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, useState, useEffect, Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Title } from 'react-native-paper';
 
+// contexto
 import AppContext from '../../context/AppContext';
+
+// compoñentes
 import NoElementsPlanificadorView from '../../components/NoElementsPlanificadorView';
 
+// estilos
 import { stylesScroll, stylesBorderContainer as borderStyle } from '../../styles/styles'
 
+/**
+ * Compoñente que conforma a pantalla de datos dunha ruta
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const DatosRuta = (props) => {
 
-    const [data, setData] = useState(undefined);
-    const context = useContext(AppContext);
+    const [data, setData] = useState(undefined);            // Estado que reúne os datos a amosar
+    const context = useContext(AppContext);                 // Constante a partir da cal se pode acceder ao contexto
 
-    const planificacion = props.planificacion;
-    const elements = props.elements;
+    const planificacion = props.planificacion;              // Obxecto que reúne datos da planificación concreta
+    const elements = props.elements;                        // Obxecto que reúne información dos elementos da planificación
 
+    /**
+     * Cando cambia o dato routeJson do contexto, execútase o contido da función
+     */
     useEffect(() => {
         let mounted = true;
 

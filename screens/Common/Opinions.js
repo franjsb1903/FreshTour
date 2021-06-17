@@ -1,25 +1,46 @@
-import React, { useState } from 'react';
+/**
+ * @fileoverview Pantalla de opinións da aplicación sobre un elemento concreto ou planificación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulo
+import React, { useState, Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, RefreshControl } from 'react-native';
-import { stylesScroll, styleTurismoItem as styles } from '../../styles/styles';
 import { useNavigation } from '@react-navigation/native';
 
+// estilos
+import { stylesScroll, styleTurismoItem as styles } from '../../styles/styles';
+
+// compoñentes
 import Stars from '../../components/CustomStarsDisplay';
 import { CommentIcon } from '../../components/CustomIcons';
 import CardElementOpinion from '../../components/CardElementOpinion';
 
+/**
+ * Compoñente que conforma a pantalla de opinións dun elemento concreto ou planificación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Opinions = (props) => {
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);                // Estado que indica cando se ten que refrescar a pantalla
 
-    const opinions = props.opinions;
-    const element = props.element;
-    const onRefreshOpinions = props.onRefreshOpinions;
-    const titulo = props.titulo;
-    const isPlanificacion = props.isPlanificacion;
-    const isHospedaxe = props.isHospedaxe;
-    const isLecer = props.isLecer;
-    const navigation = useNavigation();
+    const opinions = props.opinions;                                    // Obxecto que contén as opinións a amosar
+    const element = props.element;                                      // Obxecto que reúnde a información do elemento concreto
+    const onRefreshOpinions = props.onRefreshOpinions;                  // Función que permite refrescar as opinións
+    const titulo = props.titulo;                                        // Título da pantalla
+    const isPlanificacion = props.isPlanificacion;                      // Boolean que indica se é unha planificación
+    const isHospedaxe = props.isHospedaxe;                              // Boolean que indica se é un elemento de hospedaxe
+    const isLecer = props.isLecer;                                      // Boolean que indica se é un elemento de lecer
+    const navigation = useNavigation();                                 // Constante que permite empregar a navegación
 
+    /**
+     * Permite refrescar a pantalla
+     */
     const onRefresh = async () => {
         try {
             setRefreshing(true);
@@ -30,6 +51,10 @@ const Opinions = (props) => {
         }
     }
 
+    /**
+     * Botón para engadir un novo comentario
+     * @returns {Component}
+     */
     const ButtonOpinion = () => (
         <TouchableOpacity style={[styles.container, { justifyContent: "flex-start" }]}
             onPress={() => navigation.navigate('NewComment', {

@@ -4,7 +4,7 @@
  * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
  * 
  * History
- * v1.0 - Creación do contexto
+ * v1.0 - Creación do modelo
 */
 
 // xestion de datos

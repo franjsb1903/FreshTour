@@ -1,13 +1,29 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, VirtualizedList } from 'react-native';
+/**
+ * @fileoverview Pantalla de información dun elemento turístico concreto
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
+import { View, Text, ScrollView } from 'react-native';
 import { Title } from 'react-native-paper';
 import * as Linking from 'expo-linking';
 
-import { styleTurismoItem as styles, stylesBorderContainer as borderStyle, stylesScroll, styleURL } from '../../../styles/styles'
+// estilos
+import { stylesBorderContainer as borderStyle, stylesScroll, styleURL } from '../../../styles/styles'
 
+/**
+ * Compoñente que conforma a pantalla de información dun elemento turístico concreto
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Informacion = (props) => {
 
-    const element = props.element;
+    const element = props.element;              // Elemento turístico
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={stylesScroll.containerScroll}>

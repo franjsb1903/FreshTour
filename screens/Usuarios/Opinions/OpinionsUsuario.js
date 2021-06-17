@@ -1,20 +1,46 @@
+/**
+ * @fileoverview Pantalla que amosa as opinións realizadas polo usuario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { stylesScroll } from '../../../styles/styles';
-
-import { deleteOpinion as deleteOpinionModel } from '../../../model/Opinions/Opinions'
-import CardElementOpinion from '../../../components/CardElementOpinion';
-import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
-
-import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil';
-
+import { View, Text, ScrollView, Component } from 'react-native';
 import {showMessage} from "react-native-flash-message";
 
+// estilos
+import { stylesScroll } from '../../../styles/styles';
+
+// modelo
+import { deleteOpinion as deleteOpinionModel } from '../../../model/Opinions/Opinions';
+
+// compoñentes
+import CardElementOpinion from '../../../components/CardElementOpinion';
+
+// estilos
+import { noElementsStyle as noElementsStyles } from '../../../styles/styles';
+
+// Util
+import { getToken, shouldDeleteToken } from '../../../Util/TokenUtil';
+
+/**
+ * Compoñente que conforma a pantalla na que se amosan as opinións do usuario
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const OpinionsUsuario = (props) => {
 
-    const opinions = props.route.params.opinions;
-    const usuario = props.route.params.usuario;
+    const opinions = props.route.params.opinions;               // Array de opinións
+    const usuario = props.route.params.usuario;                 // Obxecto que reúne a información do usuario
 
+    /**
+     * Execútase cando o usuario quere editar un comentario
+     * @param {Object} opinion 
+     */
     const onEdit = (opinion) => {
         try {
             props.navigation.navigate('NewComment', {
@@ -26,6 +52,11 @@ const OpinionsUsuario = (props) => {
         }
     }
 
+    /**
+     * Execútase cando o usuario quere borrar un comentario
+     * @param {Object} opinion 
+     * @returns 
+     */
     const onDelete = async (opinion) => {
         try {
             const token = await getToken('id_token');

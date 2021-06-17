@@ -1,39 +1,65 @@
-import React, { useState, useContext, useEffect } from 'react';
+
+/**
+ * @fileoverview Pantalla para gardar ou editar unha planificación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useState, useContext, useEffect, Component } from 'react';
 import { ScrollView, View, TextInput, Text, TouchableOpacity } from 'react-native';
 import TextArea from 'react-native-textarea';
 import { showMessage } from "react-native-flash-message";
 
+// estilos
 import { stylesScroll as scroll, fromScreen as formStyle, customTouchableOpacity as button, stylesTurismoList as stylesProgress } from '../../../../styles/styles'
+
+// compoñentes
 import { clearButton } from '../../../../components/Common';
 import ModalInicioSesion from '../../../../components/ModalInicioSesion';
-import AppContext from '../../../../context/AppContext';
-import ProgressBar from '../../../../components/ProgressBar'
+import ProgressBar from '../../../../components/ProgressBar';
 
+// contexto
+import AppContext from '../../../../context/AppContext';
+
+// modelo
 import { savePlanificacion, editPlanificacion } from '../../../../model/Planificador/Planificador';
 
+// Util
 import { getToken, shouldDeleteToken } from '../../../../Util/TokenUtil'
 import { checkTitle } from '../../../../Util/CheckFieldsUtil';
 
+/**
+ * Compoñente que conforma a pantalla para gardar ou editar unha planificación
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const GardarPlanificacion = (props) => {
 
-    const [planificacion, setPlanificacion] = useState({
+    const [planificacion, setPlanificacion] = useState({                // Estado que garda os datos da planificación a almacenar
         comentario: '',
         titulo: ''
     });
 
-    const [modal, setModal] = useState({
+    const [modal, setModal] = useState({                                // Estado que controla os modais de login e loading
         login: false,
         loading: false
     });
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);                             // Constante que permite acceder ao contexto
 
-    const changeIsSaved = props.route.params.changeIsSaved;
-    const data = props.route.params.data;
-    const tempoVisita = props.route.params.tempoVisita;
-    const edit = props.route.params.edit;
-    const titulo = props.route.params.titulo;
+    const changeIsSaved = props.route.params.changeIsSaved;             // Función que permite cambiar o estado da planificación
+    const data = props.route.params.data;                               // Datos da planificación a editar
+    const tempoVisita = props.route.params.tempoVisita;                 // Tempo de visita da planificación
+    const edit = props.route.params.edit;                               // Boolean que indica se a operación é de edición
+    const titulo = props.route.params.titulo;                           // Título da pantalla
 
+    /**
+     * Execútase o contido da función cando se monta o compoñente
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -47,11 +73,14 @@ const GardarPlanificacion = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Execútase o contido da función cando se monta o compoñente
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
 
         if (mounted) {
-            props.navigation.setOptions({
+            props.navigation.setOptions({                                   // Establécense opcións de navegación
                 title: titulo
             });
         }
@@ -59,16 +88,28 @@ const GardarPlanificacion = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Actualiza a información introducida polo usuario nos campos
+     * @param {String} attr 
+     * @param {String} value 
+     */
     const handleChangeText = (attr, value) => {
         setPlanificacion({ ...planificacion, [attr]: value })
     }
 
+    /**
+     * Amosa ou oculta o modal
+     */
     const showModal = () => {
         setModal({
             ...modal, login: !modal.login
         });
     }
 
+    /**
+     * Chequea os campos introducidos polo usuario
+     * @returns {Object}
+     */
     const checkFields = () => {
         if (planificacion.titulo == '') {
             return {
@@ -93,9 +134,13 @@ const GardarPlanificacion = (props) => {
         }
     }
 
+    /**
+     * Garda a planificación
+     * @returns 
+     */
     const gardarPlanificacion = async () => {
         try {
-            const checked = checkFields();
+            const checked = checkFields();                      // Chequeo de campos
             if (!checked.valid) {
                 showMessage({
                     message: checked.message,
@@ -105,7 +150,7 @@ const GardarPlanificacion = (props) => {
                 });
                 return;
             }
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');           // Recuperación do token de usuario
             if (!token) {
                 setModal({
                     ...modal, ['login']: true
@@ -116,7 +161,7 @@ const GardarPlanificacion = (props) => {
                 ...modal, ['loading']: true
             });
             var response;
-            if (!edit) {
+            if (!edit) {                                        // Preparación da nova planificación a almacenar
                 planificacion['isShared'] = false;
                 planificacion['distancia'] = data.features[0].properties.summary.distance;
                 planificacion['tempoVisita'] = tempoVisita;
@@ -155,7 +200,7 @@ const GardarPlanificacion = (props) => {
             setModal({
                 ...modal, ['loading']: false
             });
-            if (!edit) {
+            if (!edit) {                                                // Redirección do usuario
                 changeIsSaved();
                 showMessage({
                     message: 'Planificación almacenada correctamente',
@@ -163,7 +208,7 @@ const GardarPlanificacion = (props) => {
                     position: "bottom",
                     icon: "success"
                 });
-                context.updatePlanificacion(response.planificacion);
+                context.updatePlanificacion(response.planificacion);    // Almacénase a planificación no contexto se esta é nova
                 props.navigation.navigate("Planificator");
             } else {
                 props.navigation.navigate("User");

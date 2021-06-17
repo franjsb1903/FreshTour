@@ -1,34 +1,60 @@
-import React, { useEffect, useState, useContext } from 'react';
+/**
+ * @fileoverview Pantalla dunha ruta recomendada concreta
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, useContext, Component } from 'react';
 import { View } from 'react-native'
 import { showMessage } from "react-native-flash-message";
 
+// compoñentes
 import TopTabNavigator from '../../../../components/TopTabNavigatorRuta';
-
-import { getOpinions as getOpinionsModel } from '../../../../model/Opinions/Opinions';
-import { getElements } from '../../../../model/Planificador/Planificador'
 import ProgressBar from '../../../../components/ProgressBar';
+
+// modelo
+import { getOpinions as getOpinionsModel } from '../../../../model/Opinions/Opinions';
+import { getElements } from '../../../../model/Planificador/Planificador';
+
+// estilos
 import { stylesTurismoList as styles } from '../../../../styles/styles';
 
+// contexto
 import AppContext from '../../../../context/AppContext';
 
-const TurismoItem = ({ route, navigation }) => {
+/**
+ * Compoñente que conforma a pantalla dunha ruta recomendada concreta
+ * @param {Object} param0 
+ * @returns {Component}
+ */
+const RutasRecomendadasItem = ({ route, navigation }) => {
 
-    const [opinions, setOpinions] = useState({
+    const [opinions, setOpinions] = useState({                      // Estado que garda as opinións da ruta
         count: 0,
         valoracion: 0,
         opinions: [],
         status: 0
     });
 
-    const [elements, setElements] = useState([]);
+    const [elements, setElements] = useState([]);                   // Estado que almacena os elementos da ruta
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);                   // Estado que indica se a pantalla está cargando
 
-    const planificacion = route.params.planificacion;
-    const onRefresh = route.params.onRefresh;
+    const planificacion = route.params.planificacion;               // Obxecto que reúne a información da ruta
+    const onRefresh = route.params.onRefresh;                       // Función para refrescar a pantalla
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);                         // Constante para acceder ao contexto
 
+    /**
+     * Obtén datos da ruta
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns
+     */
     const onGetData = async (mounted, signal) => {
         try {
             const opinions = await getOpinionsModel(planificacion.tipo, planificacion.id, signal);
@@ -89,11 +115,14 @@ const TurismoItem = ({ route, navigation }) => {
         }
     }
 
+    /**
+     * Execútase o contido da función cando se monta o compoñente
+     */
     useEffect(() => {
 
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                      // Control dunha petición web, dando maior seguridade
         const signal = abortController.signal;
 
         const getData = async () => {
@@ -109,21 +138,30 @@ const TurismoItem = ({ route, navigation }) => {
         }
     }, []);
 
+    /**
+     * Execútase o contido da función cando se monta o compoñente
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
 
         if (mounted)
-            navigation.setOptions({
+            navigation.setOptions({                                             // Establece opcións de navegación
                 title: `${planificacion.titulo}`
             });
 
         return () => mounted = false;
     }, []);
 
+    /**
+     * Refresca a pantalla de opinións
+     */
     const onRefreshOpinions = async () => {
         await onGetData(true);
     }
 
+    /**
+     * Permite recuperar a ruta recomendada para visualizala no planificador
+     */
     const showOnPlanificacion = async () => {
         try {
             await context.addElementsToPlanificacion(elements.elementos, planificacion, navigation);
@@ -154,4 +192,4 @@ const TurismoItem = ({ route, navigation }) => {
     )
 }
 
-export default TurismoItem;
+export default RutasRecomendadasItem;

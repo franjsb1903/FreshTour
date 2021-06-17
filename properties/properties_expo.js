@@ -1,10 +1,21 @@
 
+/**
+ * @fileoverview Arquivo de propiedades para o cliente
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
 const properties = {
+    // Propiedades da conexión co servidor
     connection: {
         type: "http",
         host: "192.168.1.70",
         port: "3000"
     },
+    // URLs sobre as que realizar peticións no sevidor e servicios
     url: {
         planificador: {
             main: "/planificacions",
@@ -95,6 +106,7 @@ const properties = {
             }
         }
     },
+    // Estilos xerais da aplicación
     style: {
         color: {
             main: "#2e8b57",
@@ -111,21 +123,25 @@ const properties = {
             title_font_family: "serif"
         }
     },
+    // Aspectos relacionados cos elementos de turismo
     turismoItem: {
         comentario_visita_usuario: "Neste tipo de visita o usuario ten total flexibilidade á hora de realizar a visita. Simplemente, seleccione no planificador, no elemento concreto, o tipo de visita 'Visita flexible' e indique o tempo que quere adicar á visita. Logo, pode iniciar a visita ao elemento e pausala cando remate para fixar o tempo concreto que adicou á visita."
     },
+    // Aspectos relacionados cas rutas
     routes: {
         url: "https://api.openrouteservice.org/v2/directions",
         format: "geojson",
         walk_profile: "/foot-walking/",
         clycling_profile: "/cycling-regular/"
     },
+    // Aspectos relacionados ca información non turística
     info: {
         covid_api: "https://api.covid19tracking.narrativa.com/api/",
         covid_region: "/country/spain/region/galicia/sub_region/area_sanitaria_santiago",
         meteosix_api: "https://servizos.meteogalicia.gal/apiv4/getNumericForecastInfo?coords=-8.54464946603654,42.88108184633102&API_KEY=",
         meteosix_api_key: "FT7xoM4YvH5U9GqWFbHwHV4TE7G2Ao7MoB3PWQXEFoTz1Marts4w10p0mOmpVxka"
     },
+    // Elementos do compoñente DropDown da aplicación
     dropdown: {
         items: {
             hostalaria: [
@@ -244,9 +260,11 @@ const properties = {
             ]
         }
     },
+    // Elementos relacionados con OpenStreetMap
     openstreetmap: {
         edit: "https://www.openstreetmap.org/edit#map=18/42.88816/-8.53012"
     },
+    // Información relacionada ca calidade do aire
     calidade: {
         no2: {
             vermello: 200,
@@ -257,6 +275,7 @@ const properties = {
             verde: 100
         }
     },
+    // Información relacionada con aspectos legais na aplicación
     legalidade: {
         politica: 'https://www.privacypolicies.com/live/1abd86f3-d5ce-4c82-af15-353abebcc704',
         condicions: 'http://192.168.1.72:3000/legal/condicions'

@@ -1,10 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
+/**
+ * @fileoverview Pantalla de usuario ca sesión iniciada
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, useEffect, useState, Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+// compoñentes
 import { AvatarIcon } from '../../../components/CustomIcons';
 import ListItemMenuUser from '../../../components/ListItemMenuUser';
-import properties from '../../../properties/properties_expo'
+
+// propiedades
+import properties from '../../../properties/properties_expo';
+
+// modelo
 import {
     getAllHostalaria,
     getGeoElementHostalaria,
@@ -32,25 +47,35 @@ import {
     favFilterSortOutras
 } from '../../../model/Lecer/Lecer';
 
+// contexto
 import AppContext from '../../../context/AppContext';
 
+// estilos
 import { loggedIn as styles, customTouchableOpacity as button, stylesTurismoList as bar } from '../../../styles/styles';
 
+/**
+ * Compoñente que conforma a pantalla de usuario ca sesión xa iniciada
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const LoggedIn = (props) => {
 
-    const [elementosFav, setElementosFav] = useState([]);
-    const [opinions, setOpinions] = useState([]);
-    const [planificacions, setPlanificacions] = useState([]);
-    const [planificacionsFav, setPlanificacionsFav] = useState([]);
-    const [hospedaxesFav, setHospedaxesFav] = useState([]);
-    const [hostalariaFav, setHostalariaFav] = useState([]);
-    const [ocioFav, setOcioFav] = useState([]);
-    const [outrasFav, setOutrasFav] = useState([]);
+    const [elementosFav, setElementosFav] = useState([]);               // Estado que almacena os elementos turísticos favoritos do usuario
+    const [opinions, setOpinions] = useState([]);                       // Estado que almacena as opinións do usuario
+    const [planificacions, setPlanificacions] = useState([]);           // Estado que almacena as planificacións gardadas polo usuario
+    const [planificacionsFav, setPlanificacionsFav] = useState([]);     // Estado que almacena as planificacións favoritas do usuario
+    const [hospedaxesFav, setHospedaxesFav] = useState([]);             // Estado que almacena os elementos de hospedaxe favoritos do usuario
+    const [hostalariaFav, setHostalariaFav] = useState([]);             // Estado que almacena os elementos de hostalaría favoritos do usuario
+    const [ocioFav, setOcioFav] = useState([]);                         // Estado que almacena os elementos de ocio do usuario
+    const [outrasFav, setOutrasFav] = useState([]);                     // Estado que almacena os outros elementos do usuario
 
-    const context = useContext(AppContext);
-    const user = context.user;
-    const logout = props.logout;
+    const context = useContext(AppContext);                             // Constante para acceder ao contexto
+    const user = context.user;                                          // Usuario almacenado no contexto
+    const logout = props.logout;                                        // Función para cerrar sesión
 
+    /**
+     * Execútase cando cambian os elementos turísticos favoritos no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -61,6 +86,9 @@ const LoggedIn = (props) => {
         return () => mounted = false;
     }, [context.user.elementosFav]);
 
+    /**
+     * Execútase cando cambian as opinións no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -71,6 +99,9 @@ const LoggedIn = (props) => {
         return () => mounted = false;
     }, [context.user.opinions]);
 
+    /**
+     * Execútase cando cambian as planificacións almacenadas no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -82,6 +113,9 @@ const LoggedIn = (props) => {
 
     }, [context.user.planificacions])
 
+    /**
+     * Execútase cando cambian as planificacións favoritas no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -93,6 +127,9 @@ const LoggedIn = (props) => {
 
     }, [context.user.planificacionsFav])
 
+    /**
+     * Execútase cando cambian os elementos de hospedaxe favoritos no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -104,6 +141,9 @@ const LoggedIn = (props) => {
 
     }, [context.user.hospedaxesFav])
 
+    /**
+     * Execútase cando cambian os elementos de hostalaría favoritos
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -115,6 +155,9 @@ const LoggedIn = (props) => {
 
     }, [context.user.hostalariaFav])
 
+    /**
+     * Execútase cando cambian os elementos de ocio favoritos
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -126,6 +169,9 @@ const LoggedIn = (props) => {
 
     }, [context.user.ocioFav])
 
+    /**
+     * Execútase cando cambian as outras actividades favoritas
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -137,9 +183,9 @@ const LoggedIn = (props) => {
 
     }, [context.user.outrasFav])
 
-    const navigation = useNavigation();
+    const navigation = useNavigation();                 // Instancia da navegación
 
-    const MenuUser = [
+    const MenuUser = [                                  // Elementos do menú do usuario
         {
             id: 1,
             label: "Rutas favoritas",

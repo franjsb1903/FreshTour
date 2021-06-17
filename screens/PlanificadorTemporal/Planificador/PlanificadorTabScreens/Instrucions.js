@@ -1,19 +1,39 @@
-import React, { useContext, useState, useEffect } from 'react';
+/**
+ * @fileoverview Pantalla de instrucións dentro do planificador
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, useState, useEffect, Component } from 'react';
 import { ScrollView } from 'react-native';
 
+// contexto
 import AppContext from '../../../../context/AppContext';
 
+// compoñentes
 import CustomListInstrucions from '../../../../components/CustomListInstrucions';
 import NoElementsPlanificadorView from '../../../../components/NoElementsPlanificadorView';
 
+// estilos
 import { stylesScroll as styles } from '../../../../styles/styles';
 
+/**
+ * Compoñente que conforma a pantalla de instrucións do planificador
+ * @returns {Component}
+ */
 const Instrucions = () => {
 
-    const [data, setData] = useState(undefined);
-    const [items, setItems] = useState([]);
-    const context = useContext(AppContext);
+    const [data, setData] = useState(undefined);                // Estado que reúne os datos a amosar
+    const [items, setItems] = useState([]);                     // Estado que reúne os elementos da planificación
+    const context = useContext(AppContext);                     // Constante para empregar o contexto
 
+    /**
+     * Execútase o contido da función cando cambian os datos de routeJson (da ruta) no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -24,6 +44,9 @@ const Instrucions = () => {
         return () => mounted = false;
     }, [context.route.routeJson]);
 
+    /**
+     * Execútase o contido da función cando cambia o array de elementos da planificación do contexto
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -33,6 +56,10 @@ const Instrucions = () => {
         return () => mounted = false;
     }, [context.turismoItems]);
 
+    /**
+     * Constrúe a listaxe de instrucións
+     * @returns {Component}
+     */
     const drawList = () => {
         var list = [];
         for (var i = 0; i < items.length - 1; i++) {

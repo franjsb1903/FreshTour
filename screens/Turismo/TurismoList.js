@@ -1,32 +1,56 @@
-import React, { useEffect, useState } from 'react'
+/**
+ * @fileoverview Listaxe de elementos turísticos
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, Component } from 'react'
 import { View, ScrollView, TouchableOpacity, RefreshControl, StyleSheet } from 'react-native'
 import { showMessage } from "react-native-flash-message";
 import { Divider } from 'react-native-elements';
+
+// compoñentes
 import ProgressBar from '../../components/ProgressBar';
-import { getData, getElement, getGeoElement, getGeoElementJson, sortBy, favsSortBy } from '../../model/Turismo/Turismo';
-import { getElementFavByName } from '../../model/Turismo/Turismo';
 import CardElement from '../../components/CardElementTurismo';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import NoData from '../../components/NoData';
 import DropDown from '../../components/CustomDropDown';
 
+// modelo
+import { getData, getElement, getGeoElement, getGeoElementJson, sortBy, favsSortBy } from '../../model/Turismo/Turismo';
+import { getElementFavByName } from '../../model/Turismo/Turismo';
+
+// Util
 import { getToken, shouldDeleteToken } from '../../Util/TokenUtil'
 
+// estilos
 import { stylesTurismoList as styles } from '../../styles/styles'
 
+/**
+ * Compoñente que conforma a listaxe de elementos turísticos
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const Turism = (props) => {
 
-    const [state, setState] = useState({
+    const [state, setState] = useState({                                // Estado que almacena a información a amosar e controla cando a pantalla está cargando información
         loading: true,
         data: []
     });
 
-    const [refreshing, setRefreshing] = useState(false);
-    const [dropDownValue, setDropDownValue] = useState("valoracion");
+    const [refreshing, setRefreshing] = useState(false);                // Estado que indica cando a pantalla se está a refrescar
+    const [dropDownValue, setDropDownValue] = useState("valoracion");   // Estado que almacena a elección actual do DropDown
 
-    const data = props.route.params.data;
-    let elemento = props.route.params.elemento;
+    const data = props.route.params.data;                               // Datos a amosar, cando se accede dende a pantalla de usuario como elementos favoritos
+    let elemento = props.route.params.elemento;                         // Elemento concreto a amosar
 
+    /**
+     * Execútase cando se monta o compoñente, establecendo opcións de navegación
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
         if (mounted) {
@@ -43,6 +67,12 @@ const Turism = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Obtén a información da listaxe
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns 
+     */
     const onGetData = async (mounted, signal) => {
         const token = await getToken('id_token');
         var data = await getData(token, signal);
@@ -72,6 +102,9 @@ const Turism = (props) => {
         }
     }
 
+    /**
+     * Execútase cando se monta o compoñente, obtendo a información da listaxe
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -121,6 +154,9 @@ const Turism = (props) => {
         };
     }, []);
 
+    /**
+     * Refresca a información da listaxe
+     */
     const onRefresh = async () => {
         setRefreshing(true);
         try {
@@ -137,6 +173,10 @@ const Turism = (props) => {
         }
     }
 
+    /**
+     * Busca un elemento por nome
+     * @param {String} name 
+     */
     const doSearch = async (name) => {
         try {
             var element;
@@ -174,6 +214,12 @@ const Turism = (props) => {
         }
     }
 
+    /**
+     * Xeolocaliza un elemento no mapa
+     * @param {Number} id 
+     * @param {String} tipo 
+     * @returns 
+     */
     const showOnMap = async (id, tipo) => {
         try {
             const text = await getGeoElement(id, tipo);
@@ -200,10 +246,15 @@ const Turism = (props) => {
         }
     }
 
+    /**
+     * Constrúe a listaxe en si mesma
+     * @param {Object} props 
+     * @returns {Component}
+     */
     const ListData = (props) => {
 
-        const data = props.data;
-        const navigate = props.navigate;
+        const data = props.data;                    // Información a listar
+        const navigate = props.navigate;            // Instancia para empregar a navegación
 
         return (
 
@@ -226,11 +277,16 @@ const Turism = (props) => {
         )
     }
 
-    const itemsDropDown = [
+    const itemsDropDown = [                         // Items do DropDown
         { label: 'Ordear por valoración', value: 'valoracion' },
         { label: 'Ordear por título', value: 'titulo' }
     ];
 
+    /**
+     * Execútase cando cambia a selección do DropDown do usuario, reordenando os elementos
+     * @param {String} item 
+     * @returns 
+     */
     const onChangeDropDown = async (item) => {
         try {
             setState({

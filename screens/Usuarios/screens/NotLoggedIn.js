@@ -1,19 +1,38 @@
-import React from 'react';
+/**
+ * @fileoverview Pantalla de usuario sen iniciar sesión
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import * as Linking from 'expo-linking';
+import { useNavigation } from '@react-navigation/native';
 
+// estilos
 import { notLoggedIn as styles, customTouchableOpacity as buttonStyle } from '../../../styles/styles';
+
+// Util
 import { getImageUri } from '../../../Util/ImageUtil';
 
-import { useNavigation } from '@react-navigation/native';
+// propiedades
 import properties from '../../../properties/properties_expo'
 
+/**
+ * Compoñente que conforma a pantalla de usuario sen iniciar sesión
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const NotLoggedIn = (props) => {
 
-    const localUri = getImageUri("catedral_app");
-    const register = props.register;
-    const login = props.login;
-    const navigation = useNavigation();
+    const localUri = getImageUri("catedral_app");               // Localización da imaxe da catedral
+    const register = props.register;                            // Función para rexistrar ao usuario
+    const login = props.login;                                  // Función para iniciar sesión
+    const navigation = useNavigation();                         // Navegación da aplicación
 
     return (
         <View style={styles.container}>

@@ -1,12 +1,28 @@
-import React from 'react';
+/**
+ * @fileoverview Pantalla de información sobre a COVID
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native'
 import * as Linking from 'expo-linking';
 
+// estilos
 import { stylesScroll, styleURL } from '../../../styles/styles'
 
+/**
+ * Compoñente que conforma a pantalla de información da COVID
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const CovidScreen = (props) => {
 
-    const data = props.route.params.data;
+    const data = props.route.params.data;               // Información a amosar
 
     return (
         <ScrollView style={stylesScroll.scroll} contentContainerStyle={[stylesScroll.containerScroll, { padding: 20 }]}>

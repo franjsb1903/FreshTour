@@ -1,29 +1,55 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * @fileoverview Pantalla dun elemento turístico concreto
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, Component } from 'react';
 import { View } from 'react-native'
 import { showMessage } from "react-native-flash-message";
-import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 
-import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
+// compoñentes
+import TopTabNavigator from '../../../components/TopTabNavigatorTurismoItem';
 import ProgressBar from '../../../components/ProgressBar';
+
+// modelo
+import { getOpinions as getOpinionsModel } from '../../../model/Opinions/Opinions';
+
+// estilos
 import { stylesTurismoList as styles } from '../../../styles/styles';
 
+/**
+ * Compoñente que conforma a pantalla dun elemento turístico concreto
+ * @param {Object} param0 
+ * @returns {Component}
+ */
 const TurismoItem = ({ route, navigation }) => {
 
-    const [opinions, setOpinions] = useState({
+    const [opinions, setOpinions] = useState({              // Estado que almacena as opinións do elemento
         count: 0,
         valoracion: 0,
         opinions: [],
         status: 0
     });
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);           // Estado que indica cando a pantalla está cargando información
 
-    const element = route.params.element;
-    const showOnMap = route.params.showOnMap;
-    const onRefresh = route.params.onRefresh;
-    const isRuta = route.params.isRuta;
-    const isElementoRuta = route.params.isElementoRuta;
+    const element = route.params.element;                   // Obxecto que conforma a información do elemento turístico concreto
+    const showOnMap = route.params.showOnMap;               // Función que permite xeolocalizar o elemento no mapa
+    const onRefresh = route.params.onRefresh;               // Función que permite refrescar a pantalla
+    const isRuta = route.params.isRuta;                     // Función que indica se se está no contexto dunha ruta
+    const isElementoRuta = route.params.isElementoRuta;     // Función que indica se o elemento se está visualizando como parte dunha ruta
 
+    /**
+     * Obtén información do elemento turístico
+     * @param {Boolean} mounted 
+     * @param {Boolean} signal 
+     * @returns {Component}
+     */
     const onGetData = async (mounted, signal) => {
         try {
             const data = await getOpinionsModel(element.tipo, element.id, signal);
@@ -69,11 +95,14 @@ const TurismoItem = ({ route, navigation }) => {
         }
     }
 
+    /**
+     * Execútase cando se construe o compoñente, obtendo a información do mesmo
+     */
     useEffect(() => {
 
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                  // Control dunha petición web
         const signal = abortController.signal;
 
         const getOpinions = async () => {
@@ -89,6 +118,9 @@ const TurismoItem = ({ route, navigation }) => {
         };
     }, []);
 
+    /**
+     * Execútase cando se constrúe o compoñente, establecendo opcións de navegación
+     */
     React.useLayoutEffect(() => {
         let mounted = true;
 
@@ -100,6 +132,9 @@ const TurismoItem = ({ route, navigation }) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Refresca as opinións
+     */
     const onRefreshOpinions = async () => {
         await onGetData(true);
     }

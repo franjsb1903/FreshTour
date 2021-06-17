@@ -1,23 +1,44 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+/**
+ * @fileoverview Pantalla de edición de información de usuario
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
 
+// módulos
+import React, { useState, useContext, useEffect, Component } from 'react'
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+import { showMessage } from "react-native-flash-message";
+
+// estilos
 import { fromScreen as styles, customTouchableOpacity as button } from '../../../styles/styles'
 import { stylesTurismoList as progress } from '../../../styles/styles';
 
+// compoñentes
 import ProgressBar from '../../../components/ProgressBar';
 import { clearButton } from '../../../components/Common';
 import ModalConfirmacion from '../../../components/ModalConfirmacion';
 
+// modelo
 import { editUser, deleteUser } from '../../../model/Usuarios/Usuarios';
-import { getToken, shouldDeleteToken, deleteToken } from '../../../Util/TokenUtil';
 
-import { showMessage } from "react-native-flash-message";
-import { checkEmail, checkName, checkUsername } from '../../../Util/CheckFieldsUtil'
+// Util
+import { getToken, shouldDeleteToken, deleteToken } from '../../../Util/TokenUtil';
+import { checkEmail, checkName, checkUsername } from '../../../Util/CheckFieldsUtil';
+
+// contexto
 import AppContext from '../../../context/AppContext';
 
-const Register = (props) => {
+/**
+ * Compoñente que conforma a pantalla de edición de información de usuario
+ * @param {Object} props 
+ * @returns {Component}
+ */
+const Editar = (props) => {
 
-    const [user, setUser] = useState({
+    const [user, setUser] = useState({                              // Estado que almacena a información do usuario
         usuario: '',
         nome: '',
         apelidos: '',
@@ -26,11 +47,14 @@ const Register = (props) => {
         confirm_contrasinal: ''
     });
 
-    const [loading, setLoading] = useState(false);
-    const [confirmacion, setConfirmacion] = useState(false);
+    const [loading, setLoading] = useState(false);                  // Estado que indica cando a pantalla está cargando contido
+    const [confirmacion, setConfirmacion] = useState(false);        // Estado que controla un modal
 
-    const usuario = props.route.params.user;
+    const usuario = props.route.params.user;                        // Obxecto que almacena a información do usuario a editar
 
+    /**
+     * Execútase cando se monta o compoñente
+     */
     useEffect(() => {
         let mounted = true;
 
@@ -48,16 +72,28 @@ const Register = (props) => {
         return () => mounted = false;
     }, []);
 
+    /**
+     * Amosa ou oculta o modal
+     */
     const showConfirmacion = () => {
         setConfirmacion(!confirmacion);
     }
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);                         // Constante para empregar o contexto
 
+    /**
+     * Actualiza a información introducida polo usuario no estado
+     * @param {String} attr 
+     * @param {String} value 
+     */
     const handleChangeText = (attr, value) => {
         setUser({ ...user, [attr]: value })
     }
 
+    /**
+     * Chequea os campos introducidos polo usuario
+     * @returns {Object}
+     */
     const checkFields = () => {
         if (user.usuario == '') {
             return {
@@ -118,10 +154,14 @@ const Register = (props) => {
         }
     }
 
+    /**
+     * Almacena a nova información do usuario no servidor
+     * @returns 
+     */
     const edit = async () => {
         try {
             setLoading(true);
-            const checked = checkFields();
+            const checked = checkFields();                      // Chequea os campos
             if (!checked.valid) {
                 showMessage({
                     message: checked.message,
@@ -139,7 +179,7 @@ const Register = (props) => {
                 email: user.email,
                 contrasinal: user.contrasinal
             }
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');           // Obtén o token de usuario
             if (!token) {
                 showMessage({
                     message: 'Non se pode autenticar ao usuario',
@@ -150,7 +190,7 @@ const Register = (props) => {
                 setLoading(false);
                 return
             }
-            const response = await editUser(token, editedUser);
+            const response = await editUser(token, editedUser); // Confirma a edición
             if (response.auth == false || response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
@@ -166,7 +206,7 @@ const Register = (props) => {
                     return
                 }
             }
-            context.setUser(response);
+            context.setUser(response);                          // Almacena o usuario no contexto
             setLoading(false);
             props.navigation.navigate('User');
         } catch (err) {
@@ -180,10 +220,14 @@ const Register = (props) => {
         }
     }
 
+    /**
+     * Elimina unha conta de usuario cando o usuario así o solicita
+     * @returns 
+     */
     const onDelete = async () => {
         try {
             setLoading(true);
-            const token = await getToken('id_token');
+            const token = await getToken('id_token');               // Obtén o token de usuario
             if (!token) {
                 showMessage({
                     message: 'Non se pode autenticar ao usuario',
@@ -194,7 +238,7 @@ const Register = (props) => {
                 setLoading(false);
                 return
             }
-            const response = await deleteUser(token);
+            const response = await deleteUser(token);               // Executa a operación
             if (response.status != 200) {
                 if (!await shouldDeleteToken(response.message, 'id_token')) {
                     showMessage({
@@ -211,8 +255,8 @@ const Register = (props) => {
                 setLoading(false);
                 return;
             }
-            await deleteToken('id_token');
-            context.resetUser();
+            await deleteToken('id_token');                          // Elimina o token de usuario
+            context.resetUser();                                    // Borra o usuario do contexto
             setLoading(false);
             props.navigation.navigate('User');
         } catch (err) {
@@ -340,4 +384,4 @@ const Register = (props) => {
     )
 }
 
-export default Register;
+export default Editar;

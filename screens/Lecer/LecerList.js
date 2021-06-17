@@ -1,11 +1,27 @@
-import React from 'react';
-import { ScrollView, TouchableOpacity, View, StyleSheet, Text } from 'react-native';
+/**
+ * @fileoverview Pantalla de listaxe de opcións de actividades de lecer
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, {Component} from 'react';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+// estilos
 import { stylesScroll } from '../../styles/styles';
+
+// compoñentes
 import CardElement from '../../components/CardElementInfo';
+
+// propiedades
 import properties from '../../properties/properties_expo'
 
+// modelo
 import {
     getAllHostalaria,
     getGeoElementHostalaria,
@@ -33,13 +49,18 @@ import {
     favFilterSortOutras
 } from '../../model/Lecer/Lecer';
 
+/**
+ * Compoñente que conforma a listaxe de tarxetas de lecer
+ * @param {Object} props 
+ * @returns {Component}
+ */
 const LecerList = (props) => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation();                             // Instancia para empregar a navegación
 
-    const updateItem = props.route.params.updateItem;
+    const updateItem = props.route.params.updateItem;               // Función que permite xeolocalizar un elemento no mapa
 
-    const cardsData = [
+    const cardsData = [                                             // Tarxetas a amosar na pantalla
         {
             id: 1,
             label: "Hostalaría",

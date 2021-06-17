@@ -1,40 +1,66 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * @fileoverview Pantalla de info da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useEffect, useState, Component } from 'react';
 import { ScrollView, TouchableOpacity, View, StyleSheet, Text, Image } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 
+// estilos
 import { stylesScroll } from '../../styles/styles';
+
+// compoñentes
 import CardElement from '../../components/CardElementInfo'
 import ProgressBar from '../../components/ProgressBar';
 import Semaforo from '../../components/Semaforo';
-
-import { getCovidData, getTempoData } from '../../model/Info/Info';
-import { getRealTimeData as getRealTimeDataCalidade } from '../../model/CalidadeAire/CalidadeAire';
-import { stylesTurismoList as progress } from '../../styles/styles';
 import { MailIcon } from '../../components/CustomIcons';
 
+// modelo
+import { getCovidData, getTempoData } from '../../model/Info/Info';
+import { getRealTimeData as getRealTimeDataCalidade } from '../../model/CalidadeAire/CalidadeAire';
+
+// estilos
+import { stylesTurismoList as progress } from '../../styles/styles';
+
+/**
+ * Compoñente que conforma a pantalla de Info da aplicación
+ * @returns {Component}
+ */
 const Info = () => {
 
-    const [data, setData] = useState({
+    const [data, setData] = useState({                                      // Estado que reúne a información de COVID, tempo e calidade do aire
         covid: {},
         tempo: {},
         calidade: {}
     })
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);                          // Estado que indica cando a pantalla está cargando información
 
-    const isFocused = useIsFocused();
+    const isFocused = useIsFocused();                                       // Constante que determina cando a pantalla é accedida polo usuario
 
-    var today = new Date();
+    var today = new Date();                                                 // Construción da data actual
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0');                 // Xaneiro é 0
     var yyyy = today.getFullYear();
     const date = yyyy + "-" + mm + "-" + dd;
 
+    /**
+     * Cando se accede á pantalla, execútase o contido da función
+     */
     useEffect(() => {
         let mounted = true;
 
-        const abortController = new AbortController();
+        const abortController = new AbortController();                      // Controla a chamada web, para evitar problemas de perdas de memoria mentres se constrúe o compoñente
         const signal = abortController.signal;
 
+        /**
+         * Obtén a información
+         */
         const getData = async () => {
             try {
                 if (mounted) {
@@ -68,11 +94,12 @@ const Info = () => {
         };
     }, [isFocused]);
 
-    const navigation = useNavigation();
+    const navigation = useNavigation();                                                 // Constante que permite empregar a navegación
 
-    const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu odio et dui gravida faucibus. Praesent vel efficitur augue, ac cursus ligula. Praesent nec est tortor. Pellentesque malesuada auctor sapien, vel elementum metus pharetra id. Phasellus at eros sed ligula convallis laoreet. Proin in quam vitae tortor suscipit malesuada quis vitae ligula. Etiam eleifend laoreet aliquam. Donec auctor efficitur egestas. Cras quis finibus risus. Sed bibendum ante ut velit faucibus, eu pellentesque tortor ornare. Sed aliquet blandit ligula, sit amet semper orci ultrices ac. Morbi tempus non massa sed faucibus. Phasellus vitae auctor arcu. Etiam dictum, augue eu accumsan lobortis, sapien quam rutrum sapien, nec rutrum massa nibh quis lorem.Donec venenatis auctor iaculis.Sed sed accumsan odio.Suspendisse tincidunt pretium mattis.Praesent euismod tempus risus non eleifend.Interdum et malesuada fames ac ante ipsum primis in faucibus.Quisque bibendum tincidunt arcu a consequat.Etiam lacinia urna ornare magna commodo ultrices.Donec sollicitudin odio in pharetra dictum."
-
-
+    /**
+     * Información a amosar na tarxeta da COVID na pantalla
+     * @returns {Component}
+     */
     const DataCovidCard = () => {
 
         var datos = undefined;
@@ -95,6 +122,10 @@ const Info = () => {
         )
     };
 
+    /**
+     * Información a amosar na tarxeta do tempo da pantalla
+     * @returns {Component}
+     */
     const DataTempoCard = () => {
         var icon = undefined;
         var temperature = undefined;
@@ -110,6 +141,10 @@ const Info = () => {
         )
     }
 
+    /**
+     * Información a amosar na tarxeta da calidade do aire da pantalla
+     * @returns {Component}
+     */
     const DataCalidadeCard = () => {
 
         return (
@@ -129,6 +164,10 @@ const Info = () => {
         )
     };
 
+    /**
+     * Contido da pantalla de consellos da viaxe
+     * @returns {Component}
+     */
     const ConsellosViaxe = () => (
         <>
             <View style={{ paddingTop: 20 }}>
@@ -146,6 +185,10 @@ const Info = () => {
         </>
     )
 
+    /**
+     * Contido da pantalla Sobre nós
+     * @returns {Component}
+     */
     const SobreNos = () => (
 
         <View style={{ paddingTop: 20 }}>
@@ -155,6 +198,10 @@ const Info = () => {
         </View>
     )
 
+    /**
+     * Contido da pantalla de contacto
+     * @returns {Component}
+     */
     const Contacto = () => (
         <View style={[styles.row, { paddingTop: 20 }]}>
             <MailIcon size={30} style={{ margin: 5 }} />
@@ -162,6 +209,9 @@ const Info = () => {
         </View>
     )
 
+    /**
+     * Array cas tarxetas a amosar na pantalla actual
+     */
     const cardsData = [
         {
             id: 1,

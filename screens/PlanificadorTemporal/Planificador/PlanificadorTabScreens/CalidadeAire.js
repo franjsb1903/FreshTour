@@ -1,21 +1,42 @@
-import React, { useContext, useEffect, useState } from 'react';
+/**
+ * @fileoverview Pantalla de calidade do aire dentro do planificador
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación do compoñente
+*/
+
+// módulos
+import React, { useContext, useEffect, useState, Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
+// estilos
 import { stylesScroll, customTouchableOpacity } from '../../../../styles/styles';
+import { stylesTurismoList } from '../../../../styles/styles';
+
+// compoñentes
 import { RefreshIcon } from '../../../../components/CustomIcons';
 import Semaforo from '../../../../components/Semaforo';
-import { stylesTurismoList } from '../../../../styles/styles';
 import ProgressBar from '../../../../components/ProgressBar'
 
+// contexto
 import AppContext from '../../../../context/AppContext';
 
+/**
+ * Compoñente que conforma a pantalla de calidade do aire no planificador
+ * @returns {Component}
+ */
 const CalidadeAire = () => {
 
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);                           // Estado que reúne os datos a amosar
+    const [loading, setLoading] = useState(false);                  // Estado que indica cando se está cargando a información
 
-    const context = useContext(AppContext);
+    const context = useContext(AppContext);                         // Constante que permite acceder ao contexto
 
+    /**
+     * Execútase o contido da función cando cambia os datos de calidade do aire no contexto
+     */
     useEffect(() => {
         let mounted = true;
 
