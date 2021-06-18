@@ -1,5 +1,19 @@
+/**
+ * @fileoverview Traduce etiquetas de elementos de hospedaxe e de lecer ao galego
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
 const tag_traductor = {};
 
+/**
+ * Traduce a etiqueta dun elemento de hospedaxe ao galego
+ * @param {String} tag 
+ * @returns {String}
+ */
 tag_traductor.hospedaxe = (tag) => {
 
     switch (tag) {
@@ -24,6 +38,11 @@ tag_traductor.hospedaxe = (tag) => {
     }
 }
 
+/**
+ * Traduce a etiqueta dun elemento de hostalaría ao galego
+ * @param {String} tag 
+ * @returns {String}
+ */
 tag_traductor.hostalaria = (tag) => {
 
     switch (tag) {
@@ -52,6 +71,11 @@ tag_traductor.hostalaria = (tag) => {
     }
 }
 
+/**
+ * Traduce a etiqueta dun elemento de ocio ao galego
+ * @param {String} tag 
+ * @returns {String}
+ */
 tag_traductor.ocio = (tag) => {
 
     switch (tag) {
@@ -98,6 +122,11 @@ tag_traductor.ocio = (tag) => {
     }
 }
 
+/**
+ * Traduce a etiqueta dunha outra actividade de lecer ao galego
+ * @param {String} tag 
+ * @returns {String}
+ */
 tag_traductor.outras = (tag) => {
 
     switch (tag) {

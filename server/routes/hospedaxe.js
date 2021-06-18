@@ -1,19 +1,31 @@
-const express = require('express');
-const router = express.Router();
-const pool = require('../../database/database');
-const sql = require('../lib/sql');
-const verify = require('../lib/VerifyToken');
-const helpers = require('../lib/helpers');
-const tag_traductor = require('../lib/tag_traductor');
+/**
+ * @fileoverview Operacións relacionadas 
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+const express = require('express');                             // Instancia de express
+const router = express.Router();                                // Instancia de router para a creación de rutas
+const pool = require('../../database/database');                // Instancia para realizar consultas sobre a BBDD
+const sql = require('../lib/sql');                              // Consultas da BBDD
+const verify = require('../lib/VerifyToken');                   // Instancia para verificar o token de usuario, empregándoo como middleware para a verificación de token
+const helpers = require('../lib/helpers');                      // Instancia para empregar funcionalidades comúns
+const tag_traductor = require('../lib/tag_traductor');          // Traductor de etiquetas ao galego
 
 // getAll()
+/**
+ * Obtén todos os elementos de hospedaxe, indicando cales son favoritos
+ */
 router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
 
-        const userId = req.userId;
-        var values = [];
-        if (userId === undefined) {
+        const userId = req.userId;                      // Id de usuario
+        var values = [];                                // Array de valores para a query
+        if (userId === undefined) {                     // Se o id de usuario non existe, quere dicir que o seu token non foi validado, polo que non hai usuario a ter en conta
             values.push(-1);
         } else {
             values.push(userId);
@@ -25,8 +37,9 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
                 return;
             }
             results.rows.map(element => {
-                element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
+                element.sub_tag = tag_traductor.hospedaxe(element.sub_tag); // Tradúcese a etiqueta do elemento
             });
+            // Resposta indicando correctitude e os valores necesarios
             res.status(200).json({
                 hospedaxe: results.rows,
                 status: 200
@@ -38,14 +51,17 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getConcreto()
+/**
+ * Obtén un elemento de hospedaxe concreto, indicando se é favorito
+ */
 router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
 
-        const userId = req.userId;
-        const { id } = req.params;
-        var values = [];
-        if (userId === undefined) {
+        const userId = req.userId;              // Id de usuario
+        const { id } = req.params;              // Parámetro da petición
+        var values = [];                        // Valores da query
+        if (userId === undefined) {             // Se non existe o id de usuario, non hai usuario a ter en conta
             values.push(-1);
         } else {
             values.push(userId);
@@ -60,6 +76,7 @@ router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
             results.rows.map(element => {
                 element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
             });
+            // Resposta con correctitude e valores
             res.status(200).json({
                 elemento: results.rows[0],
                 status: 200
@@ -71,20 +88,23 @@ router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getByName()
+/**
+ * Obtén un elemento por nome, indicando se é favorito
+ */
 router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
 
-        const userId = req.userId;
-        var values = [];
-        if (userId === undefined) {
+        const userId = req.userId;              // Id de usuario
+        var values = [];                        // Valores da query
+        if (userId === undefined) {             // Se non existe o id de usuario, non hai usuario a ter en conta
             values.push(-1);
         } else {
             values.push(userId);
         }
 
-        const { name } = req.params;
-        const namePerc = '%' + name + '%'
+        const { name } = req.params;            // Parámetro da petición
+        const namePerc = '%' + name + '%'       // Engadimos % para que non busque por coincidencia exacta
         values.push(namePerc);
 
         pool.query(sql.hospedaxe.byName, values, (err, results) => {
@@ -95,6 +115,7 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
             results.rows.map(element => {
                 element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
             });
+            // Resposta de correctitude e valores
             res.status(200).json({
                 hospedaxe: results.rows,
                 status: 200
@@ -106,18 +127,22 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getFavByName()
+/**
+ * Busca un elemento favorito por nome, indicando se é ou son favoritos
+ */
 router.get('/fav/:name', verify.verifyToken, (req, res) => {
     try {
-        const { name } = req.params;
-        const userId = req.userId;
+        const { name } = req.params;        // Parámetro da petición
+        const userId = req.userId;          // Id de usuario
 
-        const namePerc = '%' + name + '%'
+        const namePerc = '%' + name + '%'   // Engádense porcentaxes para que non busque por coincidencia exacta
 
         pool.query(sql.hospedaxe.fav.byName, [userId, namePerc], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro na busca", err, res);
                 return;
             }
+            // Resposta con correctitude e valores
             res.status(200).json({
                 hospedaxe: results.rows,
                 status: 200
@@ -129,17 +154,20 @@ router.get('/fav/:name', verify.verifyToken, (req, res) => {
 });
 
 // getFilterType()
+/**
+ * Filtra e ordena elementos dun determinado modo, indicando se son favoritos
+ */
 router.get('/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
 
-        const userId = req.userId;
-        const { type } = req.params;
+        const userId = req.userId;          // Id de usuario
+        const { type } = req.params;        // Parámetro da petición
 
-        const query = getQuery(type);
+        const query = getQuery(type);       // Obtén a query
 
-        var values = [];
-        if (userId === undefined) {
+        var values = [];                    // Valores da query
+        if (userId === undefined) {         // Se o token de usuario non existe, non se ten en conta
             values.push(-1);
         } else {
             values.push(userId);
@@ -153,6 +181,7 @@ router.get('/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
             results.rows.map(element => {
                 element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
             });
+            // Resposta con correctitude e valores
             res.status(200).json({
                 hospedaxe: results.rows,
                 status: 200
@@ -165,17 +194,20 @@ router.get('/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getFavFilterType()
+/**
+ * Ordena e filtra elementos favoritos dun determinado modo
+ */
 router.get('/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
 
-        const userId = req.userId;
-        const { type } = req.params;
+        const userId = req.userId;          // Id de usuario
+        const { type } = req.params;        // Parámetro da petición
 
-        const query = getFavQuery(type);
+        const query = getFavQuery(type);    // Obtén a query
 
-        var values = [];
-        if (userId === undefined) {
+        var values = [];                    // Valores da petición
+        if (userId === undefined) {         // Se o id de usuario non existe, non se ten en conta
             values.push(-1);
         } else {
             values.push(userId);
@@ -189,6 +221,7 @@ router.get('/fav/filter/:type', verify.verifyToken, (req, res) => {
             results.rows.map(element => {
                 element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
             });
+            // Resposta con correctitude e valores
             res.status(200).json({
                 hospedaxe: results.rows,
                 status: 200

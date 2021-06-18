@@ -1,5 +1,15 @@
-const sql = {};
+/**
+ * @fileoverview Arquivo que contén todas as consultas SQL realizar sobre a base de datos, almacenadas nun obxecto
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
 
+const sql = {};                 // Obxecto que almacena as consultas
+
+// planificacións
 sql.planificacions = {};
 sql.planificacions.new = "INSERT INTO fresh_tour.planificacions (id_usuario, titulo, comentario, esta_compartida, valoracion, distancia, tempo_visita, tempo_ruta) VALUES ($1, $2, $3, $4, 0, $5, $6, $7) RETURNING id";
 sql.planificacions.newLugares = "INSERT INTO fresh_tour.planificacions_lugares_turisticos (id_planificacion, id_lugar_turistico, posicion_visita, tipo_visita) VALUES ";
@@ -56,6 +66,7 @@ sql.planificacions.fav.sortBy.menorTempoTotalRuta = "SELECT *,'Planificación' a
 sql.planificacions.fav.sortBy.maiorTempoTotalRuta = "SELECT *,'Planificación' as tipo, true AS favorito, $2 AS id_actual_usuario FROM fresh_tour.planificacions p2 WHERE id IN ( SELECT id_planificacion FROM fresh_tour.planificacions_favoritas pf WHERE id_usuario = $1) ORDER BY (tempo_ruta+tempo_visita) DESC";
 sql.planificacions.get = "SELECT *, (SELECT usuario FROM fresh_tour.usuarios u WHERE id = p.id_usuario) AS usuario, $2 AS id_actual_usuario, 'Planificación' AS tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.planificacions_favoritas pf WHERE pf.id_planificacion = p.id AND pf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.planificacions p WHERE esta_compartida = true and (p.id in (select id_planificacion from fresh_tour.planificacions_lugares_turisticos plt where plt.id_lugar_turistico in (select id from fresh_tour.lugares_turisticos where lower(titulo) like lower($2))) or p.id in (select id_planificacion from fresh_tour.planificacions_monumentos pm where pm.id_monumento in (select id from fresh_tour.monumentos where lower(titulo) like lower($2)) or lower(p.titulo) like lower($2)) or lower(p.titulo) like lower($2)) ORDER BY valoracion DESC"
 
+// usuarios
 sql.usuarios = {};
 sql.usuarios.edit = "UPDATE fresh_tour.usuarios SET usuario=$1, nome=$2, apelidos=$3, email=$4, contrasinal=$5 WHERE id=$6 RETURNING usuario, nome, apelidos, email, to_char(data, 'DD-MM-YY') as data";
 sql.usuarios.exists = "SELECT usuario, email, id FROM fresh_tour.usuarios WHERE usuario LIKE $1 OR email LIKE $2";
@@ -81,6 +92,7 @@ sql.usuarios.get.hostalariaFav = "SELECT id, titulo, sub_tag, valoracion, 'Hosta
 sql.usuarios.get.ocioFav = "SELECT id, titulo, sub_tag, valoracion, 'Ocio' as tipo, true AS favorito FROM fresh_tour.actividades_ocio ao WHERE id IN ( SELECT id_actividade_ocio FROM fresh_tour.actividades_ocio_favoritas aof WHERE id_usuario = $1)";
 sql.usuarios.get.outrasFav = "SELECT id, titulo, sub_tag, valoracion, 'Outra' as tipo, true AS favorito FROM fresh_tour.outras_actividades oa WHERE id IN ( SELECT id_outra_actividade FROM fresh_tour.outras_actividades_favoritas oaf WHERE id_usuario = $1)";
 
+// elementos turísticos
 sql.elementos = {};
 sql.elementos.sortBy = {};
 sql.elementos.sortBy.titulo = "SELECT *, 'Lugar turístico' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE ltf.id_lugar_turistico = lt.id AND ltf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_turisticos lt WHERE prezo is not NULL UNION ALL SELECT *, 'Monumento' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.monumentos_favoritos mf WHERE mf.id_monumento = m.id AND mf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.monumentos m WHERE m.prezo is not NULL ORDER BY titulo ASC"
@@ -108,6 +120,7 @@ sql.elementos.favs.delete.planificacions = "DELETE FROM fresh_tour.planificacion
 sql.elementos.favs.all = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1)";
 sql.elementos.favs.byName = "SELECT *, 'Monumento' as tipo, true AS favorito FROM fresh_tour.monumentos m WHERE id IN ( SELECT id_monumento FROM fresh_tour.monumentos_favoritos mf WHERE id_usuario = $1) and (lower(titulo) like lower($2)) UNION ALL SELECT *, 'Lugar turístico' as tipo, true AS favorito FROM fresh_tour.lugares_turisticos lt WHERE id IN ( SELECT id_lugar_turistico FROM fresh_tour.lugares_turisticos_favoritos ltf WHERE id_usuario = $1) and (lower(titulo) like lower($2))";
 
+// opinións
 sql.opinions = {};
 sql.opinions.get = {};
 sql.opinions.get.lugares = {};
@@ -184,6 +197,7 @@ sql.opinions.edit.hostalaria = "UPDATE fresh_tour.comentarios_valoracions_lugare
 sql.opinions.edit.ocio = "UPDATE fresh_tour.comentarios_valoracions_actividades_ocio SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
 sql.opinions.edit.outras = "UPDATE fresh_tour.comentarios_valoracions_outras_actividades SET valoracion = $1, titulo = $2, comentario = $3 WHERE id = $4";
 
+// elementos de hospedaxe
 sql.hospedaxe = {};
 sql.hospedaxe.all = "SELECT id, titulo, sub_tag, valoracion, 'Hospedaxe' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hospedaxe_favoritos lhf WHERE lhf.id_lugar_hospedaxe = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hospedaxe lh ORDER BY valoracion DESC";
 sql.hospedaxe.concreto = "SELECT id, titulo, sub_tag, valoracion, 'Hospedaxe' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hospedaxe_favoritos lhf WHERE lhf.id_lugar_hospedaxe = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hospedaxe lh WHERE id = $2 ORDER BY valoracion DESC";
@@ -239,6 +253,7 @@ sql.hospedaxe.fav.moteis.valoracon = "SELECT id, titulo, sub_tag, valoracion, 'H
 sql.hospedaxe.fav.titulo = "SELECT id, titulo, sub_tag, valoracion, 'Hospedaxe' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hospedaxe_favoritos lhf WHERE lhf.id_lugar_hospedaxe = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hospedaxe lh WHERE id IN ( SELECT id_lugar_hospedaxe FROM fresh_tour.lugares_hospedaxe_favoritos lhf WHERE id_usuario = $1) ORDER BY titulo ASC";
 sql.hospedaxe.fav.valoracion = "SELECT id, titulo, sub_tag, valoracion, 'Hospedaxe' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hospedaxe_favoritos lhf WHERE lhf.id_lugar_hospedaxe = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hospedaxe lh WHERE id IN ( SELECT id_lugar_hospedaxe FROM fresh_tour.lugares_hospedaxe_favoritos lhf WHERE id_usuario = $1) ORDER BY valoracion DESC";
 
+// elementos de lecer
 sql.lecer = {};
 sql.lecer.hostalaria = {};
 sql.lecer.hostalaria.concreto = "SELECT id, titulo, sub_tag, valoracion, 'Hostalaría' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hostalaria_favoritos lhf WHERE lhf.id_lugar_hostalaria = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hostalaria lh WHERE id = $2";
@@ -311,7 +326,6 @@ sql.lecer.hostalaria.panaderias.valoracion = "SELECT id, titulo, sub_tag, valora
 sql.lecer.hostalaria.chocolaterias = {};
 sql.lecer.hostalaria.chocolaterias.titulo = "SELECT id, titulo, sub_tag, valoracion, 'Hostalaría' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hostalaria_favoritos lhf WHERE lhf.id_lugar_hostalaria = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hostalaria lh WHERE sub_tag LIKE 'chocolate' ORDER BY titulo ASC LIMIT 50";
 sql.lecer.hostalaria.chocolaterias.valoracion = "SELECT id, titulo, sub_tag, valoracion, 'Hostalaría' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.lugares_hostalaria_favoritos lhf WHERE lhf.id_lugar_hostalaria = lh.id AND lhf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.lugares_hostalaria lh WHERE sub_tag LIKE 'chocolate' ORDER BY valoracion DESC LIMIT 50";
-
 sql.lecer.ocio = {};
 sql.lecer.ocio.concreto = "SELECT id, titulo, sub_tag, valoracion, 'Ocio' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.actividades_ocio_favoritas aof WHERE aof.id_actividade_ocio = ao.id AND aof.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.actividades_ocio ao WHERE id = $2";
 sql.lecer.ocio.valoracion = "SELECT id, titulo, sub_tag, valoracion, 'Ocio' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.actividades_ocio_favoritas aof WHERE aof.id_actividade_ocio = ao.id AND aof.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.actividades_ocio ao ORDER BY valoracion DESC";
@@ -431,7 +445,6 @@ sql.lecer.ocio.club_nocturno.valoracion = "SELECT id, titulo, sub_tag, valoracio
 sql.lecer.ocio.mirador = {};
 sql.lecer.ocio.mirador.titulo = "SELECT id, titulo, sub_tag, valoracion, 'Ocio' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.actividades_ocio_favoritas aof WHERE aof.id_actividade_ocio = ao.id AND aof.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.actividades_ocio ao WHERE sub_tag LIKE 'viewpoint' ORDER BY titulo ASC";
 sql.lecer.ocio.mirador.valoracion = "SELECT id, titulo, sub_tag, valoracion, 'Ocio' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.actividades_ocio_favoritas aof WHERE aof.id_actividade_ocio = ao.id AND aof.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.actividades_ocio ao WHERE sub_tag LIKE 'viewpoint' ORDER BY valoracion DESC";
-
 sql.lecer.outras = {};
 sql.lecer.outras.concreto = "SELECT id, titulo, sub_tag, valoracion, 'Outra' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.outras_actividades_favoritas oaf WHERE oaf.id_outra_actividade = oa.id AND oaf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.outras_actividades oa WHERE id = $2 LIMIT 50";
 sql.lecer.outras.valoracion = "SELECT id, titulo, sub_tag, valoracion, 'Outra' as tipo, CASE WHEN EXISTS (SELECT 1 FROM fresh_tour.outras_actividades_favoritas oaf WHERE oaf.id_outra_actividade = oa.id AND oaf.id_usuario = $1) THEN CAST(1 AS BOOL) ELSE CAST(0 AS BOOL) END AS favorito FROM fresh_tour.outras_actividades oa ORDER BY valoracion ASC LIMIT 50";
