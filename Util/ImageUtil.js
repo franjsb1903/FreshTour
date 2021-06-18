@@ -1,5 +1,20 @@
+/**
+ * @fileoverview Funcións asociadas a obter imaxes na aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+// módulo
 import { Image } from 'react-native'
 
+/**
+ * Devolve a localización dunha imaxe en función do seu nome
+ * @param {String} name 
+ * @returns {String}
+ */
 const getImageUri = (name) => {
     let locateUri;
     switch (name) {

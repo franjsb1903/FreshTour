@@ -1,4 +1,16 @@
+/**
+ * @fileoverview Arquivo de estilos da vista da aplicación
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+// módulos
 import { StyleSheet, Platform, StatusBar } from 'react-native';
+
+// propiedades
 import properties from '../properties/properties_expo';
 
 export const stylesBorderContainer = StyleSheet.create({

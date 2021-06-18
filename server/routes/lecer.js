@@ -1,14 +1,26 @@
-const express = require('express');
-const router = express.Router();
-const pool = require('../../database/database');
-const sql = require('../lib/sql');
-const verify = require('../lib/VerifyToken');
-const helpers = require('../lib/helpers');
-const tag_traductor = require('../lib/tag_traductor');
+/**
+ * @fileoverview Operacións relacionadas cos elementos de lecer
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+const express = require('express');                     // Instancia de express
+const router = express.Router();                        // Instancia de router, para a creación de rutas
+const pool = require('../../database/database');        // Instancia que permite a execución de consultas sobre a BBDD
+const sql = require('../lib/sql');                      // Consultas da BBDD
+const verify = require('../lib/VerifyToken');           // Verifica o token de usuario, empregado como middleware
+const helpers = require('../lib/helpers');              // Funcionalidades comúns
+const tag_traductor = require('../lib/tag_traductor');  // Traductor de etiquetas ao galego
 
 // Hostalaria
 
 // getAllHostalaria()
+/**
+ * Obtén todos os elementos de hostalaría, indicando os favoritos
+ */
 router.get('/hostalaria', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -40,6 +52,9 @@ router.get('/hostalaria', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getConcretoHostalaria()
+/**
+ * Obtén un elemento concreto de hostalaría, indicando os favoritos
+ */
 router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -73,6 +88,9 @@ router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, re
 });
 
 // getHostalariaByName()
+/**
+ * Obtén elementos de hostalaría por nome, indicando os favoritos
+ */
 router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -108,6 +126,9 @@ router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // postHostalariaFav()
+/**
+ * Almacena un elemento de hostalaría como favorito
+ */
 router.post('/hostalaria/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -136,6 +157,9 @@ router.post('/hostalaria/fav', verify.verifyToken, (req, res) => {
 });
 
 // deleteHostalariaFav()
+/**
+ * Quita un elemento de hostalaría como favorito
+ */
 router.delete('/hostalaria/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -164,6 +188,9 @@ router.delete('/hostalaria/fav', verify.verifyToken, (req, res) => {
 });
 
 // getHostalariaFilterType()
+/**
+ * Filtra e ordena os elementos de hostalaría dun determinado modo, indicando os favoritos
+ */
 router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -205,6 +232,9 @@ router.get('/hostalaria/filter/:type', verify.verifyTokenWithoutReturn, (req, re
 });
 
 // getFavHostalariaByName()
+/**
+ * Obtén elementos de hostalaría favoritos por nome
+ */
 router.get('/hostalaria/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -228,6 +258,9 @@ router.get('/hostalaria/fav/:name', verify.verifyToken, (req, res) => {
 });
 
 // getFavHostalariaFilterType()
+/**
+ * Filtra e ordena os elementos de hostalaría favoritos dun determinado modo
+ */
 router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
@@ -268,6 +301,11 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
 
 });
 
+/**
+ * Devolve unha determinada query referente aos lugares de hostalaría favoritos
+ * @param {String} type 
+ * @returns {String}
+ */
 const getFavQueryHostalaria = (type) => {
     switch (type) {
         case "bares_titulo":
@@ -319,6 +357,11 @@ const getFavQueryHostalaria = (type) => {
     }
 }
 
+/**
+ * Devolve unha determinada query referente aos lugares de hostalaría
+ * @param {String} type 
+ * @returns {String}
+ */
 const getQueryHostalaria = (type) => {
     switch (type) {
         case "bares_titulo":
@@ -373,6 +416,9 @@ const getQueryHostalaria = (type) => {
 // Actividades de ocio
 
 // getAllOcio()
+/**
+ * Obtén todas as actividades de ocio, indicando as favoritas
+ */
 router.get('/ocio', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -404,6 +450,9 @@ router.get('/ocio', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getOcioConcreto()
+/**
+ * Obtén unha actividade de ocio concreta, indicando se é favorita
+ */
 router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -437,6 +486,9 @@ router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => 
 });
 
 // getOcioByName()
+/**
+ * Obtén actividades de ocio por nome, indicando as favoritas
+ */
 router.get('/ocio/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -472,6 +524,9 @@ router.get('/ocio/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // postOcioFav()
+/**
+ * Almacena unha actividade de ocio como favorita
+ */
 router.post('/ocio/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -500,6 +555,9 @@ router.post('/ocio/fav', verify.verifyToken, (req, res) => {
 });
 
 // deleteOcioFav()
+/**
+ * Quita unha actividade de ocio como favorita
+ */
 router.delete('/ocio/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -528,6 +586,9 @@ router.delete('/ocio/fav', verify.verifyToken, (req, res) => {
 });
 
 // getOcioFilterType()
+/**
+ * Filtra e ordena actividades de ocio dun determinado modo, indicando as favoritas
+ */
 router.get('/ocio/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -569,6 +630,9 @@ router.get('/ocio/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => 
 });
 
 // getFavOcioByName()
+/**
+ * Obtén actividades de ocio favoritas por nome, indicando as favoritas
+ */
 router.get('/ocio/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -592,6 +656,9 @@ router.get('/ocio/fav/:name', verify.verifyToken, (req, res) => {
 });
 
 // getFavOcioFilterType()
+/**
+ * Filtra e ordena actividades de ocio favoritas dun determinado modo
+ */
 router.get('/ocio/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
@@ -632,6 +699,11 @@ router.get('/ocio/fav/filter/:type', verify.verifyToken, (req, res) => {
 
 });
 
+/**
+ * Devolve unha query referente ás actividades de ocio favoritas
+ * @param {String} type 
+ * @returns {String}
+ */
 const getFavQueryOcio = (type) => {
     switch (type) {
         case "picnic_titulo":
@@ -715,6 +787,11 @@ const getFavQueryOcio = (type) => {
     }
 }
 
+/**
+ * Devolve unha query referente ás actividades de ocio
+ * @param {String} type 
+ * @returns {String}
+ */
 const getQueryOcio = (type) => {
     switch (type) {
         case "picnic_titulo":
@@ -801,6 +878,9 @@ const getQueryOcio = (type) => {
 // Outras actividades
 
 // getAllOutras()
+/**
+ * Obtén todas as outras actividades de lecer, indicando as favoritas
+ */
 router.get('/outras', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -832,6 +912,9 @@ router.get('/outras', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getOutrasConcreto()
+/**
+ * Obtén outra actividade de ocio concreta, indicando se é favorita
+ */
 router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -865,6 +948,9 @@ router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) =
 });
 
 // getOutrasByName()
+/**
+ * Obtén outras actividades por nome, indicando as favoritas
+ */
 router.get('/outras/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -900,6 +986,9 @@ router.get('/outras/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // postOutrasFav()
+/**
+ * Engade outra actividade como favorita
+ */
 router.post('/outras/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -928,6 +1017,9 @@ router.post('/outras/fav', verify.verifyToken, (req, res) => {
 });
 
 // deleteOutrasFav()
+/**
+ * Quita outra actividade como favorita
+ */
 router.delete('/outras/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -956,6 +1048,9 @@ router.delete('/outras/fav', verify.verifyToken, (req, res) => {
 });
 
 // getOutrasFilterType()
+/**
+ * Ordena e filtra outras actividades dun determinado modo, indicando as favoritas
+ */
 router.get('/outras/filter/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 
     try {
@@ -997,6 +1092,9 @@ router.get('/outras/filter/:type', verify.verifyTokenWithoutReturn, (req, res) =
 });
 
 // getFavOutrasByName()
+/**
+ * Obtén outras actividades favoritas por nome
+ */
 router.get('/outras/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;
@@ -1020,6 +1118,9 @@ router.get('/outras/fav/:name', verify.verifyToken, (req, res) => {
 });
 
 // getFavOutrasFilterType()
+/**
+ * Ordena e filtra as outras actividades favoritas dun determinado modo
+ */
 router.get('/outras/fav/filter/:type', verify.verifyToken, (req, res) => {
 
     try {
@@ -1060,6 +1161,11 @@ router.get('/outras/fav/filter/:type', verify.verifyToken, (req, res) => {
 
 });
 
+/**
+ * Devolve unha query referente ás outras actividades favoritas
+ * @param {String} type 
+ * @returns {String}
+ */
 const getFavQueryOutras = (type) => {
     switch (type) {
         case "bank_titulo":
@@ -1163,6 +1269,11 @@ const getFavQueryOutras = (type) => {
     }
 }
 
+/**
+ * Obtén unha query referente ás outras actividades
+ * @param {String} type 
+ * @returns {String}
+ */
 const getQueryOutras = (type) => {
     switch (type) {
         case "bank_titulo":

@@ -1,8 +1,28 @@
+/**
+ * @fileoverview Xestión de datos dos Usuarios
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación da xestión de datos
+*/
+
+// propiedades
 import properties from '../properties/properties_expo';
+
+// Util
 import { fecthJsonAuthPost, fecthJsonAuthGet, fetchJsonDelete } from '../Util/FetchUtil'
+
+// módulos
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 class XestionDatosUsuarios {
 
+    /**
+    * Rexistra un usuario na plataforma
+    * @param {Object} user 
+    * @returns {Object}
+    */
     async registerUser(user) {
 
         var url = await AsyncStorage.getItem('url');
@@ -32,6 +52,11 @@ class XestionDatosUsuarios {
         }
     }
 
+    /**
+    * Permite o inicio de sesión dun usuario na plataforma
+    * @param {Object} user 
+    * @returns {Object}
+    */
     async loginUser(user) {
 
         var url = await AsyncStorage.getItem('url');
@@ -58,6 +83,12 @@ class XestionDatosUsuarios {
         }
     }
 
+    /**
+    * Inicio de sesión dun usuario a través do seu token
+    * @param {String} token 
+    * @param {Boolean} signal 
+    * @returns {Object}
+    */
     async getUserByToken(token, signal) {
         var url = await AsyncStorage.getItem('url');
 
@@ -79,6 +110,12 @@ class XestionDatosUsuarios {
         }
     }
 
+    /**
+    * Permite a edición dun usuario
+    * @param {String} token 
+    * @param {Object} user 
+    * @returns {Object}
+    */
     async editUser(token, user) {
 
         var url = await AsyncStorage.getItem('url');
@@ -109,6 +146,11 @@ class XestionDatosUsuarios {
         }
     }
 
+    /**
+    * Eliminación da conta dun usuario
+    * @param {String} token 
+    * @returns {Object}
+    */
     async deleteUser(token) {
 
         var url = await AsyncStorage.getItem('url');

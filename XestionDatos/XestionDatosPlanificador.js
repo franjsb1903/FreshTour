@@ -1,9 +1,28 @@
+/**
+ * @fileoverview Xestión de datos do Planificador
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación da xestión de datos
+*/
+
+// propiedades
 import properties from '../properties/properties_expo';
+
+// Util
 import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
+
+// módulos
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class XestionDatosPlanificador {
 
+    /**
+    * Obtén información a partir dunha busca de usuario
+    * @param {String} search 
+    * @returns {Object}
+    */
     async getSearchData(search) {
 
         var url = await AsyncStorage.getItem('url');
@@ -21,6 +40,11 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Obtén información do elemento elixido polo usuario para a súa xeolocalización
+    * @param {String} selected 
+    * @returns {String}
+    */
     async getSearchItem(selected) {
 
         var url = await AsyncStorage.getItem('url');
@@ -38,6 +62,13 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Garda unha planificación na plataforma
+    * @param {String} token
+    * @param {Object} planificacion 
+    * @param {Array} elementos 
+    * @returns {Object}
+    */
     async savePlanificacion(token, planificacion, elementos) {
 
         var url = await AsyncStorage.getItem('url');
@@ -71,6 +102,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Obtén aquelas planificacións almacenadas e visibles por todos os usuarios
+    * @param {Boolean} signal 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getPlanificacions(signal, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -88,6 +125,13 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Comparte unha planificación almacenada
+    * @param {String} token 
+    * @param {Boolean} isShare 
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async sharePlanificacion(token, isShare, id) {
 
         var url = await AsyncStorage.getItem('url');
@@ -114,6 +158,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Obtén os elementos que compoñen unha planificación
+    * @param {Number} id 
+    * @param {Boolean} signal 
+    * @returns {Object}
+    */
     async getElements(id, signal) {
 
         var url = await AsyncStorage.getItem('url');
@@ -131,6 +181,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Elimina unha planificación
+    * @param {Number} id 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async deletePlanificacion(id, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -156,6 +212,14 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Edita unha planificación almacenada
+    * @param {String} titulo 
+    * @param {String} comentario 
+    * @param {Number} id 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async editPlanificacion(token, titulo, comentario, id) {
 
         var url = await AsyncStorage.getItem('url');
@@ -183,6 +247,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Obtén as planificacións ordenadas dun determinado modo
+    * @param {String} token 
+    * @param {String} type 
+    * @returns {Object}
+    */
     async sortBy(token, type) {
 
         var url = await AsyncStorage.getItem('url');
@@ -200,6 +270,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Obtén as planificacións favoritas ordenadas dun determinado modo
+    * @param {String} token 
+    * @param {String} type 
+    * @returns {Object}
+    */
     async favSortBy(token, type) {
 
         var url = await AsyncStorage.getItem('url');
@@ -218,6 +294,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Obtén as planificacións en función dun determinado nome introducido polo usuario
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getByName(token, name) {
 
         var url = await AsyncStorage.getItem('url');
@@ -236,6 +318,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Engade unha planificación como favorita
+    * @param {String} token 
+    * @param {Number} id_elemento 
+    * @returns {Object}
+    */
     async addElementoFav(token, id_elemento) {
 
         var url = await AsyncStorage.getItem('url');
@@ -261,6 +349,12 @@ class XestionDatosPlanificador {
         }
     }
 
+    /**
+    * Quita unha planificación como favorita
+    * @param {String} token 
+    * @param {Number} id_elemento 
+    * @returns {Object}
+    */
     async deleteElementoFav(token, id_elemento) {
 
         var url = await AsyncStorage.getItem('url');

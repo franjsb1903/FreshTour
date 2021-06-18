@@ -1,5 +1,5 @@
 /**
- * @fileoverview Operacións relacionadas 
+ * @fileoverview Operacións relacionadas cos elementos de hospedaxe
  * @version 1.0
  * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
  * 
@@ -234,6 +234,9 @@ router.get('/fav/filter/:type', verify.verifyToken, (req, res) => {
 });
 
 // postFav()
+/**
+ * Almacena un lugar de hospedaxe como favorito
+ */
 router.post('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -262,6 +265,9 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 });
 
 // deleteFav()
+/**
+ * Quita un lugar de hospedaxe como favorito
+ */
 router.delete('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -289,6 +295,11 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
 
 });
 
+/**
+ * Obtén unha query dun determinado tipo referente aos favoritos
+ * @param {String} type 
+ * @returns {String}
+ */
 const getFavQuery = (type) => {
     switch (type) {
         case "hoteis_titulo":
@@ -328,6 +339,11 @@ const getFavQuery = (type) => {
     }
 }
 
+/**
+ * Obtén unha query dun determinado tipo
+ * @param {String} type 
+ * @returns {String}
+ */
 const getQuery = (type) => {
     switch (type) {
         case "hoteis_titulo":

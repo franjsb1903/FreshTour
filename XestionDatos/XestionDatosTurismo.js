@@ -1,9 +1,29 @@
+/**
+ * @fileoverview Xestión de datos dos Monumentos e Lugares Turísticos
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación da xestión de datos
+*/
+
+// propiedades
 import properties from '../properties/properties_expo';
+
+// Util
 import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
+
+// módulos
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class XestionDatosTurismo {
 
+    /**
+    * Obtén todos os monumentos e lugares turísticos da aplicación
+    * @param {String} token 
+    * @param {Boolean} signal 
+    * @returns {Object}
+    */
     async getTurismData(token, signal) {
 
         var url = await AsyncStorage.getItem('url');
@@ -22,6 +42,12 @@ class XestionDatosTurismo {
 
     }
 
+    /**
+    * Obtén un lugar turístico concreto
+    * @param {String} token 
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async getLugar(token, id) {
 
         var url = await AsyncStorage.getItem('url');
@@ -40,6 +66,12 @@ class XestionDatosTurismo {
 
     }
 
+    /**
+    * Obtén un monumento concreto
+    * @param {String} token 
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async getMonumento(token, id) {
 
         var url = await AsyncStorage.getItem('url');
@@ -58,6 +90,12 @@ class XestionDatosTurismo {
 
     }
 
+    /**
+    * Obtén monumentos e lugares turísticos por nome
+    * @param {String} name 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getElementData(name, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -75,6 +113,12 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Obtén información xeográfica dun determinado elemento turístico
+    * @param {Number} id 
+    * @param {String} tipo 
+    * @returns {String}
+    */
     async getGeoItem(id, tipo) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -100,6 +144,11 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Obtén a información xeográfica de todos os monumentos ou de todos os lugares turísticos
+    * @param {String} tipo 
+    * @returns {String}
+    */
     async getGeoAll(tipo) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -125,6 +174,12 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Obtén a información xeográfica dun elemento turístico en formato JSON
+    * @param {Number} id 
+    * @param {String} tipo 
+    * @returns 
+    */
     async getGeoItemJson(id, tipo) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -150,6 +205,12 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Obtén os elementos turísticos ordenados dun determinado modo
+    * @param {String} type 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async sortBy(type, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -167,6 +228,12 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Obtén os elementos turísticos favoritos ordenados dun determinado modo
+    * @param {String} type 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async favsSortBy(type, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -184,6 +251,13 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Engade un elemento turístico como favorito
+    * @param {String} token 
+    * @param {Number} id_elemento 
+    * @param {String} type 
+    * @returns {Object}
+    */
     async addElementoFav(token, id_elemento, type) {
 
         var url = await AsyncStorage.getItem('url');
@@ -210,6 +284,13 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Quita un elemento turístico como favorito
+    * @param {String} token 
+    * @param {Number} id_elemento 
+    * @param {String} type 
+    * @returns {Object}
+    */
     async deleteElementoFav(token, id_elemento, type) {
 
         var url = await AsyncStorage.getItem('url');
@@ -236,6 +317,12 @@ class XestionDatosTurismo {
         }
     }
 
+    /**
+    * Obtén un elemento favorito por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getElementFavByName(token, name) {
 
         var url = await AsyncStorage.getItem('url');

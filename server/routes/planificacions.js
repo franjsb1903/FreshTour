@@ -1,14 +1,27 @@
-const express = require('express');
-const router = express.Router();
-const pool = require('../../database/database');
+/**
+ * @fileoverview Operacións relacionadas coas planificacións
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
 
-const verify = require('../lib/VerifyToken');
-const helpers = require('../lib/helpers');
-const sql = require('../lib/sql');
-const tag_traductor = require('../lib/tag_traductor');
+const express = require('express');                     // Instancia de express
+const router = express.Router();                        // Instancia de router, para crear as rutas
+const pool = require('../../database/database');        // Instancia para executar queries na BBDD
+
+const verify = require('../lib/VerifyToken');           // Verifica o token de usuario, empregado como middleware
+const helpers = require('../lib/helpers');              // Funcións comúns
+const sql = require('../lib/sql');                      // Obxecto que reúne as queries a empregar
+const tag_traductor = require('../lib/tag_traductor');  // Traductor de etiquetas ao galego
 
 // postNew()
+/**
+ * Almacena unha nova planificación na base de datos
+ */
 router.post('/new', verify.verifyToken, async (req, res) => {
+    // Conexión ca BBDD
     const client = await pool.connect();
     try {
 
@@ -22,12 +35,14 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         var hostalaria = sql.planificacions.newHostalaria;
         var ocio = sql.planificacions.newOcio;
         var outras = sql.planificacions.newOutras;
+        // Almacéns dos elementos que conforman a planificación
         var valuesLugares = [];
         var valuesMonumentos = [];
         var valuesHospedaxe = [];
         var valuesHostalaria = [];
         var valuesOcio = [];
         var valuesOutras = [];
+        // Estas variables son necesarias posteriormente para recorrelas con map
         var valuesLugaresWithArrays = [];
         var valuesMonumentosWithArrays = [];
         var valuesHospedaxeWithArrays = [];
@@ -35,16 +50,23 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         var valuesOcioWithArrays = [];
         var valuesOutrasWithArrays = [];
 
+        // Lévase a cabo unha transacción con async/await
+        // Comezo da transacción
         await client.query('BEGIN');
+        // Almacenamento dos datos da planificación
         const resultsOne = await client.query(sql.planificacions.new, [userId, titulo, comentario, isShared, distancia, tempoVisita, tempoRuta]);
         var i = 0;
+        // Almacenamento nas variables anteriores dos elementos da planifciación
         await Promise.all(elementos.map(async (elemento) => {
             if (elemento.features[0].properties.tipo == "Lugar turístico") {
                 valuesLugares.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesLugaresWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
+                // Para cada tipo, se a visita ao elemento é flexible é necesario almacenar este tempo na base de datos
                 if (elemento.features[0].properties.isFlexible) {
+                    // Almacenamento na táboa de tempos
                     await client.query(sql.planificacions.newTempoLugares, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                     const tempo = await client.query(sql.planificacions.getAVGTempoLugares, [elemento.features[0].properties.id]);
+                    // Actualización do tempo flexible sobre o propio elemento na súa táboa
                     await client.query(sql.planificacions.updateTempoLugares, [tempo.rows[0].tempo, elemento.features[0].properties.id]);
                 }
             } else if (elemento.features[0].properties.tipo == "Monumento") {
@@ -58,6 +80,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             } else if (elemento.features[0].properties.tipo == "Hospedaxe") {
                 valuesHospedaxe.push(resultsOne.rows[0].id, elemento.features[0].properties.id, i, elemento.features[0].properties.tipo_visita);
                 valuesHospedaxeWithArrays.push([resultsOne.rows[0].id, elemento.features[0].properties.id, i++, elemento.features[0].properties.tipo_visita]);
+                // Se o usuario indicou tempo de visita ao elemento, é necesario almacenalo na base de datos
                 if (elemento.features[0].properties.tipo_visita) {
                     await client.query(sql.planificacions.newTempoHospedaxe, [elemento.features[0].properties.id, elemento.features[0].properties.tipo_visita]);
                 }
@@ -81,6 +104,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
                 }
             }
         }));
+        // Construción da consulta para almacenar os elementos da planificación para cada tipo posible que pode conformala. Xa que non se sabe cantos elementos nin de que tipo, é necesario iterar os arrays que conteñen os datos para construir cada query para cada tipo
         var indexLug = 0;
         if (valuesLugares.length > 0) {
             await Promise.all(valuesLugaresWithArrays.map(e => {
@@ -154,31 +178,28 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             }));
         }
 
-        console.log('lugares', lugares);
+        // Unha vez construida cada consulta, para cada tipo execútase a query, se é necesario
         if (valuesLugares.length > 0) {
             await client.query(lugares, valuesLugares);
         }
-        console.log('monumentos', monumentos)
         if (valuesMonumentos.length > 0) {
             await client.query(monumentos, valuesMonumentos);
         }
-        console.log('hospedaxe', hospedaxes);
         if (valuesHospedaxe.length > 0) {
             await client.query(hospedaxes, valuesHospedaxe);
         }
-        console.log('hostalaria', hostalaria);
         if (valuesHostalaria.length > 0) {
             await client.query(hostalaria, valuesHostalaria);
         }
-        console.log('ocio', ocio);
         if (valuesOcio.length > 0) {
             await client.query(ocio, valuesOcio);
         }
-        console.log('outras', outras);
         if (valuesOutras.length > 0) {
             await client.query(outras, valuesOutras);
         }
+        // Confirmación dos cambios
         await client.query('COMMIT');
+        // Resposta
         return res.status(200).send({
             status: 200,
             planificacion: {
@@ -186,14 +207,19 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             }
         });
     } catch (err) {
+        // En caso de erro, ROLLBACK
         await client.query('ROLLBACK');
         helpers.onError(500, "Erro interno do servidor", err, res);
     } finally {
+        // Cando se finaliza, se pecha a conexión
         client.release();
     }
 });
 
 // get()
+/**
+ * Obtén todas as planificacións almacenadas, indicando as favoritas
+ */
 router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
@@ -224,6 +250,9 @@ router.get('/', verify.verifyTokenWithoutReturn, (req, res) => {
 })
 
 // postShare()
+/**
+ * Cambia o estado dunha planificación, pasando de compartida a non compartida ou viceversa
+ */
 router.post('/share', verify.verifyToken, (req, res) => {
 
     try {
@@ -251,6 +280,9 @@ router.post('/share', verify.verifyToken, (req, res) => {
 });
 
 // getElements()
+/**
+ * Obtén os elementos relacionados cunha planificación
+ */
 router.get('/elements/:id', (req, res) => {
 
     try {
@@ -274,6 +306,7 @@ router.get('/elements/:id', (req, res) => {
                 }
                 var elements = [], indexTurismo = 0, indexLecer = 0;
 
+                // Tradución de etiquetas
                 lecer.rows.map(lecerItem => {
                     if (lecerItem.tipo == "Ocio") {
                         lecerItem.sub_tag = tag_traductor.ocio(lecerItem.sub_tag);
@@ -286,6 +319,7 @@ router.get('/elements/:id', (req, res) => {
                     }
                 })
 
+                // Ordenación dos elementos en función da orde na que foron almacenados polo usuario, xuntando dous arrays distintos, os de turismo e os de lecer
                 while (indexTurismo < turismo.rowCount && indexLecer < lecer.rowCount) {
                     if ((turismo.rows[indexTurismo].posicion_visita - lecer.rows[indexLecer].posicion_visita) < 0) {
                         elements.push(turismo.rows[indexTurismo++]);
@@ -314,6 +348,9 @@ router.get('/elements/:id', (req, res) => {
 });
 
 // delete()
+/**
+ * Elimina unha planificación almacenada
+ */
 router.delete('/', verify.verifyToken, async (req, res) => {
     try {
         const userId = req.userId;
@@ -321,12 +358,19 @@ router.delete('/', verify.verifyToken, async (req, res) => {
 
         const response = await pool.query('SELECT * FROM fresh_tour.planificacions WHERE id = $1 AND id_usuario = $2', [id, userId]);
 
+        // Comprobación de que a planificación pertence ao usuario que a quere eliminar
         if (response.rowCount == 0) {
             helpers.onErrorAuth(404, "A planificación non é túa", undefined, res);
             return;
         }
 
+        // Conexión ca base de datos
         pool.connect((err, client, done) => {
+            /**
+             * Comproba se se debe abortar a transacción
+             * @param {Object} err 
+             * @returns 
+             */
             const shouldAbort = err => {
                 if (err) {
                     client.query('ROLLBACK', error => {
@@ -343,36 +387,47 @@ router.delete('/', verify.verifyToken, async (req, res) => {
                 return !!err
             }
 
+            // Comezo da transacción
             client.query('BEGIN', err => {
                 if (shouldAbort(err)) return;
 
+                // Eliminación da táboa de favoritas
                 client.query(sql.planificacions.delete.favoritas, [id], (err, results) => {
                     if (shouldAbort(err)) return;
 
+                    // Eliminación dos comentarios
                     client.query(sql.planificacions.delete.comentarios, [id], (err, results) => {
                         if (shouldAbort(err)) return;
 
+                        // Eliminación da relación con lugares turísticos
                         client.query(sql.planificacions.delete.lugares, [id], (err, results) => {
                             if (shouldAbort(err)) return;
 
+                            // Eliminación da relación con monumentos
                             client.query(sql.planificacions.delete.monumentos, [id], (err, results) => {
                                 if (shouldAbort(err)) return;
 
+                                // Eliminación da relación con hospedaxes
                                 client.query(sql.planificacions.delete.hospedaxes, [id], (err, results) => {
                                     if (shouldAbort(err)) return;
 
+                                    // Eliminación da relación con hostalaría
                                     client.query(sql.planificacions.delete.hostalaria, [id], (err, results) => {
                                         if (shouldAbort(err)) return;
 
+                                        // Eliminación da relación con ocio
                                         client.query(sql.planificacions.delete.ocio, [id], (err, results) => {
                                             if (shouldAbort(err)) return;
 
+                                            // Eliminación da relación con outras
                                             client.query(sql.planificacions.delete.outras, [id], (err, results) => {
                                                 if (shouldAbort(err)) return;
 
+                                                // Eliminación da propia planificación
                                                 client.query(sql.planificacions.delete.planificacion, [id, userId], (err, results) => {
                                                     if (shouldAbort(err)) return;
 
+                                                    // Confirmación dos cambios
                                                     client.query('COMMIT', error => {
                                                         if (error) {
                                                             helpers.onError(500, "Erro interno no servidor", error, res);
@@ -406,6 +461,9 @@ router.delete('/', verify.verifyToken, async (req, res) => {
 });
 
 // postEdit()
+/**
+ * Edición dunha planificación
+ */
 router.post('/edit', verify.verifyToken, async (req, res) => {
     try {
 
@@ -419,6 +477,7 @@ router.post('/edit', verify.verifyToken, async (req, res) => {
 
         const response = await pool.query('SELECT * FROM fresh_tour.planificacions WHERE id = $1 AND id_usuario = $2', [id, userId]);
 
+        // Comprobación de se a planificación pertence ao usuario
         if (response.rowCount == 0) {
             helpers.onErrorAuth(404, "A planificación non é túa", undefined, res);
             return;
@@ -441,6 +500,9 @@ router.post('/edit', verify.verifyToken, async (req, res) => {
 });
 
 // getSortBy()
+/**
+ * Ordenación das planificacións dun determinado modo, indicando as favoritas
+ */
 router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
@@ -495,6 +557,9 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // getFavSortBy()
+/**
+ * Ordenación das planificacións favoritas dun determinado modo
+ */
 router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
@@ -549,6 +614,9 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
 });
 
 // getByName()
+/**
+ * Obtención de planificacións por nome, indicando as favoritas
+ */
 router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
@@ -581,6 +649,9 @@ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
 });
 
 // postFav()
+/**
+ * Engade unha planificación como favorita
+ */
 router.post('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -603,6 +674,9 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 });
 
 // deleteFav()
+/**
+ * Quita unha planificación como favorita
+ */
 router.delete('/fav', verify.verifyToken, (req, res) => {
 
     try {

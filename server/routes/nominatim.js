@@ -1,8 +1,23 @@
-const express = require('express');
-const router = express.Router();
+/**
+ * @fileoverview Operacións relacionadas coa busca de lugares polo usuario a xeolocalizar
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
 
-var unirest = require("unirest");
+const express = require('express');             // Instancia de express
+const router = express.Router();                // Instancia de router, que permite crear as rutas
 
+var unirest = require("unirest");               // Módulo que permite o emprego de Nominatim, API de OSM para a busca de elementos a xeolocalizar
+
+/**
+ * Obtén información xeográfica a partir da busca do usuario, realizando unha petición a Nomitatim
+ * @param {String} query 
+ * @param {Object} res 
+ * @param {String} format 
+ */
 const getData = (query, res, format) => {
     var request = unirest("GET", "https://forward-reverse-geocoding.p.rapidapi.com/v1/search");
     request.query({
@@ -23,15 +38,20 @@ const getData = (query, res, format) => {
 
     request.end(function (response) {
         if (res.error) throw new Error(res.error);
+        // Resposta
         res.json(response.body);
     });
 };
 
 // getSearch()
+/**
+ * Obtén a información xeográfica en función da busca do usuario
+ */
 router.get('/:search', (req, res) => {
     try {
         var { search } = req.params;
 
+        // Necesario para obter unha resposta correcta cando se busca a catedral
         if (search === "Catedral" || search === "Catedral " || search === "catedral" || search === "catedral ") {
             search = "catedral de";
         }
@@ -44,6 +64,9 @@ router.get('/:search', (req, res) => {
 })
 
 // getSearchGeojson()
+/**
+ * Obtén a información xeográfica en función da busca do usuario en formato geoJSON
+ */
 router.get('/geojson/:search', (req, res) => {
     try {
         const { search } = req.params;

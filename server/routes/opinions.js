@@ -1,11 +1,23 @@
-const express = require('express');
-const router = express.Router();
-const pool = require('../../database/database');
-const sql = require('../lib/sql');
-const verify = require('../lib/VerifyToken');
-const helpers = require('../lib/helpers');
+/**
+ * @fileoverview Operacións relacionadas coas opinións
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+const express = require('express');                 // Instancia de express
+const router = express.Router();                    // Instancia de router, para crear as rutas
+const pool = require('../../database/database');    // Instancia para executar queries na BBDD
+const sql = require('../lib/sql');                  // Obxecto coas queries a empregar
+const verify = require('../lib/VerifyToken');       // Verifica o token de usuario, empregado como middleware
+const helpers = require('../lib/helpers');          // Funcións comúns
 
 // get()
+/**
+ * Obtén as opinións dun determinado elemento dun determinado tipo
+ */
 router.get('/:type/:id', async (req, res) => {
 
     try {
@@ -36,6 +48,9 @@ router.get('/:type/:id', async (req, res) => {
 });
 
 // postNew()
+/**
+ * Garda un novo comentario sobre un determinado elemento
+ */
 router.post('/new', verify.verifyToken, async (req, res) => {
     try {
 
@@ -89,6 +104,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
         const updateValoracionOutras = sql.opinions.new.outras.updateVal;
 
         if (type == "Lugar turístico") {
+            // Compróbase para cada tipo que o comentario non existe previamente realizado polo mesmo usuario sobre o mesmo elemento
             const exists = await onExists(existLugares, id_elemento, userId, res);
             if (!exists) {
                 onTransaction(queryLugares, [userId, titulo, valoracion, comentario, id_elemento], mediaLugares, updateValoracionLugares, type, res, userId);
@@ -155,6 +171,9 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 });
 
 // delete()
+/**
+ * Borra un comentario almacenado na aplicación sobre un determinado elemento
+ */
 router.delete('/', verify.verifyToken, (req, res) => {
 
     try {
@@ -216,6 +235,9 @@ router.delete('/', verify.verifyToken, (req, res) => {
 });
 
 // postEdit()
+/**
+ * Edita un comentario realizado por un usuario sobre un determinado elemento
+ */
 router.post('/edit', verify.verifyToken, (req, res) => {
     try {
 
@@ -280,11 +302,28 @@ router.post('/edit', verify.verifyToken, (req, res) => {
     }
 })
 
+/**
+ * Executa unha determinada transacción, empregando ata tres queries distintas
+ * @param {String} first 
+ * @param {Array} firstValues 
+ * @param {String} second 
+ * @param {String} third 
+ * @param {String} type 
+ * @param {Object} res 
+ * @param {Number} idUsuario 
+ */
 const onTransaction = (first, firstValues, second, third, type, res, idUsuario) => {
 
+    // Conexión ca BBDD
     pool.connect((err, client, done) => {
+        /**
+         * Comproba se é necesario parar a transacción por algún erro
+         * @param {Object} err 
+         * @returns
+         */
         const shouldAbort = err => {
             if (err) {
+                // En caso de erro, faise un ROLLBACK
                 client.query('ROLLBACK', error => {
                     if (error) {
                         helpers.onError(500, "Erro interno no servidor", error, res);
@@ -299,6 +338,7 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
             return !!err
         }
 
+        // Inicio da transacción
         client.query('BEGIN', err => {
             if (shouldAbort(err)) return;
             client.query(first, firstValues, (err, results) => {
@@ -306,6 +346,7 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
 
                 var id_elemento;
                 const comment = results.rows[0];
+                // Obtención do id do elemento en función do seu tipo
                 if (type == "Lugar turístico") {
                     id_elemento = comment.id_lugar_turistico;
                 } else if (type == "Monumento") {
@@ -326,17 +367,20 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                 client.query(second, [id_elemento], (err, results) => {
                     if (shouldAbort(err)) return;
 
+                    // Obtense a valoración media do elemento concreto, co obxectivo de actualizala no elemento
                     const media = results.rows[0].valoracion;
                     client.query(third, [media, id_elemento], (err, results) => {
                         if (shouldAbort(err)) return;
 
                         const { valoracion } = results.rows[0];
 
+                        // Selección do usuario, para devolvelo na resposta
                         client.query("SELECT usuario FROM fresh_tour.usuarios WHERE id = $1", [idUsuario], (err, results) => {
 
                             if (shouldAbort(err)) return;
                             const { usuario } = results.rows[0];
 
+                            // Commit da transacción
                             client.query('COMMIT', error => {
                                 if (error) {
                                     helpers.onError(500, "Erro interno no servidor", error, res);
@@ -345,6 +389,7 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
                                 try {
                                     done();
                                     comment["usuario"] = usuario;
+                                    // Resposta
                                     return res.status(200).send({
                                         comment: comment,
                                         valoracion: valoracion,
@@ -365,11 +410,27 @@ const onTransaction = (first, firstValues, second, third, type, res, idUsuario) 
     });
 }
 
+/**
+ * Executa unha transacción que implica operacións de actualización, distintas á anterior
+ * @param {String} first 
+ * @param {Array} firstValues 
+ * @param {String} second 
+ * @param {String} third 
+ * @param {Number} id_elemento 
+ * @param {Object} res 
+ */
 const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res) => {
 
+    // Conexión ca base de datos
     pool.connect((err, client, done) => {
+        /**
+         * Comproba se é necesario parar a transacción por algún erro
+         * @param {Object} err 
+         * @returns 
+         */
         const shouldAbort = err => {
             if (err) {
+                // En caso de erro, realízase un ROLLBACK
                 client.query('ROLLBACK', error => {
                     if (error) {
                         helpers.onError(500, "Erro interno no servidor", error, res);
@@ -384,7 +445,7 @@ const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res
             return !!err
         }
 
-
+        // Comezo da transacción
         client.query('BEGIN', err => {
             if (shouldAbort(err)) return;
 
@@ -394,10 +455,12 @@ const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res
                 client.query(second, [id_elemento], (err, results) => {
                     if (shouldAbort(err)) return;
 
+                    // Obtención da valoración media
                     const media = results.rows[0].valoracion;
                     client.query(third, [media, id_elemento], (err, results) => {
                         if (shouldAbort(err)) return;
 
+                        // Commit para confirmar os cambios
                         client.query('COMMIT', error => {
                             if (error) {
                                 helpers.onError(500, "Erro interno no servidor", error, res);
@@ -405,6 +468,7 @@ const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res
                             }
                             try {
                                 done();
+                                // Resposta
                                 return res.status(200).send({
                                     status: 200
                                 });
@@ -422,6 +486,14 @@ const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res
     });
 }
 
+/**
+ * Comproba se unha opinión existe na base de datos realizada sobre un elemento por un usuario concreto
+ * @param {String} query 
+ * @param {Number} id 
+ * @param {Number} userId 
+ * @param {Object} res 
+ * @returns {Boolean}
+ */
 const onExists = async (query, id, userId, res) => {
     try {
         const { rowCount } = await pool.query(query, [userId, id]);
@@ -436,6 +508,13 @@ const onExists = async (query, id, userId, res) => {
 
 }
 
+/**
+ * Realiza a busca de comentarios na base de datos
+ * @param {String} query 
+ * @param {String} secondQuery 
+ * @param {Number} id 
+ * @param {Object} res 
+ */
 const onSearch = (query, secondQuery, id, res) => {
 
     pool.query(query, [id], (err, results) => {
@@ -448,6 +527,7 @@ const onSearch = (query, secondQuery, id, res) => {
                 helpers.onError(500, "Erro interno do servidor", err, res);
                 return;
             }
+            // Resposta
             res.json({
                 opinions: results.rows,
                 valoracion: resultsSecond.rows[0].valoracion,

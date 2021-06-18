@@ -1,12 +1,24 @@
-const express = require('express');
-const router = express.Router();
+/**
+ * @fileoverview Operacións relacionadas coas planificacións
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
 
-const pool = require('../../database/database');
-const sql = require('../lib/sql');
-const helpers = require('../lib/helpers');
-const verify = require('../lib/VerifyToken');
+const express = require('express');                 // Instancia de express
+const router = express.Router();                    // Instancia de router, para crear rutas
+
+const pool = require('../../database/database');    // Instancia para executar queries sobre a BBDD
+const sql = require('../lib/sql');                  // Obxecto que reúne todas as consultas a realizar
+const helpers = require('../lib/helpers');          // Funcións comúns
+const verify = require('../lib/VerifyToken');       // Verifica o token de usuario, empregado como middleware
 
 // get()
+/**
+ * Obtén todos os elementos turísticos, indicando os favoritos
+ */
 router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -36,6 +48,9 @@ router.get('/', verify.verifyTokenWithoutReturn, function (req, res) {
 });
 
 // getLugar()
+/**
+ * Obtén un lugar turístico concreto, indicando se é favorito
+ */
 router.get('/lugar/:id', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -67,6 +82,9 @@ router.get('/lugar/:id', verify.verifyTokenWithoutReturn, function (req, res) {
 });
 
 // getMonumento()
+/**
+ * Obtén un monumento concreto, indicando se é favorito
+ */
 router.get('/monumento/:id', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -98,6 +116,9 @@ router.get('/monumento/:id', verify.verifyTokenWithoutReturn, function (req, res
 });
 
 // getByName()
+/**
+ * Obtén elementos turísticos por nome, indicando os favoritos
+ */
 router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
     try {
         const userId = req.userId;
@@ -127,6 +148,9 @@ router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
 });
 
 // getSortBy()
+/**
+ * Ordena os elementos turísticos dun determinado modo, indicando os favoritos
+ */
 router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, function (req, res) {
 
     try {
@@ -165,6 +189,9 @@ router.get('/sortBy/:type', verify.verifyTokenWithoutReturn, function (req, res)
 });
 
 // getFavSortBy()
+/**
+ * Ordena os elementos turísticos favoritos dun determinado modo
+ */
 router.get('/fav/sortBy/:type', verify.verifyToken, function (req, res) {
 
     try {
@@ -203,6 +230,9 @@ router.get('/fav/sortBy/:type', verify.verifyToken, function (req, res) {
 });
 
 // postFav()
+/**
+ * Engade un elemento turístico como favorito
+ */
 router.post('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -232,6 +262,9 @@ router.post('/fav', verify.verifyToken, (req, res) => {
 });
 
 // deleteFav()
+/**
+ * Quita un elemento turístico como favorito
+ */
 router.delete('/fav', verify.verifyToken, (req, res) => {
 
     try {
@@ -261,6 +294,9 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
 });
 
 // getFav()
+/**
+ * Obtén os elementos turísticos favoritos
+ */
 router.get('/fav/', verify.verifyToken, (req, res) => {
     try {
         const userId = req.userId;
@@ -282,6 +318,9 @@ router.get('/fav/', verify.verifyToken, (req, res) => {
 });
 
 // getFavByName()
+/**
+ * Obtén elementos turísticos favoritos por nome
+ */
 router.get('/fav/:name', verify.verifyToken, (req, res) => {
     try {
         const { name } = req.params;

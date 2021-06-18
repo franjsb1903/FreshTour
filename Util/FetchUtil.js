@@ -1,4 +1,20 @@
-const fetchJsonGet = async (url, token, signal) => {
+/**
+ * @fileoverview Funcións para empregar fetch e realizar peticións web
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+/**
+ * Realiza unha petición web de tipo get con resposta JSON
+ * @param {String} url 
+ * @param {String} token 
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
+export const fetchJsonGet = async (url, token, signal) => {
 
     var headers = {}
     if (token) {
@@ -32,7 +48,13 @@ const fetchJsonGet = async (url, token, signal) => {
     return json;
 }
 
-const fetchTextGet = async (url, signal) => {
+/**
+ * Realiza unha petición web de tipo get con resposta de tipo texto
+ * @param {String} url 
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
+export const fetchTextGet = async (url, signal) => {
 
     var response;
 
@@ -58,6 +80,13 @@ const fetchTextGet = async (url, signal) => {
     return text;
 }
 
+/**
+ * Realiza unha petición web de tipo post que require autenticación
+ * @param {String} url 
+ * @param {Object} body 
+ * @param {Object} headers 
+ * @returns {Object}
+ */
 export const fecthJsonAuthPost = async (url, body, headers) => {
 
 
@@ -71,6 +100,13 @@ export const fecthJsonAuthPost = async (url, body, headers) => {
     return json;
 }
 
+/**
+ * Realiza unha petición web de tipo get que require autenticación
+ * @param {String} url 
+ * @param {Object} headers 
+ * @param {Boolean} signal 
+ * @returns {Object}
+ */
 export const fecthJsonAuthGet = async (url, headers, signal) => {
 
     var response;
@@ -91,6 +127,13 @@ export const fecthJsonAuthGet = async (url, headers, signal) => {
     return json;
 }
 
+/**
+ * Realiza unha petición web de tipo delete
+ * @param {String} url 
+ * @param {Object} headers 
+ * @param {Object} body 
+ * @returns {Object}
+ */
 export const fetchJsonDelete = async (url, headers, body) => {
 
     const response = await fetch(url, {
@@ -102,5 +145,3 @@ export const fetchJsonDelete = async (url, headers, body) => {
     const json = await response.json();
     return json;
 }
-
-export { fetchJsonGet, fetchTextGet }

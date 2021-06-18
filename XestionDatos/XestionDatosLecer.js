@@ -1,11 +1,33 @@
+/**
+ * @fileoverview Xestión de datos das actividades de lecer
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación da xestión de datos
+*/
+
+// propiedades
 import properties from '../properties/properties_expo';
-import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
+
+// Util
+import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil';
 import { traductorHostalaria, traductorOcio, traductorOutras } from '../Util/TraductorUtil';
+
+// módulos
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 class XestionDatosLecer {
 
+    // Hostalaría
+
+    /**
+    * Obtén todos os lugares de hostalaría
+    * @param {Boolean} signal 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getAllHostalaria(signal, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -24,6 +46,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén un lugar de hostalaría concreto
+   * @param {Number} id 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getHostalariaConcreto(id, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -42,6 +70,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén un lugar de hostalaría por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getByNameHostalaria(token, name) {
 
         var url = await AsyncStorage.getItem('url');
@@ -60,6 +94,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén un lugar de hostalaría favorito por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getFavByNameHostalaria(token, name) {
 
         var url = await AsyncStorage.getItem('url');
@@ -78,6 +118,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dun lugar de hostalaría
+    * @param {Number} id 
+    * @returns {Text}
+    */
     async getGeoElementHostalaria(id) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -95,6 +140,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dun determinado tipo de lugar de hostalaría
+    * @param {String} tag 
+    * @returns {Object}
+    */
     async getGeoByTagHostalaria(tag) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -112,6 +162,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dun lugar de hostalaría en formato JSON
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async getGeoElementJsonHostalaria(id) {
         var url = await AsyncStorage.getItem('geoserver');
         
@@ -130,6 +185,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén os lugares de hostalaría filtrados por unha opción e ordenados dun determinado modo
+    * @param {String} typeSort 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async filterSortHostalaria(typeSort, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -148,6 +209,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén os lugares de hostalaría favoritos filtrados por unha opción e ordenados dun determinado modo
+    * @param {String} typeSort 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async favFilterSortHostalaria(typeSort, token) {
 
         var url = await AsyncStorage.getItem('url');
@@ -166,6 +233,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Engade un elemento como favorito
+    * @param {String} token 
+    * @param {Number} id_lugar_hostalaria 
+    * @returns {Object}
+    */
     async addFavHostalaria(token, id_lugar_hostalaria) {
         var url = await AsyncStorage.getItem('url');
 
@@ -191,6 +264,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Quita un elemento como favorito
+    * @param {String} token 
+    * @param {Number} id_lugar_hostalaria 
+    * @returns {Object}
+    */
     async quitFavHostalaria(token, id_lugar_hostalaria) {
         var url = await AsyncStorage.getItem('url');
         
@@ -216,6 +295,14 @@ class XestionDatosLecer {
         }
     }
 
+    // Ocio
+
+    /**
+    * Obtén todas as actividades de ocio
+    * @param {Boolean} signal 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getAllOcio(signal, token) {
         
         var url = await AsyncStorage.getItem('url');
@@ -234,6 +321,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén unha actividade de ocio concreta
+    * @param {Number} id 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getOcioConcreto(id, token) {
         
         var url = await AsyncStorage.getItem('url');
@@ -252,6 +345,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+   * Obtén unha actividade de ocio por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getByNameOcio(token, name) {
         var url = await AsyncStorage.getItem('url');
 
@@ -269,6 +368,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén unha actividade de ocio favorita por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getFavByNameOcio(token, name) {
         var url = await AsyncStorage.getItem('url');
 
@@ -286,6 +391,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dunha actividade de ocio
+    * @param {Number} id 
+    * @returns {String}
+    */
     async getGeoElementOcio(id) {
         var url = await AsyncStorage.getItem('geoserver');
         
@@ -303,6 +413,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dun determinado tipo de actividade de ocio
+    * @param {String} tag 
+    * @returns {String}
+    */
     async getGeoByTagOcio(tag) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -320,6 +435,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica de dous tipos de actividades de ocio
+    * @param {String} tag 
+    * @param {String} secondTag 
+    * @returns {String}
+    */
     async getGeoByMultipleTagOcio(tag, secondTag) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -337,6 +458,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dunha actividade de ocio en formato JSON
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async getGeoElementJsonOcio(id) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -355,6 +481,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+     * Obtén as actividades de ocio filtradas e ordenadas
+    * @param {String} typeSort 
+    * @param {String} token 
+    * @returns {Object}
+     */
     async filterSortOcio(typeSort, token) {
         var url = await AsyncStorage.getItem('url');
 
@@ -372,6 +504,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén as actividades de ocio favoritas filtradas e ordenadas
+    * @param {String} typeSort 
+    * @param {String} token 
+     * @returns {Object}
+    */
     async favFilterSortOcio(typeSort, token) {
         var url = await AsyncStorage.getItem('url');
 
@@ -389,6 +527,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Engade unha actividade de ocio como favorita
+    * @param {String} token 
+    * @param {Number} id_actividade_ocio 
+    * @returns {Object}
+    */
     async addFavOcio(token, id_actividade_ocio) {
         var url = await AsyncStorage.getItem('url');
 
@@ -414,6 +558,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Quita unha actividade de ocio como favorita
+    * @param {String} token 
+    * @param {Number} id_actividade_ocio 
+    * @returns {Object}
+     */
     async quitFavOcio(token, id_actividade_ocio) {
         var url = await AsyncStorage.getItem('url');
 
@@ -439,6 +589,14 @@ class XestionDatosLecer {
         }
     }
 
+    // Outras
+
+    /**
+    * Obtén as outras actividades de lecer
+    * @param {Boolean} signal 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getAllOutras(signal, token) {
         var url = await AsyncStorage.getItem('url');
 
@@ -456,6 +614,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén outra actividade de lecer concreta
+    * @param {Number} id 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async getOutrasConcreto(id, token) {
         var url = await AsyncStorage.getItem('url');
 
@@ -473,6 +637,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén outra actividade de lecer por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getByNameOutras(token, name) {
         var url = await AsyncStorage.getItem('url');
         
@@ -490,6 +660,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén outra actividade de lecer favorita por nome
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
     async getFavByNameOutras(token, name) {
         var url = await AsyncStorage.getItem('url');
 
@@ -507,6 +683,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica doutra actividade de lecer
+    * @param {Number} id 
+    * @returns {String}
+    */
     async getGeoElementOutras(id) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -524,6 +705,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica dun determinado tipo das outras actividades de lecer
+    * @param {String} tag 
+    * @returns {String}
+    */
     async getGeoByTagOutras(tag) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -541,6 +727,11 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén información xeográfica doutra actividade de lecer en formato JSON
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async getGeoElementJsonOutras(id) {
         var url = await AsyncStorage.getItem('geoserver');
 
@@ -559,6 +750,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén outras actividades de lecer filtradas e ordenadas
+    * @param {String} typeSort 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async filterSortOutras(typeSort, token) {
         var url = await AsyncStorage.getItem('url');
 
@@ -576,6 +773,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Obtén as outras actividades de lecer favoritas filtradas e ordenadas
+    * @param {String} typeSort 
+    * @param {String} token 
+    * @returns {Object}
+    */
     async favFilterSortOutras(typeSort, token) {
         var url = await AsyncStorage.getItem('url');
 
@@ -593,6 +796,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Engade outra actividade de lecer como favorita
+    * @param {String} token 
+    * @param {Number} id_outra_actividade 
+    * @returns {Object}
+    */
     async addFavOutras(token, id_outra_actividade) {
         var url = await AsyncStorage.getItem('url');
 
@@ -618,6 +827,12 @@ class XestionDatosLecer {
         }
     }
 
+    /**
+    * Quita outra actividade de lecer como favorita
+    * @param {String} token 
+    * @param {Number} id_outra_actividade 
+    * @returns {Object}
+    */
     async quitFavOutras(token, id_outra_actividade) {
         var url = await AsyncStorage.getItem('url');
 

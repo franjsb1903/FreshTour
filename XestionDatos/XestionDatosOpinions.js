@@ -1,12 +1,30 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import properties from '../properties/properties_expo';
-import { fetchJsonGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
+/**
+ * @fileoverview Xestión de datos das opinions
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación da xestión de datos
+*/
 
-/*const properties = require('../properties/properties_expo');
-const { fetchJsonGet, fetchTextGet } = require('../Util/FetchUtil');*/
+// módulos
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// propiedades
+import properties from '../properties/properties_expo';
+
+// Util
+import { fetchJsonGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
 
 class XestionDatosOpinions {
 
+    /**
+    * Obtén as opinións dun elemento
+    * @param {String} type 
+    * @param {Number} id 
+    * @param {Boolean} signal 
+    * @returns {Object}
+    */
     async getOpinions(type, id, signal) {
 
         var url = await AsyncStorage.getItem('url');
@@ -24,6 +42,14 @@ class XestionDatosOpinions {
         }
     }
 
+    /**
+    * Almacena unha nova opinión
+    * @param {String} token 
+    * @param {String} type 
+    * @param {Number} id_elemento 
+    * @param {Object} comentario 
+    * @returns 
+    */
     async newOpinion(token, type, id_elemento, comentario) {
         var url = await AsyncStorage.getItem('url');
 
@@ -52,6 +78,14 @@ class XestionDatosOpinions {
         }
     }
 
+    /**
+    * Elimina unha opinión
+    * @param {String} token 
+    * @param {Number} id_elemento 
+    * @param {String} type 
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async deleteOpinion(token, id_elemento, type, id) {
 
         var url = await AsyncStorage.getItem('url');
@@ -80,6 +114,15 @@ class XestionDatosOpinions {
         }
     }
 
+    /**
+    * Edita unha opinión almacenada
+    * @param {String} token 
+    * @param {String} type 
+    * @param {Number} id_elemento 
+    * @param {Object} comentario 
+    * @param {Number} id 
+    * @returns {Object}
+    */
     async editOpinion(token, type, id_elemento, comentario, id) {
 
         var url = await AsyncStorage.getItem('url');

@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Funcións de tradución de etiquetas ao galego
+ * @version 1.0
+ * @author Francisco Javier Saa Besteiro <franciscojavier.saa@rai.usc.es>
+ * 
+ * History
+ * v1.0 - Creación das funcionalidades
+*/
+
+/**
+ * Tradución de etiquetas de hostalaría
+ * @param {String} tag 
+ * @returns {String}
+ */
 export const traductorHostalaria = (tag) => {
     switch (tag) {
         case "bar":
@@ -23,6 +37,11 @@ export const traductorHostalaria = (tag) => {
     }
 }
 
+/**
+ * Tradución de etiquetas de ocio
+ * @param {String} tag 
+ * @returns {String}
+ */
 export const traductorOcio = (tag) => {
     switch (tag) {
         case "picnic_table":
@@ -68,6 +87,11 @@ export const traductorOcio = (tag) => {
     }
 }
 
+/**
+ * Tradución de etiquetas de outras
+ * @param {String} tag 
+ * @returns {String}
+ */
 export const traductorOutras = (tag) => {
 
     switch (tag) {
