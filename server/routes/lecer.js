@@ -87,44 +87,6 @@ router.get('/hostalaria/concreto/:id', verify.verifyTokenWithoutReturn, (req, re
     }
 });
 
-// getHostalariaByName()
-/**
- * Obtén elementos de hostalaría por nome, indicando os favoritos
- */
-router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
-
-    try {
-
-        const userId = req.userId;
-        var values = [];
-        if (userId === undefined) {
-            values.push(-1);
-        } else {
-            values.push(userId);
-        }
-
-        const { name } = req.params;
-        const namePerc = '%' + name + '%'
-        values.push(namePerc);
-
-        pool.query(sql.lecer.hostalaria.byName, values, (err, results) => {
-            if (err) {
-                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
-                return;
-            }
-            results.rows.map(element => {
-                element.sub_tag = tag_traductor.hostalaria(element.sub_tag);
-            });
-            res.status(200).json({
-                lecer: results.rows,
-                status: 200
-            });
-        });
-    } catch (err) {
-        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
-    }
-});
-
 // postHostalariaFav()
 /**
  * Almacena un elemento de hostalaría como favorito
@@ -299,6 +261,44 @@ router.get('/hostalaria/fav/filter/:type', verify.verifyToken, (req, res) => {
         helpers.onError(500, "Erro obtendo os elementos de hostalaria", err, res);
     }
 
+});
+
+// getHostalariaByName()
+/**
+ * Obtén elementos de hostalaría por nome, indicando os favoritos
+ */
+ router.get('/hostalaria/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+
+        const { name } = req.params;
+        const namePerc = '%' + name + '%'
+        values.push(namePerc);
+
+        pool.query(sql.lecer.hostalaria.byName, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.hostalaria(element.sub_tag);
+            });
+            res.status(200).json({
+                lecer: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+    }
 });
 
 /**
@@ -485,44 +485,6 @@ router.get('/ocio/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => 
     }
 });
 
-// getOcioByName()
-/**
- * Obtén actividades de ocio por nome, indicando as favoritas
- */
-router.get('/ocio/:name', verify.verifyTokenWithoutReturn, (req, res) => {
-
-    try {
-
-        const userId = req.userId;
-        var values = [];
-        if (userId === undefined) {
-            values.push(-1);
-        } else {
-            values.push(userId);
-        }
-
-        const { name } = req.params;
-        const namePerc = '%' + name + '%'
-        values.push(namePerc);
-
-        pool.query(sql.lecer.ocio.byName, values, (err, results) => {
-            if (err) {
-                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
-                return;
-            }
-            results.rows.map(element => {
-                element.sub_tag = tag_traductor.ocio(element.sub_tag);
-            });
-            res.status(200).json({
-                lecer: results.rows,
-                status: 200
-            });
-        });
-    } catch (err) {
-        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
-    }
-});
-
 // postOcioFav()
 /**
  * Almacena unha actividade de ocio como favorita
@@ -697,6 +659,44 @@ router.get('/ocio/fav/filter/:type', verify.verifyToken, (req, res) => {
         helpers.onError(500, "Erro obtendo os elementos de hostalaria", err, res);
     }
 
+});
+
+// getOcioByName()
+/**
+ * Obtén actividades de ocio por nome, indicando as favoritas
+ */
+ router.get('/ocio/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+
+        const { name } = req.params;
+        const namePerc = '%' + name + '%'
+        values.push(namePerc);
+
+        pool.query(sql.lecer.ocio.byName, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.ocio(element.sub_tag);
+            });
+            res.status(200).json({
+                lecer: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+    }
 });
 
 /**
@@ -947,44 +947,6 @@ router.get('/outras/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) =
     }
 });
 
-// getOutrasByName()
-/**
- * Obtén outras actividades por nome, indicando as favoritas
- */
-router.get('/outras/:name', verify.verifyTokenWithoutReturn, (req, res) => {
-
-    try {
-
-        const userId = req.userId;
-        var values = [];
-        if (userId === undefined) {
-            values.push(-1);
-        } else {
-            values.push(userId);
-        }
-
-        const { name } = req.params;
-        const namePerc = '%' + name + '%'
-        values.push(namePerc);
-
-        pool.query(sql.lecer.outras.byName, values, (err, results) => {
-            if (err) {
-                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
-                return;
-            }
-            results.rows.map(element => {
-                element.sub_tag = tag_traductor.outras(element.sub_tag);
-            });
-            res.status(200).json({
-                lecer: results.rows,
-                status: 200
-            });
-        });
-    } catch (err) {
-        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
-    }
-});
-
 // postOutrasFav()
 /**
  * Engade outra actividade como favorita
@@ -1159,6 +1121,44 @@ router.get('/outras/fav/filter/:type', verify.verifyToken, (req, res) => {
         helpers.onError(500, "Erro obtendo os elementos de hostalaria", err, res);
     }
 
+});
+
+// getOutrasByName()
+/**
+ * Obtén outras actividades por nome, indicando as favoritas
+ */
+ router.get('/outras/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;
+        var values = [];
+        if (userId === undefined) {
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+
+        const { name } = req.params;
+        const namePerc = '%' + name + '%'
+        values.push(namePerc);
+
+        pool.query(sql.lecer.outras.byName, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.outras(element.sub_tag);
+            });
+            res.status(200).json({
+                lecer: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hostalaría", err, res);
+    }
 });
 
 /**

@@ -201,7 +201,12 @@ const AppContextProvider = (props) => {
                         const coord = itemFirst.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
                         const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
-                        const dataString = formatDate(actual) + " en " + itemFirst.features[0].properties.titulo;
+                        var dataString = formatDate(actual) + " en ";
+                        if(itemFirst.features[0].properties.titulo) {
+                            dataString += itemFirst.features[0].properties.titulo;
+                        } else {
+                            dataString += itemFirst.features[0].properties.sub_tag;
+                        }
                         const calidadeObject = {
                             text: calidade,
                             date: dataString
@@ -217,7 +222,17 @@ const AppContextProvider = (props) => {
                             const coord = route.routeJson.features[0].geometry.coordinates[step.way_points[0]];
                             actual.setHours(actual.getHours() + 1);
                             const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
-                            const dataString = formatDate(actual) + " en ruta de " + itemFirst.features[0].properties.titulo + " a " + itemSecond.features[0].properties.titulo;
+                            var dataString = formatDate(actual) + " en ruta de ";
+                            if(itemFirst.features[0].properties.titulo) {
+                                dataString += itemFirst.features[0].properties.titulo + " a ";
+                            } else {
+                                dataString += itemFirst.features[0].properties.sub_tag + " a ";
+                            }
+                            if(itemSecond.features[0].properties.titulo) {
+                                dataString += itemSecond.features[0].properties.titulo;
+                            } else {
+                                dataString += itemSecond.features[0].properties.sub_tag;
+                            }
                             const calidadeObject = {
                                 text: calidade,
                                 date: dataString
@@ -231,7 +246,12 @@ const AppContextProvider = (props) => {
                         const coord = itemSecond.features[0].geometry.coordinates;
                         actual.setHours(actual.getHours() + 1);
                         const calidade = await getCalidadeAireData(coord[1], coord[0], actual.toISOString());
-                        const dataString = formatDate(actual) + " en " + itemSecond.features[0].properties.titulo;
+                        var dataString = formatDate(actual) + " en ";
+                        if(itemSecond.features[0].properties.titulo) {
+                            dataString += itemSecond.features[0].properties.titulo;
+                        } else {
+                            dataString += itemSecond.features[0].properties.sub_tag;
+                        }
                         const calidadeObject = {
                             text: calidade,
                             date: dataString

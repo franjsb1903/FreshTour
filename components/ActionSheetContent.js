@@ -10,6 +10,7 @@
 // módulos
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { showMessage } from "react-native-flash-message";
 
 // model
 import { getGeoAll as getGeoAllTurismo } from '../model/Turismo/Turismo';
@@ -50,14 +51,32 @@ const ActionSheetContent = (props) => {
             </View>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoAllTurismo("Monumento");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoAllTurismo("Monumento");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Monumentos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoAllTurismo("Lugar turístico");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoAllTurismo("Lugar turístico");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Lugares turísticos</Text>
                 </TouchableOpacity>
@@ -76,44 +95,110 @@ const ActionSheetContent = (props) => {
             </View>
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("hotel");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("hotel");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Hoteis</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("hostel");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("hostel");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Hostais</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("guest_house");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("guest_house");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Aloxamento</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("caravan_site");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("caravan_site");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Caravanas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("apartment");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("apartment");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Vivendas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("camp_pitch", "camp_site");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("camp_pitch", "camp_site");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Camping</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHospedaxe("motel");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHospedaxe("motel");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Moteis</Text>
                 </TouchableOpacity>
@@ -132,62 +217,162 @@ const ActionSheetContent = (props) => {
             </View>
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("bar");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("bar");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Bares</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("restaurant");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("restaurant");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Restaurantes</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("cafe");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("cafe");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Cafés</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("pub");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("pub");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Pubs</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("food_court");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("food_court");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Zonas de comidas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("fast_food");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("fast_food");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Comida rápida</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("ice_cream");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("ice_cream");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Xeaderías</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("confectionery");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("confectionery");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Pastelerías</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("bakery");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("bakery");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Panaderías</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagHostalaria("chocolate");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagHostalaria("chocolate");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Chocolaterías</Text>
                 </TouchableOpacity>
@@ -206,110 +391,290 @@ const ActionSheetContent = (props) => {
             </View>
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByMultipleTagOcio("picnic_table", "picnic_site");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByMultipleTagOcio("picnic_table", "picnic_site");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Picnics</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("amusement_arcade");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("amusement_arcade");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Salas de xogos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("bowling_alley");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("bowling_alley");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Boleras</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("escape_game");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("escape_game");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Salas de escape</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("garden");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("garden");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Xardíns</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("park");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("park");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Parques</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("playground");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("playground");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Parques infantís</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("stadium");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("stadium");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Estadios</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("trampoline_park");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("trampoline_park");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Camas elásticas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("pitch");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("pitch");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Zonas de deportes</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("sports_centre");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("sports_centre");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Centros deportivos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("outdoor_seating");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("outdoor_seating");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Terrazas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("dance");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("dance");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Baile</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("sports_hall");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("sports_hall");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Pabellóns deportivos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("cinema");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("cinema");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Cines</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("theatre");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("theatre");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Teatros</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("nightclub");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("nightclub");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Clubs nocturnos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[buttonStyle.buttonContainerActionSheet, { margin: 5 }]} onPress={async () => {
-                    const data = await getGeoByTagOcio("viewpoint");
-                    addToMap(data);
+                    try {
+                        const data = await getGeoByTagOcio("viewpoint");
+                        addToMap(data);
+                    } catch (err) {
+                        showMessage({
+                            message: 'Non se poden xeolocalizar',
+                            type: "danger",
+                            position: "bottom",
+                            icon: "danger"
+                        });
+                    }
+
                 }}>
                     <Text style={buttonStyle.buttonTextActionSheet}>Miradores</Text>
                 </TouchableOpacity>

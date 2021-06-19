@@ -8,5 +8,6 @@
 */
 
 module.exports = {
-    'secret': 'random'
+    'secret': 'random',
+    expiresIn: 604800       // 7 días
 }

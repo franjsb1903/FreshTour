@@ -11,7 +11,7 @@
 import properties from '../properties/properties_expo';
 
 // Util
-import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete } from '../Util/FetchUtil'
+import { fetchJsonGet, fetchTextGet, fecthJsonAuthPost, fetchJsonDelete, fecthJsonAuthGet } from '../Util/FetchUtil'
 
 // módulos
 import AsyncStorage from '@react-native-async-storage/async-storage';

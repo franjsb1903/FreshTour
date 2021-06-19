@@ -77,7 +77,7 @@ class XestionDatosHospedaxe {
         var url = await AsyncStorage.getItem('url');
 
         if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.all + "/" + name;
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.all + name;
         } else {
             url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.all + "/" + name;
         }

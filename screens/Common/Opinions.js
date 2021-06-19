@@ -38,6 +38,8 @@ const Opinions = (props) => {
     const isLecer = props.isLecer;                                      // Boolean que indica se é un elemento de lecer
     const navigation = useNavigation();                                 // Constante que permite empregar a navegación
 
+    console.log(element.id_actual_usuario, element.id_usuario);
+
     /**
      * Permite refrescar a pantalla
      */

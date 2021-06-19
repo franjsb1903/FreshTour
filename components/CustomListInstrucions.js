@@ -35,7 +35,7 @@ const CustomListInstrucions = (props) => {
             >
                 <MarkerIcon />
                 <ListItem.Content>
-                    <ListItem.Title style={styles.text}>{element.features[0].properties.titulo}</ListItem.Title>
+                    <ListItem.Title style={styles.text}>{element.features[0].properties.titulo ? element.features[0].properties.titulo : element.features[0].properties.sub_tag}</ListItem.Title>
                 </ListItem.Content>
             </ListItem>
             {

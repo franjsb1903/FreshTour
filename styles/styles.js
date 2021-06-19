@@ -185,7 +185,6 @@ export const stylesCardElement = StyleSheet.create({
         fontSize: 15
     },
     textBold: {
-        textAlign: "justify",
         color: "#000000",
         fontWeight: "bold",
         fontSize: 15

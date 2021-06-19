@@ -115,38 +115,6 @@ router.get('/monumento/:id', verify.verifyTokenWithoutReturn, function (req, res
     }
 });
 
-// getByName()
-/**
- * Obtén elementos turísticos por nome, indicando os favoritos
- */
-router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
-    try {
-        const userId = req.userId;
-        var values = [];
-        if (userId) {
-            values.push(userId);
-        } else {
-            values.push(-1);
-        }
-
-        const { name } = req.params;
-        const namePerc = '%' + name + '%'
-        values.push(namePerc);
-        pool.query(sql.elementos.byName, values, (err, results) => {
-            if (err) {
-                helpers.onError(500, "Erro na busca", err, res);
-                return;
-            }
-            return res.status(200).json({
-                turismo: results.rows,
-                status: 200
-            });
-        });
-    } catch (err) {
-        helpers.onError(500, "Erro na busca", err, res);
-    }
-});
-
 // getSortBy()
 /**
  * Ordena os elementos turísticos dun determinado modo, indicando os favoritos
@@ -341,6 +309,38 @@ router.get('/fav/:name', verify.verifyToken, (req, res) => {
         });
     } catch (err) {
         helpers.onError(500, "Erro interno do servidor", err, res);
+    }
+});
+
+// getByName()
+/**
+ * Obtén elementos turísticos por nome, indicando os favoritos
+ */
+ router.get('/:name', verify.verifyTokenWithoutReturn, function (req, res) {
+    try {
+        const userId = req.userId;
+        var values = [];
+        if (userId) {
+            values.push(userId);
+        } else {
+            values.push(-1);
+        }
+
+        const { name } = req.params;
+        const namePerc = '%' + name + '%';
+        values.push(namePerc);
+        pool.query(sql.elementos.byName, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro na busca", err, res);
+                return;
+            }
+            return res.status(200).json({
+                turismo: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro na busca", err, res);
     }
 });
 

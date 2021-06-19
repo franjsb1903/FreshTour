@@ -26,7 +26,6 @@ import { PointsInterestIconButton, BedIconButton, ClockIconButton } from '../../
 import LeafletMap from '../../components/LeafletMap';
 import CustomSearchBar from '../../components/CustomSearchBar';
 import CustomFlatList from '../../components/CustomFlatList';
-import ModalUrl from '../../components/ModalUrl';
 
 // Util
 import { getIconContent } from '../../Util/IconMapUtil'
@@ -55,15 +54,6 @@ const Map = (props) => {
     selected: '',
     type: ''
   });
-
-  const [modal, setModal] = useState(false);                // Estado que controla un modal
-
-  /**
-   * Amosa ou oculta o modal
-   */
-  const showModal = () => {
-    setModal(!modal);
-  }
 
   let injectedData = `addLayer(${selected.selected}, "${selected.type}")`;  // Liña JavaScript para inxectar código no mapa
 
@@ -286,7 +276,6 @@ const Map = (props) => {
           :
           <Text style={{ display: "none" }}></Text>
       }
-      <ModalUrl modal={modal} showModal={showModal} />
       <LeafletMap />
     </>
   );

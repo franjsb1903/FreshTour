@@ -57,7 +57,6 @@ const Info = () => {
 
         const abortController = new AbortController();                      // Controla a chamada web, para evitar problemas de perdas de memoria mentres se constrúe o compoñente
         const signal = abortController.signal;
-
         /**
          * Obtén a información
          */
@@ -80,13 +79,15 @@ const Info = () => {
                     setLoading(false);
                 }
             } catch (err) {
+                console.error(err);
                 if (mounted) {
                     setLoading(false);
                 }
             }
         }
 
-        getData();
+        if (mounted)
+            getData();
 
         return () => {
             mounted = false;

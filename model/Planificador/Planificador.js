@@ -217,6 +217,21 @@ export const getByName = async (token, name) => {
 }
 
 /**
+ * Obtén as planificacións favoritas en función dun determinado nome introducido polo usuario
+ * @param {String} token 
+ * @param {String} name 
+ * @returns {Object}
+ */
+ export const getFavByName = async (token, name) => {
+    try {
+        const json = await Planificador.getFavByName(token, name);
+        return json
+    } catch(err) {
+        throw new Error(err);
+    }
+}
+
+/**
  * Engade unha planificación como favorita
  * @param {String} token 
  * @param {Number} id_elemento 

@@ -100,7 +100,7 @@ router.post('/register', (req, res) => {
                             }
 
                             var token = jwt.sign({ id: user.id }, config.secret, {      // Creación do token de usuario
-                                expiresIn: 86400
+                                expiresIn: config.expiresIn
                             });
 
                             done();
@@ -160,7 +160,7 @@ router.post('/login', (req, res) => {
         }
         delete user.contrasinal;
         var token = jwt.sign({ id: user.id }, config.secret, {              // Firma do token do usuario
-            expiresIn: 86400
+            expiresIn: config.expiresIn
         });
         pool.query(elementos_favoritos, [user.id], (err, elementos) => {    
             var elementosFavArray;
@@ -333,7 +333,7 @@ router.get('/me', verify.verifyToken, (req, res) => {
                         opinionsArray = opinions.rows;
                     }
 
-                    pool.query(plansUsuario, [user.id], (err, plans) => {
+                    pool.query(plansUsuario, [user.id, user.id], (err, plans) => {
                         var plansArray;
 
                         if (err) {

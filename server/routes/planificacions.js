@@ -613,25 +613,18 @@ router.get('/fav/sortBy/:type', verify.verifyToken, (req, res) => {
     }
 });
 
-// getByName()
+// getFavByName()
 /**
  * Obtención de planificacións por nome, indicando as favoritas
  */
-router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+ router.get('/fav/:name', verify.verifyTokenWithoutReturn, (req, res) => {
     try {
         const userId = req.userId;
-        var values = [];
-        if (userId) {
-            values.push(userId);
-        } else {
-            values.push(-1);
-        }
 
         const { name } = req.params;
         const namePerc = '%' + name + '%';
-        values.push(namePerc);
 
-        pool.query(sql.planificacions.get, values, (err, results) => {
+        pool.query(sql.planificacions.fav.get, [userId, userId, namePerc], (err, results) => {
             if (err) {
                 helpers.onError(500, "Erro obtendo a planificación almacenada por nome", err, res);
                 return;
@@ -695,6 +688,43 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
 
+});
+
+// getByName()
+/**
+ * Obtención de planificacións por nome, indicando as favoritas
+ */
+ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+    try {
+        const userId = req.userId;
+        var values = [];
+        if (userId) {
+            values.push(userId);
+            values.push(userId);
+        } else {
+            values.push(-1);
+            values.push(-1);
+        }
+
+        const { name } = req.params;
+        const namePerc = '%' + name + '%';
+        values.push(namePerc);
+
+        pool.query(sql.planificacions.get, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo a planificación almacenada por nome", err, res);
+                return;
+            }
+            res.status(200).json({
+                planificacions: results.rows,
+                status: 200
+            });
+        });
+
+    } catch (err) {
+        helpers.onError(500, "Erro interno no servidor", err, res);
+        return;
+    }
 });
 
 module.exports = router;

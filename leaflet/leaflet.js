@@ -577,7 +577,7 @@ const leaflet = `
             'Estándar': standard,
             Transporte: transport,
             Humanitario: humanitarian,
-            'Sin labels': noLabels
+            'Sin etiquetas': noLabels
         }
 
         const myMap = L.map('myMap').fitWorld();
@@ -624,6 +624,8 @@ const leaflet = `
                             content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
                         } else if(tipo === "Outra") {
                             content.innerHTML='<p style="display: block;">'+feature.properties.titulo+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                        } else {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p>'
                         }
                     } else if (feature.properties.display_name !== undefined) {
                         const id = feature.properties.id;
@@ -640,6 +642,8 @@ const leaflet = `
                             content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
                         } else if(tipo === "Outra") {
                             content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                        } else {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p>'
                         }
                     } else {
                         const id = feature.properties.id;
@@ -656,6 +660,8 @@ const leaflet = `
                             content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoOcio('+id+')">+ info</button>'
                         } else if(tipo === "Outra") {
                             content.innerHTML='<p style="display: block;">'+traductor(feature.properties.sub_tag)+'</p><button type="button" class="btn btn-success" onclick="moreInfoOutras('+id+')">+ info</button>'
+                        } else {
+                            content.innerHTML='<p style="display: block;">'+feature.properties.display_name+'</p>'
                         }
                     }
                     layer.bindPopup(content);
@@ -664,7 +670,6 @@ const leaflet = `
                     } else {
                         setIcon(layer, feature.properties.tipo);
                     }
-                    myMap.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
                     layer.on('click', function (e) {
                         myMap.setView(e.latlng);
                     });
@@ -686,8 +691,13 @@ const leaflet = `
             route = L.geoJson(data).addTo(myMap);
         }
 
+        var user = undefined;
         function addMarker(lat, lang) {
-            L.marker([lat, lang], {
+            if (user != undefined) {
+                myMap.removeLayer(user);
+                user = undefined;
+            }
+            user = L.marker([lat, lang], {
                 icon: userMarker
             }).addTo(myMap);
             myMap.setView([lat, lang], 13);
@@ -705,6 +715,10 @@ const leaflet = `
             if (geojson != undefined) {
                 myMap.removeLayer(geojson);
                 geojson = undefined;
+            }
+            if (user != undefined) {
+                myMap.removeLayer(user);
+                user = undefined;
             }
         }).addTo(myMap);
 
@@ -1339,7 +1353,7 @@ const leaflet = `
             shape: 'circle',
             markerColor: 'blue',
             prefix: 'fa',
-            icon: 'fa-shirt',
+            icon: 'fa-tshirt',
             iconColor: '#fff',
             iconRotate: 0,
             extraClasses: '',

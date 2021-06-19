@@ -22,7 +22,7 @@ import CustomSearchBar from '../../../components/CustomSearchBar';
 
 // model
 import { getPlanificacions as getPlanificacionsModel, sortBy, favSortBy } from '../../../model/Planificador/Planificador'
-import { getByName } from '../../../model/Planificador/Planificador';
+import { getByName, getFavByName } from '../../../model/Planificador/Planificador';
 
 // estilos
 import { stylesTurismoList as styles, stylesScroll, dropDownBorderStyles as dropdownStyles } from '../../../styles/styles';
@@ -253,7 +253,11 @@ const RutasRecomendadasList = (props) => {
         try {
             var element;
             const token = await getToken('id_token');                       // Obtense o token de usuario
-            element = await getByName(token, name);
+            if(!data) {
+                element = await getByName(token, name);
+            } else {
+                element = await getFavByName(token, name);
+            }
             if (element.status != 200) {
                 await shouldDeleteToken(element.message, 'id_token');
             }

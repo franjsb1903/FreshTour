@@ -7,6 +7,9 @@
  * v1.0 - Creación do modelo
 */
 
+// propiedades
+import properties from '../../properties/properties_expo';
+
 // Util
 import { fetchTextGet, fetchJsonGet } from '../../Util/FetchUtil'
 
@@ -35,7 +38,6 @@ export const getData = async (lat, lon, time) => {
  */
 export const getRealTimeData = async (signal) => {
     const url = 'https://tec.citius.usc.es/trafair/ogcservices/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=real_time_air_quality_observations&outputFormat=json';
-
     try {
         const json = await fetchJsonGet(url, undefined, signal);
         const actualDate = new Date();
@@ -54,8 +56,14 @@ export const getRealTimeData = async (signal) => {
             no2 += feature.properties.no2;
             o3 += feature.properties.o3;
         });
-        const no2_media = no2 / validos.length;
-        const o3_media = o3 / validos.length;
+        
+        var no2_media = no2 / validos.length;
+        var o3_media = o3 / validos.length;
+        if(validos.length == 0) {
+            no2_media = properties.calidade.no2.verde - 1;
+            o3_media = properties.calidade.o3.verde - 1;
+        }
+
         const response = {
             no2: no2_media,
             o3: o3_media

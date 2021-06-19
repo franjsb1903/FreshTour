@@ -29,7 +29,7 @@ const CardElementOpinion = (props) => {
     const opinion = props.opinion;                  // Obxecto que agrupa a información do comentario
     const isUsuario = props.isUsuario;              // Boolean que indica se o comentario se está amosando dente a pantalla de usuarios ou non
     const onEdit = props.onEdit;                    // Función que permitirá realizar a operación de edición do comentario
-    const onDelete = props.onDelete;                // Función que permitirá realizar a operación de eliminación do comentario
+    const onConfirm = props.onConfirm;                // Función que permitirá realizar a operación de eliminación do comentario
 
     return (
         <Card>
@@ -49,7 +49,7 @@ const CardElementOpinion = (props) => {
                                 onEdit(opinion);
                             }} />
                             <CloseIconButton style={{ flex: 0 }} closeIconOnPress={() => {
-                                onDelete(opinion);
+                                onConfirm();
                             }} />
                         </View>
                         :

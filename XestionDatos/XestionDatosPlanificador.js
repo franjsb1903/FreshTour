@@ -319,6 +319,30 @@ class XestionDatosPlanificador {
     }
 
     /**
+    * Obtén as planificacións favoritas en función dun determinado nome introducido polo usuario
+    * @param {String} token 
+    * @param {String} name 
+    * @returns {Object}
+    */
+     async getFavByName(token, name) {
+
+        var url = await AsyncStorage.getItem('url');
+
+        if (!url)
+            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.byName + name;
+        else {
+            url = url + properties.url.planificador.main + properties.url.planificador.byName + name;
+        }
+
+        try {
+            const json = await fetchJsonGet(url, token);
+            return json;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    /**
     * Engade unha planificación como favorita
     * @param {String} token 
     * @param {Number} id_elemento 

@@ -30,7 +30,7 @@ const HeartIconOutline = () => (
  * @returns {Component}
  */
 const HeartIcon = () => (
-    <Icon name="heart" size={30} color="#000" />
+    <Icon name="heart" size={30} color="#b22222" />
 );
 
 /**

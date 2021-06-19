@@ -61,7 +61,7 @@ const Resumo = (props) => {
         let mounted = true;
 
         if (mounted) {
-            setAdded(context.existItem(element.id));
+            setAdded(context.existItem(element.id, element.tipo));
             setFav(element.favorito);
         }
 
@@ -73,6 +73,8 @@ const Resumo = (props) => {
      */
     const changeAdd = () => {
         setAdded(true);
+        if (onRefresh)
+            onRefresh();
     }
 
     /**
@@ -113,7 +115,19 @@ const Resumo = (props) => {
                         <Text style={styles.valoracion}></Text>
                 }
 
-                <HeartIcons />
+                {
+                    isRuta || isElementoRuta ?
+                        element.id_actual_usuario || isElementoRuta ?
+                            element.id_actual_usuario == element.id_usuario || isElementoRuta ?
+                                <></>
+                                :
+                                <HeartIcons />
+                            :
+                            <HeartIcons />
+                        :
+                        <HeartIcons />
+
+                }
 
                 {
                     isElementoRuta ?

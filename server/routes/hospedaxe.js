@@ -87,45 +87,6 @@ router.get('/concreto/:id', verify.verifyTokenWithoutReturn, (req, res) => {
     }
 });
 
-// getByName()
-/**
- * Obtén un elemento por nome, indicando se é favorito
- */
-router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
-
-    try {
-
-        const userId = req.userId;              // Id de usuario
-        var values = [];                        // Valores da query
-        if (userId === undefined) {             // Se non existe o id de usuario, non hai usuario a ter en conta
-            values.push(-1);
-        } else {
-            values.push(userId);
-        }
-
-        const { name } = req.params;            // Parámetro da petición
-        const namePerc = '%' + name + '%'       // Engadimos % para que non busque por coincidencia exacta
-        values.push(namePerc);
-
-        pool.query(sql.hospedaxe.byName, values, (err, results) => {
-            if (err) {
-                helpers.onError(500, "Erro obtendo os elementos de hospedaxe", err, res);
-                return;
-            }
-            results.rows.map(element => {
-                element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
-            });
-            // Resposta de correctitude e valores
-            res.status(200).json({
-                hospedaxe: results.rows,
-                status: 200
-            });
-        });
-    } catch (err) {
-        helpers.onError(500, "Erro obtendo os elementos de hospedaxe", err, res);
-    }
-});
-
 // getFavByName()
 /**
  * Busca un elemento favorito por nome, indicando se é ou son favoritos
@@ -293,6 +254,45 @@ router.delete('/fav', verify.verifyToken, (req, res) => {
         helpers.onError(500, "Erro interno do servidor", err, res);
     }
 
+});
+
+// getByName()
+/**
+ * Obtén un elemento por nome, indicando se é favorito
+ */
+ router.get('/:name', verify.verifyTokenWithoutReturn, (req, res) => {
+
+    try {
+
+        const userId = req.userId;              // Id de usuario
+        var values = [];                        // Valores da query
+        if (userId === undefined) {             // Se non existe o id de usuario, non hai usuario a ter en conta
+            values.push(-1);
+        } else {
+            values.push(userId);
+        }
+
+        const { name } = req.params;            // Parámetro da petición
+        const namePerc = '%' + name + '%'       // Engadimos % para que non busque por coincidencia exacta
+        values.push(namePerc);
+
+        pool.query(sql.hospedaxe.byName, values, (err, results) => {
+            if (err) {
+                helpers.onError(500, "Erro obtendo os elementos de hospedaxe", err, res);
+                return;
+            }
+            results.rows.map(element => {
+                element.sub_tag = tag_traductor.hospedaxe(element.sub_tag);
+            });
+            // Resposta de correctitude e valores
+            res.status(200).json({
+                hospedaxe: results.rows,
+                status: 200
+            });
+        });
+    } catch (err) {
+        helpers.onError(500, "Erro obtendo os elementos de hospedaxe", err, res);
+    }
 });
 
 /**
