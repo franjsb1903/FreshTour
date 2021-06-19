@@ -58,8 +58,6 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 
         const { valoracion, titulo, comentario, id_elemento, type } = req.body;
 
-        console.log(valoracion, titulo, comentario, id_elemento, type);
-
         if (valoracion == undefined || !titulo || !comentario || !id_elemento || !type || titulo.length > 50 
             || comentario.length > 250 || titulo == '' || comentario == '' 
             || valoracion < 0 || valoracion > 5) {
@@ -209,7 +207,6 @@ router.delete('/', verify.verifyToken, (req, res) => {
         const mediaOutras = sql.opinions.new.outras.media;
         const updateValoracionOutras = sql.opinions.new.outras.updateVal;
 
-        console.log(type);
         if (type === "Lugar turístico") {
             onTransactionUpdate(lugar_turistico, [id], mediaLugares, updateValoracionLugares, id_elemento, res);
         } else if (type === "Monumento") {
