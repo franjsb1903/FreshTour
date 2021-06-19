@@ -537,7 +537,7 @@ export const CalendarPlusIconButton = (props) => {
                 result ?
                     changeAdd ?
                         changeAdd() :
-                        console.log("Not function") :
+                        {} :
                     {}
             }}
             style={style} />
@@ -557,11 +557,13 @@ export const CalendarPlusOutlineIconButton = (props) => {
     const changeAdd = props.changeAdd;                      // Función para cambiar estado do elemento
     const added = props.added;                              // Boolean que indica se o elemento está engadido á planificación
     const _onPress = props._onPress;                        // Función a realizar cando se pulse a icona
+    const loading = props.loading;
     let result;
     return (
         <IconButton
             icon={CalendarPlusOutlineIcon}
             onPress={async () => {
+                loading();
                 addToPlanificacion ?
                     result = await addToPlanificacion(`${item.id}`, added, item.tipo, changeAdd)
                     :

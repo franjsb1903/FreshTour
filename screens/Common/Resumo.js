@@ -9,7 +9,7 @@
 
 // módulos
 import React, { useEffect, useState, useContext, Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 
 // estilos
 import { styleTurismoItem as styles, stylesScroll } from '../../styles/styles'
@@ -36,6 +36,7 @@ const Resumo = (props) => {
     const [added, setAdded] = useState(false);                  // Estado que indica se o elemento está engadido ou non á planificación
     const [fav, setFav] = useState(false);                      // Estado que indica se lo elemento é favorito ou non
     const [modal, setModal] = useState(false);                  // Estado que controla a visualización dun modal
+    const [loading, setLoading] = useState(false);
 
     const context = useContext(AppContext);                     // Constante que permite acceder ao contexto da aplicación
 
@@ -73,6 +74,7 @@ const Resumo = (props) => {
      */
     const changeAdd = () => {
         setAdded(true);
+        setLoading(false);
         if (onRefresh)
             onRefresh();
     }
@@ -84,6 +86,10 @@ const Resumo = (props) => {
         setFav(!fav);
         if (onRefresh)
             onRefresh();
+    }
+
+    const changeLoading = () => {
+        setLoading(!loading);
     }
 
     /**
@@ -134,11 +140,21 @@ const Resumo = (props) => {
                         <></>
                         :
                         isRuta ?
-                            <CalendarOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                            !loading ?
+                                <CalendarOutlineIconButton style={styles.rightIcons} _onPress={async () => {
+                                    setLoading(true);
+                                    await showOnPlanificacion();
+                                    setLoading(false);
+                                }} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                                :
+                                <ActivityIndicator size="large" color="#EA0000" />
                             :
-                            added ?
-                                <CalendarPlusIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
-                                <CalendarPlusOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} />
+                            !loading ?
+                                added ?
+                                    <CalendarPlusIconButton style={styles.rightIcons} changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={element} added={added} /> :
+                                    <CalendarPlusOutlineIconButton style={styles.rightIcons} _onPress={showOnPlanificacion} changeAdd={!isRuta ? changeAdd : undefined} addToPlanificacion={!isRuta ? context.addToPlanificacion : undefined} item={element} added={added} loading={changeLoading} />
+                                :
+                                <ActivityIndicator size="large" color="#EA0000" />
                 }
                 {
                     isRuta ?

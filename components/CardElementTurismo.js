@@ -9,7 +9,7 @@
 
 // módulos
 import React, { useContext, useEffect, useState, Component } from 'react'
-import { Text, ImageBackground, View } from 'react-native';
+import { Text, ImageBackground, View, ActivityIndicator } from 'react-native';
 import { Card } from 'react-native-elements';
 
 // Util
@@ -37,6 +37,7 @@ const CardElement = (props) => {
     const [added, setAdded] = useState(false);                                      // Estado que controla se un elemento foi engadido á planificación ou non
     const [fav, setFav] = useState(false);                                          // Estado que controla se un elemento foi engadido como favorito ou non
     const [modal, setModal] = useState(false);                                      // Estado que controla a visualización ou non dun modal
+    const [loading, setLoading] = useState(false);
 
     const context = useContext(AppContext);                                         // Constante a partir da cal se pode acceder ao contexto
 
@@ -67,6 +68,7 @@ const CardElement = (props) => {
      */
     const changeAdd = () => {
         setAdded(true);
+        setLoading(false);
     }
 
     /**
@@ -81,6 +83,10 @@ const CardElement = (props) => {
      */
     const showModal = () => {
         setModal(!modal);
+    }
+
+    const changeLoading = () => {
+        setLoading(!loading);
     }
 
     return (
@@ -119,9 +125,12 @@ const CardElement = (props) => {
                                             }
 
                                             {
-                                                added ?
-                                                    <CalendarPlusIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
-                                                    <CalendarPlusOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} />
+                                                !loading ?
+                                                    added ?
+                                                        <CalendarPlusIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} /> :
+                                                        <CalendarPlusOutlineIconButton changeAdd={changeAdd} addToPlanificacion={context.addToPlanificacion} item={item} added={added} loading={changeLoading} />
+                                                    :
+                                                    <ActivityIndicator size="large" color="#EA0000" />
                                             }
                                             <MapIconButton showOnMap={showOnMap} item={item} />
                                         </View>

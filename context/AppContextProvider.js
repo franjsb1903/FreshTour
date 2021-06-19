@@ -445,12 +445,6 @@ const AppContextProvider = (props) => {
     const addToPlanificacion = async (id, added, tipo) => {
         try {
             if (!added) {
-                showMessage({
-                    message: 'Cargando...',
-                    type: "info",
-                    position: "bottom",
-                    icon: "info"
-                });
                 let data = await getDataJson(id, tipo);
 
                 if (data == undefined || data.features[0] == undefined) {
@@ -528,12 +522,6 @@ const AppContextProvider = (props) => {
      */
     const addElementsToPlanificacion = async (elements, planificacion, navigation) => {
         try {
-            showMessage({
-                message: 'Cargando...',
-                type: "info",
-                position: "bottom",
-                icon: "info"
-            });
             const newElements = [];
             setTempoVisita(0);
             var tempo_visita = 0;

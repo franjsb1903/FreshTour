@@ -9,7 +9,7 @@
 
 // módulos
 import React, { useState, useEffect, useContext, Component } from 'react'
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 import { Card } from 'react-native-elements';
 
 // compoñentes
@@ -32,6 +32,7 @@ const CardElementLecer = (props) => {
     const [added, setAdded] = useState(false);              // Estado que indica se un elemento xa foi engadido á planificación
     const [fav, setFav] = useState(false);                  // Estado que indica se un elemento é favorito do usuario
     const [modal, setModal] = useState(false);              // Estado que controla a visualización dun modal
+    const [loading, setLoading] = useState(false);
 
     const element = props.element;                          // Obxecto que agrupa a información do elemento asociado á tarxeta
     const showOnMap = props.showOnMap;                      // Función que permite xeolocalizar un elemento no mapa
@@ -77,6 +78,11 @@ const CardElementLecer = (props) => {
      */
     const changeAdd = () => {
         setAdded(true);
+        setLoading(false);
+    }
+
+    const changeLoading = () => {
+        setLoading(!loading);
     }
 
     return (
@@ -106,9 +112,12 @@ const CardElementLecer = (props) => {
                                     }} />
                             }
                             {
-                                added ?                         // Se o elemento forma parte da planificación ou non, amósase unha icona ou outra
-                                    <CalendarPlusIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} /> :
-                                    <CalendarPlusOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} />
+                                !loading ?
+                                added ?
+                                <CalendarPlusIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} /> :
+                                <CalendarPlusOutlineIconButton addToPlanificacion={context.addToPlanificacion} item={element} added={added} changeAdd={changeAdd} loading={changeLoading} />
+                                :
+                                <ActivityIndicator size="large" color="#EA0000" />
                             }
                             <MapIconButton onMapClick={async () => {
                                 await showOnMap(element.id, element.tipo, element.sub_tag);
