@@ -279,8 +279,8 @@ const Hospedaxe = (props) => {
     }
 
     const itemsDropDown = [                                                 // Elementos do dropdown
-        { label: 'Ordear por valoración', value: 'all_valoracion' },
-        { label: 'Ordear por título', value: 'all_titulo' },
+        { label: 'Ordenar por valoración', value: 'all_valoracion' },
+        { label: 'Ordenar por título', value: 'all_titulo' },
         { label: 'Aloxamentos por valoración', value: 'aloxamento_valoracion' },
         { label: 'Aloxamentos por título', value: 'aloxamento_titulo' },
         { label: 'Camping por valoración', value: 'camping_valoracion' },

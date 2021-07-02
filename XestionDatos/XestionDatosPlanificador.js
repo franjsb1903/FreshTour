@@ -25,13 +25,8 @@ class XestionDatosPlanificador {
     */
     async getSearchData(search) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.nominatim_json + search;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.nominatim_json + search;
-        else {
-            url = url + properties.url.planificador.nominatim_json + search;
-        }
         try {
             const json = await fetchJsonGet(url);
             return json;
@@ -47,13 +42,8 @@ class XestionDatosPlanificador {
     */
     async getSearchItem(selected) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.nominatim_geojson + selected;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.nominatim_geojson + selected;
-        else {
-            url = url + properties.url.planificador.nominatim_geojson + selected;
-        }
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -71,13 +61,8 @@ class XestionDatosPlanificador {
     */
     async savePlanificacion(token, planificacion, elementos) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.new;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.new;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.new;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -110,13 +95,8 @@ class XestionDatosPlanificador {
     */
     async getPlanificacions(signal, token) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main;
-        else {
-            url = url + properties.url.planificador.main;
-        }
         try {
             const json = await fetchJsonGet(url, token, signal);
             return json;
@@ -134,13 +114,8 @@ class XestionDatosPlanificador {
     */
     async sharePlanificacion(token, isShare, id) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.share;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.share;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.share;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -166,13 +141,8 @@ class XestionDatosPlanificador {
     */
     async getElements(id, signal) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.elements + id;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.elements + id;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.elements + id;
-        }
         try {
             const json = await fetchJsonGet(url, undefined, signal);
             return json;
@@ -189,13 +159,8 @@ class XestionDatosPlanificador {
     */
     async deletePlanificacion(id, token) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.delete;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.delete;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.delete;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -222,13 +187,8 @@ class XestionDatosPlanificador {
     */
     async editPlanificacion(token, titulo, comentario, id) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.edit;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.edit;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.edit;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -255,13 +215,8 @@ class XestionDatosPlanificador {
     */
     async sortBy(token, type) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.sortBy + type;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.sortBy + type;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.sortBy + type;
-        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -278,13 +233,7 @@ class XestionDatosPlanificador {
     */
     async favSortBy(token, type) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.sortBy + type;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -302,13 +251,7 @@ class XestionDatosPlanificador {
     */
     async getByName(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.byName + name;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.byName + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.byName + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -326,13 +269,7 @@ class XestionDatosPlanificador {
     */
      async getFavByName(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.byName + name;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.byName + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.fav + properties.url.planificador.byName + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -350,13 +287,8 @@ class XestionDatosPlanificador {
     */
     async addElementoFav(token, id_elemento) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.fav;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.fav;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -381,13 +313,8 @@ class XestionDatosPlanificador {
     */
     async deleteElementoFav(token, id_elemento) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.planificador.main + properties.url.planificador.fav;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.planificador.main + properties.url.planificador.fav;
-        else {
-            url = url + properties.url.planificador.main + properties.url.planificador.fav;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',

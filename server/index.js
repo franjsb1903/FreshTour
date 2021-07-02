@@ -15,6 +15,8 @@ const app = express();                      // Instancia de express, que corresp
 const cors = require('cors');               // Módulo cors, que habilita a opción cors nas peticións
 const logger = require('morgan');           // Módulo para rexistro de peticións web
 const fs = require('fs');                   // Módulo para empregar o file system no servidor
+var propertiesReader = require('properties-reader');                    // Permite a lectura dun arquivo de propiedades .ini
+var properties = propertiesReader('../properties/properties.ini');      // Arquivo de propiedades
 
 // middlewares
 app.use(cors());                            // Habilitación de cors nas peticións
@@ -37,8 +39,9 @@ app.use('/lecer', require('./routes/lecer'));
 app.use('/legal', require('./routes/legal'));
 
 // Inicio do servidor
-const hostname = "192.168.1.70";
+const hostname = properties.get('server.host');
+const port = properties.get('server.port');
 
-app.listen(3000, hostname, () => {
+app.listen(port, hostname, () => {
     console.log('Server on port 3000');
 });

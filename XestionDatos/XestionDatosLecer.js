@@ -30,13 +30,7 @@ class XestionDatosLecer {
     */
     async getAllHostalaria(signal, token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.all;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.all;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.all;
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -54,13 +48,7 @@ class XestionDatosLecer {
     */
     async getHostalariaConcreto(id, token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.concreto + "/" + id;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.concreto + "/" + id;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host +  properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.concreto + "/" + id;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -78,13 +66,7 @@ class XestionDatosLecer {
     */
     async getByNameHostalaria(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.byName + name
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.byName + name
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.byName + name
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -102,13 +84,7 @@ class XestionDatosLecer {
     */
     async getFavByNameHostalaria(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + "/" + name;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + "/" + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + "/" + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -124,13 +100,7 @@ class XestionDatosLecer {
     * @returns {Text}
     */
     async getGeoElementHostalaria(id) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
-        } else {
-            url = url + properties.url.geoserver.hostalaria + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
 
         try {
             const text = await fetchTextGet(url);
@@ -146,13 +116,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getGeoByTagHostalaria(tag) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
-        } else {
-            url = url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria_bytag + "'" + tag + "'";
 
         try {
             const text = await fetchTextGet(url);
@@ -168,13 +132,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getGeoElementJsonHostalaria(id) {
-        var url = await AsyncStorage.getItem('geoserver');
-        
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
-        } else {
-            url = url + properties.url.geoserver.hostalaria + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.hostalaria + id;
 
         try {
             const json = await fetchJsonGet(url);
@@ -193,13 +151,7 @@ class XestionDatosLecer {
     */
     async filterSortHostalaria(typeSort, token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.filter + typeSort;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.filter + typeSort;
-        } 
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -217,13 +169,7 @@ class XestionDatosLecer {
     */
     async favFilterSortHostalaria(typeSort, token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + properties.url.lecer.hostalaria.filter + typeSort;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + properties.url.lecer.hostalaria.filter + typeSort;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav + properties.url.lecer.hostalaria.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -240,13 +186,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async addFavHostalaria(token, id_lugar_hostalaria) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
 
         try {
             const headers = {
@@ -271,13 +211,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async quitFavHostalaria(token, id_lugar_hostalaria) {
-        var url = await AsyncStorage.getItem('url');
-        
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.hostalaria.main + properties.url.lecer.hostalaria.fav;
 
         try {
             const headers = {
@@ -305,13 +239,7 @@ class XestionDatosLecer {
     */
     async getAllOcio(signal, token) {
         
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.all;
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -329,13 +257,7 @@ class XestionDatosLecer {
     */
     async getOcioConcreto(id, token) {
         
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + '/' + properties.url.lecer.ocio.concreto + '/' + id;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.concreto + '/' + id;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + '/' + properties.url.lecer.ocio.concreto + '/' + id;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -352,13 +274,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getByNameOcio(token, name) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.byName + name
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.byName + name
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.byName + name
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -375,13 +291,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getFavByNameOcio(token, name) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + "/" + name;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + "/" + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + "/" + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -397,13 +307,7 @@ class XestionDatosLecer {
     * @returns {String}
     */
     async getGeoElementOcio(id) {
-        var url = await AsyncStorage.getItem('geoserver');
-        
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
-        } else {
-            url = url + properties.url.geoserver.ocio + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
 
         try {
             const text = await fetchTextGet(url);
@@ -419,13 +323,7 @@ class XestionDatosLecer {
     * @returns {String}
     */
     async getGeoByTagOcio(tag) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
-        } else {
-            url = url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.ocio_bytag + "'" + tag + "'";
 
         try {
             const text = await fetchTextGet(url);
@@ -442,13 +340,7 @@ class XestionDatosLecer {
     * @returns {String}
     */
     async getGeoByMultipleTagOcio(tag, secondTag) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.ocio_bymultipletag + "('" + tag + "','" + secondTag + "')";
-        } else {
-            url = url + properties.url.geoserver.ocio_bymultipletag + "('" + tag + "','" + secondTag + "')";
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.ocio_bymultipletag + "('" + tag + "','" + secondTag + "')";
 
         try {
             const text = await fetchTextGet(url);
@@ -464,13 +356,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getGeoElementJsonOcio(id) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
-        } else {
-            url = url + properties.url.geoserver.ocio + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.ocio + id;
 
         try {
             const json = await fetchJsonGet(url);
@@ -488,13 +374,7 @@ class XestionDatosLecer {
     * @returns {Object}
      */
     async filterSortOcio(typeSort, token) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.filter + typeSort;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.filter + typeSort;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -511,13 +391,7 @@ class XestionDatosLecer {
      * @returns {Object}
     */
     async favFilterSortOcio(typeSort, token) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + properties.url.lecer.ocio.filter + typeSort;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + properties.url.lecer.ocio.filter + typeSort;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav + properties.url.lecer.ocio.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -534,13 +408,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async addFavOcio(token, id_actividade_ocio) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
 
         try {
             const headers = {
@@ -565,13 +433,7 @@ class XestionDatosLecer {
     * @returns {Object}
      */
     async quitFavOcio(token, id_actividade_ocio) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.ocio.main + properties.url.lecer.ocio.fav;
 
         try {
             const headers = {
@@ -598,13 +460,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getAllOutras(signal, token) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.all;
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -621,13 +477,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getOutrasConcreto(id, token) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.concreto + '/' + id;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.concreto + '/' + id;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.concreto + '/' + id;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -644,13 +494,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getByNameOutras(token, name) {
-        var url = await AsyncStorage.getItem('url');
-        
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.byName + name
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -667,13 +511,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getFavByNameOutras(token, name) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + "/" + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -689,13 +527,7 @@ class XestionDatosLecer {
     * @returns {String}
     */
     async getGeoElementOutras(id) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
-        } else {
-            url = url + properties.url.geoserver.outras + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
 
         try {
             const text = await fetchTextGet(url);
@@ -711,13 +543,7 @@ class XestionDatosLecer {
     * @returns {String}
     */
     async getGeoByTagOutras(tag) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url){
-            url = properties.url.geoserver.url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
-        } else {
-            url = url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.outras_bytag + "'" + tag + "'";
 
         try {
             const text = await fetchTextGet(url);
@@ -733,13 +559,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async getGeoElementJsonOutras(id) {
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if(!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
-        } else {
-            url = url + properties.url.geoserver.outras + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.outras + id;
 
         try {
             const json = await fetchJsonGet(url);
@@ -757,13 +577,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async filterSortOutras(typeSort, token) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -780,13 +594,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async favFilterSortOutras(typeSort, token) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav + properties.url.lecer.outras.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -803,13 +611,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async addFavOutras(token, id_outra_actividade) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
 
         try {
             const headers = {
@@ -834,13 +636,7 @@ class XestionDatosLecer {
     * @returns {Object}
     */
     async quitFavOutras(token, id_outra_actividade) {
-        var url = await AsyncStorage.getItem('url');
-
-        if(!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
-        } else {
-            url = url + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.lecer.main + properties.url.lecer.outras.main + properties.url.lecer.outras.fav;
 
         try {
             const headers = {

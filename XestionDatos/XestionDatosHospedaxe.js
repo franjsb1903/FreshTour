@@ -26,13 +26,8 @@ class XestionDatosHospedaxe {
     */
     async getAll(signal, token) {
 
-        var url = await AsyncStorage.getItem('url');
 
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.all;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.all;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.hospedaxe.main + properties.url.hospedaxe.all;
 
         try {
             const json = fetchJsonGet(url, token, signal);
@@ -50,13 +45,7 @@ class XestionDatosHospedaxe {
     */
     async getConcreto(id, token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.concreto + '/' + id;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.concreto + '/' + id;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.hospedaxe.main + properties.url.hospedaxe.concreto + '/' + id;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -74,13 +63,7 @@ class XestionDatosHospedaxe {
     */
     async getByName(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.all + name;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.all + "/" + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.hospedaxe.main + properties.url.hospedaxe.all + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -98,13 +81,7 @@ class XestionDatosHospedaxe {
     */
     async getFavByName(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.fav + "/" + name;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.fav + "/" + name;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.hospedaxe.main + properties.url.hospedaxe.fav + "/" + name;
 
         try {
             const json = await fetchJsonGet(url, token);
@@ -121,13 +98,7 @@ class XestionDatosHospedaxe {
     */
     async getGeoElement(id) {
 
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if (!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
-        } else {
-            url = url + properties.url.geoserver.hospedaxe + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
 
         try {
             const text = await fetchTextGet(url);
@@ -145,20 +116,12 @@ class XestionDatosHospedaxe {
     */
     async getGeoByTag(tag, secondTag) {
 
-        var url = await AsyncStorage.getItem('geoserver');
+        var url;
 
-        if (!url) {
-            if (secondTag) {
-                url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bymultipletag + "('" + tag + "','" + secondTag + "')";
-            } else {
-                url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bytag + "'" + tag + "'";
-            }
+        if (secondTag) {
+            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bymultipletag + "('" + tag + "','" + secondTag + "')";
         } else {
-            if (secondTag) {
-                url = url + properties.url.geoserver.hospedaxe_bymultipletag + "('" + tag + "','" + secondTag + "')";
-            } else {
-                url = url + properties.url.geoserver.hospedaxe_bytag + "'" + tag + "'";
-            }
+            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe_bytag + "'" + tag + "'";
         }
 
         try {
@@ -176,13 +139,7 @@ class XestionDatosHospedaxe {
     */
     async getGeoItemJson(id) {
 
-        var url = await AsyncStorage.getItem('geoserver');
-
-        if (!url) {
-            url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
-        } else {
-            url = url + properties.url.geoserver.hospedaxe + id;
-        }
+        const url = properties.url.geoserver.url + properties.url.geoserver.hospedaxe + id;
 
         try {
             const json = await fetchJsonGet(url);
@@ -201,7 +158,7 @@ class XestionDatosHospedaxe {
     */
     async filterSort(typeSort, token) {
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.filter + typeSort;
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.hospedaxe.main + properties.url.hospedaxe.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -219,14 +176,7 @@ class XestionDatosHospedaxe {
     */
     async favFilterSort(typeSort, token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.fav + properties.url.hospedaxe.filter + typeSort;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.fav + properties.url.hospedaxe.filter + typeSort;
-
-        }
+        const url = properties.connection.type + "://" + properties.connection.host +  properties.url.hospedaxe.main + properties.url.hospedaxe.fav + properties.url.hospedaxe.filter + typeSort;
 
         try {
             const json = fetchJsonGet(url, token);
@@ -244,13 +194,7 @@ class XestionDatosHospedaxe {
     */
     async addFav(token, id_lugar_hospedaxe) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.fav;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host +  properties.url.hospedaxe.main + properties.url.hospedaxe.fav;
 
         try {
             const headers = {
@@ -276,13 +220,7 @@ class XestionDatosHospedaxe {
     */
     async quitFav(token, id_lugar_hospedaxe) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url) {
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.hospedaxe.main + properties.url.hospedaxe.fav;
-        } else {
-            url = url + properties.url.hospedaxe.main + properties.url.hospedaxe.fav;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host +  properties.url.hospedaxe.main + properties.url.hospedaxe.fav;
 
         try {
             const headers = {

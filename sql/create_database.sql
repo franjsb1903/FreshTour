@@ -13,10 +13,10 @@ CREATE EXTENSION postgis;
 CREATE SCHEMA IF NOT EXISTS fresh_tour AUTHORIZATION postgres;
 --- TABLE CREATION
 CREATE TABLE IF NOT EXISTS fresh_tour.usuarios (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL NOT NULL,
     usuario VARCHAR(50) NOT NULL,
-    nome VARCHAR(50) NOT NULL,
-    apelidos VARCHAR(50) NOT NULL,
+    nome VARCHAR(50),
+    apelidos VARCHAR(50),
     email VARCHAR(70) NOT NULL,
     contrasinal VARCHAR NOT NULL,
     data TIMESTAMP NOT NULL,
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.monumentos (
     comentario_visita_lenta VARCHAR,
     horario VARCHAR,
     prezo FLOAT,
-    prezo_reducido FLOAT CONSTRAINT pk_monumentos PRIMARY KEY (id)
+    prezo_reducido FLOAT,
+    CONSTRAINT pk_monumentos PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
         'fresh_tour',
@@ -74,7 +75,8 @@ CREATE TABLE IF NOT EXISTS fresh_tour.lugares_turisticos (
     comentario_visita_lenta VARCHAR,
     horario VARCHAR,
     prezo FLOAT,
-    prezo_reducido FLOAT CONSTRAINT pk_lugares_turisticos PRIMARY KEY (id)
+    prezo_reducido FLOAT,
+    CONSTRAINT pk_lugares_turisticos PRIMARY KEY (id)
 );
 SELECT AddGeometryColumn (
         'fresh_tour',
@@ -148,7 +150,7 @@ CREATE TABLE IF NOT EXISTS fresh_tour.comentarios_valoracions_planificacions (
     titulo VARCHAR(50) NOT NULL,
     data TIMESTAMP NOT NULL,
     valoracion FLOAT NOT NULL,
-    comentario(250) VARCHAR NOT NULL,
+    comentario VARCHAR(250) NOT NULL,
     id_planificacion INT NOT NULL,
     CONSTRAINT pk_com_val_plan PRIMARY KEY (id),
     CONSTRAINT fk_planificacion FOREIGN KEY (id_planificacion) REFERENCES fresh_tour.planificacions(id),

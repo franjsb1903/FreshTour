@@ -11,8 +11,8 @@
 const properties = {
     // Propiedades da conexión co servidor
     connection: {
-        type: "http",
-        host: "192.168.1.70",
+        type: "https",
+        host: "tec.citius.usc.es/fresh_tour",
         port: "3000"
     },
     // URLs sobre as que realizar peticións no sevidor e servicios
@@ -38,7 +38,7 @@ const properties = {
             monumento: "/monumento"
         },
         geoserver: {
-            url: "http://192.168.1.70:8080/geoserver",
+            url: "http://tec.citius.usc.es/fresh_tour_geoserver/",
             lugares: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json&CQL_FILTER=id+=+",
             monumentos: "/wfs/kml?request=GetFeature&typeName=cite:monumentos&outputFormat=json&CQL_FILTER=id+=+",
             lugares_all: "/wfs/kml?request=GetFeature&typeName=cite:lugares_turisticos&outputFormat=json",
@@ -145,8 +145,8 @@ const properties = {
     dropdown: {
         items: {
             hostalaria: [
-                { label: 'Ordear por valoración', value: 'all_valoracion' },
-                { label: 'Ordear por título', value: 'all_titulo' },
+                { label: 'Ordenar por valoración', value: 'all_valoracion' },
+                { label: 'Ordenar por título', value: 'all_titulo' },
                 { label: 'Bares por valoración', value: 'bares_valoracion' },
                 { label: 'Bares por título', value: 'bares_titulo' },
                 { label: 'Cafés por valoración', value: 'cafes_valoracion' },
@@ -169,8 +169,8 @@ const properties = {
                 { label: 'Zonas de comida por título', value: 'zonas_comida_titulo' }
             ],
             ocio: [
-                { label: 'Ordear por valoración', value: 'all_valoracion' },
-                { label: 'Ordear por título', value: 'all_titulo' },
+                { label: 'Ordenar por valoración', value: 'all_valoracion' },
+                { label: 'Ordenar por título', value: 'all_titulo' },
                 { label: 'Boleras por valoración', value: 'bowling_alley_valoracion' },
                 { label: 'Boleras por título', value: 'bowling_alley_titulo' },
                 { label: 'Centros deportivos por valoración', value: 'sports_centre_valoracion' },
@@ -209,8 +209,8 @@ const properties = {
                 { label: 'Zonas de deportes ao aire libre por título', value: 'pitch_titulo' }
             ],
             outras: [
-                { label: 'Ordear por valoración', value: 'all_valoracion' },
-                { label: 'Ordear por título', value: 'all_titulo' },
+                { label: 'Ordenar por valoración', value: 'all_valoracion' },
+                { label: 'Ordenar por título', value: 'all_titulo' },
                 { label: 'Bancos por valoración', value: 'bank_valoracion' },
                 { label: 'Bancos por título', value: 'bank_titulo' },
                 { label: 'Baños por valoración', value: 'toilets_valoracion' },

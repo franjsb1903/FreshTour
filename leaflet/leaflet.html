@@ -599,6 +599,8 @@
 
         var geojson = undefined;
 
+        addLayer({"type":"FeatureCollection","features":[{"type":"Feature","id":"monumentos.2","geometry":{"type":"Point","coordinates":[-8.545228,42.880556]},"geometry_name":"geom","properties":{"id":2,"titulo":"Catedral","cp":15705,"contexto":"A catedral de Santiago de Compostela é a obra de arte románica máis destacada de España. É tamén o obxectivo final de todos os Camiños de Santiago, que durante séculos levaron aos peregrinos da cristiandade á tumba dun apóstolo.","resumo":"A catedral de Santiago de Compostela é a obra de arte románica máis destacada de España. É, ademais, o obxectivo final de todos os camiños de Santiago, que durante séculos levaron aos peregrinos da cristiandade á tumba dun apóstolo. Por se fora pouco, foi a pedra inaugural para a construción dunha cidade monumental, Santiago de Compostela, que naceu nun bosque sagrado na fin do mundo con vocación de cidade santa e patrimonio da humanidade.","pais":"España","municipio":"Santiago de Compostella","direccion":"Praza do Obradoiro","url":"http://www.santiagoturismo.com/monumentos/../catedral-de-santiago","data_adicion":"2021-03-30T17:42:56.351Z","data_modificacion":"2021-03-30T17:42:56.351Z","imaxe":"catedral","tempo_visita_rapida":90,"tempo_visita_lenta":140,"tempo_visita_usuario":0,"valoracion":null,"comentario_visita_rapida":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus lectus vulputate mi vehicula tempor. Aliquam eu venenatis leo. Praesent laoreet laoreet libero eget condimentum. Cras pretium nibh neque, non porta metus rutrum vel. Fusce velit nunc, sagittis eget iaculis nec, dignissim a nunc. Mauris scelerisque metus ac viverra aliquet. Nullam nec turpis blandit, ornare erat dictum, vestibulum est. Maecenas sit amet fermentum lacus.","comentario_visita_lenta":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus lectus vulputate mi vehicula tempor. Aliquam eu venenatis leo. Praesent laoreet laoreet libero eget condimentum. Cras pretium nibh neque, non porta metus rutrum vel. Fusce velit nunc, sagittis eget iaculis nec, dignissim a nunc. Mauris scelerisque metus ac viverra aliquet. Nullam nec turpis blandit, ornare erat dictum, vestibulum est. Maecenas sit amet fermentum lacus.","horario":"Todos os días, de 9:00 h a 20:30 h","prezo":0,"prezo_reducido":0}}],"totalFeatures":1,"numberMatched":1,"numberReturned":1,"timeStamp":"2021-07-01T21:23:39.054Z","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4326"}}}, "undefined")
+
         function addLayer(data, tipo) {
             if (geojson != undefined) {
                 myMap.removeLayer(geojson);
@@ -606,6 +608,7 @@
             }
             geojson = L.geoJson(data, {
                 onEachFeature: function (feature, layer) {
+                    console.log(feature);
                     var content = document.createElement("div");
                     content.style.cssText = 'text-align: center';
                     if (feature.properties.display_name === undefined && feature.properties.titulo !== null) {
@@ -739,18 +742,6 @@
             markerColor: 'red',
             prefix: 'fa',
             icon: 'fa-user',
-            iconColor: '#fff',
-            iconRotate: 0,
-            extraClasses: '',
-            number: '',
-            svg: false
-        });
-
-        let monumentoMarker = L.ExtraMarkers.icon({
-            shape: 'circle',
-            markerColor: 'blue',
-            prefix: 'fa',
-            icon: 'fa-landmark',
             iconColor: '#fff',
             iconRotate: 0,
             extraClasses: '',

@@ -25,14 +25,9 @@ class XestionDatosUsuarios {
     */
     async registerUser(user) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.usuarios.auth + properties.url.usuarios.register;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.register;
-        else {
-            url = url + properties.url.usuarios.auth + properties.url.usuarios.register;
-        }
-
+        console.log(url);
         try {
             const body = {
                 usuario: user.usuario,
@@ -59,13 +54,7 @@ class XestionDatosUsuarios {
     */
     async loginUser(user) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.login;
-        else {
-            url = url + properties.url.usuarios.auth + properties.url.usuarios.login;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.usuarios.auth + properties.url.usuarios.login;
 
         try {
             const body = {
@@ -90,13 +79,8 @@ class XestionDatosUsuarios {
     * @returns {Object}
     */
     async getUserByToken(token, signal) {
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.usuarios.auth + properties.url.usuarios.me;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.auth + properties.url.usuarios.me;
-        else {
-            url = url + properties.url.usuarios.auth + properties.url.usuarios.me;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -118,13 +102,7 @@ class XestionDatosUsuarios {
     */
     async editUser(token, user) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.edit;
-        else {
-            url = url + properties.url.usuarios.main + properties.url.usuarios.edit;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.usuarios.main + properties.url.usuarios.edit;
 
         try {
             const body = {
@@ -153,13 +131,7 @@ class XestionDatosUsuarios {
     */
     async deleteUser(token) {
 
-        var url = await AsyncStorage.getItem('url');
-
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.usuarios.main + properties.url.usuarios.delete;
-        else {
-            url = url + properties.url.usuarios.main + properties.url.usuarios.delete;
-        }
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.usuarios.main + properties.url.usuarios.delete;
 
         try {
             const headers = {

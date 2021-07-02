@@ -183,7 +183,7 @@ const RutasRecomendadasList = (props) => {
     }
 
     const itemsDropDown = [                             // Elementos do DropDown
-        { label: 'Ordear por valoración', value: 'valoracion' },
+        { label: 'Ordenar por valoración', value: 'valoracion' },
         { label: 'Menor distancia primeiro', value: 'menor_distancia' },
         { label: 'Maior distancia primeiro', value: 'maior_distancia' },
         { label: 'Menor tempo visita primeiro', value: 'menor_tempo_visita' },

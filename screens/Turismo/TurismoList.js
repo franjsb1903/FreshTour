@@ -278,8 +278,8 @@ const Turism = (props) => {
     }
 
     const itemsDropDown = [                         // Items do DropDown
-        { label: 'Ordear por valoración', value: 'valoracion' },
-        { label: 'Ordear por título', value: 'titulo' }
+        { label: 'Ordenar por valoración', value: 'valoracion' },
+        { label: 'Ordenar por título', value: 'titulo' }
     ];
 
     /**

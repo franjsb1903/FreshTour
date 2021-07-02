@@ -26,13 +26,10 @@ class XestionDatosTurismo {
     */
     async getTurismData(token, signal) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo;
-        else {
-            url = url + properties.url.turismo.turismo;
-        }
+        console.log(url);
+
         try {
             const json = await fetchJsonGet(url, token, signal);
             return json;
@@ -50,13 +47,8 @@ class XestionDatosTurismo {
     */
     async getLugar(token, id) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.lugar + "/" + id;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.lugar + "/" + id;
-        else {
-            url = url + properties.url.turismo.turismo;
-        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -74,13 +66,8 @@ class XestionDatosTurismo {
     */
     async getMonumento(token, id) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.monumento + "/" + id;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.monumento + "/" + id;
-        else {
-            url = url + properties.url.turismo.turismo + properties.url.turismo.monumento + "/" + id;
-        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -98,13 +85,8 @@ class XestionDatosTurismo {
     */
     async getElementData(name, token) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + "/" + name;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + "/" + name;
-        else {
-            url = url + properties.url.turismo.turismo + "/" + name;
-        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -120,22 +102,14 @@ class XestionDatosTurismo {
     * @returns {String}
     */
     async getGeoItem(id, tipo) {
-        var url = await AsyncStorage.getItem('geoserver');
+        var url;
 
-        if (!url) {
-            if (tipo == "Lugar turístico") {
-                url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
-            } else if (tipo == "Monumento") {
-                url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
-            }
+        if (tipo == "Lugar turístico") {
+            url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
+        } else if (tipo == "Monumento") {
+            url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
         }
-        else {
-            if (tipo == "Lugar turístico") {
-                url = url + properties.url.geoserver.lugares + id;
-            } else if (tipo == "Monumento") {
-                url = url + properties.url.geoserver.monumentos + id;
-            }
-        }
+
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -150,22 +124,14 @@ class XestionDatosTurismo {
     * @returns {String}
     */
     async getGeoAll(tipo) {
-        var url = await AsyncStorage.getItem('geoserver');
+        var url;
 
-        if (!url) {
-            if (tipo == "Lugar turístico") {
-                url = properties.url.geoserver.url + properties.url.geoserver.lugares_all;
-            } else if (tipo == "Monumento") {
-                url = properties.url.geoserver.url + properties.url.geoserver.monumentos_all;
-            }
+        if (tipo == "Lugar turístico") {
+            url = properties.url.geoserver.url + properties.url.geoserver.lugares_all;
+        } else if (tipo == "Monumento") {
+            url = properties.url.geoserver.url + properties.url.geoserver.monumentos_all;
         }
-        else {
-            if (tipo == "Lugar turístico") {
-                url = url + properties.url.geoserver.lugares_all;
-            } else if (tipo == "Monumento") {
-                url = url + properties.url.geoserver.monumentos_all;
-            }
-        }
+
         try {
             const text = await fetchTextGet(url);
             return text;
@@ -181,22 +147,14 @@ class XestionDatosTurismo {
     * @returns 
     */
     async getGeoItemJson(id, tipo) {
-        var url = await AsyncStorage.getItem('geoserver');
+        var url;
 
-        if (!url) {
-            if (tipo == "Lugar turístico") {
-                url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
-            } else if (tipo == "Monumento") {
-                url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
-            }
+        if (tipo == "Lugar turístico") {
+            url = properties.url.geoserver.url + properties.url.geoserver.lugares + id;
+        } else if (tipo == "Monumento") {
+            url = properties.url.geoserver.url + properties.url.geoserver.monumentos + id;
         }
-        else {
-            if (tipo == "Lugar turístico") {
-                url = url + properties.url.geoserver.lugares + id;
-            } else if (tipo == "Monumento") {
-                url = url + properties.url.geoserver.monumentos + id;
-            } 
-        }
+
         try {
             const json = await fetchJsonGet(url);
             return json;
@@ -213,13 +171,8 @@ class XestionDatosTurismo {
     */
     async sortBy(type, token) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.sortBy + type;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.sortBy + type;
-        else {
-            url = url + properties.url.turismo.turismo + properties.url.turismo.sortBy + type;
-        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -236,13 +189,8 @@ class XestionDatosTurismo {
     */
     async favsSortBy(type, token) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.fav + properties.url.turismo.sortBy + type;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav + properties.url.turismo.sortBy + type;
-        else {
-            url = url + properties.url.turismo.turismo + properties.url.turismo.fav + properties.url.turismo.sortBy + type;
-        }
         try {
             const json = await fetchJsonGet(url, token);
             return json;
@@ -260,13 +208,8 @@ class XestionDatosTurismo {
     */
     async addElementoFav(token, id_elemento, type) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.fav;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav;
-        else {
-            url = url + properties.url.turismo.turismo + properties.url.turismo.fav;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -293,13 +236,8 @@ class XestionDatosTurismo {
     */
     async deleteElementoFav(token, id_elemento, type) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.fav;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav;
-        else {
-            url = url + properties.url.turismo.turismo + properties.url.turismo.fav;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
@@ -325,13 +263,8 @@ class XestionDatosTurismo {
     */
     async getElementFavByName(token, name) {
 
-        var url = await AsyncStorage.getItem('url');
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + properties.url.turismo.fav + "/" + name;
 
-        if (!url)
-            url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + properties.url.turismo.fav + "/" + name;
-        else {
-            url = url + properties.url.turismo.turismo + properties.url.turismo.fav + "/" + name;
-        }
         try {
             const headers = {
                 'Accept': 'application/json',
