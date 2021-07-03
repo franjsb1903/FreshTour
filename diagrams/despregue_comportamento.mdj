@@ -29148,9 +29148,9 @@
 												"$ref": "AAAAAAF5va38VxalWyg="
 											},
 											"font": "Arial;13;0",
-											"left": 102.55908203125,
+											"left": 104.72998046875,
 											"top": 109,
-											"width": 52.27001953125,
+											"width": 55.91357421875,
 											"height": 13,
 											"text": "loginUser"
 										},
@@ -29163,7 +29163,7 @@
 											"font": "Arial;13;1",
 											"left": 85,
 											"top": 109,
-											"width": 12.55908203125,
+											"width": 14.72998046875,
 											"height": 13,
 											"text": "sd"
 										}
@@ -31504,9 +31504,9 @@
 												"$ref": "AAAAAAF5vbt5ThlZyrk="
 											},
 											"font": "Arial;13;0",
-											"left": 54.55908203125,
+											"left": 56.72998046875,
 											"top": 157,
-											"width": 99.744140625,
+											"width": 105.7744140625,
 											"height": 13,
 											"text": "loginUserByToken"
 										},
@@ -31519,7 +31519,7 @@
 											"font": "Arial;13;1",
 											"left": 37,
 											"top": 157,
-											"width": 12.55908203125,
+											"width": 14.72998046875,
 											"height": 13,
 											"text": "sd"
 										}
@@ -31528,7 +31528,7 @@
 									"left": 32,
 									"top": 152,
 									"width": 1001,
-									"height": 689,
+									"height": 617,
 									"nameLabel": {
 										"$ref": "AAAAAAF5vbt5ThlaIo8="
 									},

@@ -27,7 +27,6 @@ class XestionDatosUsuarios {
 
         const url = properties.connection.type + "://" + properties.connection.host + properties.url.usuarios.auth + properties.url.usuarios.register;
 
-        console.log(url);
         try {
             const body = {
                 usuario: user.usuario,

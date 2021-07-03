@@ -28,8 +28,6 @@ class XestionDatosTurismo {
 
         const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo;
 
-        console.log(url);
-
         try {
             const json = await fetchJsonGet(url, token, signal);
             return json;

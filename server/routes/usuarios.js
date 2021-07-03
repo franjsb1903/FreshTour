@@ -122,6 +122,14 @@ router.delete('/', verify.verifyToken, async (req, res) => {
         await client.query(sql.usuarios.delete.lugaresFav, [userId]);
         // Eliminación da relación cos monumentos favoritos do usuario
         await client.query(sql.usuarios.delete.monumentosFav, [userId]);
+        // Eliminación da relación cos lugares de hospedaxe favoritos do usuario
+        await client.query(sql.usuarios.delete.lugaresHospFav, [userId]);
+        // Eliminación da relación ca hostalaria favorita do usuario
+        await client.query(sql.usuarios.delete.lugaresHostFav, [userId]);
+        // Eliminación da relación cas ocio favoritas do usuario
+        await client.query(sql.usuarios.delete.lugaresOcioFav, [userId]);
+        // Eliminación da relación cas outras favoritas do usuario
+        await client.query(sql.usuarios.delete.lugaresOutrasFav, [userId]);
         // Eliminación da relación cas planificacións favoritas do usuario
         await client.query(sql.usuarios.delete.planificacionsFav, [userId]);
         // Eliminación de comentarios para cada tipo posible e actualización da valoración nas súas correspondentes táboas
@@ -143,12 +151,54 @@ router.delete('/', verify.verifyToken, async (req, res) => {
             }
             await client.query(sql.elementos.updateValoracion.updateMonumentos, [media, item.id_monumento]);
         }));
+        const hospedaxes = await client.query(sql.usuarios.delete.comentariosHospedaxe, [userId]);
+        await Promise.all(hospedaxes.rows.map(async (item) => {
+            const results = await client.query(sql.elementos.updateValoracion.mediaHospedaxes, [item.id_lugar_hospedaxe]);
+            var media = results.rows[0].media;
+            if(media == null) {
+                media = 0;
+            }
+            await client.query(sql.elementos.updateValoracion.updateHospedaxes, [media, item.id_lugar_hospedaxe]);
+        }));
+        const hostalaria = await client.query(sql.usuarios.delete.comentariosHostalaria, [userId]);
+        await Promise.all(hostalaria.rows.map(async (item) => {
+            const results = await client.query(sql.elementos.updateValoracion.mediaHostalaria, [item.id_lugar_hostalaria]);
+            var media = results.rows[0].media;
+            if(media == null) {
+                media = 0;
+            }
+            await client.query(sql.elementos.updateValoracion.updateHostalaria, [media, item.id_lugar_hostalaria]);
+        }));
+        const ocio = await client.query(sql.usuarios.delete.comentariosOcio, [userId]);
+        await Promise.all(ocio.rows.map(async (item) => {
+            const results = await client.query(sql.elementos.updateValoracion.mediaOcio, [item.id_actividade_ocio]);
+            var media = results.rows[0].media;
+            if(media == null) {
+                media = 0;
+            }
+            await client.query(sql.elementos.updateValoracion.updateOcio, [media, item.id_actividade_ocio]);
+        }));
+        const outras = await client.query(sql.usuarios.delete.comentariosOutras, [userId]);
+        await Promise.all(outras.rows.map(async (item) => {
+            const results = await client.query(sql.elementos.updateValoracion.mediaOutras, [item.id_outra_actividade]);
+            var media = results.rows[0].media;
+            if(media == null) {
+                media = 0;
+            }
+            await client.query(sql.elementos.updateValoracion.updateOutras, [media, item.id_outra_actividade]);
+        }));
         await client.query(sql.usuarios.delete.comentariosPlanificacions, [userId]);
         const response = await client.query(sql.usuarios.delete.planificacionsId, [userId]);
         await Promise.all(response.rows.map(async (item) => {
+            console.log(sql.usuarios.delete.comentariosPlanificacionsId, item.id);
+            await client.query(sql.usuarios.delete.comentariosPlanificacionsId, [item.id]);
+            await client.query(sql.planificacions.delete.hospedaxes, [item.id]);
+            await client.query(sql.planificacions.delete.hostalaria, [item.id]);
+            await client.query(sql.planificacions.delete.outras, [item.id]);
+            await client.query(sql.planificacions.delete.ocio, [item.id]);
             await client.query(sql.planificacions.delete.lugares, [item.id]);
             await client.query(sql.planificacions.delete.monumentos, [item.id]);
-            await client.query(sql.planificacions.delete.planificacion, [item.id]);
+            await client.query(sql.planificacions.delete.planificacion, [item.id, userId]);
         }));
         // Eliminación do usuario
         await client.query(sql.usuarios.delete.user, [userId]);

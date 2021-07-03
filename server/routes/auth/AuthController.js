@@ -192,7 +192,7 @@ router.post('/login', (req, res) => {
                         opinionsArray = opinions.rows;
                     }
 
-                    pool.query(plansUsuario, [user.id], (err, plans) => {   
+                    pool.query(plansUsuario, [user.id, user.id], (err, plans) => {   
                         var plansArray;
 
                         if (err) {
