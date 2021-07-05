@@ -11,8 +11,8 @@
 const properties = {
     // Propiedades da conexión co servidor
     connection: {
-        type: "http",
-        host: "192.168.245.21:3000",
+        type: "https",
+        host: "tec.citius.usc.es/fresh_tour",
         port: "3000"
     },
     // URLs sobre as que realizar peticións no sevidor e servicios

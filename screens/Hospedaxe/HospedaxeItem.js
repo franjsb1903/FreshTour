@@ -40,7 +40,7 @@ const HospedaxeItem = (props) => {
     const [loading, setLoading] = useState(true);                       // Estado que indica se a pantalla está cargando ou non
 
     const hospedaxe = props.route.params.hospedaxe;                     // Obxecto que reúne a información do elemento de hospedaxe
-
+    var titulo = hospedaxe.titulo == null ? hospedaxe.sub_tag : hospedaxe.titulo;   // Título da pantalla
     /**
      * Obtén información do elemento de hospedaxe concreto
      * @param {Boolean} mounted 
@@ -123,7 +123,7 @@ const HospedaxeItem = (props) => {
         let mounted = true;
         if (mounted) {
             props.navigation.setOptions({                               // Establécense opcións de navegación da pantalla actual
-                title: "Opinións de " + hospedaxe.titulo
+                title: "Opinións de " + titulo
             });
         }
 
@@ -142,7 +142,7 @@ const HospedaxeItem = (props) => {
             <View style={styles.container}>
                 <ProgressBar />
             </View> :
-            <Opinions opinions={opinions} element={hospedaxe} onRefreshOpinions={onRefreshOpinions} titulo={hospedaxe.titulo} isHospedaxe={true} />
+            <Opinions opinions={opinions} element={hospedaxe} onRefreshOpinions={onRefreshOpinions} titulo={hospedaxe.titulo == null ? hospedaxe.sub_tag : hospedaxe.titulo} isHospedaxe={true} />
     )
 
 }
