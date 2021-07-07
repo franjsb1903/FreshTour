@@ -83,7 +83,7 @@ class XestionDatosTurismo {
     */
     async getElementData(name, token) {
 
-        const url = properties.connection.type + "://" + properties.connection.host + ":" + properties.connection.port + properties.url.turismo.turismo + "/" + name;
+        const url = properties.connection.type + "://" + properties.connection.host + properties.url.turismo.turismo + "/" + name;
 
         try {
             const json = await fetchJsonGet(url, token);

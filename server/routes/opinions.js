@@ -56,7 +56,7 @@ router.post('/new', verify.verifyToken, async (req, res) => {
 
         const userId = req.userId;
 
-        const { valoracion, titulo, comentario, id_elemento, type } = req.body;
+        var { valoracion, titulo, comentario, id_elemento, type } = req.body;
 
         if (valoracion == undefined || !titulo || !comentario || !id_elemento || !type || titulo.length > 50 
             || comentario.length > 250 || titulo == '' || comentario == '' 
@@ -65,6 +65,10 @@ router.post('/new', verify.verifyToken, async (req, res) => {
             return;
         }
         
+        if(valoracion == null) {
+            valoracion = 0;
+        }
+
         const existLugares = sql.opinions.exists.lugares;
         const existMonumentos = sql.opinions.exists.monumentos;
         const existPlanificacions = sql.opinions.exists.planificacions;
@@ -215,7 +219,7 @@ router.delete('/', verify.verifyToken, (req, res) => {
             onTransactionUpdate(planificacion, [id], mediaPlanificacions, updateValoracionPlanificacions, id_elemento, res);
         } else if (type === "Hospedaxe") {
             onTransactionUpdate(hospedaxes, [id], mediaHospedaxes, updateValoracionHospedaxes, id_elemento, res);
-        } else if (type === "Hostalaría") {
+        } else if (type === "Hostalaria") {
             onTransactionUpdate(hostalaria, [id], mediaHostalaria, updateValoracionHostalaria, id_elemento, res);
         } else if (type === "Ocio") {
             onTransactionUpdate(ocio, [id], mediaOcio, updateValoracionOcio, id_elemento, res);
@@ -453,7 +457,10 @@ const onTransactionUpdate = (first, firstValues, second, third, id_elemento, res
                     if (shouldAbort(err)) return;
 
                     // Obtención da valoración media
-                    const media = results.rows[0].valoracion;
+                    var media = results.rows[0].valoracion;
+                    if(media == null) {
+                        media = 0;
+                    }
                     client.query(third, [media, id_elemento], (err, results) => {
                         if (shouldAbort(err)) return;
 

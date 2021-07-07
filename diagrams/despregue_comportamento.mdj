@@ -31377,7 +31377,8 @@
 							},
 							"target": {
 								"$ref": "AAAAAAF5vbAjvxeN2yM="
-							}
+							},
+							"messageSort": "asynchCall"
 						},
 						{
 							"_type": "UMLMessage",
@@ -32592,7 +32593,7 @@
 												"$ref": "AAAAAAF5vcaGXhqFllk="
 											},
 											"edgePosition": 1,
-											"text": "5 : postMe"
+											"text": "5 : getMe"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -33621,7 +33622,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF5vbt5TRlXFwA="
 							},
-							"name": "postMe",
+							"name": "getMe",
 							"source": {
 								"$ref": "AAAAAAF5vcWLPhonKQQ="
 							},
@@ -37999,9 +38000,9 @@
 												"$ref": "AAAAAAF5wk8GeqjAtm8="
 											},
 											"font": "Arial;13;0",
-											"left": 56.72998046875,
+											"left": 54.55908203125,
 											"top": 117,
-											"width": 115.89892578125,
+											"width": 107.869140625,
 											"height": 13,
 											"text": "operationWithToken"
 										},
@@ -38014,7 +38015,7 @@
 											"font": "Arial;13;1",
 											"left": 37,
 											"top": 117,
-											"width": 14.72998046875,
+											"width": 12.55908203125,
 											"height": 13,
 											"text": "sd"
 										}

@@ -27,7 +27,7 @@ const InfoCalidadeAire = () => {
         <ScrollView contentContainerStyle={stylesScroll.containerScroll} style={stylesScroll.scroll}>
             <View style={styles.view}>
                 <Text style={styles.title}>De onde procede?</Text>
-                <Text style={styles.text}>A información sobre a calidade que pode ver na aplicación procede dos sensores que o proxecto Trafair ten situados na cidade. Eses sensores xeran datos que son empregados para realizar predicións, así como para amosala nesta mesa aplicación de xeito resumido.</Text>
+                <Text style={styles.text}>A información sobre a calidade que pode ver na aplicación procede dos sensores que o proxecto Trafair ten situados na cidade. Eses sensores xeran datos que son empregados para realizar predicións, así como para amosala nesta mesma aplicación de xeito resumido.</Text>
             </View>
             <View style={styles.view}>
                 <Text style={styles.title}>Que significan as iconas?*</Text>
