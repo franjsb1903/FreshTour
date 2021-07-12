@@ -169,7 +169,7 @@ const AppContextProvider = (props) => {
         if (minutes < 10) {
             minutes = "0" + minutes;
         }
-        const dataString = hours - 2 + ":" + minutes
+        const dataString = hours + ":" + minutes
         return dataString;
     }
 
@@ -181,7 +181,6 @@ const AppContextProvider = (props) => {
         try {
             const first = turismoItems.items[0];
             let actual = new Date();
-            actual.setHours(actual.getHours() + 2);                                                     // Necesario para obter os datos no horario actual
             let calidadeArray = [];
             const calidade = await getCalidadeAireData(first.features[0].geometry.coordinates[1], first.features[0].geometry.coordinates[0], actual.toISOString());
             const calidadeObject = {
